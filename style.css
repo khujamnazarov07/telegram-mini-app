@@ -2,14 +2,22 @@
   box-sizing: border-box;
 }
 
+html {
+  background: #050914;
+}
+
 body {
   margin: 0;
-  padding: 20px 14px;
+
+  /* Telegram yuqori qismi uchun joy */
+  padding-top: calc(60px + env(safe-area-inset-top));
+  padding-left: 14px;
+  padding-right: 14px;
+  padding-bottom: 30px;
+
   min-height: 100vh;
 
-  font-family:
-    Arial,
-    sans-serif;
+  font-family: Arial, sans-serif;
 
   background:
     radial-gradient(
@@ -46,13 +54,11 @@ h1 {
 .line {
   height: 1px;
   margin: 18px 0;
-
   background: rgba(255,255,255,0.18);
 }
 
 .hero {
   padding: 18px 10px;
-
   border-radius: 18px;
 
   background: rgba(255,255,255,0.06);
@@ -62,14 +68,12 @@ h1 {
 .title {
   font-size: 24px;
   font-weight: 700;
-
   margin-bottom: 12px;
 }
 
 .subtitle {
   font-size: 16px;
   margin-bottom: 8px;
-
   opacity: 0.9;
 }
 
@@ -108,7 +112,6 @@ h1 {
   color: white;
 
   background: rgba(255,255,255,0.08);
-
   border: 1px solid rgba(255,255,255,0.08);
 
   cursor: pointer;
@@ -116,10 +119,6 @@ h1 {
   transition:
     transform 0.15s,
     background 0.15s;
-}
-
-.menu-button:hover {
-  background: rgba(255,255,255,0.13);
 }
 
 .menu-button:active {
@@ -136,18 +135,17 @@ h1 {
 
 .message {
   text-align: center;
-
   margin-top: 18px;
-
   font-size: 14px;
-
   color: rgba(255,255,255,0.7);
 }
 
 @media (max-width: 360px) {
 
   body {
-    padding: 14px 10px;
+    padding-top: calc(55px + env(safe-area-inset-top));
+    padding-left: 10px;
+    padding-right: 10px;
   }
 
   .row {
