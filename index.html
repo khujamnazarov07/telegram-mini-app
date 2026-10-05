@@ -2,87 +2,88 @@
 <html lang="uz">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#0f172a">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0,
+        maximum-scale=1.0, user-scalable=no">
 
-  <title>Asmaul Husna</title>
-
-  <link rel="stylesheet" href="style.css">
+  <title>Asmaul Husna Robot</title>
 
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
+
+  <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
   <main class="app">
 
-    <div class="top">
-      <div class="moon">🌙</div>
+    <!-- OY -->
+    <div class="moon">🌙</div>
 
-      <h1 id="greeting">
-        Assalomu alaykum, botga xush kelibsiz
-      </h1>
+    <!-- SALOM -->
+    <h1 id="greeting">
+      Assalomu alaykum, botga xush kelibsiz
+    </h1>
 
-      <div class="line"></div>
+    <div class="divider"></div>
 
-      <div class="hero">
-        <div class="title">✨ Asmaul Husna</div>
+    <!-- ASMAUL HUSNA -->
+    <div class="husna-card">
 
-        <div id="subtitle" class="subtitle">
-          📿 Allohning 99 go'zal ismi
-        </div>
-
-        <div id="tagline" class="tagline">
-          🕊 Qalbingizga yaqinlashish yo'lida
-        </div>
+      <div class="husna-title">
+        ✨ Asmaul Husna
       </div>
 
-      <div class="line"></div>
+      <div class="husna-subtitle" id="subtitle">
+        📿 Allohning 99 go'zal ismi
+      </div>
+
+      <div class="husna-tagline" id="tagline">
+        🕊 Qalbingizga yaqinlashish yo'lida
+      </div>
+
     </div>
 
+    <div class="divider second"></div>
 
-    <section class="menu">
+    <!-- ISMLAR -->
+    <button class="btn names" data-action="names">
+      📖 <span id="names">Ismlar</span>
+    </button>
 
-      <button class="menu-button names" data-action="names">
-        📖 <span id="names">Ismlar</span>
+    <!-- 3 TA -->
+    <div class="buttons-three">
+
+      <button class="btn" data-action="favs">
+        ❤️ <span id="favs">Sevimlilar</span>
       </button>
 
-      <div class="row">
+      <button class="btn" data-action="video">
+        🎬 <span id="video">Video</span>
+      </button>
 
-        <button class="menu-button" data-action="favs">
-          ❤️ <span id="favs">Sevimlilar</span>
-        </button>
+      <button class="btn" data-action="search">
+        🔍 <span id="search">Qidirish</span>
+      </button>
 
-        <button class="menu-button" data-action="video">
-          🎬 <span id="video">Video</span>
-        </button>
+    </div>
 
-        <button class="menu-button" data-action="search">
-          🔍 <span id="search">Qidirish</span>
-        </button>
+    <!-- 2 TA -->
+    <div class="buttons-two">
 
-      </div>
+      <button class="btn danger" data-action="help">
+        ❔ <span id="help">Yordam</span>
+      </button>
 
+      <button class="btn danger" data-action="settings">
+        ⚙️ <span id="settings">Sozlamalar</span>
+      </button>
 
-      <div class="row">
+    </div>
 
-        <button class="menu-button danger" data-action="help">
-          ❔ <span id="help">Yordam</span>
-        </button>
-
-        <button class="menu-button danger" data-action="settings">
-          ⚙️ <span id="settings">Sozlamalar</span>
-        </button>
-
-      </div>
-
-    </section>
-
-
-    <div id="message" class="message"></div>
+    <div id="message"></div>
 
   </main>
-
 
   <script src="app.js"></script>
 
