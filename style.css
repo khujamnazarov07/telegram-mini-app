@@ -5,29 +5,50 @@
 
 html,
 body {
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    min-height: 100%;
+  margin: 0;
+  padding: 0;
+
+  width: 100%;
+  min-height: 100%;
+
+  background: #07101f;
 }
 
 body {
-    background: #07101f;
-    color: white;
+  color: #ffffff;
 
-    font-family: Arial, sans-serif;
+  font-family:
+    Arial,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
 
-    padding-top: 30px;
-    padding-left: 24px;
-    padding-right: 24px;
-    padding-bottom: 40px;
+  /* Telegram yuqori panelidan keyingi joy */
+  padding-top: calc(
+    12px + env(safe-area-inset-top)
+  );
+
+  padding-left: 24px;
+  padding-right: 24px;
+  padding-bottom: 35px;
+
+  background:
+    radial-gradient(
+      circle at 50% -10%,
+      #263653 0%,
+      #172239 32%,
+      #0b1425 68%,
+      #060c18 100%
+    );
 }
 
 .app {
-    width: 100%;
-    max-width: 700px;
-    margin: 0 auto;
+  width: 100%;
+  max-width: 700px;
+  margin: 0 auto;
 }
+
 /* OY */
 
 .moon {
