@@ -1,10 +1,90 @@
 <!DOCTYPE html>
-<html>
+<html lang="uz">
 <head>
-    <title>My Telegram Mini App</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0f172a">
+
+  <title>Asmaul Husna</title>
+
+  <link rel="stylesheet" href="style.css">
+
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
 </head>
+
 <body>
-    <h1>Salom Telegram 👋</h1>
-    <p>Bu mening birinchi Mini App'im!</p>
+
+  <main class="app">
+
+    <div class="top">
+      <div class="moon">🌙</div>
+
+      <h1 id="greeting">
+        Assalomu alaykum, botga xush kelibsiz
+      </h1>
+
+      <div class="line"></div>
+
+      <div class="hero">
+        <div class="title">✨ Asmaul Husna</div>
+
+        <div id="subtitle" class="subtitle">
+          📿 Allohning 99 go'zal ismi
+        </div>
+
+        <div id="tagline" class="tagline">
+          🕊 Qalbingizga yaqinlashish yo'lida
+        </div>
+      </div>
+
+      <div class="line"></div>
+    </div>
+
+
+    <section class="menu">
+
+      <button class="menu-button names" data-action="names">
+        📖 <span id="names">Ismlar</span>
+      </button>
+
+      <div class="row">
+
+        <button class="menu-button" data-action="favs">
+          ❤️ <span id="favs">Sevimlilar</span>
+        </button>
+
+        <button class="menu-button" data-action="video">
+          🎬 <span id="video">Video</span>
+        </button>
+
+        <button class="menu-button" data-action="search">
+          🔍 <span id="search">Qidirish</span>
+        </button>
+
+      </div>
+
+
+      <div class="row">
+
+        <button class="menu-button danger" data-action="help">
+          ❔ <span id="help">Yordam</span>
+        </button>
+
+        <button class="menu-button danger" data-action="settings">
+          ⚙️ <span id="settings">Sozlamalar</span>
+        </button>
+
+      </div>
+
+    </section>
+
+
+    <div id="message" class="message"></div>
+
+  </main>
+
+
+  <script src="app.js"></script>
+
 </body>
 </html>
