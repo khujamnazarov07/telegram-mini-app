@@ -26,7 +26,7 @@ body {
 
   /* Telegram yuqori panelidan keyingi joy */
   padding-top: calc(
-    12px + env(safe-area-inset-top)
+    12px;/* + env(safe-area-inset-top)*/
   );
 
   padding-left: 24px;
