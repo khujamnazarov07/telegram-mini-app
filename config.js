@@ -1,6 +1,6 @@
 // Sozlamalar: shu faylni o'zingizga moslab o'zgartiring
 window.CONFIG = {
-  VERSION: "v1.2.0",
+  VERSION: "v1.3.0",
   BOT: "AsmaulHusnarobot",
   CHANNEL: "AsmaulHusnaOfficial",
 
