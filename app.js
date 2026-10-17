@@ -176,7 +176,7 @@
   function viewDetail() {
     var n = U.detail, d = D.names[n - 1]
     var note = S.notes[n] || ""
-    return '<button class="btn small back" data-act="closeDetail">‹ ' + esc(tr("back")) + "</button>" +
+    return '<button class="btn small back" data-act="closeDetail">' + esc(tr("back")) + "</button>" +
       '<div class="card hero"><div class="no">' + n + " / 99</div><div class=\"ar\">" + d.a + '</div><div class="tr">' + esc(d.t) + "</div>" + audioBlock(n) + "</div>" +
       '<div class="row" style="margin:12px 0"><button class="btn grow" data-act="open" data-v="' + (n === 1 ? 99 : n - 1) + '">⏮</button>' +
       '<button class="btn grow ' + (S.favs[n] ? "success" : "") + '" data-act="fav" data-v="' + n + '">' + (S.favs[n] ? "❣️" : "♡") + "</button>" +
@@ -295,7 +295,7 @@
     if (U.more === "quote") {
       if (U.quoteIdx < 0) U.quoteIdx = Math.floor(Math.random() * D.quotes.length)
       var d = quoteData(U.quoteIdx)
-      return '<button class="btn small back" data-act="moreBack">‹ ' + esc(tr("back")) + "</button>" +
+      return '<button class="btn small back" data-act="moreBack">' + esc(tr("back")) + "</button>" +
         '<div class="card quote"><div class="em">' + d.q.e + "</div><strong>" + esc(d.title) + '</strong><div class="qt">' + esc(d.body) + '</div><div class="ref">📖 ' + esc(d.src) + '</div><div class="ref">🤖 @' + CFG.BOT + "</div></div>" +
         '<div class="row" style="margin-top:12px"><button class="btn success grow" data-act="share">📲 ' + esc(tr("share")) + '</button><button class="btn grow" data-act="open" data-v="' + d.q.n + '">✨ ' + esc(D.names[d.q.n - 1].t) + '</button><button class="btn grow" data-act="quoteNext">🔄</button></div>'
     }
@@ -303,7 +303,7 @@
       var ids = []
       for (var k in S.favs) if (S.favs[k]) ids[ids.length] = parseInt(k, 10)
       ids.sort(function (a, b) { return a - b })
-      var h = '<button class="btn small back" data-act="moreBack">‹ ' + esc(tr("back")) + "</button><h1>❣️ " + esc(tr("favs")) + "</h1>"
+      var h = '<button class="btn small back" data-act="moreBack">' + esc(tr("back")) + "</button><h1>❣️ " + esc(tr("favs")) + "</h1>"
       if (!ids.length) return h + '<p class="empty">' + esc(tr("favs_empty")) + "</p>"
       h += nameCards(ids)
       for (var i = 0; i < ids.length; i++) {
@@ -312,12 +312,12 @@
       return h
     }
     if (U.more === "lang") {
-      var l = '<button class="btn small back" data-act="moreBack">‹ ' + esc(tr("back")) + "</button><h1>🌐 " + esc(tr("lang")) + '</h1><div class="grid3" style="grid-template-columns:1fr 1fr">'
+      var l = '<button class="btn small back" data-act="moreBack">' + esc(tr("back")) + "</button><h1>🌐 " + esc(tr("lang")) + '</h1><div class="grid3" style="grid-template-columns:1fr 1fr">'
       for (var j = 0; j < LANGS.length; j++) l += '<button class="btn ' + (S.lang === LANGS[j] ? "success" : "") + '" data-act="setLang" data-v="' + LANGS[j] + '">' + LANG_NAMES[LANGS[j]] + "</button>"
       return l + "</div>"
     }
     if (U.more === "about") {
-      return '<button class="btn small back" data-act="moreBack">‹ ' + esc(tr("back")) + "</button><h1>ℹ️ " + esc(tr("about")) + '</h1><div class="card stack"><p>✨ ' + esc(tr("about_text")) + '</p><p class="sub">🔖 Mini App ' + CFG.VERSION + "</p>" +
+      return '<button class="btn small back" data-act="moreBack">' + esc(tr("back")) + "</button><h1>ℹ️ " + esc(tr("about")) + '</h1><div class="card stack"><p>✨ ' + esc(tr("about_text")) + '</p><p class="sub">🔖 Mini App ' + CFG.VERSION + "</p>" +
         '<button class="btn primary block" data-act="openBot">🤖 ' + esc(tr("open_bot")) + '</button><button class="btn block" data-act="openChannel">📢 ' + esc(tr("open_channel")) + "</button></div>"
     }
     return '<h1>✨ ' + esc(tr("nav_more")) + '</h1><p class="sub">&nbsp;</p><div class="list">' +
