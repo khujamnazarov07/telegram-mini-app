@@ -67,7 +67,7 @@
   // STATE + STORAGE
   // ====================
   var KEY = "asmo_miniapp_v1"
-  var S = { lang: "", favs: {}, notes: {}, moodHist: {}, daily: null, savedAt: 0 }
+  var S = { lang: "", theme: "auto", favs: {}, notes: {}, moodHist: {}, daily: null, savedAt: 0 }
   var memStore = null
 
   function load() {
@@ -123,6 +123,9 @@
             if (o && (o.savedAt || 0) > (S.savedAt || 0)) {
               for (var k in o) S[k] = o[k]
               TCACHE = {}
+              applyTheme()
+              if (wheels.lang) wheels.lang.set(Math.max(0, LANGS.indexOf(S.lang)), false)
+              if (wheels.theme) wheels.theme.set(Math.max(0, THEMES.indexOf(S.theme)), false)
               try { window.localStorage.setItem(KEY, JSON.stringify(S)) } catch (e) {}
               render()
             }
@@ -405,6 +408,115 @@
     if (U.tab === "mood" && U.moodPick) { U.moodPick = ""; render() }
   }
 
+
+  // ====================
+  // HEADER: silindr (wheel) tanlagichlar
+  // ====================
+  var THEMES = ["light", "dark", "auto"]
+  var THEME_ICONS = { light: "☀️", dark: "🌙", auto: "🌓" }
+  var wheels = {}
+
+  function applyTheme() {
+    document.documentElement.setAttribute("data-theme", S.theme)
+    if (tg && tg.setHeaderColor) {
+      try {
+        if (S.theme === "light") { tg.setHeaderColor("#f6f7f4"); tg.setBackgroundColor && tg.setBackgroundColor("#f6f7f4") }
+        else if (S.theme === "dark") { tg.setHeaderColor("#131816"); tg.setBackgroundColor && tg.setBackgroundColor("#131816") }
+        else tg.setHeaderColor("bg_color")
+      } catch (e) {}
+    }
+  }
+
+  function makeWheel(id, labels, startIdx, onPick) {
+    var host = document.getElementById(id)
+    var track = document.createElement("div")
+    track.className = "w-track"
+    var h = '<span class="w-pad"></span>'
+    for (var i = 0; i < labels.length; i++) h += '<div class="w-item" data-i="' + i + '" role="option">' + labels[i] + "</div>"
+    h += '<span class="w-pad"></span>'
+    track.innerHTML = h
+    host.appendChild(track)
+
+    var items = track.querySelectorAll(".w-item")
+    var cur = startIdx, quiet = true, timer = null, raf = 0, lastC = -1
+
+    function iw() { return items[0].offsetWidth }
+    function nearest() { return Math.max(0, Math.min(labels.length - 1, Math.round(track.scrollLeft / iw()))) }
+    function paint() {
+      raf = 0
+      var w = iw(), mid = track.scrollLeft + track.clientWidth / 2
+      for (var i = 0; i < items.length; i++) {
+        var d = (items[i].offsetLeft + w / 2 - mid) / w
+        var ad = Math.min(Math.abs(d), 2)
+        var ang = Math.max(-2, Math.min(2, d)) * -34
+        items[i].style.transform = "rotateY(" + ang + "deg) scale(" + (1 - 0.1 * ad) + ")"
+        items[i].style.opacity = String(Math.max(0.12, 1 - 0.5 * ad))
+        items[i].setAttribute("aria-selected", ad < 0.5 ? "true" : "false")
+      }
+      var c = nearest()
+      if (c !== lastC) { if (lastC !== -1 && !quiet) haptic("light"); lastC = c }
+    }
+    function set(i, smooth) {
+      cur = i
+      quiet = true
+      track.scrollTo({ left: i * iw(), behavior: smooth ? "smooth" : "auto" })
+      paint()
+      setTimeout(function () { quiet = false }, smooth ? 400 : 60)
+    }
+    track.addEventListener("scroll", function () {
+      if (!raf) raf = requestAnimationFrame(paint)
+      clearTimeout(timer)
+      timer = setTimeout(function () {
+        if (quiet || track.classList.contains("drag")) return
+        var n = nearest()
+        if (n !== cur) { cur = n; onPick(n) }
+      }, 130)
+    })
+    // sichqoncha bilan sudrash (kompyuter)
+    var down = false, sx = 0, sl = 0
+    track.addEventListener("pointerdown", function (e) {
+      if (e.pointerType !== "mouse") return
+      down = true; sx = e.clientX; sl = track.scrollLeft
+      track.classList.add("drag")
+      try { track.setPointerCapture(e.pointerId) } catch (x) {}
+    })
+    track.addEventListener("pointermove", function (e) { if (down) track.scrollLeft = sl - (e.clientX - sx) })
+    function up() {
+      if (!down) return
+      down = false
+      track.classList.remove("drag")
+      var n = nearest()
+      track.scrollTo({ left: n * iw(), behavior: "smooth" })
+    }
+    track.addEventListener("pointerup", up)
+    track.addEventListener("pointercancel", up)
+    track.addEventListener("click", function (e) {
+      var it = e.target.closest ? e.target.closest(".w-item") : null
+      if (it && !track.classList.contains("drag")) {
+        var n = parseInt(it.getAttribute("data-i"), 10)
+        if (n !== cur) { quiet = false; track.scrollTo({ left: n * iw(), behavior: "smooth" }) }
+      }
+    })
+    window.addEventListener("resize", function () { set(cur, false) })
+    set(startIdx, false)
+    // birinchi o'lchovlar tayyor bo'lgach qayta joylashtirish (shrift yuklanishi)
+    setTimeout(function () { set(cur, false) }, 250)
+    return { set: set }
+  }
+
+  function initHeader() {
+    var langLabels = []
+    for (var i = 0; i < LANGS.length; i++) langLabels[i] = LANG_NAMES[LANGS[i]]
+    wheels.lang = makeWheel("wLang", langLabels, Math.max(0, LANGS.indexOf(S.lang)), function (i) {
+      S.lang = LANGS[i]; TCACHE = {}; save(); render()
+    })
+    var themeLabels = []
+    for (var j = 0; j < THEMES.length; j++) themeLabels[j] = THEME_ICONS[THEMES[j]]
+    wheels.theme = makeWheel("wTheme", themeLabels, Math.max(0, THEMES.indexOf(S.theme)), function (i) {
+      S.theme = THEMES[i]; save(); applyTheme()
+    })
+  }
+
   // ====================
   // EVENTS
   // ====================
@@ -476,7 +588,7 @@
       var sn = parseInt(v, 10), nd = D.names[sn - 1]
       openTg("https://t.me/share/url?url=" + encodeURIComponent("https://t.me/" + CFG.BOT) + "&text=" + encodeURIComponent("✨ " + sn + ". " + nd.a + " — " + nd.t + "\n🤖 @" + CFG.BOT))
     }
-    else if (act === "setLang") { S.lang = v; TCACHE = {}; save(); U.more = "menu"; render() }
+    else if (act === "setLang") { S.lang = v; TCACHE = {}; save(); U.more = "menu"; render(); if (wheels.lang) wheels.lang.set(LANGS.indexOf(v), true) }
     else if (act === "openBot") openTg("https://t.me/" + CFG.BOT)
     else if (act === "openChannel") openTg("https://t.me/" + CFG.CHANNEL)
   })
@@ -514,6 +626,8 @@
       if (tg.setHeaderColor) tg.setHeaderColor("bg_color")
     } catch (e) {}
   }
+  applyTheme()
   render()
+  initHeader()
   cloudRead()
 })()
