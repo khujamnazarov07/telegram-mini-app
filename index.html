@@ -13,7 +13,18 @@
 </head>
 <body>
   <header id="hdr" class="hdr" dir="ltr">
-    <div class="brand">Asmo ul-Husna</div>
+    <a class="brand" id="home" href="./" aria-label="Asmo ul-Husna">
+      <svg class="logo" viewBox="0 0 40 40" aria-hidden="true">
+        <defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#3cc29a"/><stop offset="1" stop-color="#136b55"/></linearGradient></defs>
+        <rect width="40" height="40" rx="12" fill="url(#lg)"/>
+        <g class="star" fill="none" stroke="#fff" stroke-width="1.7" stroke-linejoin="round">
+          <rect x="11.5" y="11.5" width="17" height="17" rx="1.5"/>
+          <rect x="11.5" y="11.5" width="17" height="17" rx="1.5" transform="rotate(45 20 20)"/>
+        </g>
+        <circle cx="20" cy="20" r="2.8" fill="#f5d36b"/>
+      </svg>
+      <span class="bt"><span class="b1">Asmo <em>ul-Husna</em></span><span class="b2">الأسماء الحسنى</span></span>
+    </a>
     <div class="tools">
       <div id="wLang" class="wheel w-lang" role="listbox" aria-label="Language"></div>
       <div id="wTheme" class="wheel w-theme" role="listbox" aria-label="Theme"></div>
