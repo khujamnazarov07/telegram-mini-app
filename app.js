@@ -427,25 +427,34 @@
     }
   }
 
+  // Cheksiz (aylanma) silindr: elementlar bir necha nusxada joylanadi, markaz doim o'rta nusxaga qaytariladi
   function makeWheel(id, labels, startIdx, onPick) {
+    var N = labels.length
+    var COPIES = N < 6 ? 9 : 5
+    var MID = Math.floor(COPIES / 2)
     var host = document.getElementById(id)
     var track = document.createElement("div")
     track.className = "w-track"
     var h = '<span class="w-pad"></span>'
-    for (var i = 0; i < labels.length; i++) h += '<div class="w-item" data-i="' + i + '" role="option">' + labels[i] + "</div>"
+    for (var c = 0; c < COPIES; c++) {
+      for (var i = 0; i < N; i++) h += '<div class="w-item" data-i="' + i + '" data-p="' + (c * N + i) + '" role="option">' + labels[i] + "</div>"
+    }
     h += '<span class="w-pad"></span>'
     track.innerHTML = h
     host.appendChild(track)
 
     var items = track.querySelectorAll(".w-item")
-    var cur = startIdx, quiet = true, timer = null, raf = 0, lastC = -1
+    var cur = startIdx, quiet = true, timer = null, raf = 0, lastC = -1, busy = false
 
     function iw() { return items[0].offsetWidth }
-    function nearest() { return Math.max(0, Math.min(labels.length - 1, Math.round(track.scrollLeft / iw()))) }
+    function absPos() { return Math.max(0, Math.min(items.length - 1, Math.round(track.scrollLeft / iw()))) }
+    function idxOf(p) { return ((p % N) + N) % N }
     function paint() {
       raf = 0
       var w = iw(), mid = track.scrollLeft + track.clientWidth / 2
-      for (var i = 0; i < items.length; i++) {
+      var center = Math.round((mid - items[0].offsetLeft - w / 2) / w)
+      var from = Math.max(0, center - 3), to = Math.min(items.length - 1, center + 3)
+      for (var i = from; i <= to; i++) {
         var d = (items[i].offsetLeft + w / 2 - mid) / w
         var ad = Math.min(Math.abs(d), 2)
         var ang = Math.max(-2, Math.min(2, d)) * -34
@@ -453,23 +462,46 @@
         items[i].style.opacity = String(Math.max(0.12, 1 - 0.5 * ad))
         items[i].setAttribute("aria-selected", ad < 0.5 ? "true" : "false")
       }
-      var c = nearest()
-      if (c !== lastC) { if (lastC !== -1 && !quiet) haptic("light"); lastC = c }
+      var cc = absPos()
+      if (cc !== lastC) { if (lastC !== -1 && !quiet) haptic("light"); lastC = cc }
     }
+    // ko'rinishi bir xil bo'lgan o'rta nusxaga ko'chirish (sakrash sezilmaydi)
+    function recenter() {
+      var w = iw(), p = absPos()
+      var target = (MID * N + idxOf(p)) * w
+      if (Math.abs(target - track.scrollLeft) > 1) {
+        track.classList.add("jump")
+        track.scrollLeft = target
+        void track.offsetWidth
+        track.classList.remove("jump")
+      }
+    }
+    // eng qisqa yo'l bilan i-indeksga o'tish
     function set(i, smooth) {
       cur = i
       quiet = true
-      track.scrollTo({ left: i * iw(), behavior: smooth ? "smooth" : "auto" })
+      var p = absPos(), delta = idxOf(i) - idxOf(p)
+      if (delta > N / 2) delta -= N
+      if (delta < -N / 2) delta += N
+      if (!smooth) {
+        track.scrollLeft = (MID * N + i) * iw()
+      } else {
+        track.scrollTo({ left: (p + delta) * iw(), behavior: "smooth" })
+      }
       paint()
-      setTimeout(function () { quiet = false }, smooth ? 400 : 60)
+      setTimeout(function () { quiet = false }, smooth ? 420 : 60)
     }
     track.addEventListener("scroll", function () {
       if (!raf) raf = requestAnimationFrame(paint)
+      // chekkaga yaqinlashganda darrov o'rtaga qaytarish
+      var p = track.scrollLeft / iw()
+      if (!busy && (p < N || p > N * (COPIES - 1) - 1)) { busy = true; recenter(); busy = false }
       clearTimeout(timer)
       timer = setTimeout(function () {
-        if (quiet || track.classList.contains("drag")) return
-        var n = nearest()
-        if (n !== cur) { cur = n; onPick(n) }
+        if (track.classList.contains("drag")) return
+        var n = idxOf(absPos())
+        recenter()
+        if (!quiet && n !== cur) { cur = n; onPick(n) }
       }, 130)
     })
     // sichqoncha bilan sudrash (kompyuter)
@@ -485,28 +517,27 @@
       if (!down) return
       down = false
       track.classList.remove("drag")
-      var n = nearest()
-      track.scrollTo({ left: n * iw(), behavior: "smooth" })
+      track.scrollTo({ left: absPos() * iw(), behavior: "smooth" })
     }
     track.addEventListener("pointerup", up)
     track.addEventListener("pointercancel", up)
     track.addEventListener("click", function (e) {
       var it = e.target.closest ? e.target.closest(".w-item") : null
       if (it && !track.classList.contains("drag")) {
-        var n = parseInt(it.getAttribute("data-i"), 10)
-        if (n !== cur) { quiet = false; track.scrollTo({ left: n * iw(), behavior: "smooth" }) }
+        var p = parseInt(it.getAttribute("data-p"), 10)
+        if (idxOf(p) !== cur) { quiet = false; track.scrollTo({ left: p * iw(), behavior: "smooth" }) }
       }
     })
     window.addEventListener("resize", function () { set(cur, false) })
     set(startIdx, false)
-    // birinchi o'lchovlar tayyor bo'lgach qayta joylashtirish (shrift yuklanishi)
     setTimeout(function () { set(cur, false) }, 250)
     return { set: set }
   }
 
   function initHeader() {
     var langLabels = []
-    for (var i = 0; i < LANGS.length; i++) langLabels[i] = LANG_NAMES[LANGS[i]]
+    var SHORT = { uz: "O'zbek", uz_kr: "Ўзбек", ru: "Русский", en: "English", ar: "العربية", tr: "Türkçe", id: "Indonesia", zh: "中文", hi: "हिन्दी", es: "Español" }
+    for (var i = 0; i < LANGS.length; i++) langLabels[i] = SHORT[LANGS[i]]
     wheels.lang = makeWheel("wLang", langLabels, Math.max(0, LANGS.indexOf(S.lang)), function (i) {
       S.lang = LANGS[i]; TCACHE = {}; save(); render()
     })
@@ -592,6 +623,16 @@
     else if (act === "openBot") openTg("https://t.me/" + CFG.BOT)
     else if (act === "openChannel") openTg("https://t.me/" + CFG.CHANNEL)
   })
+
+  var homeLink = document.getElementById("home")
+  if (homeLink) {
+    homeLink.addEventListener("click", function (ev) {
+      ev.preventDefault()
+      haptic("light")
+      U.tab = "names"; U.detail = 0; U.q = ""; U.more = "menu"; U.moodPick = ""; U.dailyEdit = false
+      render()
+    })
+  }
 
   document.addEventListener("input", function (ev) {
     if (ev.target && ev.target.id === "q") {
