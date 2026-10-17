@@ -67,7 +67,7 @@
   // STATE + STORAGE
   // ====================
   var KEY = "asmo_miniapp_v1"
-  var S = { lang: "", favs: {}, notes: {}, moodHist: {}, daily: null }
+  var S = { lang: "", favs: {}, notes: {}, moodHist: {}, daily: null, savedAt: 0 }
   var memStore = null
 
   function load() {
@@ -75,11 +75,61 @@
     try { raw = window.localStorage.getItem(KEY) } catch (e) { raw = memStore }
     if (raw) { try { var o = JSON.parse(raw); for (var k in o) S[k] = o[k] } catch (e2) {} }
   }
+  var cloudTimer = null
+  var cloudPrev = 0
+  function cloudWrite() {
+    var cs = tg && tg.CloudStorage
+    if (!cs || !cs.setItem) return
+    var raw = JSON.stringify(S), CH = 3800, parts = []
+    for (var i = 0; i < raw.length; i += CH) parts[parts.length] = raw.slice(i, i + CH)
+    if (parts.length > 100) return
+    var items = {}
+    items[KEY + "_n"] = String(parts.length)
+    for (var j = 0; j < parts.length; j++) items[KEY + "_" + j] = parts[j]
+    var keys = Object.keys(items)
+    for (var k = 0; k < keys.length; k++) { try { cs.setItem(keys[k], items[keys[k]]) } catch (e) {} }
+    if (cloudPrev > parts.length && cs.removeItems) {
+      var extra = []
+      for (var x = parts.length; x < cloudPrev; x++) extra[extra.length] = KEY + "_" + x
+      try { cs.removeItems(extra) } catch (e2) {}
+    }
+    cloudPrev = parts.length
+  }
   function save() {
+    S.savedAt = Date.now()
     var raw = JSON.stringify(S)
     memStore = raw
     try { window.localStorage.setItem(KEY, raw) } catch (e) {}
-    if (tg && tg.CloudStorage && tg.CloudStorage.setItem) { try { tg.CloudStorage.setItem(KEY, raw.length < 4000 ? raw : "{}") } catch (e2) {} }
+    clearTimeout(cloudTimer)
+    cloudTimer = setTimeout(cloudWrite, 800)
+  }
+  // Telegram bulutidan o'qish: boshqa qurilmadagi yangiroq ma'lumot bo'lsa, almashtiriladi
+  function cloudRead() {
+    var cs = tg && tg.CloudStorage
+    if (!cs || !cs.getItem) return
+    try {
+      cs.getItem(KEY + "_n", function (err, val) {
+        var n = parseInt(val, 10)
+        if (err || !n) return
+        var keys = []
+        for (var i = 0; i < n; i++) keys[keys.length] = KEY + "_" + i
+        cloudPrev = n
+        cs.getItems(keys, function (err2, vals) {
+          if (err2 || !vals) return
+          var raw = ""
+          for (var j = 0; j < n; j++) raw += vals[KEY + "_" + j] || ""
+          try {
+            var o = JSON.parse(raw)
+            if (o && (o.savedAt || 0) > (S.savedAt || 0)) {
+              for (var k in o) S[k] = o[k]
+              TCACHE = {}
+              try { window.localStorage.setItem(KEY, JSON.stringify(S)) } catch (e) {}
+              render()
+            }
+          } catch (e3) {}
+        })
+      })
+    } catch (e4) {}
   }
 
   function detectLang() {
@@ -176,11 +226,12 @@
   function viewDetail() {
     var n = U.detail, d = D.names[n - 1]
     var note = S.notes[n] || ""
-    return '<button class="btn small back" data-act="closeDetail">' + esc(tr("back")) + "</button>" +
+    return '<button class="btn small back" data-act="closeDetail">‹ ' + esc(tr("back")) + "</button>" +
       '<div class="card hero"><div class="no">' + n + " / 99</div><div class=\"ar\">" + d.a + '</div><div class="tr">' + esc(d.t) + "</div>" + audioBlock(n) + "</div>" +
       '<div class="row" style="margin:12px 0"><button class="btn grow" data-act="open" data-v="' + (n === 1 ? 99 : n - 1) + '">⏮</button>' +
       '<button class="btn grow ' + (S.favs[n] ? "success" : "") + '" data-act="fav" data-v="' + n + '">' + (S.favs[n] ? "❣️" : "♡") + "</button>" +
       '<button class="btn grow" data-act="open" data-v="' + (n === 99 ? 1 : n + 1) + '">⏭</button></div>' +
+      '<button class="btn block" style="margin-bottom:12px" data-act="shareName" data-v="' + n + '">📲 ' + esc(tr("share")) + "</button>" +
       '<div class="card stack"><strong>📝 ' + esc(tr("note")) + '</strong><textarea id="noteText" placeholder="' + esc(tr("note_ph")) + '">' + esc(note) + "</textarea>" +
       '<button class="btn success block" data-act="saveNote" data-v="' + n + '">' + esc(tr("save")) + "</button></div>"
   }
@@ -295,15 +346,15 @@
     if (U.more === "quote") {
       if (U.quoteIdx < 0) U.quoteIdx = Math.floor(Math.random() * D.quotes.length)
       var d = quoteData(U.quoteIdx)
-      return '<button class="btn small back" data-act="moreBack">' + esc(tr("back")) + "</button>" +
+      return '<button class="btn small back" data-act="moreBack">‹ ' + esc(tr("back")) + "</button>" +
         '<div class="card quote"><div class="em">' + d.q.e + "</div><strong>" + esc(d.title) + '</strong><div class="qt">' + esc(d.body) + '</div><div class="ref">📖 ' + esc(d.src) + '</div><div class="ref">🤖 @' + CFG.BOT + "</div></div>" +
-        '<div class="row" style="margin-top:12px"><button class="btn success grow" data-act="share">📲 ' + esc(tr("share")) + '</button><button class="btn grow" data-act="open" data-v="' + d.q.n + '">✨ ' + esc(D.names[d.q.n - 1].t) + '</button><button class="btn grow" data-act="quoteNext">🔄</button></div>'
+        '<div class="row wrap" style="margin-top:12px"><button class="btn success grow" data-act="share">📲 ' + esc(tr("share")) + '</button><button class="btn grow" data-act="open" data-v="' + d.q.n + '">✨ ' + esc(D.names[d.q.n - 1].t) + '</button><button class="btn grow" data-act="quoteNext">🔄</button></div>'
     }
     if (U.more === "favs") {
       var ids = []
       for (var k in S.favs) if (S.favs[k]) ids[ids.length] = parseInt(k, 10)
       ids.sort(function (a, b) { return a - b })
-      var h = '<button class="btn small back" data-act="moreBack">' + esc(tr("back")) + "</button><h1>❣️ " + esc(tr("favs")) + "</h1>"
+      var h = '<button class="btn small back" data-act="moreBack">‹ ' + esc(tr("back")) + "</button><h1>❣️ " + esc(tr("favs")) + "</h1>"
       if (!ids.length) return h + '<p class="empty">' + esc(tr("favs_empty")) + "</p>"
       h += nameCards(ids)
       for (var i = 0; i < ids.length; i++) {
@@ -312,12 +363,12 @@
       return h
     }
     if (U.more === "lang") {
-      var l = '<button class="btn small back" data-act="moreBack">' + esc(tr("back")) + "</button><h1>🌐 " + esc(tr("lang")) + '</h1><div class="grid3" style="grid-template-columns:1fr 1fr">'
+      var l = '<button class="btn small back" data-act="moreBack">‹ ' + esc(tr("back")) + "</button><h1>🌐 " + esc(tr("lang")) + '</h1><div class="grid3" style="grid-template-columns:1fr 1fr">'
       for (var j = 0; j < LANGS.length; j++) l += '<button class="btn ' + (S.lang === LANGS[j] ? "success" : "") + '" data-act="setLang" data-v="' + LANGS[j] + '">' + LANG_NAMES[LANGS[j]] + "</button>"
       return l + "</div>"
     }
     if (U.more === "about") {
-      return '<button class="btn small back" data-act="moreBack">' + esc(tr("back")) + "</button><h1>ℹ️ " + esc(tr("about")) + '</h1><div class="card stack"><p>✨ ' + esc(tr("about_text")) + '</p><p class="sub">🔖 Mini App ' + CFG.VERSION + "</p>" +
+      return '<button class="btn small back" data-act="moreBack">‹ ' + esc(tr("back")) + "</button><h1>ℹ️ " + esc(tr("about")) + '</h1><div class="card stack"><p>✨ ' + esc(tr("about_text")) + '</p><p class="sub">🔖 Mini App ' + CFG.VERSION + "</p>" +
         '<button class="btn primary block" data-act="openBot">🤖 ' + esc(tr("open_bot")) + '</button><button class="btn block" data-act="openChannel">📢 ' + esc(tr("open_channel")) + "</button></div>"
     }
     return '<h1>✨ ' + esc(tr("nav_more")) + '</h1><p class="sub">&nbsp;</p><div class="list">' +
@@ -421,6 +472,10 @@
       var url = "https://t.me/share/url?url=" + encodeURIComponent("https://t.me/" + CFG.BOT) + "&text=" + encodeURIComponent(d.share)
       openTg(url)
     }
+    else if (act === "shareName") {
+      var sn = parseInt(v, 10), nd = D.names[sn - 1]
+      openTg("https://t.me/share/url?url=" + encodeURIComponent("https://t.me/" + CFG.BOT) + "&text=" + encodeURIComponent("✨ " + sn + ". " + nd.a + " — " + nd.t + "\n🤖 @" + CFG.BOT))
+    }
     else if (act === "setLang") { S.lang = v; TCACHE = {}; save(); U.more = "menu"; render() }
     else if (act === "openBot") openTg("https://t.me/" + CFG.BOT)
     else if (act === "openChannel") openTg("https://t.me/" + CFG.CHANNEL)
@@ -460,4 +515,5 @@
     } catch (e) {}
   }
   render()
+  cloudRead()
 })()
