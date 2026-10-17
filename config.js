@@ -10,5 +10,5 @@ window.CONFIG = {
   },
 
   // Kanaldagi video postlar raqami, masalan [5, 6, 7]. Bo'sh bo'lsa, video bo'limi ko'rsatma chiqaradi.
-  VIDEO_POSTS: []
+  VIDEO_POSTS:[2, 6, 20, 67]
 }
