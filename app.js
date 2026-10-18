@@ -320,69 +320,187 @@
   // ====================
   // QUMSOAT (2D, 100 ta qum donasi)
   // ====================
-  var NS = "http://www.w3.org/2000/svg"
-  var HG = null
+  var SIM = null
   var hgShown = 0
+  var R = 2.55                       // qum donasi radiusi
+  var NECK = 5.0                     // bo'yincha yarim kengligi
+  var WALLS = [[16, 12, 60 - NECK, 100], [60 - NECK, 100, 16, 188], [104, 12, 60 + NECK, 100], [60 + NECK, 100, 104, 188]]
+  var GATE_Y = 96                    // "eshik": har bosishda faqat kerakli miqdordagi dona o'tkaziladi
+  var TONES = ["#d9a93a", "#e0b24a", "#cf9d2e", "#e6bc58", "#c8952b", "#dcae44"]
 
-  function hgBuild() {
-    if (HG) return HG
-    var cand = [], s = 9
-    for (; s >= 4; s -= 0.1) {
+  function topHW(y) { return 44 - (y - 12) * (44 - NECK) / 88 }
+
+  function simStep(s) {
+    var G = s.g, n = G.length, i, j, p, q, maxv = 0
+    for (i = 0; i < n; i++) {
+      p = G[i]
+      var vx = (p.x - p.px) * 0.985, vy = (p.y - p.py) * 0.985
+      var sp = vx * vx + vy * vy
+      if (sp > 4.84) { var k = 2.2 / Math.sqrt(sp); vx *= k; vy *= k }
+      p.px = p.x; p.py = p.y; p.t = false
+      p.x += vx; p.y += vy + 0.05
+      if (s.allow > 0 && !p.crossed && p.y > 55) {   // oqim: bo'yinchaga tomon tasodifiy tortilish
+        p.y += 0.05
+        p.x += (60 - p.x) * 0.006 + (Math.random() - 0.5) * 0.12
+      }
+    }
+    // oqim eshigi ochiq bo'lganda, tiqilib qolsa, tasodifiy turtki beriladi
+    var gateOpen = s.allow > 0
+    if (gateOpen) {
+      s.stall++
+      if (s.stall > 45) {
+        s.stall = 0
+        for (i = 0; i < n; i++) { p = G[i]; if (!p.crossed && p.y > GATE_Y - 14) { p.x += (Math.random() - 0.5) * 1.6; p.y -= Math.random() * 0.8 } }
+      }
+    }
+    var D = R * 2, D2 = D * D
+    for (var it = 0; it < 3; it++) {
+      for (i = 0; i < n; i++) {
+        p = G[i]
+        for (j = i + 1; j < n; j++) {
+          q = G[j]
+          var dx = q.x - p.x
+          if (dx > D || dx < -D) continue
+          var dy = q.y - p.y
+          if (dy > D || dy < -D) continue
+          var d2 = dx * dx + dy * dy
+          if (d2 >= D2) continue
+          var d = Math.sqrt(d2) || 0.0001
+          var push = (D - d) / 2, nx = dx / d, ny = dy / d
+          p.x -= nx * push; p.y -= ny * push
+          q.x += nx * push; q.y += ny * push
+          p.t = true; q.t = true
+          if (it === 0) {   // sirpanish (ishqalanish): tezlikni biroz so'ndirish
+            p.px += (p.x - p.px) * 0.08; p.py += (p.y - p.py) * 0.08
+            q.px += (q.x - q.px) * 0.08; q.py += (q.y - q.py) * 0.08
+          }
+        }
+      }
+      for (i = 0; i < n; i++) {
+        p = G[i]
+        // shisha devorlari
+        for (var w = 0; w < 4; w++) {
+          var W = WALLS[w], ax = W[0], ay = W[1], bx = W[2] - W[0], by = W[3] - W[1]
+          var t = ((p.x - ax) * bx + (p.y - ay) * by) / (bx * bx + by * by)
+          t = t < 0 ? 0 : t > 1 ? 1 : t
+          var cx = ax + bx * t, cy = ay + by * t
+          var ex = p.x - cx, ey = p.y - cy, ed = Math.sqrt(ex * ex + ey * ey)
+          if (ed < R) {
+            if (ed < 0.0001) { ex = w < 2 ? 1 : -1; ey = 0; ed = 1 }
+            var wn = (R - ed) / ed
+            p.x += ex * wn; p.y += ey * wn
+            p.t = true
+            if (it === 2) { p.px += (p.x - p.px) * 0.15; p.py += (p.y - p.py) * 0.15 }
+          }
+        }
+        // tepa va past qopqoqlar
+        if (p.y < 12 + R) p.y = 12 + R
+        if (p.y > 188 - R) { p.y = 188 - R; p.t = true }
+        // eshik
+        if (!gateOpen && !p.crossed && p.y > GATE_Y - R && p.y < GATE_Y + 4) { p.y = GATE_Y - R; p.py = p.y; p.t = true }
+      }
+    }
+    for (i = 0; i < n; i++) {
+      p = G[i]
+      if (!p.crossed && p.y > GATE_Y + 3) {
+        if (s.allow <= 0) {                          // ruxsat tugagan: ortiqcha dona o'tmaydi
+          p.y = GATE_Y + 2.9; p.py = p.y
+        } else {
+          p.crossed = true
+          s.crossed++
+          s.stall = 0
+          s.allow--
+          p.x += (Math.random() - 0.5) * 0.6          // tushayotganda tasodifiy og'ish
+          p.px = p.x - (Math.random() - 0.5) * 0.5
+        }
+      }
+      var mv = Math.abs(p.x - p.px) + Math.abs(p.y - p.py)
+      if (p.t && mv < 0.11 && (s.allow <= 0 || p.crossed)) { p.px = p.x; p.py = p.y; mv = 0 }
+      if (mv > maxv) maxv = mv
+    }
+    s.maxv = maxv
+  }
+
+  function simBuild(fallen) {
+    var s = { g: [], allow: 0, crossed: 0, stall: 0, maxv: 1, rest: 0, raf: 0, els: null, onIdle: null }
+    var cand = []
+    for (var sp = 7.5; sp >= 5.3; sp -= 0.1) {
       cand = []
-      var rowH = s * 0.866
-      for (var y = 17; y <= 96; y += rowH) {
-        var hw = 44 * (100 - y) / 86 - 3.4
+      var rowH = sp * 0.866
+      for (var y = 16; y <= 93; y += rowH) {
+        var hw = topHW(y) - R - 0.3
         if (hw < 0) continue
-        var n = Math.floor(2 * hw / s) + 1
-        var x0 = 60 - (n - 1) * s / 2
-        for (var k = 0; k < n; k++) cand.push({ x: x0 + k * s, y: y })
+        var n = Math.floor(2 * hw / sp) + 1
+        var x0 = 60 - (n - 1) * sp / 2
+        for (var k = 0; k < n; k++) cand.push({ x: x0 + k * sp, y: y })
       }
       if (cand.length >= 100) break
     }
-    // yuqori kamera: neckka eng yaqin 100 ta nuqta, tushish tartibi — yuqoridan pastga, markazdan
-    var top = cand.slice().sort(function (p, q) { return q.y - p.y || Math.abs(p.x - 60) - Math.abs(q.x - 60) }).slice(0, 100)
-    top.sort(function (p, q) { return p.y - q.y || Math.abs(p.x - 60) - Math.abs(q.x - 60) })
-    // pastki kamera: ko'zgu nuqtalar, pastdan va markazdan to'ldiriladi (tepalik hosil bo'ladi)
-    var bot = cand.map(function (p) { return { x: p.x, y: 200 - p.y } })
-    bot.sort(function (p, q) { return ((182 - p.y) + 0.6 * Math.abs(p.x - 60)) - ((182 - q.y) + 0.6 * Math.abs(q.x - 60)) })
-    HG = { top: top, bot: bot.slice(0, 100), r: Math.max(1.6, s * 0.4) }
-    return HG
+    cand.sort(function (p, q) { return q.y - p.y || Math.abs(p.x - 60) - Math.abs(q.x - 60) })
+    for (var i = 0; i < 100; i++) {
+      var x = cand[i].x + (Math.random() - 0.5) * 0.5, yy = cand[i].y + (Math.random() - 0.5) * 0.5
+      s.g.push({ x: x, y: yy, px: x, py: yy, crossed: false, tone: TONES[Math.floor(Math.random() * TONES.length)] })
+    }
+    var steps = 0, calm = 0
+    while (steps < 700 && calm < 12) { simStep(s); steps++; calm = s.maxv < 0.012 ? calm + 1 : 0 }
+    if (fallen > 0) {
+      s.allow = fallen; steps = 0; calm = 0
+      while (steps < 6000 && !(s.allow <= 0 && calm >= 12)) { simStep(s); steps++; calm = (s.allow <= 0 && s.maxv < 0.012) ? calm + 1 : 0 }
+      s.allow = 0
+    }
+    for (i = 0; i < 100; i++) { s.g[i].px = s.g[i].x; s.g[i].py = s.g[i].y }
+    s.maxv = 0
+    SIM = s
+    return s
   }
+
   function hgFallen(ds) {
     if (ds.todayDone) return 100
     return Math.max(0, Math.min(100, Math.floor((ds.draft || 0) * 100 / ds.target)))
   }
   function hgSvg(fallen) {
-    var g = hgBuild(), i
+    if (!SIM || SIM.crossed + SIM.allow !== fallen) simBuild(fallen)
     var h = '<svg id="hgsvg" class="hg" viewBox="0 0 120 200" aria-hidden="true">' +
-      '<path class="glass" d="M16 12 L104 12 L64 100 L104 188 L16 188 L56 100 Z"/>'
-    for (i = 0; i < 100; i++) h += '<circle class="sand st" data-i="' + i + '" cx="' + g.top[i].x.toFixed(1) + '" cy="' + g.top[i].y.toFixed(1) + '" r="' + g.r.toFixed(2) + '" style="opacity:' + (i >= fallen ? 1 : 0) + '"/>'
-    for (i = 0; i < 100; i++) h += '<circle class="sand sb" data-i="' + i + '" cx="' + g.bot[i].x.toFixed(1) + '" cy="' + g.bot[i].y.toFixed(1) + '" r="' + g.r.toFixed(2) + '" style="opacity:' + (i < fallen ? 1 : 0) + '"/>'
-    h += '<line id="hgStream" class="stream" x1="60" y1="98" x2="60" y2="176"/>' +
-      '<rect class="cap" x="8" y="3" width="104" height="9" rx="4.5"/><rect class="cap" x="8" y="188" width="104" height="9" rx="4.5"/></svg>'
-    return h
+      '<path class="glass" d="M16 12 L104 12 L' + (60 + NECK) + ' 100 L104 188 L16 188 L' + (60 - NECK) + ' 100 Z"/>'
+    for (var i = 0; i < 100; i++) {
+      var p = SIM.g[i]
+      h += '<circle cx="' + p.x.toFixed(2) + '" cy="' + p.y.toFixed(2) + '" r="' + (R * 0.96).toFixed(2) + '" fill="' + p.tone + '"/>'
+    }
+    return h + '<rect class="cap" x="8" y="3" width="104" height="9" rx="4.5"/><rect class="cap" x="8" y="188" width="104" height="9" rx="4.5"/></svg>'
+  }
+  function simLoop() {
+    var s = SIM
+    if (!s || !s.els) return
+    s.raf = 0
+    if (!document.body.contains(s.els[0])) { s.els = null; return }
+    for (var k = 0; k < 3; k++) simStep(s)
+    for (var i = 0; i < 100; i++) {
+      s.els[i].setAttribute("cx", s.g[i].x.toFixed(2))
+      s.els[i].setAttribute("cy", s.g[i].y.toFixed(2))
+    }
+    if (s.allow > 0 || s.maxv > 0.02) { s.rest = 0 } else { s.rest++ }
+    if (s.rest < 18) { s.raf = requestAnimationFrame(simLoop); return }
+    for (i = 0; i < 100; i++) { s.g[i].px = s.g[i].x; s.g[i].py = s.g[i].y }
+    if (s.onIdle) { var f = s.onIdle; s.onIdle = null; f() }
+  }
+  function simWake() {
+    if (SIM && SIM.els && !SIM.raf) { SIM.rest = 0; SIM.raf = requestAnimationFrame(simLoop) }
+  }
+  function hgAttach() {
+    var svg = document.getElementById("hgsvg")
+    if (!svg || !SIM) return
+    SIM.els = svg.querySelectorAll("circle")
+    if (SIM.raf) { cancelAnimationFrame(SIM.raf); SIM.raf = 0 }
+    if (SIM.allow > 0) simWake()
   }
   function hgDrop(from, to) {
-    var svg = document.getElementById("hgsvg")
-    if (!svg) return
-    var g = hgBuild(), cnt = to - from, gap = Math.min(80, 1100 / Math.max(1, cnt))
-    var stream = document.getElementById("hgStream")
-    if (stream) { stream.style.opacity = "1"; clearTimeout(hgDrop.t); hgDrop.t = setTimeout(function () { stream.style.opacity = "0" }, cnt * gap + 420) }
-    for (var i = from; i < to; i++) {
-      (function (i) {
-        setTimeout(function () {
-          var t = svg.querySelector('.st[data-i="' + i + '"]'), b = svg.querySelector('.sb[data-i="' + i + '"]')
-          if (!t || !b) return
-          t.style.opacity = "0"
-          if (!svg.animate) { b.style.opacity = "1"; return }
-          var c = document.createElementNS(NS, "circle")
-          c.setAttribute("class", "sand"); c.setAttribute("cx", "60"); c.setAttribute("cy", "100"); c.setAttribute("r", g.r.toFixed(2))
-          svg.appendChild(c)
-          var an = c.animate([{ transform: "translate(0px,0px)" }, { transform: "translate(" + (g.bot[i].x - 60) + "px," + (g.bot[i].y - 100) + "px)" }], { duration: 420, easing: "cubic-bezier(.45,0,.9,.55)", fill: "forwards" })
-          an.onfinish = function () { b.style.opacity = "1"; if (c.parentNode) c.parentNode.removeChild(c) }
-        }, (i - from) * gap)
-      })(i)
-    }
+    if (!SIM) return
+    SIM.allow += Math.max(0, to - from)
+    simWake()
+  }
+  function hgWhenIdle(cb) {
+    if (!SIM || !SIM.els || !SIM.raf) { setTimeout(cb, SIM && SIM.allow > 0 ? 400 : 250); return }
+    SIM.onIdle = cb
   }
   function hgStats() {
     var ds = S.daily
@@ -473,6 +591,7 @@
     else if (U.tab === "daily") h = viewDaily()
     else h = viewMore()
     app.innerHTML = h
+    hgAttach()
     renderNav()
     if (wheels.theme) updateThemeLabels()
     if (tg && tg.BackButton) {
@@ -696,13 +815,12 @@
       if (to > from) { hgDrop(from, to); hgShown = to }
       hgStats()
       if (cycles > 0) {
-        var wait = Math.min(1100, Math.max(0, to - from) * 80) + 560
-        setTimeout(function () {
+        hgWhenIdle(function () {
           try { tg && tg.HapticFeedback && tg.HapticFeedback.notificationOccurred("success") } catch (e) {}
           var w = document.getElementById("hgwrap")
           if (ds.todayDone || !w) render()
           else { w.classList.add("flip"); setTimeout(render, 700) }
-        }, wait)
+        })
       }
     }
     else if (act === "more") { U.more = v; if (v === "quote") U.quoteIdx = -1; render() }
