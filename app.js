@@ -53,6 +53,9 @@
     open_channel: "Kanal|Канал|Канал|Channel|القناة|Kanal|Kanal|频道|चैनल|Canal",
     back: "Orqaga|Орқага|Назад|Back|رجوع|Geri|Kembali|返回|वापस|Atrás",
     reset: "Qayta boshlash|Қайта бошлаш|Сбросить|Reset|إعادة|Sıfırla|Atur ulang|重置|रीसेट|Reiniciar",
+    th_light: "Kun|Кун|День|Day|نهار|Gün|Siang|日间|दिन|Día",
+    th_dark: "Tun|Тун|Ночь|Night|ليل|Gece|Malam|夜间|रात|Noche",
+    th_auto: "Avto|Авто|Авто|Auto|تلقائي|Oto|Oto|自动|ऑटो|Auto",
     names_for: "Ismlar|Исмлар|Имена|Names|الأسماء|İsimler|Nama|名字|नाम|Nombres"
   }
   var TCACHE = {}
@@ -314,27 +317,102 @@
       save()
     }
   }
+  // ====================
+  // QUMSOAT (2D, 100 ta qum donasi)
+  // ====================
+  var NS = "http://www.w3.org/2000/svg"
+  var HG = null
+  var hgShown = 0
+
+  function hgBuild() {
+    if (HG) return HG
+    var cand = [], s = 9
+    for (; s >= 4; s -= 0.1) {
+      cand = []
+      var rowH = s * 0.866
+      for (var y = 17; y <= 96; y += rowH) {
+        var hw = 44 * (100 - y) / 86 - 3.4
+        if (hw < 0) continue
+        var n = Math.floor(2 * hw / s) + 1
+        var x0 = 60 - (n - 1) * s / 2
+        for (var k = 0; k < n; k++) cand.push({ x: x0 + k * s, y: y })
+      }
+      if (cand.length >= 100) break
+    }
+    // yuqori kamera: neckka eng yaqin 100 ta nuqta, tushish tartibi — yuqoridan pastga, markazdan
+    var top = cand.slice().sort(function (p, q) { return q.y - p.y || Math.abs(p.x - 60) - Math.abs(q.x - 60) }).slice(0, 100)
+    top.sort(function (p, q) { return p.y - q.y || Math.abs(p.x - 60) - Math.abs(q.x - 60) })
+    // pastki kamera: ko'zgu nuqtalar, pastdan va markazdan to'ldiriladi (tepalik hosil bo'ladi)
+    var bot = cand.map(function (p) { return { x: p.x, y: 200 - p.y } })
+    bot.sort(function (p, q) { return ((182 - p.y) + 0.6 * Math.abs(p.x - 60)) - ((182 - q.y) + 0.6 * Math.abs(q.x - 60)) })
+    HG = { top: top, bot: bot.slice(0, 100), r: Math.max(1.6, s * 0.4) }
+    return HG
+  }
+  function hgFallen(ds) {
+    if (ds.todayDone) return 100
+    return Math.max(0, Math.min(100, Math.floor((ds.draft || 0) * 100 / ds.target)))
+  }
+  function hgSvg(fallen) {
+    var g = hgBuild(), i
+    var h = '<svg id="hgsvg" class="hg" viewBox="0 0 120 200" aria-hidden="true">' +
+      '<path class="glass" d="M16 12 L104 12 L64 100 L104 188 L16 188 L56 100 Z"/>'
+    for (i = 0; i < 100; i++) h += '<circle class="sand st" data-i="' + i + '" cx="' + g.top[i].x.toFixed(1) + '" cy="' + g.top[i].y.toFixed(1) + '" r="' + g.r.toFixed(2) + '" style="opacity:' + (i >= fallen ? 1 : 0) + '"/>'
+    for (i = 0; i < 100; i++) h += '<circle class="sand sb" data-i="' + i + '" cx="' + g.bot[i].x.toFixed(1) + '" cy="' + g.bot[i].y.toFixed(1) + '" r="' + g.r.toFixed(2) + '" style="opacity:' + (i < fallen ? 1 : 0) + '"/>'
+    h += '<line id="hgStream" class="stream" x1="60" y1="98" x2="60" y2="176"/>' +
+      '<rect class="cap" x="8" y="3" width="104" height="9" rx="4.5"/><rect class="cap" x="8" y="188" width="104" height="9" rx="4.5"/></svg>'
+    return h
+  }
+  function hgDrop(from, to) {
+    var svg = document.getElementById("hgsvg")
+    if (!svg) return
+    var g = hgBuild(), cnt = to - from, gap = Math.min(80, 1100 / Math.max(1, cnt))
+    var stream = document.getElementById("hgStream")
+    if (stream) { stream.style.opacity = "1"; clearTimeout(hgDrop.t); hgDrop.t = setTimeout(function () { stream.style.opacity = "0" }, cnt * gap + 420) }
+    for (var i = from; i < to; i++) {
+      (function (i) {
+        setTimeout(function () {
+          var t = svg.querySelector('.st[data-i="' + i + '"]'), b = svg.querySelector('.sb[data-i="' + i + '"]')
+          if (!t || !b) return
+          t.style.opacity = "0"
+          if (!svg.animate) { b.style.opacity = "1"; return }
+          var c = document.createElementNS(NS, "circle")
+          c.setAttribute("class", "sand"); c.setAttribute("cx", "60"); c.setAttribute("cy", "100"); c.setAttribute("r", g.r.toFixed(2))
+          svg.appendChild(c)
+          var an = c.animate([{ transform: "translate(0px,0px)" }, { transform: "translate(" + (g.bot[i].x - 60) + "px," + (g.bot[i].y - 100) + "px)" }], { duration: 420, easing: "cubic-bezier(.45,0,.9,.55)", fill: "forwards" })
+          an.onfinish = function () { b.style.opacity = "1"; if (c.parentNode) c.parentNode.removeChild(c) }
+        }, (i - from) * gap)
+      })(i)
+    }
+  }
+  function hgStats() {
+    var ds = S.daily
+    var d = document.getElementById("dDone"), l = document.getElementById("dLeft")
+    if (d) d.textContent = ds.draft || 0
+    if (l) l.textContent = Math.max(0, ds.target - (ds.draft || 0))
+  }
+
   function viewDaily() {
     var ds = S.daily
-    if (!ds || !ds.target || U.dailyEdit) {
-      return '<h1>📿 ' + esc(tr("daily")) + '</h1><p class="sub">' + esc(tr("daily_ask")) + "</p>" +
-        '<div class="card stack"><label>' + esc(tr("target_lbl")) + '<input id="dTarget" class="field" type="number" inputmode="numeric" min="1" max="1000000" value="' + (ds && ds.target ? ds.target : "") + '"></label>' +
+    var formHtml = function () {
+      return '<div class="card stack"><label>' + esc(tr("target_lbl")) + '<input id="dTarget" class="field" type="number" inputmode="numeric" min="1" max="1000000" value="' + (ds && ds.target ? ds.target : "") + '"></label>' +
         '<div class="chips">' + [33, 100, 300, 1000].map(function (x) { return '<button class="chip" data-act="preset" data-v="' + x + '">' + x + "</button>" }).join("") + "</div>" +
         '<label>' + esc(tr("step_lbl")) + '<input id="dStep" class="field" type="number" inputmode="numeric" min="1" max="100000" value="' + ((ds && ds.step) || 1) + '"></label>' +
         '<button class="btn success block" data-act="saveDaily">' + esc(tr("save")) + "</button></div>"
     }
+    if (!ds || !ds.target) {
+      return '<h1>📿 ' + esc(tr("daily")) + '</h1><p class="sub">' + esc(tr("daily_ask")) + "</p>" + formHtml()
+    }
     dailyTick()
     var target = ds.target, step = ds.step || 1, draft = ds.draft || 0, owed = ds.owedDays || 0
-    var p = ds.todayDone ? 100 : Math.min(100, Math.floor(draft * 100 / target))
-    var h = '<h1>📿 ' + esc(tr("daily")) + "</h1>"
-    h += owed > 0 ? '<p class="owed">⊘ ' + esc(tr("owed").replace("{n}", owed)) + "</p>" : '<p class="sub">&nbsp;</p>'
-    h += '<div class="card stack"><div class="bar"><i style="width:' + p + '%"></i></div>'
-    if (ds.todayDone) h += '<div class="done">✦ ' + esc(tr("cong")) + "</div>"
-    else h += '<div class="stats"><div><b>' + target + "</b><span>" + esc(tr("needed")) + "</span></div><div><b>" + draft + "</b><span>" + esc(tr("done_n")) + "</span></div><div><b>" + Math.max(0, target - draft) + "</b><span>" + esc(tr("left_n")) + "</span></div></div>"
-    h += "</div>"
-    if (!ds.todayDone) h += '<button class="btn success tap" style="margin-top:14px" data-act="tap">＋' + (step > 1 ? step : "") + "</button>"
-    h += '<button class="btn block" style="margin-top:12px" data-act="dailyEdit">🔢 ' + esc(tr("target_lbl")) + " / " + esc(tr("step_lbl")) + "</button>"
-    return h
+    hgShown = hgFallen(ds)
+    var h = '<div class="daily"><div class="dhead"><h1>📿 ' + esc(tr("daily")) + '</h1><button class="gear' + (U.dailyMenu ? " on" : "") + '" data-act="dailyMenu" aria-label="Settings">⚙️</button></div>'
+    if (U.dailyMenu) h += '<div style="margin-bottom:10px">' + formHtml() + "</div>"
+    if (owed > 0) h += '<p class="owed center">⊘ ' + esc(tr("owed").replace("{n}", owed)) + "</p>"
+    h += '<div id="hgwrap" class="hgwrap">' + hgSvg(hgShown) + "</div>"
+    if (ds.todayDone) h += '<div class="done center">✦ ' + esc(tr("cong")) + "</div>"
+    else h += '<div class="stats mini"><div><b>' + target + "</b><span>" + esc(tr("needed")) + '</span></div><div><b id="dDone">' + draft + "</b><span>" + esc(tr("done_n")) + '</span></div><div><b id="dLeft">' + Math.max(0, target - draft) + "</b><span>" + esc(tr("left_n")) + "</span></div></div>"
+    h += ds.todayDone ? '<button class="tap-round off" disabled>✓</button>' : '<button class="tap-round" data-act="tap" aria-label="+">' + (step > 1 ? "＋" + step : "＋") + "</button>"
+    return h + "</div>"
   }
 
   // ====================
@@ -396,6 +474,7 @@
     else h = viewMore()
     app.innerHTML = h
     renderNav()
+    if (wheels.theme) updateThemeLabels()
     if (tg && tg.BackButton) {
       if (U.detail || (U.tab === "more" && U.more !== "menu") || (U.tab === "mood" && U.moodPick)) tg.BackButton.show()
       else tg.BackButton.hide()
@@ -459,7 +538,7 @@
         var ad = Math.min(Math.abs(d), 2)
         var ang = Math.max(-2, Math.min(2, d)) * -34
         items[i].style.transform = "rotateY(" + ang + "deg) scale(" + (1 - 0.1 * ad) + ")"
-        items[i].style.opacity = String(Math.max(0.12, 1 - 0.5 * ad))
+        items[i].style.opacity = String(Math.max(0.25, 1 - 0.42 * ad))
         items[i].setAttribute("aria-selected", ad < 0.5 ? "true" : "false")
       }
       var cc = absPos()
@@ -534,6 +613,14 @@
     return { set: set }
   }
 
+  function updateThemeLabels() {
+    var els = document.querySelectorAll("#wTheme .w-item")
+    for (var i = 0; i < els.length; i++) {
+      var lb = els[i].querySelector(".lb")
+      if (lb) lb.textContent = tr("th_" + THEMES[parseInt(els[i].getAttribute("data-i"), 10)])
+    }
+  }
+
   function initHeader() {
     var langLabels = []
     var SHORT = { uz: "O'zbek", uz_kr: "Ўзбек", ru: "Русский", en: "English", ar: "العربية", tr: "Türkçe", id: "Indonesia", zh: "中文", hi: "हिन्दी", es: "Español" }
@@ -542,7 +629,7 @@
       S.lang = LANGS[i]; TCACHE = {}; save(); render()
     })
     var themeLabels = []
-    for (var j = 0; j < THEMES.length; j++) themeLabels[j] = THEME_ICONS[THEMES[j]]
+    for (var j = 0; j < THEMES.length; j++) themeLabels[j] = '<span class="ic">' + THEME_ICONS[THEMES[j]] + '</span><span class="lb">' + esc(tr("th_" + THEMES[j])) + "</span>"
     wheels.theme = makeWheel("wTheme", themeLabels, Math.max(0, THEMES.indexOf(S.theme)), function (i) {
       S.theme = THEMES[i]; save(); applyTheme()
     })
@@ -589,20 +676,34 @@
       if (!st || st < 1) st = 1
       var old = S.daily || {}
       S.daily = { target: Math.min(t, 1000000), step: Math.min(st, 100000), owedDays: old.owedDays || 0, draft: old.draft || 0, lastCheckedDate: old.lastCheckedDate || todayStr(), todayDone: !!old.todayDone }
-      U.dailyEdit = false; save(); render()
+      U.dailyMenu = false; save(); render()
     }
-    else if (act === "dailyEdit") { U.dailyEdit = true; render() }
+    else if (act === "dailyMenu") { U.dailyMenu = !U.dailyMenu; render() }
     else if (act === "tap") {
       dailyTick()
       var ds = S.daily
       if (ds.todayDone) return
+      var cycles = 0
       ds.draft = (ds.draft || 0) + (ds.step || 1)
       while (ds.draft >= ds.target) {
         ds.draft -= ds.target
+        cycles++
         if (ds.owedDays > 0) ds.owedDays--; else ds.todayDone = true
       }
-      save(); render()
-      if (ds.todayDone) { try { tg && tg.HapticFeedback && tg.HapticFeedback.notificationOccurred("success") } catch (e) {} }
+      save()
+      var to = cycles > 0 ? 100 : Math.min(100, Math.floor(ds.draft * 100 / ds.target))
+      var from = hgShown
+      if (to > from) { hgDrop(from, to); hgShown = to }
+      hgStats()
+      if (cycles > 0) {
+        var wait = Math.min(1100, Math.max(0, to - from) * 80) + 560
+        setTimeout(function () {
+          try { tg && tg.HapticFeedback && tg.HapticFeedback.notificationOccurred("success") } catch (e) {}
+          var w = document.getElementById("hgwrap")
+          if (ds.todayDone || !w) render()
+          else { w.classList.add("flip"); setTimeout(render, 700) }
+        }, wait)
+      }
     }
     else if (act === "more") { U.more = v; if (v === "quote") U.quoteIdx = -1; render() }
     else if (act === "quoteNext") {
@@ -629,7 +730,7 @@
     homeLink.addEventListener("click", function (ev) {
       ev.preventDefault()
       haptic("light")
-      U.tab = "names"; U.detail = 0; U.q = ""; U.more = "menu"; U.moodPick = ""; U.dailyEdit = false
+      U.tab = "names"; U.detail = 0; U.q = ""; U.more = "menu"; U.moodPick = ""; U.dailyMenu = false
       render()
     })
   }
