@@ -63,5 +63,143 @@ window.MEANINGS = [{
     "सब कुछ का स्वामी। मलिक सच्चा स्वामी है। उसके अलावा कोई स्वामी नहीं है। इसलिए बंदे केवल उसी के बंदे हो सकते हैं। एक बंदे के कभी दो स्वामी नहीं हो सकते। इसलिए लोगों को अपने जैसे इंसानों का नहीं, बल्कि एकमात्र स्रष्टा, सच्चे मलिक का बंदा होना चाहिए।",
   es:
     "El Propietario de todas las cosas. Al-Malik es el verdadero Soberano. No hay soberano aparte de Él. Por eso los siervos solo pueden ser siervos de Él. Un siervo nunca puede tener dos amos. Por eso las personas deben ser siervas no de otros como ellos, sino del único Creador, el verdadero Soberano."
-                  }
+                  } ,
+                   {
+  uz:
+    "Barcha ayblardan xoli, noloyiq sifatlardan munazzah, mutlaq muqaddaslik va mutlaq poklik Allohning o'zigagina xosdir.",
+  uz_kr:
+    "Барча айблардан холи, нолойиқ сифатлардан муназзаҳ, мутлақ муқаддаслик ва мутлақ поклик Аллоҳнинг ўзигагина хосдир.",
+  ru:
+    "Свободный от всех недостатков, далекий от любых несовершенных качеств. Абсолютная святость и абсолютная чистота присущи только Аллаху.",
+  en:
+    "Free from all flaws, far above any imperfect attributes. Absolute holiness and absolute purity belong only to Allah.",
+  ar:
+    "المنزّه عن كل عيب، البعيد عن كل صفة نقص. القداسة المطلقة والطهارة المطلقة لله وحده.",
+  tr:
+    "Tüm kusurlardan arınmış, her türlü eksik sıfattan münezzeh. Mutlak kutsallık ve mutlak temizlik sadece Allah'a mahsustur.",
+  id:
+    "Bersih dari segala cela, jauh dari segala sifat kekurangan. Kesucian mutlak dan kebersihan mutlak hanya milik Allah.",
+  zh:
+    "免于一切缺陷，远离一切不完美的属性。绝对的神圣与绝对的纯洁唯独属于真主。",
+  hi:
+    "सभी दोषों से मुक्त, हर अपूर्ण विशेषता से परे। पूर्ण पवित्रता और पूर्ण शुद्धता केवल अल्लाह के लिए विशिष्ट है।",
+  es:
+    "Libre de todo defecto, lejos de cualquier atributo imperfecto. La santidad absoluta y la pureza absoluta pertenecen únicamente a Alá."
+                   },
+
+                   {
+  uz:
+    "Barcha nuqsonlardan salomat. Shuningdek, tinchlik, xotirjamlik va rohat beruvchi degani. Alloh «Salom» sifati ila bandalarga tinchlik, omonlik, xotirjamlik ato qiladi.",
+  uz_kr:
+    "Барча нуқсонлардан саломат. Шунингдек, тинчлик, хотиржамлик ва роҳат берувчи дегани. Аллоҳ «Салом» сифати ила бандаларга тинчлик, омонлик, хотиржамлик ато қилади.",
+  ru:
+    "Свободный от всех недостатков. А также означает дарующий мир, покой и умиротворение. Аллах посредством атрибута «Салям» дарует Своим рабам мир, безопасность и спокойствие.",
+  en:
+    "Free from all defects. It also means the One who grants peace, tranquility, and comfort. Through the attribute As-Salam, Allah grants His servants peace, safety, and tranquility.",
+  ar:
+    "السالم من جميع العيوب. ويعني أيضاً مانح السلام والسكينة والراحة. ويُنعم الله بصفة «السلام» على عباده بالأمان والسكينة والطمأنينة.",
+  tr:
+    "Tüm kusurlardan salim. Aynı zamanda barış, sükûnet ve rahatlık veren anlamına gelir. Allah, Selam sıfatıyla kullarına barış, güvenlik ve sükûnet bahşeder.",
+  id:
+    "Bebas dari segala kekurangan. Juga berarti Pemberi kedamaian, ketenangan, dan kenyamanan. Melalui sifat As-Salam, Allah memberikan kedamaian, keamanan, dan ketenangan kepada hamba-Nya.",
+  zh:
+    '免于一切缺陷。同时也意味着赐予平安、安宁与舒适者。通过"赛俩目"这一属性，真主赐予仆人平安、安全与安宁。',
+  hi:
+    "सभी दोषों से मुक्त। इसका अर्थ शांति, सुकून और आराम देने वाला भी है। 'सलाम' विशेषता के माध्यम से अल्लाह अपने बंदों को शांति, सुरक्षा और सुकून प्रदान करता है।",
+  es:
+    "Libre de todos los defectos. También significa el Otorgador de paz, tranquilidad y comodidad. A través del atributo As-Salam, Alá concede a Sus siervos paz, seguridad y tranquilidad."
+                   },
+
+{
+  uz: "Mu'min - iymon va omonlikni beruvchi.",
+  uz_kr: "Мумин - иймон ва омонликни берувчи.",
+  ru: "Аль-Мумин — дарующий веру и безопасность.",
+  en: "Al-Mu'min — the Giver of faith and security.",
+  ar: "المؤمن — مانح الإيمان والأمان.",
+  tr: "El-Mü'min — iman ve güven veren.",
+  id: "Al-Mu'min — Pemberi keimanan dan keamanan.",
+  zh: "穆米努——赐予信仰与安全者。",
+  hi: "अल-मुमिन — विश्वास और सुरक्षा देने वाला।",
+  es: "Al-Mu'min — el Otorgador de fe y seguridad."
+},
+
+                   {
+  uz: "Hamma narsani qamrab oluvchi. Alloh bandalarning barcha holatlariga guvoh bo'lib turadi. Undan hech narsa maxfiy qolmaydi.",
+  uz_kr: "Ҳамма нарсани қамраб олувчи. Аллоҳ бандаларнинг барча ҳолатларига гувоҳ бўлиб туради. Ундан ҳеч нарса махфий қолмайди.",
+  ru: "Объемлющий всё. Аллах является свидетелем всех состояний Своих рабов. От Него ничто не остаётся скрытым.",
+  en: "The All-Encompassing. Allah witnesses all states of His servants. Nothing remains hidden from Him.",
+  ar: "المحيط بكل شيء. الله شاهد على جميع أحوال عباده، ولا يخفى عليه شيء.",
+  tr: "Her şeyi kuşatan. Allah, kullarının tüm hallerine şahittir. Ondan hiçbir şey gizli kalmaz.",
+  id: "Yang Maha Meliputi segala sesuatu. Allah menyaksikan seluruh keadaan hamba-Nya. Tidak ada sesuatu pun yang tersembunyi dari-Nya.",
+  zh: "包容万物者。真主见证仆人的一切状态，没有任何事能瞒过祂。",
+  hi: "सब कुछ को समाहित करने वाला। अल्लाह अपने बंदों की सभी अवस्थाओं का गवाह है। उससे कुछ भी छिपा नहीं रहता।",
+  es: "El que todo lo abarca. Alá es testigo de todos los estados de Sus siervos. Nada permanece oculto para Él."
+                   },
+                   {
+  uz:
+    "Barchaning ustidan g'olib. Undan biror narsa g'olib kelolmaydi. Jamiki azizlik ma'nosi Uning uchundir. Kuch-quvvat azizligi ham Uning uchundir. Unga g'olib kelib bo'lmaydi. Man qilish azizligi ham Uning uchundir, U bunda biror kishiga muhtoj emas. Qahr va g'oliblik azizligi ham Uning uchundir, biror narsa Uning iznisiz harakat qila olmaydi.",
+  uz_kr:
+    "Барчанинг устидан ғолиб. Ундан бирор нарса ғолиб келолмайди. Жамики азизлик маъноси Унинг учундир. Куч-қувват азизлиги ҳам Унинг учундир. Унга ғолиб келиб бўлмайди. Ман қилиш азизлиги ҳам Унинг учундир, У бунда бирор кишига муҳтож эмас. Қаҳр ва ғолиблик азизлиги ҳам Унинг учундир, бирор нарса Унинг изнисиз ҳаракат қила олмайди.",
+  ru:
+    "Превосходящий всех. Ничто не может одержать над Ним победу. Всё величие принадлежит только Ему. Величие силы и могущества также принадлежит только Ему — Его невозможно превзойти. Величие воздержания тоже принадлежит Ему — Он ни в ком не нуждается. Величие гнева и победы также Его — ничто не движется без Его воли.",
+  en:
+    "The Prevailer over all. Nothing can overcome Him. All might belongs to Him alone. The might of strength and power also belongs to Him alone — He cannot be overcome. The might of withholding also belongs to Him — He is in need of no one. The might of wrath and victory also belongs to Him — nothing moves without His permission.",
+  ar:
+    "الغالب على كل شيء، فلا يغلبه شيء. وكل عزة فهي له وحده. عزة القوة والقدرة له، فلا يُغلب. وعزة المنع له، فهو غير محتاج إلى أحد. وعزة القهر والغلبة له، فلا يتحرك شيء بغير إذنه.",
+  tr:
+    "Her şeye galip olan. Hiçbir şey O'na galip gelemez. Bütün izzet sadece O'na aittir. Kuvvet ve kudret izzeti de O'na aittir — O'na galip gelinemez. Men etme izzeti de O'na aittir, hiç kimseye muhtaç değildir. Kahır ve galibiyet izzeti de O'na aittir, hiçbir şey O'nun izni olmadan hareket edemez.",
+  id:
+    "Yang Mengungguli segalanya. Tidak ada yang dapat mengalahkan-Nya. Segala keagungan hanya milik-Nya. Keagungan kekuatan dan kekuasaan juga milik-Nya — Dia tidak dapat dikalahkan. Keagungan menahan juga milik-Nya, Dia tidak membutuhkan siapa pun. Keagungan kemurkaan dan kemenangan juga milik-Nya, tidak ada yang bergerak tanpa izin-Nya.",
+  zh:
+    "胜过万物者。任何事物都无法战胜祂。一切尊荣唯独属于祂。力量与权能的尊荣也唯独属于祂——祂不可被战胜。禁止之尊荣也属于祂，祂不需要任何人。震怒与胜利的尊荣也属于祂，没有任何事物能在没有祂许可的情况下行动。",
+  hi:
+    "सबसे विजयी। कोई भी चीज़ उस पर विजय नहीं पा सकती। समस्त प्रतिष्ठा केवल उसी की है। शक्ति और सामर्थ्य की प्रतिष्ठा भी उसी की है — उस पर विजय नहीं पाई जा सकती। रोकने की प्रतिष्ठा भी उसी की है, वह किसी का मुहताज नहीं। क्रोध और विजय की प्रतिष्ठा भी उसी की है, उसकी अनुमति के बिना कुछ भी नहीं चलता।",
+  es:
+    "El Vencedor sobre todo. Nada puede vencerlo. Toda gloria le pertenece únicamente a Él. La gloria de la fuerza y el poder también le pertenece únicamente — no puede ser vencido. La gloria de retener también le pertenece, Él no necesita a nadie. La gloria de la ira y la victoria también le pertenece, nada se mueve sin Su permiso."
+                   },
+                   {
+  uz:
+    "«Al-Jabbar» sifatining ma'nosi oliy qadar ulug' Zot, huzurida hamma o'zini xor tutadigan Zot demakdir. U zot kambag'allarni behojat qiladi, har bir qiynalganni yengillikka chiqaradi, musibatga uchraganlarni sabot va sabrga muvaffaq qiladi, agar majburiyatlarini ado qilishsa, musibat evaziga ulkan ajrga musharraf qiladi. Siniq qalblar u Zot sababli tuzalur. Duodagi «Allohumma ujburniy» so'zi bandaning islohi va unga zarar beruvchi barcha narsani daf qilish haqiqatidir.",
+  uz_kr:
+    "«Ал-Жаббор» сифатининг маъноси олий қадар улуғ Зот, ҳузурида ҳамма ўзини хор тутадиган Зот демакдир. У зот камбағалларни беҳожат қилади, ҳар бир қийналганни енгилликка чиқаради, мусибатга учраганларни сабот ва сабрга муваффақ қилади, агар мажбуриятларини адо қилишса, мусибат эвазига улкан ажрга мушарраф қилади. Синиқ қалблар у Зот сабабли тузалур. Дуодаги «Аллоҳумма ужбурний» сўзи бандани ислоҳ ва унга зарар берувчи барча нарсани даф қилиш ҳақиқатидир.",
+  ru:
+    "Значение атрибута «Аль-Джаббар» — Возвышенный Сущий, перед Которым все смиряются. Он избавляет от нужды бедных, облегчает положение каждого страждущего, помогает терпеть тем, кто постигнут бедой, и если они выполняют свои обязанности, удостаивает их великой награды взамен испытания. Разбитые сердца исцеляются благодаря Ему. Слова в мольбе «Аллахумма джбурни» означают исправление раба и устранение всего, что причиняет ему вред.",
+  en:
+    "The meaning of the attribute Al-Jabbar is the Exalted Being, before Whom everyone humbles themselves. He relieves the poor of need, eases every afflicted person's burden, grants steadfastness and patience to those struck by calamity, and if they fulfill their duties, grants them immense reward in exchange for the trial. Broken hearts are healed through Him. The words in supplication 'Allahumma ujburni' express the mending of the servant and the removal of all that harms him.",
+  ar:
+    "معنى صفة «الجبار» هو الذات العلية التي يخضع لها كل شيء. فهو يُغني الفقراء، ويُيسر أمر كل مكروب، ويوفق المصابين للصبر والثبات، وإن أدوا واجباتهم أعطاهم أجراً عظيماً مقابل المحنة. والقلوب المنكسرة تُجبر به. وقول الداعي «اللهم اجبرني» هو حقيقة إصلاح العبد ودفع كل ما يضره عنه.",
+  tr:
+    "El-Cebbar sıfatının manası, herkesin huzurunda kendini hor gördüğü Yüce Zat demektir. O, fakirleri ihtiyaçtan kurtarır, her sıkıntıya düşeni rahatlatır, musibete uğrayanlara sabır ve metanet bahşeder; eğer görevlerini yerine getirirlerse, musibet karşılığında büyük bir mükâfata nail eder. Kırık kalpler O'nun sayesinde iyileşir. Duada geçen 'Allahümme ucburnî' sözü, kulun ıslahı ve ona zarar veren her şeyin defedilmesi gerçeğidir.",
+  id:
+    "Makna sifat Al-Jabbar adalah Zat Yang Maha Tinggi, di hadapan-Nya semua merendahkan diri. Dia membebaskan orang miskin dari kebutuhan, meringankan setiap orang yang tertimpa kesulitan, memberikan kesabaran dan ketabahan kepada mereka yang tertimpa musibah, dan jika mereka memenuhi kewajiban mereka, Dia memberikan pahala besar sebagai ganti dari musibah tersebut. Hati yang hancur disembuhkan melalui-Nya. Kata-kata dalam doa 'Allahumma ujburni' adalah hakikat perbaikan seorang hamba dan penghilangan segala yang merugikannya.",
+  zh:
+    '"贾巴尔"这一属性的含义是至高无上的主，万物都在祂面前谦卑。祂使贫穷者免于困苦，减轻每一位受苦者的负担，赐予遭遇灾难者坚韧与忍耐，若他们履行义务，便以巨大的回报来补偿其考验。破碎的心灵借由祂而得以治愈。祈祷中"主啊，请修补我"这句话，正是仆人得到修复、一切伤害被消除的真实写照。',
+  hi:
+    "'अल-जब्बार' विशेषता का अर्थ है वह उच्चतम सत्ता, जिसके सामने सब विनम्र हो जाते हैं। वह गरीबों को आवश्यकता से मुक्त करता है, हर पीड़ित व्यक्ति का बोझ हल्का करता है, संकट में पड़े लोगों को धैर्य और दृढ़ता प्रदान करता है, और यदि वे अपने कर्तव्यों को पूरा करें, तो संकट के बदले उन्हें विशाल प्रतिफल देता है। टूटे हुए हृदय उसी के कारण ठीक होते हैं। दुआ में 'अल्लाहुम्मा उज्बुर्नी' शब्द बंदे के सुधार और उसे हानि पहुँचाने वाली हर चीज़ को दूर करने की सच्चाई है।",
+  es:
+    "El significado del atributo Al-Jabbar es el Ser Exaltado, ante quien todos se humillan. Él libera a los pobres de la necesidad, alivia la carga de todo afligido, concede firmeza y paciencia a quienes son golpeados por la calamidad, y si cumplen sus deberes, les otorga una recompensa inmensa a cambio de la prueba. Los corazones rotos se sanan a través de Él. Las palabras en la súplica 'Allahumma ujburni' expresan la reparación del siervo y la eliminación de todo lo que le perjudica."
+                   },
+                   {
+  uz:
+    "«Mutakabbir» - kibriyosi va ulug'ligi behad. Uning oldida boshqalar qul bo'lib turadi. U har bir yomonlik va nuqsondan hamda bandalariga zulm qilishdan yuqoridir. Kim U bilan kibriyolikda tortishsa, qaqshatqich zarba beradi va azoblaydi.",
+  uz_kr:
+    "«Мутакаббир» - кибриёси ва улуғлиги беҳад. Унинг олдида бошқалар қул бўлиб туради. У ҳар бир ёмонлик ва нуқсондан ҳамда бандаларига зулм қилишдан юқоридир. Ким У билан кибриёликда тортишса, қақшатқич зарба беради ва азоблайди.",
+  ru:
+    "«Аль-Мутакаббир» — Тот, чьё величие и возвышенность безграничны. Перед Ним все остальные являются рабами. Он выше всякого зла и недостатка, а также выше того, чтобы притеснять Своих рабов. Кто соперничает с Ним в величии, того Он сокрушает и подвергает наказанию.",
+  en:
+    "Al-Mutakabbir — the One whose greatness and majesty are limitless. Before Him, all others are servants. He is above every evil and flaw, and above oppressing His servants. Whoever competes with Him in greatness, He crushes and punishes.",
+  ar:
+    "«المتكبر» - الذي عظمته وجلاله لا حدّ لهما. أمامه يكون الجميع عبيداً. وهو فوق كل شر ونقص، وفوق ظلم عباده. ومن نازعه في الكبرياء قصمه وعذّبه.",
+  tr:
+    "El-Mütekebbir - büyüklüğü ve yüceliği sonsuz olandır. O'nun önünde herkes kuldur. O, her türlü kötülük ve kusurdan ve kullarına zulmetmekten münezzehtir. Kim O'nunla büyüklükte mücadele ederse, onu ezer ve azaplandırır.",
+  id:
+    "Al-Mutakabbir - Yang keagungan dan kebesaran-Nya tak terbatas. Di hadapan-Nya, semua makhluk adalah hamba. Dia di atas segala kejahatan dan kekurangan, serta di atas penindasan terhadap hamba-Nya. Siapa pun yang menyaingi-Nya dalam keagungan, Dia akan menghancurkan dan menghukumnya.",
+  zh:
+    "穆塔卡比尔——其伟大与崇高无边无际者。在祂面前，所有人皆是仆人。祂超越一切邪恶与缺陷，也超越对仆人的压迫。谁与祂争夺尊大，祂便严厉打击并惩罚之。",
+  hi:
+    "अल-मुतकब्बिर — जिसकी महानता और भव्यता असीम है। उसके सामने सभी सेवक हैं। वह हर बुराई और दोष से ऊपर है, और अपने बंदों पर अत्याचार करने से भी ऊपर है। जो उसके साथ महानता में प्रतिस्पर्धा करे, वह उसे कुचलता और दंडित करता है।",
+  es:
+    "Al-Mutakabbir — Aquel cuya grandeza y majestad son ilimitadas. Ante Él, todos los demás son siervos. Está por encima de todo mal y defecto, y por encima de oprimir a Sus siervos. A quien compita con Él en grandeza, lo aplasta y lo castiga."
+                   }
+                   
                   ];
