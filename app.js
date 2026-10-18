@@ -56,6 +56,7 @@
     th_light: "Kun|Кун|День|Day|نهار|Gün|Siang|日间|दिन|Día",
     th_dark: "Tun|Тун|Ночь|Night|ليل|Gece|Malam|夜间|रात|Noche",
     th_auto: "Avto|Авто|Авто|Auto|تلقائي|Oto|Oto|自动|ऑटो|Auto",
+    meaning: "Ma'nosi|Маъноси|Значение|Meaning|المعنى|Anlamı|Makna|含义|अर्थ|Significado",
     names_for: "Ismlar|Исмлар|Имена|Names|الأسماء|İsimler|Nama|名字|नाम|Nombres"
   }
   var TCACHE = {}
@@ -229,6 +230,23 @@
   function audioBlock(n) {
     return '<audio id="player" controls preload="none" src="' + esc(CFG.AUDIO_URL(n)) + '"></audio><p id="audioErr" class="notice" hidden>' + esc(tr("no_audio")) + "</p>"
   }
+  // Ism ma'nosi (meanings.js dan): tanlangan til -> en -> uz -> ru -> birinchi bo'sh bo'lmagani
+  function meaningOf(n) {
+    var m = window.MEANINGS && window.MEANINGS[n - 1]
+    if (!m) return ""
+    if (typeof m === "string") return m
+    var v = m[S.lang] || m.en || m.uz || m.ru || ""
+    if (!v) for (var k in m) if (m[k]) { v = m[k]; break }
+    return String(v).trim()
+  }
+  // Xavfsiz oddiy HTML: faqat ruxsat etilgan teglar, qolgani matn
+  function rich(s) {
+    var t = esc(s)
+    t = t.replace(/&lt;(\/?)(b|strong|i|em|u|s|code|blockquote)&gt;/gi, "<$1$2>")
+    t = t.replace(/&lt;tg-spoiler&gt;/gi, '<span class="sp" data-act="spoil">').replace(/&lt;\/tg-spoiler&gt;/gi, "</span>")
+    return t.replace(/\r?\n/g, "<br>")
+  }
+
   function viewDetail() {
     var n = U.detail, d = D.names[n - 1]
     var note = S.notes[n] || ""
@@ -238,6 +256,7 @@
       '<button class="btn grow ' + (S.favs[n] ? "success" : "") + '" data-act="fav" data-v="' + n + '">' + (S.favs[n] ? "❣️" : "♡") + "</button>" +
       '<button class="btn grow" data-act="open" data-v="' + (n === 99 ? 1 : n + 1) + '">⏭</button></div>' +
       '<button class="btn block" style="margin-bottom:12px" data-act="shareName" data-v="' + n + '">📲 ' + esc(tr("share")) + "</button>" +
+      (meaningOf(n) ? '<div class="card mean" style="margin-bottom:12px"><strong>📖 ' + esc(tr("meaning")) + '</strong><div class="mt">' + rich(meaningOf(n)) + "</div></div>" : "") +
       '<div class="card stack"><strong>📝 ' + esc(tr("note")) + '</strong><textarea id="noteText" placeholder="' + esc(tr("note_ph")) + '">' + esc(note) + "</textarea>" +
       '<button class="btn success block" data-act="saveNote" data-v="' + n + '">' + esc(tr("save")) + "</button></div>"
   }
@@ -823,6 +842,7 @@
         })
       }
     }
+    else if (act === "spoil") el.classList.toggle("show")
     else if (act === "more") { U.more = v; if (v === "quote") U.quoteIdx = -1; render() }
     else if (act === "quoteNext") {
       var i = Math.floor(Math.random() * D.quotes.length)
