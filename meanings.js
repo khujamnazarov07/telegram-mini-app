@@ -1,18 +1,3 @@
-// ================================================================
-//  ISMLAR MA'NOSI  (shu faylga qo'lda, ketma-ket qo'yib chiqing)
-// ================================================================
-//  Tartib: 1-qator = 1-ism, 2-qator = 2-ism ... 99-qator = 99-ism.
-//  Qatorlarni almashtirmang, faqat qo'shtirnoq ichiga matn yozing.
-//
-//  - Faqat kerakli tilni to'ldirsangiz ham bo'ladi. Til bo'sh bo'lsa,
-//    ko'rsatish tartibi: tanlangan til -> en -> uz -> ru.
-//  - Ko'p qatorli matn uchun oddiy "" o'rniga teskari tirnoq `...` ishlating.
-//  - Qo'shtirnoq ichida " belgisi kerak bo'lsa, \" deb yozing (yoki `...` ishlating).
-//  - Botdagi HTML belgilar ishlaydi: <b> <i> <u> <s> <code> <blockquote> <tg-spoiler>
-//    (spoyler bosilganda ochiladi). Boshqa teglar xavfsizlik uchun matn bo'lib qoladi.
-//  - Hamma tilga bir xil matn bo'lsa, butun obyekt o'rniga oddiy matn yozish mumkin:
-//      /* 001 */ "Matn...",
-// ================================================================
 window.MEANINGS = [{
   uz:
     "Ulug' ne'matlarni beruvchi. Bu sifat faqat Allohga xos bo'lib, barchaga — kofirga ham, mo'minga ham — mehribon va ne'mat beruvchi ma'nosini anglatadi. Rahmon sifatini Alloh taolodan boshqa hech kimga nisbatan ishlatib bo'lmaydi.",
