@@ -227,8 +227,16 @@
   // ====================
   // AUDIO / DETAIL
   // ====================
+  function audioUrl(n) {
+    try {
+      var u = CFG.AUDIO_URL
+      if (typeof u === "function") return String(u(n))
+      if (typeof u === "string") return u + n + ".mp3"
+    } catch (e) {}
+    return ""
+  }
   function audioBlock(n) {
-    return '<audio id="player" controls preload="none" src="' + esc(CFG.AUDIO_URL(n)) + '"></audio><p id="audioErr" class="notice" hidden>' + esc(tr("no_audio")) + "</p>"
+    return '<audio id="player" controls preload="none" src="' + esc(audioUrl(n)) + '"></audio><p id="audioErr" class="notice" hidden>' + esc(tr("no_audio")) + "</p>"
   }
   // Ism ma'nosi (meanings.js dan): tanlangan til -> en -> uz -> ru -> birinchi bo'sh bo'lmagani
   function meaningOf(n) {
@@ -746,12 +754,16 @@
     document.documentElement.lang = S.lang.slice(0, 2)
     document.documentElement.dir = S.lang === "ar" ? "rtl" : "ltr"
     var h
-    if (U.detail) h = viewDetail()
-    else if (U.tab === "names") h = viewNames()
-    else if (U.tab === "media") h = viewMedia()
-    else if (U.tab === "mood") h = viewMood()
-    else if (U.tab === "daily") h = viewDaily()
-    else h = viewMore()
+    try {
+      if (U.detail) h = viewDetail()
+      else if (U.tab === "names") h = viewNames()
+      else if (U.tab === "media") h = viewMedia()
+      else if (U.tab === "mood") h = viewMood()
+      else if (U.tab === "daily") h = viewDaily()
+      else h = viewMore()
+    } catch (err) {
+      h = '<div class="card"><strong>⚠️ Error</strong><p>' + esc(String(err && err.message || err)) + "</p></div>"
+    }
     app.innerHTML = h
     hgAttach()
     renderNav()
