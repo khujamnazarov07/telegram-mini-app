@@ -106,10 +106,17 @@ textarea { width: 100%; min-height: 96px; padding: 12px; border-radius: 12px; bo
 .hdr { position: sticky; top: 0; z-index: 6; display: flex; align-items: center; justify-content: space-between; gap: 8px; height: 60px; padding: 8px 14px; background: var(--bg); border-bottom: 1px solid var(--line); }
 .brand { display: flex; align-items: center; gap: 9px; min-width: 0; text-decoration: none; color: var(--text); transition: transform .15s; }
 .brand:active { transform: scale(.96); }
-.logo { width: 34px; height: 34px; flex-shrink: 0; filter: drop-shadow(0 3px 6px rgba(19, 107, 85, .35)); }
-.logo .star { transform-box: fill-box; transform-origin: center; animation: spin 48s linear infinite; }
 @keyframes spin { to { transform: rotate(360deg); } }
-@media (prefers-reduced-motion: reduce) { .logo .star { animation: none; } }
+.emb { position: relative; display: block; flex-shrink: 0; background: #fff; border-radius: 22%; overflow: hidden; box-shadow: 0 3px 8px rgba(0, 0, 0, .22); }
+.emb img { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.emb .tx { animation: spin 30s linear infinite; }
+.emb.sm { width: 34px; height: 34px; }
+.bt span { white-space: nowrap; }
+.emb.lg { width: 84px; height: 84px; border-radius: 20px; }
+.homehead { display: flex; align-items: center; gap: 14px; margin-bottom: 12px; }
+.homehead h1 { margin: 0; }
+.homehead .sub { margin: 2px 0 0; }
+@media (prefers-reduced-motion: reduce) { .emb .tx { animation: none; } }
 .bt { display: flex; flex-direction: column; line-height: 1.05; min-width: 0; }
 .b1 { font-weight: 800; font-size: 14.5px; letter-spacing: .1px; white-space: nowrap; }
 .b1 em { font-style: normal; background: linear-gradient(90deg, #2f9e77, #c9a227); -webkit-background-clip: text; background-clip: text; color: transparent; -webkit-text-fill-color: transparent; }
@@ -134,7 +141,7 @@ textarea { width: 100%; min-height: 96px; padding: 12px; border-radius: 12px; bo
   .wheel.w-lang { width: 104px; --iw: 56px; }
   .wheel.w-theme { width: 82px; --iw: 44px; }
   .b1 { font-size: 13px; }
-  .logo { width: 30px; height: 30px; }
+  .emb.sm { width: 30px; height: 30px; }
   .brand { gap: 7px; }
   .b2 { display: none; }
 }
