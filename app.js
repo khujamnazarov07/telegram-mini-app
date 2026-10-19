@@ -219,7 +219,7 @@
     return out
   }
   function viewNames() {
-    return '<div class="homehead"><span class="emb lg"><img class="fr" src="logo-frame.png" alt=""><img class="tx" src="logo-text.png" alt=""></span><div><h1>📖 ' + esc(tr("nav_names")) + '</h1><p class="sub">Asmo ul-Husna · 99</p></div></div>' +
+    return '<div class="homehead"><span class="emb lg"><i class="lgo"></i></span><div><h1>📖 ' + esc(tr("nav_names")) + '</h1><p class="sub">Asmo ul-Husna · 99</p></div></div>' +
       '<input id="q" class="search" type="search" autocomplete="off" placeholder="' + esc(tr("search")) + '" value="' + esc(U.q) + '">' +
       '<div id="grid">' + nameCards(filterNames()) + "</div>"
   }
