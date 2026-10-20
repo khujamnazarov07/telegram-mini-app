@@ -32,6 +32,8 @@
     pick_num: "Tinglash uchun raqamni tanlang|Тинглаш учун рақамни танланг|Выберите номер для прослушивания|Pick a number to listen|اختر رقماً للاستماع|Dinlemek için numara seçin|Pilih nomor untuk mendengarkan|选择编号收听|सुनने के लिए संख्या चुनें|Elige un número para escuchar",
     mood_title: "Hozir kayfiyatingiz qanday?|Ҳозир кайфиятингиз қандай?|Какое у вас сейчас настроение?|How do you feel now?|كيف حالك الآن؟|Şu an nasıl hissediyorsun?|Bagaimana perasaanmu sekarang?|你现在感觉如何？|अभी आप कैसा महसूस कर रहे हैं?|¿Cómo te sientes ahora?",
     mood_names: "Sizga mos ismlar|Сизга мос исмлар|Подходящие имена|Names for you|أسماء مناسبة لك|Sana uygun isimler|Nama untuk Anda|适合你的名字|आपके लिए नाम|Nombres para ti",
+    mood_all: "Hammasi|Ҳаммаси|Все|Show all|عرض الكل|Tümü|Semua|全部|सभी|Todos",
+    mood_less: "Yopish|Ёпиш|Свернуть|Collapse|إغلاق|Kapat|Tutup|收起|बंद करें|Cerrar",
     mood_again: "Qayta tanlash|Қайта танлаш|Выбрать заново|Choose again|اختر مرة أخرى|Yeniden seç|Pilih lagi|重新选择|फिर से चुनें|Elegir de nuevo",
     mood_times: "Tanlangan|Танланган|Выбрано|Chosen|تم اختياره|Seçildi|Dipilih|已选|चुना गया|Elegido",
     daily: "Kunlik salavot|Кунлик салавот|Ежедневный салават|Daily Salawat|الصلاة اليومية|Günlük Salavat|Salawat Harian|每日赞圣|दैनिक सलावात|Salawat diario",
@@ -175,7 +177,7 @@
   // ====================
   // UI STATE
   // ====================
-  var U = { tab: "names", detail: 0, q: "", mode: "video", audioN: 1, moodPage: 1, moodPick: "", more: "menu", quoteIdx: -1, dpanel: "", dir: "" }
+  var U = { tab: "names", detail: 0, q: "", mode: "video", audioN: 1, moodPage: 1, moodPick: "", more: "menu", quoteIdx: -1, dpanel: "", dir: "", moodOpen: false }
   var app = document.getElementById("app")
   var navEl = document.getElementById("nav")
   var NAVS = [
@@ -309,14 +311,28 @@
   var navBusy = false
   function navDetail(dir) {
     if (navBusy || !U.detail) return
-    var el = document.getElementById("slide")
-    var go = function () { navBusy = false; U.detail = nextN(U.detail, dir); U.dir = dir > 0 ? "next" : "prev"; U.dpanel = ""; render() }
+    var el = document.getElementById("slide"), ghost = null
+    if (el) {
+      ghost = el.cloneNode(true)
+      ghost.removeAttribute("id")
+      ghost.className = "slide ghost"
+      ghost.style.width = el.offsetWidth + "px"
+      ghost.style.transform = el.style.transform || "none"
+      ghost.style.opacity = el.style.opacity || "1"
+    }
     navBusy = true
-    if (!el) { go(); return }
-    el.style.transition = "transform .2s ease-in, opacity .2s"
-    el.style.transform = "translateX(" + (dir > 0 ? -115 : 115) + "%) rotate(" + (dir > 0 ? -8 : 8) + "deg)"
-    el.style.opacity = "0"
-    setTimeout(go, 190)
+    setTimeout(function () { navBusy = false }, 320)
+    U.detail = nextN(U.detail, dir); U.dir = dir > 0 ? "next" : "prev"; U.dpanel = ""
+    render()
+    var w = document.querySelector(".slidewrap")
+    if (ghost && w) {
+      w.appendChild(ghost)
+      void ghost.offsetWidth
+      ghost.style.transition = "transform .4s cubic-bezier(.45, 0, .85, .55), opacity .4s ease-in"
+      ghost.style.transform = "translateX(" + (dir > 0 ? -135 : 135) + "%) rotate(" + (dir > 0 ? -12 : 12) + "deg)"
+      ghost.style.opacity = "0"
+      setTimeout(function () { if (ghost.parentNode) ghost.parentNode.removeChild(ghost) }, 450)
+    }
   }
   var sw = null, swipedAt = 0, lastTap = 0
   document.addEventListener("pointerdown", function (e) {
@@ -395,27 +411,41 @@
   // ====================
   // MOOD
   // ====================
+  // kayfiyat -> [ikonka, rang guruhi]
+  var MOODIC = {
+    "001": ["sentiment_very_satisfied", "pos"], "002": ["mood", "pos"], "004": ["sentiment_satisfied", "pos"], "005": ["emoji_events", "pos"],
+    "010": ["spa", "calm"], "011": ["self_improvement", "calm"], "012": ["volunteer_activism", "pos"], "013": ["auto_awesome", "pos"],
+    "017": ["favorite", "love"], "019": ["thumb_up", "pos"], "021": ["wb_twilight", "calm"], "025": ["air", "calm"],
+    "026": ["sentiment_neutral", "neu"], "027": ["balance", "neu"], "030": ["bedtime", "neu"], "031": ["battery_alert", "neu"],
+    "033": ["hourglass_empty", "neu"], "034": ["help", "neu"], "035": ["psychology", "neu"], "038": ["trending_down", "sad"],
+    "039": ["sentiment_dissatisfied", "sad"], "041": ["warning", "fear"], "042": ["mood_bad", "fear"], "045": ["water_drop", "sad"],
+    "047": ["heart_broken", "love"], "050": ["sentiment_very_dissatisfied", "sad"], "056": ["radio_button_unchecked", "sad"], "058": ["compress", "fear"],
+    "061": ["local_fire_department", "ang"], "062": ["whatshot", "ang"], "075": ["block", "sad"], "076": ["visibility_off", "fear"],
+    "077": ["mail", "love"], "080": ["shield", "fear"], "082": ["pan_tool", "fear"], "086": ["undo", "rep"],
+    "087": ["cleaning_services", "rep"], "088": ["restart_alt", "rep"], "089": ["handshake", "rep"], "091": ["cloud", "sad"],
+    "092": ["group_off", "ang"], "093": ["voice_over_off", "sad"], "094": ["person", "sad"], "097": ["tornado", "fear"], "098": ["timer_off", "ang"]
+  }
+  function moodIc(id, big) {
+    var m = MOODIC[id] || ["mood", "pos"]
+    return '<span class="mi t-' + m[1] + (big ? " big" : "") + '">' + ic(m[0]) + "</span>"
+  }
   function viewMood() {
-    var MP = 9, pages = Math.ceil(D.moods.length / MP)
     if (U.moodPick) {
       var m = null
       for (var i = 0; i < D.moods.length; i++) if (D.moods[i].id === U.moodPick) m = D.moods[i]
-      var h = '<div class="card center stack"><div class="bigemoji">' + m.e + "</div><h1>" + esc(pick(m.l)) + "</h1>" +
+      var h = '<div class="card center stack">' + moodIc(m.id, true) + "<h1>" + esc(pick(m.l)) + "</h1>" +
         '<div class="sub">' + esc(tr("mood_times")) + ": " + ((S.moodHist[m.id] || {}).count || 1) + "×</div></div>" +
-        '<h1 style="margin-top:18px">✨ ' + esc(tr("mood_names")) + '</h1><div class="chips">'
+        '<h1 style="margin-top:18px">' + ic("auto_awesome", "hico") + " " + esc(tr("mood_names")) + '</h1><div class="chips">'
       for (var j = 0; j < m.n.length; j++) {
         h += '<button class="chip" data-act="open" data-v="' + m.n[j] + '">' + D.names[m.n[j] - 1].a + " · " + esc(D.names[m.n[j] - 1].t) + "</button>"
       }
-      return h + '</div><button class="btn block" style="margin-top:18px" data-act="moodAgain">🔄 ' + esc(tr("mood_again")) + "</button>"
+      return h + '</div><button class="btn block" style="margin-top:18px" data-act="moodAgain">' + ic("restart_alt") + " " + esc(tr("mood_again")) + "</button>"
     }
-    var page = Math.min(Math.max(U.moodPage, 1), pages)
-    var list = D.moods.slice((page - 1) * MP, page * MP)
-    var g = '<h1>🫶 ' + esc(tr("nav_mood")) + '</h1><p class="sub">' + esc(tr("mood_title")) + '</p><div class="grid3">'
-    for (var k = 0; k < list.length; k++) {
-      var h2 = S.moodHist[list[k].id]
-      g += '<button class="mood-card" data-act="mood" data-v="' + list[k].id + '"><span class="em">' + list[k].e + '</span><span class="lb">' + esc(pick(list[k].l)) + "</span></button>"
+    var g = '<h1>' + ic("mood", "hico") + " " + esc(tr("nav_mood")) + '</h1><p class="sub">' + esc(tr("mood_title")) + '</p><div class="moodgrid' + (U.moodOpen ? " open" : "") + '" id="moodgrid"><div class="grid3">'
+    for (var k = 0; k < D.moods.length; k++) {
+      g += '<button class="mood-card" data-act="mood" data-v="' + D.moods[k].id + '">' + moodIc(D.moods[k].id) + '<span class="lb">' + esc(pick(D.moods[k].l)) + "</span></button>"
     }
-    return g + "</div>" + pagerHtml(page, pages, "moodPage")
+    return g + '</div></div><button class="btn block moodtog" data-act="moodToggle">' + ic(U.moodOpen ? "expand_less" : "expand_more") + " <span>" + esc(tr(U.moodOpen ? "mood_less" : "mood_all")) + "</span></button>"
   }
 
   // ====================
@@ -874,7 +904,7 @@
   // HEADER: silindr (wheel) tanlagichlar
   // ====================
   var THEMES = ["light", "dark", "auto"]
-  var THEME_ICONS = { light: "☀️", dark: "🌙", auto: "🌓" }
+  var THEME_ICONS = { light: "light_mode", dark: "dark_mode", auto: "brightness_auto" }
   var wheels = {}
 
   function applyTheme() {
@@ -1011,7 +1041,7 @@
       S.lang = LANGS[i]; TCACHE = {}; save(); render()
     })
     var themeLabels = []
-    for (var j = 0; j < THEMES.length; j++) themeLabels[j] = '<span class="ic">' + THEME_ICONS[THEMES[j]] + '</span><span class="lb">' + esc(tr("th_" + THEMES[j])) + "</span>"
+    for (var j = 0; j < THEMES.length; j++) themeLabels[j] = ic(THEME_ICONS[THEMES[j]], "ic") + '<span class="lb">' + esc(tr("th_" + THEMES[j])) + "</span>"
     wheels.theme = makeWheel("wTheme", themeLabels, Math.max(0, THEMES.indexOf(S.theme)), function (i) {
       S.theme = THEMES[i]; save(); applyTheme()
     })
@@ -1058,6 +1088,12 @@
     }
     else if (act === "moodAgain") { U.moodPick = ""; render() }
     else if (act === "moodPage") { U.moodPage = parseInt(v, 10); render() }
+    else if (act === "moodToggle") {
+      U.moodOpen = !U.moodOpen
+      var mg = document.getElementById("moodgrid")
+      if (mg) mg.classList.toggle("open", U.moodOpen)
+      el.innerHTML = ic(U.moodOpen ? "expand_less" : "expand_more") + " <span>" + esc(tr(U.moodOpen ? "mood_less" : "mood_all")) + "</span>"
+    }
     else if (act === "preset") document.getElementById("dTarget").value = v
     else if (act === "saveDaily") {
       var t = parseInt(document.getElementById("dTarget").value, 10), st = parseInt(document.getElementById("dStep").value, 10)
