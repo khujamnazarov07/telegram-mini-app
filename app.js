@@ -175,21 +175,22 @@
   // ====================
   // UI STATE
   // ====================
-  var U = { tab: "names", detail: 0, q: "", mode: "video", audioN: 1, moodPage: 1, moodPick: "", more: "menu", quoteIdx: -1 }
+  var U = { tab: "names", detail: 0, q: "", mode: "video", audioN: 1, moodPage: 1, moodPick: "", more: "menu", quoteIdx: -1, dpanel: "", dir: "" }
   var app = document.getElementById("app")
   var navEl = document.getElementById("nav")
   var NAVS = [
-    ["names", "📖", "nav_names"],
-    ["media", "🎞", "nav_media"],
-    ["mood", "🫶", "nav_mood"],
-    ["daily", "📿", "nav_daily"],
-    ["more", "✨", "nav_more"]
+    ["names", "menu_book", "nav_names"],
+    ["media", "movie", "nav_media"],
+    ["mood", "mood", "nav_mood"],
+    ["daily", "hourglass_top", "nav_daily"],
+    ["more", "auto_awesome", "nav_more"]
   ]
 
+  function ic(name, cls) { return '<span class="msi' + (cls ? " " + cls : "") + '" aria-hidden="true">' + name + "</span>" }
   function renderNav() {
     var h = ""
     for (var i = 0; i < NAVS.length; i++) {
-      h += '<button data-act="tab" data-v="' + NAVS[i][0] + '" class="' + (U.tab === NAVS[i][0] && !U.detail ? "on" : "") + '"><span class="ic">' + NAVS[i][1] + '</span>' + esc(tr(NAVS[i][2])) + "</button>"
+      h += '<button data-act="tab" data-v="' + NAVS[i][0] + '" class="' + (U.tab === NAVS[i][0] && !U.detail ? "on" : "") + '">' + ic(NAVS[i][1], "ic") + '<span>' + esc(tr(NAVS[i][2])) + "</span></button>"
     }
     navEl.innerHTML = h
     navEl.className = "nav" + (U.detail ? " hidden" : "")
@@ -205,7 +206,7 @@
       var n = list[i]
       var d = D.names[n - 1]
       h += '<button class="name-card" data-act="open" data-v="' + n + '"><span class="num">' + n + "</span>" +
-        (S.favs[n] ? '<span class="fav">❣️</span>' : "") +
+        (S.favs[n] ? '<span class="fav">' + ic("favorite", "fill") + '</span>' : "") +
         '<div class="ar">' + d.a + '</div><div class="tr">' + esc(d.t) + "</div></button>"
     }
     return h + "</div>"
@@ -255,19 +256,107 @@
     return t.replace(/\r?\n/g, "<br>")
   }
 
+  function nextN(n, dir) { return dir > 0 ? (n === 99 ? 1 : n + 1) : (n === 1 ? 99 : n - 1) }
+  function panelHtml(n) {
+    if (U.dpanel === "audio") return '<div class="card panel">' + audioBlock(n) + "</div>"
+    if (U.dpanel === "note") return '<div class="card panel stack"><strong>' + ic("stylus_note") + " " + esc(tr("note")) + '</strong><textarea id="noteText" placeholder="' + esc(tr("note_ph")) + '">' + esc(S.notes[n] || "") + "</textarea>" +
+      '<button class="btn success block" data-act="saveNote" data-v="' + n + '">' + esc(tr("save")) + "</button></div>"
+    return ""
+  }
   function viewDetail() {
     var n = U.detail, d = D.names[n - 1]
-    var note = S.notes[n] || ""
-    return '<button class="btn small back" data-act="closeDetail">‹ ' + esc(tr("back")) + "</button>" +
-      '<div class="card hero"><div class="no">' + n + " / 99</div><div class=\"ar\">" + d.a + '</div><div class="tr">' + esc(d.t) + "</div>" + audioBlock(n) + "</div>" +
-      '<div class="row" style="margin:12px 0"><button class="btn grow" data-act="open" data-v="' + (n === 1 ? 99 : n - 1) + '">⏮</button>' +
-      '<button class="btn grow ' + (S.favs[n] ? "success" : "") + '" data-act="fav" data-v="' + n + '">' + (S.favs[n] ? "❣️" : "♡") + "</button>" +
-      '<button class="btn grow" data-act="open" data-v="' + (n === 99 ? 1 : n + 1) + '">⏭</button></div>' +
-      '<button class="btn block" style="margin-bottom:12px" data-act="shareName" data-v="' + n + '">📲 ' + esc(tr("share")) + "</button>" +
-      (meaningOf(n) ? '<div class="card mean" style="margin-bottom:12px"><strong>📖 ' + esc(tr("meaning")) + '</strong><div class="mt">' + rich(meaningOf(n)) + "</div></div>" : "") +
-      '<div class="card stack"><strong>📝 ' + esc(tr("note")) + '</strong><textarea id="noteText" placeholder="' + esc(tr("note_ph")) + '">' + esc(note) + "</textarea>" +
-      '<button class="btn success block" data-act="saveNote" data-v="' + n + '">' + esc(tr("save")) + "</button></div>"
+    var liked = !!S.favs[n], dirCls = U.dir ? " in-" + U.dir : ""
+    U.dir = ""
+    var mean = meaningOf(n)
+    return '<button class="btn small back" data-act="closeDetail">' + ic("chevron_left") + esc(tr("back")) + "</button>" +
+      '<div class="slidewrap"><div id="slide" class="slide' + dirCls + '" data-n="' + n + '">' +
+      '<div class="card hero"><div class="hnav" dir="ltr"><button class="rb" data-act="step" data-v="-1" aria-label="Previous">' + ic("chevron_left") + '</button><div class="no">' + n + ' / 99</div><button class="rb" data-act="step" data-v="1" aria-label="Next">' + ic("chevron_right") + "</button></div>" +
+      '<div class="ar">' + d.a + '</div><div class="tr">' + esc(d.t) + "</div></div>" +
+      (mean ? '<div class="card mean"><strong>' + ic("menu_book") + " " + esc(tr("meaning")) + '</strong><div class="mt">' + rich(mean) + "</div></div>" : "") +
+      '<div class="likepop" aria-hidden="true">' + ic("favorite", "fill") + "</div></div></div>" +
+      '<div class="acts" dir="ltr">' +
+      '<button class="act' + (U.dpanel === "audio" ? " on" : "") + '" data-act="dpanel" data-v="audio" aria-label="Audio">' + ic("music_note") + "</button>" +
+      '<button class="act' + (U.dpanel === "note" ? " on" : "") + (S.notes[n] ? " has" : "") + '" data-act="dpanel" data-v="note" aria-label="Note">' + ic("stylus_note") + "</button>" +
+      '<button class="act" data-act="shareName" data-v="' + n + '" aria-label="Share">' + ic("share") + "</button>" +
+      '<button id="actFav" class="act like' + (liked ? " liked" : "") + '" data-act="fav" data-v="' + n + '" aria-label="Like">' + ic("favorite", liked ? "fill" : "") + "</button></div>" +
+      '<div id="dpanel">' + panelHtml(n) + "</div>"
   }
+  function setLike(n, on) {
+    if (on) S.favs[n] = 1; else delete S.favs[n]
+    save()
+    var b = document.getElementById("actFav")
+    if (!b) return
+    b.classList.toggle("liked", on)
+    b.firstChild.className = "msi" + (on ? " fill" : "")
+    if (!on) return
+    b.classList.remove("pop"); void b.offsetWidth; b.classList.add("pop")
+    for (var i = 0; i < 8; i++) {
+      var p = document.createElement("i")
+      var ang = (i / 8) * Math.PI * 2 + Math.random() * 0.5, dist = 26 + Math.random() * 22
+      p.className = "bp msi fill"; p.textContent = "favorite"
+      p.style.setProperty("--x", Math.cos(ang) * dist + "px"); p.style.setProperty("--y", Math.sin(ang) * dist - 10 + "px")
+      p.style.fontSize = 9 + Math.random() * 8 + "px"
+      b.appendChild(p)
+      setTimeout((function (el) { return function () { if (el.parentNode) el.parentNode.removeChild(el) } })(p), 800)
+    }
+  }
+  function bigHeart() {
+    var el = document.querySelector("#slide .likepop")
+    if (!el) return
+    el.classList.remove("show"); void el.offsetWidth; el.classList.add("show")
+  }
+  // keyingi (dir>0, chapga surish) / oldingi (dir<0, o'ngga surish) ism
+  var navBusy = false
+  function navDetail(dir) {
+    if (navBusy || !U.detail) return
+    var el = document.getElementById("slide")
+    var go = function () { navBusy = false; U.detail = nextN(U.detail, dir); U.dir = dir > 0 ? "next" : "prev"; U.dpanel = ""; render() }
+    navBusy = true
+    if (!el) { go(); return }
+    el.style.transition = "transform .2s ease-in, opacity .2s"
+    el.style.transform = "translateX(" + (dir > 0 ? -115 : 115) + "%) rotate(" + (dir > 0 ? -8 : 8) + "deg)"
+    el.style.opacity = "0"
+    setTimeout(go, 190)
+  }
+  var sw = null, swipedAt = 0, lastTap = 0
+  document.addEventListener("pointerdown", function (e) {
+    var el = e.target.closest ? e.target.closest("#slide") : null
+    if (!el || !U.detail || navBusy) { sw = null; return }
+    sw = { x: e.clientX, y: e.clientY, dx: 0, t: Date.now(), drag: false, el: el }
+  })
+  document.addEventListener("pointermove", function (e) {
+    if (!sw) return
+    var dx = e.clientX - sw.x, dy = e.clientY - sw.y
+    if (!sw.drag) {
+      if (Math.abs(dx) > 10 && Math.abs(dx) > Math.abs(dy) * 1.2) { sw.drag = true; sw.el.style.transition = "none"; try { sw.el.setPointerCapture(e.pointerId) } catch (x) {} }
+      else if (Math.abs(dy) > 12) { sw = null; return }
+    }
+    if (sw && sw.drag) {
+      sw.dx = dx
+      sw.el.style.transform = "translateX(" + dx + "px) rotate(" + dx / 26 + "deg)"
+      sw.el.style.opacity = String(1 - Math.min(Math.abs(dx) / 420, 0.5))
+    }
+  })
+  function swEnd(e) {
+    if (!sw) return
+    var s = sw; sw = null
+    if (!s.drag) {
+      if (e.type === "pointerup" && !(e.target.closest && e.target.closest("button, a, [data-act], textarea, audio"))) {
+        var now = Date.now()
+        if (now - lastTap < 320) { lastTap = 0; if (!S.favs[U.detail]) setLike(U.detail, true); bigHeart() } else lastTap = now
+      }
+      return
+    }
+    swipedAt = Date.now()
+    var v = Math.abs(s.dx) / Math.max(1, Date.now() - s.t)
+    if (Math.abs(s.dx) > 90 || (v > 0.5 && Math.abs(s.dx) > 40)) navDetail(s.dx < 0 ? 1 : -1)
+    else {
+      s.el.style.transition = "transform .22s, opacity .22s"; s.el.style.transform = ""; s.el.style.opacity = ""
+      setTimeout(function () { s.el.style.transition = "" }, 240)
+    }
+  }
+  document.addEventListener("pointerup", swEnd)
+  document.addEventListener("pointercancel", swEnd)
 
   // ====================
   // MEDIA
@@ -692,14 +781,14 @@
     dailyTick()
     var target = ds.target, step = ds.step || 1, draft = ds.draft || 0, owed = ds.owedDays || 0
     hgShown = hgFallen(ds)
-    var h = '<div class="daily"><div class="dhead"><h1>📿 ' + esc(tr("daily")) + '</h1><button class="gear' + (U.dailyMenu ? " on" : "") + '" data-act="dailyMenu" aria-label="Settings">⚙️</button></div>'
+    var h = '<div class="daily"><div class="dhead"><h1>📿 ' + esc(tr("daily")) + '</h1><button class="gear' + (U.dailyMenu ? " on" : "") + '" data-act="dailyMenu" aria-label="Settings">' + ic("settings") + '</button></div>'
     if (U.dailyMenu) h += '<div style="margin-bottom:10px">' + formHtml() + "</div>"
     if (owed > 0) h += '<p class="owed center">⊘ ' + esc(tr("owed").replace("{n}", owed)) + "</p>"
     h += '<div id="hgwrap" class="hgwrap"><div id="hgstage" class="hgstage">' + hgBg() + '<div id="hgbox" class="hgbox">' + hgSvg(hgShown) + "</div>"
     if (ds.todayDone) h += '<div class="done center">✦ ' + esc(tr("cong")) + "</div>"
     else h += '<div class="stats mini"><div><b>' + target + "</b><span>" + esc(tr("needed")) + '</span></div><div><b id="dDone">' + draft + "</b><span>" + esc(tr("done_n")) + '</span></div><div><b id="dLeft">' + Math.max(0, target - draft) + "</b><span>" + esc(tr("left_n")) + "</span></div></div>"
     h += "</div></div>"
-    h += ds.todayDone ? '<button class="tap-round off" disabled>✓</button>' : '<button class="tap-round" data-act="tap" aria-label="+">' + (step > 1 ? "＋" + step : "＋") + "</button>"
+    h += ds.todayDone ? '<button class="tap-round off" disabled>✓</button>' : '<button class="tap-round" data-act="tap" aria-label="+">' + (ic("add") + (step > 1 ? '<b class="stp">' + step + "</b>" : "")) + "</button>"
     return h + "</div>"
   }
 
@@ -936,20 +1025,27 @@
     while (el && el !== document && !(el.getAttribute && el.getAttribute("data-act"))) el = el.parentNode
     if (!el || el === document) return
     var act = el.getAttribute("data-act"), v = el.getAttribute("data-v")
+    if (Date.now() - swipedAt < 350) return
     haptic("light")
 
     if (act === "tab") { U.tab = v; U.detail = 0; U.more = "menu"; U.moodPick = ""; render() }
-    else if (act === "open") { U.detail = parseInt(v, 10); render() }
+    else if (act === "open") { U.detail = parseInt(v, 10); U.dpanel = ""; U.dir = ""; render() }
     else if (act === "closeDetail" || act === "moreBack") goBack()
-    else if (act === "fav") {
-      var n = parseInt(v, 10)
-      if (S.favs[n]) delete S.favs[n]; else S.favs[n] = 1
-      save(); render()
+    else if (act === "fav") { var n = parseInt(v, 10); setLike(n, !S.favs[n]) }
+    else if (act === "step") navDetail(parseInt(v, 10))
+    else if (act === "dpanel") {
+      U.dpanel = U.dpanel === v ? "" : v
+      var pn = document.getElementById("dpanel")
+      if (pn) pn.innerHTML = panelHtml(U.detail)
+      var bs = document.querySelectorAll(".acts .act[data-act=dpanel]")
+      for (var bi = 0; bi < bs.length; bi++) bs[bi].classList.toggle("on", bs[bi].getAttribute("data-v") === U.dpanel)
+      if (U.dpanel === "audio") autoplay()
     }
     else if (act === "saveNote") {
       var n2 = parseInt(v, 10), val = document.getElementById("noteText").value.trim()
       if (val) S.notes[n2] = val.slice(0, 1000); else delete S.notes[n2]
       save(); toast("✓ " + tr("saved"))
+      var nb = document.querySelector(".acts .act[data-v=note]"); if (nb) nb.classList.toggle("has", !!S.notes[n2])
     }
     else if (act === "mode") { U.mode = v; render() }
     else if (act === "aud") { U.audioN = parseInt(v, 10); render(); autoplay() }
