@@ -209,6 +209,7 @@
       var d = D.names[n - 1]
       h += '<button class="name-card" data-act="open" data-v="' + n + '"><span class="num">' + n + "</span>" +
         (S.favs[n] ? '<span class="fav">' + ic("favorite", "fill") + '</span>' : "") +
+        (S.notes[n] ? '<span class="fav nt' + (S.favs[n] ? " two" : "") + '">' + ic("stylus_note") + '</span>' : "") +
         '<div class="ar">' + d.a + '</div><div class="tr">' + esc(d.t) + "</div></button>"
     }
     return h + "</div>"
@@ -322,7 +323,7 @@
   function nextN(n, dir) { return dir > 0 ? (n === 99 ? 1 : n + 1) : (n === 1 ? 99 : n - 1) }
   function panelHtml(n) {
     if (U.dpanel === "audio") return '<div class="card panel">' + audioBlock(n) + "</div>"
-    if (U.dpanel === "note") return '<div class="card panel stack"><strong>' + ic("stylus_note") + " " + esc(tr("note")) + '</strong><textarea id="noteText" class="nta" placeholder="' + esc(tr("note_ph")) + '">' + esc(S.notes[n] || "") + "</textarea>" +
+    if (U.dpanel === "note") return '<div class="card panel stack"><strong>' + ic("stylus_note") + " " + esc(tr("note")) + '</strong><textarea id="noteText" class="nta" rows="1" placeholder="' + esc(tr("note_ph")) + '">' + esc(S.notes[n] || "") + "</textarea>" +
       '<div class="nrow"><button id="noteSave" class="btn success" data-act="saveNote" data-v="' + n + '" hidden>' + esc(tr("save")) + "</button>" +
       '<div class="trashw' + (S.notes[n] ? "" : " none") + '" id="trashw" data-v="' + n + '"><i class="hr"></i><i class="hr red"></i><button id="trashBtn" class="trash" aria-label="Delete">' + ic("delete") + "</button></div></div></div>"
     return ""
@@ -1188,6 +1189,7 @@
     else if (act === "saveNote") {
       var n2 = parseInt(v, 10), val = document.getElementById("noteText").value.trim()
       if (val) S.notes[n2] = val.slice(0, 1000); else delete S.notes[n2]
+      document.getElementById("noteText").value = S.notes[n2] || ""; noteGrow(document.getElementById("noteText"))
       save(); toast("✓ " + tr("saved")); noteDirty()
       var nb = document.querySelector(".acts .act[data-v=note]"); if (nb) nb.classList.toggle("has", !!S.notes[n2])
     }
@@ -1275,6 +1277,11 @@
     })
   }
 
+  function noteGrow(ta) { if (!ta) return; ta.style.height = "auto"; ta.style.height = ta.scrollHeight + 2 + "px" }
+  new MutationObserver(function () {
+    var ta = document.getElementById("noteText")
+    if (ta && !ta._g) { ta._g = 1; noteGrow(ta) }
+  }).observe(document.body, { childList: true, subtree: true })
   function noteDirty() {
     var ta = document.getElementById("noteText"), sb = document.getElementById("noteSave"), tw = document.getElementById("trashw")
     if (!ta || !sb) return
@@ -1298,8 +1305,17 @@
       var n = parseInt(w.getAttribute("data-v"), 10), ta = document.getElementById("noteText")
       delete S.notes[n]; save()
       if (ta) ta.value = ""
-      var nb = document.querySelector(".acts .act[data-v=note]"); if (nb) nb.classList.remove("has")
+      var nb = document.querySelector(".acts .act[data-v=note]"); if (nb) { nb.classList.remove("has"); nb.classList.remove("on") }
       noteDirty()
+      var pn2 = document.querySelector("#dpanel .panel")
+      U.dpanel = ""
+      if (pn2) {
+        pn2.style.overflow = "hidden"; pn2.style.maxHeight = pn2.offsetHeight + "px"
+        void pn2.offsetHeight
+        pn2.style.transition = "max-height .65s ease, opacity .65s ease, padding .65s ease, margin .65s ease, border-width .65s ease"
+        pn2.style.maxHeight = "0px"; pn2.style.opacity = "0"; pn2.style.paddingTop = "0"; pn2.style.paddingBottom = "0"; pn2.style.marginTop = "0"; pn2.style.borderWidth = "0"
+        setTimeout(function () { var d2 = document.getElementById("dpanel"); if (d2 && U.dpanel === "") d2.innerHTML = "" }, 700)
+      }
       try { if (navigator.vibrate) navigator.vibrate(20) } catch (x) {}
       toast("✓ " + tr("saved"))
     }, 1000)
@@ -1310,7 +1326,7 @@
   document.addEventListener("contextmenu", function (e) { if (e.target.closest && e.target.closest("#trashw")) e.preventDefault() })
 
   document.addEventListener("input", function (ev) {
-    if (ev.target && ev.target.id === "noteText") noteDirty()
+    if (ev.target && ev.target.id === "noteText") { noteGrow(ev.target); noteDirty() }
     if (ev.target && ev.target.id === "q") {
       U.q = ev.target.value
       document.getElementById("grid").innerHTML = nameCards(filterNames())
