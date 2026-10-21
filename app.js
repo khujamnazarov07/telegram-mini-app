@@ -254,7 +254,7 @@
     nsb.style.display = "block"
     var hdr = document.getElementById("hdr"), hb = hdr ? hdr.getBoundingClientRect().bottom : 60
     var y = window.pageYOffset || 0
-    var top = Math.max(hb + 6, grid.getBoundingClientRect().top)
+    var top = hb + 6
     var bottom = navEl.getBoundingClientRect().top - 24
     var h = Math.max(80, bottom - top)
     var th = Math.max(48, Math.min(h * 0.5, h * vh / docH))
