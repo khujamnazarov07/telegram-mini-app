@@ -228,6 +228,67 @@
   }
 
   // ====================
+  // ISMLAR UCHUN YASHIL SKROLL (ramka ichida yuradi, raqamli pufak bilan)
+  // ====================
+  var nsb = document.createElement("div")
+  nsb.id = "nsb"
+  nsb.innerHTML = '<div class="th"></div><div class="bub"></div>'
+  document.body.appendChild(nsb)
+  var nsG = { top: 0, h: 0, th: 0, max: 1 }, nsDrag = false, nsTimer = null
+  function isMile(n) { return n === 1 || n === 99 || n % 5 === 0 }
+  function nsLabel(p) {
+    var cards = document.querySelectorAll("#grid .name-card"), nums = []
+    for (var i = 0; i < cards.length; i++) nums.push(parseInt(cards[i].getAttribute("data-v"), 10))
+    if (!nums.length) return ""
+    var rows = Math.ceil(nums.length / 3), r = Math.round(p * (rows - 1))
+    var row = nums.slice(r * 3, r * 3 + 3), j
+    for (j = 0; j < row.length; j++) if (isMile(row[j])) return row[j]
+    var mx = row[row.length - 1]
+    for (j = r * 3 - 1; j >= 0; j--) if (isMile(nums[j]) && nums[j] <= mx) return nums[j]
+    return row[0]
+  }
+  function nsUpdate() {
+    var grid = document.getElementById("grid")
+    var docH = document.documentElement.scrollHeight, vh = window.innerHeight
+    if (!grid || U.tab !== "names" || U.detail || docH < vh * 1.5) { nsb.style.display = "none"; return }
+    nsb.style.display = "block"
+    var hdr = document.getElementById("hdr"), hb = hdr ? hdr.getBoundingClientRect().bottom : 60
+    var y = window.pageYOffset || 0
+    var top = Math.max(hb + 6, grid.getBoundingClientRect().top)
+    var bottom = navEl.getBoundingClientRect().top - 24
+    var h = Math.max(80, bottom - top)
+    var th = Math.max(48, Math.min(h * 0.5, h * vh / docH))
+    var max = Math.max(1, docH - vh), p = Math.min(1, Math.max(0, y / max))
+    nsG = { top: top, h: h, th: th, max: max }
+    nsb.style.top = top + "px"; nsb.style.height = h + "px"
+    var t = nsb.firstChild
+    t.style.height = th + "px"; t.style.top = p * (h - th) + "px"
+    var b = nsb.lastChild
+    b.style.top = p * (h - th) + th / 2 - 19 + "px"
+    if (nsb.classList.contains("on")) b.textContent = nsLabel(p)
+  }
+  function nsPoke() {
+    nsb.classList.add("on")
+    clearTimeout(nsTimer)
+    nsTimer = setTimeout(function () { if (!nsDrag) nsb.classList.remove("on") }, 1100)
+  }
+  function nsFromY(cy) {
+    var p = (cy - nsG.top - nsG.th / 2) / Math.max(1, nsG.h - nsG.th)
+    window.scrollTo(0, Math.min(1, Math.max(0, p)) * nsG.max)
+  }
+  nsb.addEventListener("pointerdown", function (e) {
+    nsDrag = true; nsb.classList.add("drag"); nsPoke()
+    try { nsb.setPointerCapture(e.pointerId) } catch (x) {}
+    nsFromY(e.clientY); e.preventDefault()
+  })
+  nsb.addEventListener("pointermove", function (e) { if (nsDrag) nsFromY(e.clientY) })
+  function nsEnd() { nsDrag = false; nsb.classList.remove("drag"); nsPoke() }
+  nsb.addEventListener("pointerup", nsEnd)
+  nsb.addEventListener("pointercancel", nsEnd)
+  window.addEventListener("scroll", function () { nsPoke(); nsUpdate() }, { passive: true })
+  window.addEventListener("resize", nsUpdate)
+
+  // ====================
   // AUDIO / DETAIL
   // ====================
   function audioUrl(n) {
@@ -336,8 +397,8 @@
   }
   var sw = null, swipedAt = 0, lastTap = 0
   document.addEventListener("pointerdown", function (e) {
-    var el = e.target.closest ? e.target.closest("#slide") : null
-    if (!el || !U.detail || navBusy) { sw = null; return }
+    var el = U.detail && e.target.closest && e.target.closest("#app") && !e.target.closest("textarea, audio, input") ? document.getElementById("slide") : null
+    if (!el || navBusy) { sw = null; return }
     sw = { x: e.clientX, y: e.clientY, dx: 0, t: Date.now(), drag: false, el: el }
   })
   document.addEventListener("pointermove", function (e) {
@@ -357,7 +418,7 @@
     if (!sw) return
     var s = sw; sw = null
     if (!s.drag) {
-      if (e.type === "pointerup" && !(e.target.closest && e.target.closest("button, a, [data-act], textarea, audio"))) {
+      if (e.type === "pointerup" && e.target.closest && e.target.closest("#slide") && !e.target.closest("button, a, [data-act], textarea, audio")) {
         var now = Date.now()
         if (now - lastTap < 320) { lastTap = 0; if (!S.favs[U.detail]) setLike(U.detail, true); bigHeart() } else lastTap = now
       }
@@ -797,12 +858,61 @@
     if (l) l.textContent = Math.max(0, ds.target - (ds.draft || 0))
   }
 
+  // ---- 6 xonali "soat" tanlagich: 000,000 (har bir raqam vertikal g'ildirak)
+  var goal = [0, 0, 0, 0, 0, 0], goalWheels = []
+  function fmtNum(n) { return String(n).replace(/\B(?=(\d{3})+(?!\d))/g, ",") }
+  function goalNum() { return parseInt(goal.join(""), 10) || 0 }
+  function showGoal() { var e = document.getElementById("goalVal"); if (e) e.textContent = fmtNum(goalNum()) }
+  function goalSet(v) {
+    var str = ("000000" + Math.max(0, Math.min(999999, v))).slice(-6)
+    for (var i = 0; i < 6; i++) if (goalWheels[i]) goalWheels[i].set(parseInt(str.charAt(i), 10))
+    showGoal()
+  }
+  function initDigits() {
+    goalWheels = []
+    var host = document.getElementById("digits")
+    if (!host) return
+    var cols = host.querySelectorAll(".dg"), IH = 36, COP = 5, MIDC = 2
+    for (var c = 0; c < cols.length; c++) {
+      ;(function (idx, col) {
+        var track = col.firstChild, start = parseInt(col.getAttribute("data-d"), 10), h = '<div class="dg-pad"></div>'
+        for (var k = 0; k < COP; k++) for (var d = 0; d < 10; d++) h += '<div class="dg-i">' + d + "</div>"
+        track.innerHTML = h + '<div class="dg-pad"></div>'
+        var timer = null, last = start
+        function digitAt() { return ((Math.round(track.scrollTop / IH) % 10) + 10) % 10 }
+        function jumpTo(d) {
+          track.classList.add("jump")
+          track.scrollTop = (MIDC * 10 + d) * IH
+          void track.offsetWidth
+          track.classList.remove("jump")
+        }
+        goalWheels[idx] = { set: function (d) { goal[idx] = d; last = d; jumpTo(d) } }
+        track.addEventListener("scroll", function () {
+          var d = digitAt(), p = Math.round(track.scrollTop / IH)
+          if (d !== last) { last = d; haptic("light") }
+          goal[idx] = d
+          showGoal()
+          if (p < 10 || p > 40) jumpTo(d)
+          clearTimeout(timer)
+          timer = setTimeout(function () { jumpTo(digitAt()) }, 140)
+        })
+        goalWheels[idx].set(start)
+      })(c, cols[c])
+    }
+    showGoal()
+  }
   function viewDaily() {
     var ds = S.daily
     var formHtml = function () {
-      return '<div class="card stack"><label>' + esc(tr("target_lbl")) + '<input id="dTarget" class="field" type="number" inputmode="numeric" min="1" max="1000000" value="' + (ds && ds.target ? ds.target : "") + '"></label>' +
-        '<div class="chips">' + [33, 100, 300, 1000].map(function (x) { return '<button class="chip" data-act="preset" data-v="' + x + '">' + x + "</button>" }).join("") + "</div>" +
-        '<label>' + esc(tr("step_lbl")) + '<input id="dStep" class="field" type="number" inputmode="numeric" min="1" max="100000" value="' + ((ds && ds.step) || 1) + '"></label>' +
+      var gv = ds && ds.target ? Math.min(ds.target, 999999) : 0, cols = ""
+      var pad = ("000000" + gv).slice(-6)
+      for (var gi = 0; gi < 6; gi++) {
+        cols += '<div class="dg" data-d="' + pad.charAt(gi) + '"><div class="dg-track"></div></div>'
+        if (gi === 2) cols += '<span class="dg-comma">,</span>'
+      }
+      return '<div class="card stack goalbox"><div class="goalhead"><span>' + esc(tr("target_lbl")) + '</span><b id="goalVal">' + fmtNum(gv) + "</b></div>" +
+        '<div class="digits" id="digits" dir="ltr">' + cols + "</div>" +
+        '<div class="chips">' + [33, 100, 300, 1000].map(function (x) { return '<button class="chip" data-act="preset" data-v="' + x + '">' + fmtNum(x) + "</button>" }).join("") + "</div>" +
         '<button class="btn success block" data-act="saveDaily">' + esc(tr("save")) + "</button></div>"
     }
     if (!ds || !ds.target) {
@@ -884,7 +994,10 @@
       h = '<div class="card"><strong>⚠️ Error</strong><p>' + esc(String(err && err.message || err)) + "</p></div>"
     }
     app.innerHTML = h
+    document.body.classList.toggle("indetail", !!U.detail)
+    initDigits()
     hgAttach()
+    nsUpdate()
     renderNav()
     if (wheels.theme) updateThemeLabels()
     if (tg && tg.BackButton) {
@@ -1094,13 +1207,12 @@
       if (mg) mg.classList.toggle("open", U.moodOpen)
       el.innerHTML = ic(U.moodOpen ? "expand_less" : "expand_more") + " <span>" + esc(tr(U.moodOpen ? "mood_less" : "mood_all")) + "</span>"
     }
-    else if (act === "preset") document.getElementById("dTarget").value = v
+    else if (act === "preset") goalSet(parseInt(v, 10))
     else if (act === "saveDaily") {
-      var t = parseInt(document.getElementById("dTarget").value, 10), st = parseInt(document.getElementById("dStep").value, 10)
+      var t = goalNum(), st = 1
       if (!t || t < 1) { toast("⚠️"); return }
-      if (!st || st < 1) st = 1
       var old = S.daily || {}
-      S.daily = { target: Math.min(t, 1000000), step: Math.min(st, 100000), owedDays: old.owedDays || 0, draft: old.draft || 0, lastCheckedDate: old.lastCheckedDate || todayStr(), todayDone: !!old.todayDone }
+      S.daily = { target: Math.min(t, 999999), step: st, owedDays: old.owedDays || 0, draft: old.draft || 0, lastCheckedDate: old.lastCheckedDate || todayStr(), todayDone: !!old.todayDone }
       U.dailyMenu = false; save(); render()
     }
     else if (act === "dailyMenu") { U.dailyMenu = !U.dailyMenu; render() }
@@ -1166,6 +1278,7 @@
     if (ev.target && ev.target.id === "q") {
       U.q = ev.target.value
       document.getElementById("grid").innerHTML = nameCards(filterNames())
+      nsUpdate()
     }
   })
 
