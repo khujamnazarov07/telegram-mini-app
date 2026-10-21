@@ -322,8 +322,9 @@
   function nextN(n, dir) { return dir > 0 ? (n === 99 ? 1 : n + 1) : (n === 1 ? 99 : n - 1) }
   function panelHtml(n) {
     if (U.dpanel === "audio") return '<div class="card panel">' + audioBlock(n) + "</div>"
-    if (U.dpanel === "note") return '<div class="card panel stack"><strong>' + ic("stylus_note") + " " + esc(tr("note")) + '</strong><textarea id="noteText" placeholder="' + esc(tr("note_ph")) + '">' + esc(S.notes[n] || "") + "</textarea>" +
-      '<button class="btn success block" data-act="saveNote" data-v="' + n + '">' + esc(tr("save")) + "</button></div>"
+    if (U.dpanel === "note") return '<div class="card panel stack"><strong>' + ic("stylus_note") + " " + esc(tr("note")) + '</strong><textarea id="noteText" class="nta" placeholder="' + esc(tr("note_ph")) + '">' + esc(S.notes[n] || "") + "</textarea>" +
+      '<div class="nrow"><button id="noteSave" class="btn success" data-act="saveNote" data-v="' + n + '" hidden>' + esc(tr("save")) + "</button>" +
+      '<div class="trashw' + (S.notes[n] ? "" : " none") + '" id="trashw" data-v="' + n + '"><i class="hr"></i><i class="hr red"></i><button id="trashBtn" class="trash" aria-label="Delete">' + ic("delete") + "</button></div></div></div>"
     return ""
   }
   function viewDetail() {
@@ -1179,7 +1180,7 @@
     else if (act === "dpanel") {
       U.dpanel = U.dpanel === v ? "" : v
       var pn = document.getElementById("dpanel")
-      if (pn) pn.innerHTML = panelHtml(U.detail)
+      if (pn) { pn.innerHTML = panelHtml(U.detail); noteDirty() }
       var bs = document.querySelectorAll(".acts .act[data-act=dpanel]")
       for (var bi = 0; bi < bs.length; bi++) bs[bi].classList.toggle("on", bs[bi].getAttribute("data-v") === U.dpanel)
       if (U.dpanel === "audio") autoplay()
@@ -1187,7 +1188,7 @@
     else if (act === "saveNote") {
       var n2 = parseInt(v, 10), val = document.getElementById("noteText").value.trim()
       if (val) S.notes[n2] = val.slice(0, 1000); else delete S.notes[n2]
-      save(); toast("✓ " + tr("saved"))
+      save(); toast("✓ " + tr("saved")); noteDirty()
       var nb = document.querySelector(".acts .act[data-v=note]"); if (nb) nb.classList.toggle("has", !!S.notes[n2])
     }
     else if (act === "mode") { U.mode = v; render() }
@@ -1274,7 +1275,42 @@
     })
   }
 
+  function noteDirty() {
+    var ta = document.getElementById("noteText"), sb = document.getElementById("noteSave"), tw = document.getElementById("trashw")
+    if (!ta || !sb) return
+    var n = U.detail, cur = ta.value.trim(), old = (S.notes[n] || "").trim()
+    sb.hidden = cur === old
+    if (tw) tw.classList.toggle("none", !cur && !old)
+  }
+  var trashT = null
+  function trashStop() {
+    clearTimeout(trashT); trashT = null
+    var w = document.getElementById("trashw"); if (w) w.classList.remove("hold")
+  }
+  document.addEventListener("pointerdown", function (e) {
+    var b = e.target.closest && e.target.closest("#trashBtn")
+    if (!b) return
+    var w = document.getElementById("trashw"); if (!w) return
+    w.classList.add("hold")
+    clearTimeout(trashT)
+    trashT = setTimeout(function () {
+      trashT = null; w.classList.remove("hold")
+      var n = parseInt(w.getAttribute("data-v"), 10), ta = document.getElementById("noteText")
+      delete S.notes[n]; save()
+      if (ta) ta.value = ""
+      var nb = document.querySelector(".acts .act[data-v=note]"); if (nb) nb.classList.remove("has")
+      noteDirty()
+      try { if (navigator.vibrate) navigator.vibrate(20) } catch (x) {}
+      toast("✓ " + tr("saved"))
+    }, 1000)
+  })
+  ;["pointerup", "pointercancel", "pointerleave"].forEach(function (t) {
+    document.addEventListener(t, function (e) { if (trashT && (t !== "pointerleave" || (e.target.closest && e.target.closest("#trashBtn")))) trashStop() }, true)
+  })
+  document.addEventListener("contextmenu", function (e) { if (e.target.closest && e.target.closest("#trashw")) e.preventDefault() })
+
   document.addEventListener("input", function (ev) {
+    if (ev.target && ev.target.id === "noteText") noteDirty()
     if (ev.target && ev.target.id === "q") {
       U.q = ev.target.value
       document.getElementById("grid").innerHTML = nameCards(filterNames())
