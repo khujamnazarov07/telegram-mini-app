@@ -281,3 +281,17 @@ body.indetail #app { min-height: calc(100vh - 60px); min-height: calc(100dvh - 6
 .dg-pad { height: 36px; }
 .dg-i { height: 36px; display: flex; align-items: center; justify-content: center; font-size: 26px; font-weight: 800; scroll-snap-align: center; user-select: none; font-variant-numeric: tabular-nums; }
 .dg-comma { font-size: 28px; font-weight: 800; color: var(--hint); align-self: flex-end; margin-bottom: 30px; }
+
+.nta { resize: none; min-height: 110px; }
+.nrow { display: flex; align-items: center; gap: 10px; min-height: 44px; }
+.nrow .btn { flex: 1; margin-right: 18px; }
+.nrow .btn[hidden] { display: none; }
+.trashw { position: relative; width: 44px; height: 44px; margin-left: auto; flex-shrink: 0; }
+.trashw.none { visibility: hidden; }
+.trash { position: relative; z-index: 2; width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--line); background: var(--card); color: #e5484d; display: grid; place-items: center; padding: 0; touch-action: none; user-select: none; -webkit-user-select: none; -webkit-touch-callout: none; }
+.trash .msi { font-size: 24px; }
+.hr { position: absolute; left: 50%; top: 50%; width: 76px; height: 76px; margin: -38px 0 0 -38px; border-radius: 50%; box-sizing: border-box; pointer-events: none; opacity: 0; clip-path: inset(0 50% 0 0); }
+.hr:not(.red) { border: 3px solid #b9bec6; z-index: 1; transition: opacity .12s; }
+.hr.red { background: rgba(229, 72, 77, .22); border: 3px solid #e5484d; z-index: 1; transform: scale(.58); transition: transform 0s, opacity .12s; }
+.trashw.hold .hr:not(.red) { opacity: 1; }
+.trashw.hold .hr.red { opacity: 1; transform: scale(1); transition: transform 1s linear, opacity .12s; }
