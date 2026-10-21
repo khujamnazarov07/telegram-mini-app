@@ -660,7 +660,7 @@
     var idx = []
     for (i = 0; i < 100; i++) idx.push(i)
     for (i = 99; i > 0; i--) { var r = Math.floor(Math.random() * (i + 1)), tmp = idx[i]; idx[i] = idx[r]; idx[r] = tmp }
-    s.spi = idx.slice(0, 16)
+    s.spi = idx.slice(0, 6)
     var steps = 0, calm = 0
     while (steps < 700 && calm < 12) { simStep(s); steps++; calm = s.maxv < 0.012 ? calm + 1 : 0 }
     if (fallen > 0) {
@@ -711,22 +711,22 @@
     if (HG_BACK) return
     var defs = '<defs>' +
       '<linearGradient id="hgGlass" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".16"/><stop offset="1" stop-color="#d8fff0" stop-opacity=".05"/></linearGradient>' +
-      '<linearGradient id="hgSand" gradientUnits="userSpaceOnUse" x1="0" x2="0" y1="' + HT + '" y2="' + HB + '"><stop offset="0" stop-color="#fff7d9"/><stop offset=".32" stop-color="#ffe9a6"/><stop offset=".5" stop-color="#ffd978"/><stop offset=".68" stop-color="#ffe9a6"/><stop offset="1" stop-color="#fff7d9"/></linearGradient>' +
+      '<linearGradient id="hgSand" gradientUnits="userSpaceOnUse" x1="0" x2="0" y1="' + HT + '" y2="' + HB + '"><stop offset="0" stop-color="#fffaf0"/><stop offset=".35" stop-color="#f8e9bf"/><stop offset=".5" stop-color="#f1dba0"/><stop offset=".65" stop-color="#f8e9bf"/><stop offset="1" stop-color="#fffaf0"/></linearGradient>' +
       '<linearGradient id="hgRim" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".95"/><stop offset=".5" stop-color="#fff" stop-opacity=".35"/><stop offset="1" stop-color="#fff" stop-opacity=".95"/></linearGradient>' +
       '<clipPath id="hgClip"><path d="' + glassPath(0.6) + '"/></clipPath>' +
       '<filter id="hgGoo" filterUnits="userSpaceOnUse" x="0" y="0" width="200" height="300" color-interpolation-filters="sRGB">' +
       '<feGaussianBlur in="SourceGraphic" stdDeviation="1.5" result="b"/>' +
       '<feColorMatrix in="b" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -8" result="g"/>' +
       '<feGaussianBlur in="g" stdDeviation="3.2" result="gl"/>' +
-      '<feColorMatrix in="gl" mode="matrix" values="1 0 0 0 0  0 .85 0 0 0  0 0 .45 0 0  0 0 0 .55 0" result="gl2"/>' +
+      '<feColorMatrix in="gl" mode="matrix" values="1 0 0 0 0  0 .9 0 0 0  0 0 .6 0 0  0 0 0 .3 0" result="gl2"/>' +
       '<feMerge><feMergeNode in="gl2"/><feMergeNode in="g"/></feMerge></filter></defs>'
     HG_BACK = defs + '<path d="' + glassPath(0) + '" fill="url(#hgGlass)"/>' +
       '<rect x="89" y="146.5" width="22" height="7" rx="3.5" fill="#fff" fill-opacity=".22"/>'
     HG_FRONT = '<path d="' + glassPath(0) + '" fill="none" stroke="url(#hgRim)" stroke-opacity=".85" stroke-width="1.4" stroke-linejoin="round"/>' +
-      '<path d="' + edgePath(-1, 68, 116, 7) + '" fill="none" stroke="#fff" stroke-opacity=".7" stroke-width="2.6" stroke-linecap="round"/>' +
-      '<path d="' + edgePath(1, 184, 232, 7) + '" fill="none" stroke="#fff" stroke-opacity=".7" stroke-width="2.6" stroke-linecap="round"/>' +
-      '<path d="' + edgePath(-1, 70, 100, 12) + '" fill="none" stroke="#fff" stroke-opacity=".16" stroke-width="7" stroke-linecap="round"/>' +
-      '<path d="' + edgePath(1, 200, 230, 12) + '" fill="none" stroke="#fff" stroke-opacity=".16" stroke-width="7" stroke-linecap="round"/>' +
+      '<path d="' + edgePath(-1, 68, 116, 7) + '" fill="none" stroke="#fff" stroke-opacity=".5" stroke-width="1.8" stroke-linecap="round"/>' +
+      '<path d="' + edgePath(1, 184, 232, 7) + '" fill="none" stroke="#fff" stroke-opacity=".5" stroke-width="1.8" stroke-linecap="round"/>' +
+      '<path d="' + edgePath(-1, 70, 100, 12) + '" fill="none" stroke="#fff" stroke-opacity=".08" stroke-width="6" stroke-linecap="round"/>' +
+      '<path d="' + edgePath(1, 200, 230, 12) + '" fill="none" stroke="#fff" stroke-opacity=".08" stroke-width="6" stroke-linecap="round"/>' +
       '<path d="' + edgePath(1, 70, 98, 6) + '" fill="none" stroke="#fff" stroke-opacity=".28" stroke-width="1.4" stroke-linecap="round"/>' +
       '<path d="' + edgePath(-1, 202, 230, 6) + '" fill="none" stroke="#fff" stroke-opacity=".28" stroke-width="1.4" stroke-linecap="round"/>'
     var uri = "url('data:image/svg+xml," + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 176 264"><path d="' + glassPx(0.88) + '"/></svg>').replace(/'/g, "%27").replace(/\(/g, "%28").replace(/\)/g, "%29") + "')"
@@ -746,7 +746,7 @@
     h += '</g><g>'
     for (i = 0; i < SIM.spi.length; i++) {
       p = SIM.g[SIM.spi[i]]
-      h += '<g class="spg" transform="translate(' + f2(p.x) + " " + f2(p.y) + ')"><path class="spk" style="--t:' + (1.6 + Math.random() * 1.8).toFixed(2) + "s;--dl:-" + (Math.random() * 3).toFixed(2) + "s;--sc:" + (0.7 + Math.random() * 0.7).toFixed(2) + '" d="M0 -5 L1.3 -1.3 L5 0 L1.3 1.3 L0 5 L-1.3 1.3 L-5 0 L-1.3 -1.3Z" fill="#fffbe6"/></g>'
+      h += '<g class="spg" transform="translate(' + f2(p.x) + " " + f2(p.y) + ')"><path class="spk" style="--t:' + (1.6 + Math.random() * 1.8).toFixed(2) + "s;--dl:-" + (Math.random() * 3).toFixed(2) + "s;--sc:" + (0.7 + Math.random() * 0.7).toFixed(2) + '" d="M0 -3 L.8 -.8 L3 0 L.8 .8 L0 3 L-.8 .8 L-3 0 L-.8 -.8Z" fill="#fffbe6"/></g>'
     }
     for (i = 0; i < 10; i++) {   // shisha ichidagi mayda chang zarralari
       var top = i < 5, my = top ? 62 + Math.random() * 34 : 206 + Math.random() * 30
@@ -762,8 +762,8 @@
       '<rect width="320" height="420" fill="url(#hgPt)"/></svg><div class="hgaura"></div>'
     h += '<i class="orb o1"></i><i class="orb o2"></i><i class="orb o3"></i><i class="orb o4"></i>'
     var kinds = ["ring", "dia", "dot", "ring", "dia", "dot", "bar"], i
-    for (i = 0; i < 9; i++) {
-      var sz = 26 + Math.random() * 44
+    for (i = 0; i < 10; i++) {
+      var sz = 9 + Math.random() * 13
       h += '<i class="fx ' + kinds[i % kinds.length] + '" style="top:' + (6 + (i * 10.5) % 84).toFixed(0) + "%;--z:" + sz.toFixed(0) + "px;--d:" + (13 + Math.random() * 12).toFixed(1) + "s;--dl:-" + (Math.random() * 22).toFixed(1) + 's"></i>'
     }
     h += '<i class="hgsweep"></i>'
