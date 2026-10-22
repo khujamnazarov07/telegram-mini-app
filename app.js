@@ -540,7 +540,7 @@
   var hgFlip = false
   var R = 2.9                        // qum donasi radiusi
   var NECK = 4.6                     // bo'yincha yarim kengligi
-  var HC = 100, HT = 54, HB = 246, HM = 150, HNS = 64
+  var HC = 100, HT = 47, HB = 253, HM = 150, HNS = 64
   var HDY = (HB - HT) / HNS
   var GATE_Y = 145                   // "eshik": har bosishda faqat kerakli miqdordagi dona o'tkaziladi
   var WL = [], WR = []
@@ -548,7 +548,7 @@
   // shisha profili: yuqori/pastki to'p + silliq bo'yincha
   function hwAt(y) {
     var d = Math.abs(y - HM)
-    if (d > 96) d = 96
+    if (d > 103) d = 103
     var v = (d - 68) / 68, e = 58 * Math.sqrt(Math.max(0, 1 - v * v))
     return Math.sqrt(NECK * NECK + e * e)
   }
@@ -621,8 +621,8 @@
             }
           }
         }
-        if (p.y < HT + R + 1.2) p.y = HT + R + 1.2
-        if (p.y > HB - R - 1.2) { p.y = HB - R - 1.2; p.t = true }
+        if (p.y < HT + R - 1.5) p.y = HT + R - 1.5
+        if (p.y > HB - R + 1.5) { p.y = HB - R + 1.5; p.t = true }
         if (!gateOpen && !p.crossed && p.y > GATE_Y - R && p.y < GATE_Y + 4) { p.y = GATE_Y - R; p.py = p.y; p.t = true }
       }
     }
@@ -697,10 +697,15 @@
 
   // ---- SVG tuzilma yordamchilari ----
   function f2(n) { return n.toFixed(2) }
+  function arcPts(inset, k) {
+    var o = [], w = hwAt(HB) - inset, ry = 4.6 - inset * 0.5, t, N = 14
+    for (var i = 1; i < N; i++) { t = Math.PI * i / N; o.push(f2(k * (HC - w * Math.cos(t))) + " " + f2(k * (HB + ry * Math.sin(t)))) }
+    return o
+  }
   function glassPath(inset) {
     var a = [], b = [], N = 96, i, y, h
     for (i = 0; i <= N; i++) { y = HT + i * (HB - HT) / N; h = hwAt(y) - inset; a.push(f2(HC - h) + " " + f2(y)); b.push(f2(HC + h) + " " + f2(y)) }
-    return "M" + a.join("L") + "L" + b.reverse().join("L") + "Z"
+    return "M" + a.join("L") + "L" + arcPts(inset, 1).join("L") + "L" + b.reverse().join("L") + "Z"
   }
   function edgePath(side, y0, y1, inset) {
     var pts = []
@@ -710,8 +715,9 @@
   function glassPx(k) {
     var a = [], b = [], N = 96, i, y, h
     for (i = 0; i <= N; i++) { y = HT + i * (HB - HT) / N; h = hwAt(y); a.push(f2(k * (HC - h)) + " " + f2(k * y)); b.push(f2(k * (HC + h)) + " " + f2(k * y)) }
-    return "M" + a.join("L") + "L" + b.reverse().join("L") + "Z"
+    return "M" + a.join("L") + "L" + arcPts(0, k).join("L") + "L" + b.reverse().join("L") + "Z"
   }
+  function baseArc(inset) { return "M" + (f2(HC - hwAt(HB) + inset) + " " + f2(HB)) + "L" + arcPts(inset, 1).join("L") + "L" + f2(HC + hwAt(HB) - inset) + " " + f2(HB) }
   var HG_BACK = "", HG_FRONT = "", HG_CLIP = ""
   function capTop() {
     return '<path d="M42 37 L42 46 A58 8 0 0 0 158 46 L158 37 Z" fill="url(#hgCapSide)"/>' +
@@ -721,10 +727,10 @@
       '<path d="M58 34.2 Q100 29.6 142 34.2" fill="none" stroke="#fff" stroke-opacity=".75" stroke-width="1.5" stroke-linecap="round"/>'
   }
   function capBottom() {
-    return '<path d="M42 250 L42 259 A58 8 0 0 0 158 259 L158 250 Z" fill="url(#hgCapSide)"/>' +
-      '<ellipse cx="100" cy="250" rx="58" ry="8" fill="url(#hgCapFace)" stroke="#fff" stroke-opacity=".7" stroke-width="1"/>' +
-      '<ellipse cx="100" cy="250.6" rx="47" ry="5.2" fill="none" stroke="#fff" stroke-opacity=".38" stroke-width="1"/>' +
-      '<path d="M58 247.2 Q100 242.6 142 247.2" fill="none" stroke="#fff" stroke-opacity=".6" stroke-width="1.5" stroke-linecap="round"/>'
+    return '<path d="M42 253 L42 262 A58 8 0 0 0 158 262 L158 253 Z" fill="url(#hgCapSide)"/>' +
+      '<ellipse cx="100" cy="253" rx="58" ry="8" fill="url(#hgCapFace)" stroke="#fff" stroke-opacity=".7" stroke-width="1"/>' +
+      '<ellipse cx="100" cy="253.6" rx="47" ry="5.2" fill="none" stroke="#fff" stroke-opacity=".38" stroke-width="1"/>' +
+      '<path d="M58 250.2 Q100 245.6 142 250.2" fill="none" stroke="#fff" stroke-opacity=".6" stroke-width="1.5" stroke-linecap="round"/>'
   }
   function hgStatic() {
     if (HG_BACK) return
@@ -748,8 +754,8 @@
       '<feColorMatrix in="n" type="matrix" values="1 0 0 0 0  1 0 0 0 0  1 0 0 0 0  0 0 0 0 1" result="ng"/>' +
       '<feComposite in="g" in2="ng" operator="arithmetic" k1=".4" k2=".86" k3="0" k4="0" result="gt"/>' +
       '<feComposite in="gt" in2="g" operator="in"/></filter></defs>'
-    HG_BACK = defs + '<ellipse cx="100" cy="270" rx="66" ry="9" fill="url(#hgFloor)"/>' + '<path d="' + glassPath(0) + '" fill="url(#hgGlass)"/>' + capBottom()
-    HG_FRONT = '<g clip-path="url(#hgClip)"><rect x="40" y="52" width="120" height="98" fill="url(#hgBodyT)"/><rect x="40" y="150" width="120" height="98" fill="url(#hgBodyB)"/>' +
+    HG_BACK = defs + '<ellipse cx="100" cy="273" rx="66" ry="9" fill="url(#hgFloor)"/>' + '<path d="' + glassPath(0) + '" fill="url(#hgGlass)"/>' + capBottom()
+    HG_FRONT = '<g clip-path="url(#hgClip)"><rect x="40" y="44" width="120" height="106" fill="url(#hgBodyT)"/><rect x="40" y="150" width="120" height="116" fill="url(#hgBodyB)"/>' +
       '<path d="' + glassPath(0) + '" fill="none" stroke="#06503c" stroke-opacity=".55" stroke-width="5" filter="url(#hgBlur)"/>' +
       '<path d="' + glassPath(0) + '" fill="none" stroke="#fff" stroke-opacity=".6" stroke-width="9" filter="url(#hgBlur)" transform="translate(-1.5 0)"/></g>' +
       '<path d="M63 82 Q57 104 64 128 L71 126 Q65 104 69 84Z" fill="url(#hgWin)" opacity=".8"/>' +
@@ -757,12 +763,14 @@
       '<path d="M76 70 Q96 63 124 70" fill="none" stroke="#fff" stroke-opacity=".75" stroke-width="2" stroke-linecap="round"/>' +
       '<path d="M76 230 Q100 237 124 230" fill="none" stroke="#fff" stroke-opacity=".55" stroke-width="2" stroke-linecap="round"/>' +
       '<circle cx="66" cy="76" r="2.4" fill="#fff"/><circle cx="134" cy="224" r="2.4" fill="#fff"/><circle cx="72" cy="70" r="1.2" fill="#fff"/>' +
-      '<path d="' + edgePath(-1, 49, 251, 0) + '" fill="none" stroke="#04523d" stroke-opacity=".35" stroke-width="2.6" stroke-linecap="round"/>' +
-      '<path d="' + edgePath(1, 49, 251, 0) + '" fill="none" stroke="#04523d" stroke-opacity=".35" stroke-width="2.6" stroke-linecap="round"/>' +
-      '<path d="' + edgePath(-1, 49, 251, 1.6) + '" fill="none" stroke="#fff" stroke-opacity=".95" stroke-width="1.3" stroke-linecap="round"/>' +
-      '<path d="' + edgePath(1, 49, 251, 1.6) + '" fill="none" stroke="#fff" stroke-opacity=".95" stroke-width="1.3" stroke-linecap="round"/>' +
-      '<path d="' + edgePath(-1, 49, 251, 4) + '" fill="none" stroke="#fff" stroke-opacity=".28" stroke-width="1" stroke-linecap="round"/>' +
-      '<path d="' + edgePath(1, 49, 251, 4) + '" fill="none" stroke="#fff" stroke-opacity=".28" stroke-width="1" stroke-linecap="round"/>' +
+      '<path d="' + baseArc(0) + '" fill="none" stroke="#04523d" stroke-opacity=".35" stroke-width="2.6" stroke-linecap="round"/>' +
+      '<path d="' + baseArc(1.6) + '" fill="none" stroke="#fff" stroke-opacity=".95" stroke-width="1.3" stroke-linecap="round"/>' +
+      '<path d="' + edgePath(-1, 44, 253, 0) + '" fill="none" stroke="#04523d" stroke-opacity=".35" stroke-width="2.6" stroke-linecap="round"/>' +
+      '<path d="' + edgePath(1, 44, 253, 0) + '" fill="none" stroke="#04523d" stroke-opacity=".35" stroke-width="2.6" stroke-linecap="round"/>' +
+      '<path d="' + edgePath(-1, 44, 253, 1.6) + '" fill="none" stroke="#fff" stroke-opacity=".95" stroke-width="1.3" stroke-linecap="round"/>' +
+      '<path d="' + edgePath(1, 44, 253, 1.6) + '" fill="none" stroke="#fff" stroke-opacity=".95" stroke-width="1.3" stroke-linecap="round"/>' +
+      '<path d="' + edgePath(-1, 44, 253, 4) + '" fill="none" stroke="#fff" stroke-opacity=".28" stroke-width="1" stroke-linecap="round"/>' +
+      '<path d="' + edgePath(1, 44, 253, 4) + '" fill="none" stroke="#fff" stroke-opacity=".28" stroke-width="1" stroke-linecap="round"/>' +
       '<path d="' + edgePath(-1, 84, 134, 5.5) + '" fill="none" stroke="#fff" stroke-opacity=".5" stroke-width="1.8" stroke-linecap="round"/>' +
       '<path d="' + edgePath(1, 166, 216, 5.5) + '" fill="none" stroke="#fff" stroke-opacity=".5" stroke-width="1.8" stroke-linecap="round"/>' +
       capTop()
@@ -790,7 +798,7 @@
       var mx = HC + (Math.random() - 0.5) * 2 * (hwAt(my) - 8)
       h += '<circle class="mote" style="animation-delay:-' + (Math.random() * 6).toFixed(1) + 's" cx="' + f2(mx) + '" cy="' + f2(my) + '" r="' + (0.7 + Math.random() * 0.8).toFixed(2) + '" fill="#fff"/>'
     }
-    return h + '</g><rect x="40" y="50" width="120" height="200" fill="url(#hgShade)"/></g>' + HG_FRONT + "</svg></div>"
+    return h + '</g><rect x="40" y="44" width="120" height="222" fill="url(#hgShade)"/></g>' + HG_FRONT + "</svg></div>"
   }
   // markaziy fon: minimal naqsh, nur, suzuvchi zarralar
   function hgBg() {
@@ -1272,7 +1280,7 @@
       openTg("https://t.me/share/url?url=" + encodeURIComponent("https://t.me/" + CFG.BOT) + "&text=" + encodeURIComponent("✨ " + sn + ". " + nd.a + " — " + nd.t + "\n🤖 @" + CFG.BOT))
     }
     else if (act === "setLang") { S.lang = v; TCACHE = {}; save(); U.more = "menu"; render(); if (wheels.lang) wheels.lang.set(LANGS.indexOf(v), true) }
-    else if (act === "openBot") openTg("https://t.me/" + CFG.BOT + "?start=start")
+    else if (act === "openBot") openTg("https://t.me/" + CFG.BOT)
     else if (act === "openChannel") openTg("https://t.me/" + CFG.CHANNEL)
   })
 
