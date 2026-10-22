@@ -38,6 +38,11 @@
     mood_times: "Tanlangan|Танланган|Выбрано|Chosen|تم اختياره|Seçildi|Dipilih|已选|चुना गया|Elegido",
     daily: "Kunlik salavot|Кунлик салавот|Ежедневный салават|Daily Salawat|الصلاة اليومية|Günlük Salavat|Salawat Harian|每日赞圣|दैनिक सलावात|Salawat diario",
     daily_ask: "Kuniga nechta salavot aytmoqchisiz?|Кунига нечта салавот айтмоқчисиз?|Сколько салаватов в день?|How many salawat per day?|كم صلاة في اليوم؟|Günde kaç salavat?|Berapa salawat per hari?|每天多少次？|रोज़ कितने सलावात?|¿Cuántos salawat al día?",
+    mode_goal: "Maqsad bilan|Мақсад билан|С целью|With goal|بهدف|Hedefli|Dengan target|设定目标|लक्ष्य के साथ|Con meta",
+    mode_free: "Xohlagancha|Хоҳлаганча|Без цели|Free count|بلا حد|Serbest|Bebas|不限次数|मनचाहा|Libre",
+    total_n: "Jami|Жами|Всего|Total|المجموع|Toplam|Total|总计|कुल|Total",
+    cycle_n: "Davra|Давра|Цикл|Cycle|الدورة|Döngü|Siklus|循环|चक्र|Ciclo",
+    free_hint: "+ bosing yoki qumsoatning past/yuqorisini yonga tortib qo'yib yuboring|+ босинг ёки қумсоатнинг паст/юқорисини ёнга тортиб қўйиб юборинг|Нажимайте + или потяните низ/верх песочных часов вбок и отпустите|Tap + or pull the top/bottom of the hourglass sideways and let go|اضغط + أو اسحب أعلى/أسفل الساعة الرملية جانبًا ثم أفلتها|+ tuşuna basın veya kum saatinin üstünü/altını yana çekip bırakın|Ketuk + atau tarik atas/bawah jam pasir ke samping lalu lepaskan|点按 + 或将沙漏上/下端向侧面拉动后松手|+ दबाएँ या रेतघड़ी का ऊपरी/निचला हिस्सा बगल में खींचकर छोड़ दें|Toca + o tira de la parte superior/inferior del reloj hacia un lado y suelta",
     needed: "Kerak|Керак|Нужно|Needed|مطلوب|Gerekli|Diperlukan|需要|आवश्यक|Necesario",
     done_n: "Bajarildi|Бажарилди|Выполнено|Done|تم|Tamamlandı|Selesai|已完成|पूर्ण|Hecho",
     left_n: "Qoldi|Қолди|Осталось|Remaining|متبقي|Kalan|Tersisa|剩余|शेष|Restante",
@@ -517,6 +522,7 @@
   function dailyTick() {
     var ds = S.daily
     if (!ds || !ds.target) return
+    if (ds.mode === "free") { ds.lastCheckedDate = todayStr(); ds.todayDone = false; ds.owedDays = 0; return }
     var today = todayStr()
     if (ds.lastCheckedDate !== today) {
       var gap = Math.round((new Date(today) - new Date(ds.lastCheckedDate || today)) / 86400000) - (ds.todayDone ? 1 : 0)
@@ -844,6 +850,7 @@
   function hgStats() {
     var ds = S.daily
     var d = document.getElementById("dDone"), l = document.getElementById("dLeft")
+    var tt = document.getElementById("dTot"); if (tt) tt.textContent = ds.count || 0
     if (d) d.textContent = ds.draft || 0
     if (l) l.textContent = Math.max(0, ds.target - (ds.draft || 0))
   }
@@ -900,12 +907,16 @@
         cols += '<div class="dg" data-d="' + pad.charAt(gi) + '"><div class="dg-track"></div></div>'
         if (gi === 2) cols += '<span class="dg-comma">,</span>'
       }
-      return '<div class="card stack goalbox"><div class="goalhead"><span>' + esc(tr("target_lbl")) + '</span><b id="goalVal">' + fmtNum(gv) + "</b></div>" +
+      var dm = U.dmode || (ds && ds.mode) || "goal"
+      var seg = '<div class="seg"><button data-act="dmode" data-v="goal" class="' + (dm === "goal" ? "on" : "") + '">' + esc(tr("mode_goal")) + '</button><button data-act="dmode" data-v="free" class="' + (dm === "free" ? "on" : "") + '">' + esc(tr("mode_free")) + "</button></div>"
+      if (dm === "free") return '<div class="card stack goalbox">' + seg + '<p class="sub center" style="margin:4px 0">' + esc(tr("free_hint")) + '</p><button class="btn success block" data-act="saveDaily">' + esc(tr("save")) + "</button></div>"
+      return '<div class="card stack goalbox">' + seg + '<div class="goalhead"><span>' + esc(tr("target_lbl")) + '</span><b id="goalVal">' + fmtNum(gv) + "</b></div>" +
         '<div class="digits" id="digits" dir="ltr">' + cols + "</div>" +
         '<div class="chips">' + [33, 100, 300, 1000].map(function (x) { return '<button class="chip" data-act="preset" data-v="' + x + '">' + fmtNum(x) + "</button>" }).join("") + "</div>" +
         '<button class="btn success block" data-act="saveDaily">' + esc(tr("save")) + "</button></div>"
     }
     if (!ds || !ds.target) {
+      if (U.dmode === "free") return '<h1>📿 ' + esc(tr("daily")) + '</h1>' + formHtml()
       return '<h1>📿 ' + esc(tr("daily")) + '</h1><p class="sub">' + esc(tr("daily_ask")) + "</p>" + formHtml()
     }
     dailyTick()
@@ -914,8 +925,9 @@
     var h = '<div class="daily"><div class="dhead"><h1>📿 ' + esc(tr("daily")) + '</h1><button class="gear' + (U.dailyMenu ? " on" : "") + '" data-act="dailyMenu" aria-label="Settings">' + ic("settings") + '</button></div>'
     if (U.dailyMenu) h += '<div style="margin-bottom:10px">' + formHtml() + "</div>"
     if (owed > 0) h += '<p class="owed center">⊘ ' + esc(tr("owed").replace("{n}", owed)) + "</p>"
-    h += '<div id="hgwrap" class="hgwrap"><div id="hgstage" class="hgstage">' + hgBg() + '<div id="hgbox" class="hgbox">' + hgSvg(hgShown) + "</div>"
+    h += '<div id="hgwrap" class="hgwrap"><div id="hgstage" class="hgstage">' + hgBg() + '<div id="hgbox" class="hgbox' + (ds.mode === "free" ? " free" : "") + '">' + hgSvg(hgShown) + "</div>"
     if (ds.todayDone) h += '<div class="done center">✦ ' + esc(tr("cong")) + "</div>"
+    else if (ds.mode === "free") h += '<div class="stats mini" style="grid-template-columns:1fr 1fr"><div><b id="dTot">' + (ds.count || 0) + "</b><span>" + esc(tr("total_n")) + '</span></div><div><b id="dDone">' + draft + "</b><span>" + esc(tr("cycle_n")) + " /100</span></div></div>"
     else h += '<div class="stats mini"><div><b>' + target + "</b><span>" + esc(tr("needed")) + '</span></div><div><b id="dDone">' + draft + "</b><span>" + esc(tr("done_n")) + '</span></div><div><b id="dLeft">' + Math.max(0, target - draft) + "</b><span>" + esc(tr("left_n")) + "</span></div></div>"
     h += "</div></div>"
     h += ds.todayDone ? '<button class="tap-round off" disabled>✓</button>' : '<div class="tapzone"><i class="tb b1"></i><i class="tb b2"></i><i class="tb b3"></i><button class="tap-round" data-act="tap" aria-label="+">' + (ic("add") + (step > 1 ? '<b class="stp">' + step + "</b>" : "")) + "</button></div>"
@@ -1201,21 +1213,29 @@
     else if (act === "preset") goalSet(parseInt(v, 10))
     else if (act === "saveDaily") {
       var t = goalNum(), st = 1
-      if (!t || t < 1) { toast("⚠️"); return }
       var old = S.daily || {}
-      S.daily = { target: Math.min(t, 999999), step: st, owedDays: old.owedDays || 0, draft: old.draft || 0, lastCheckedDate: old.lastCheckedDate || todayStr(), todayDone: !!old.todayDone }
+      if ((U.dmode || old.mode || "goal") === "free") {
+        S.daily = { mode: "free", target: 100, step: 1, owedDays: 0, draft: old.mode === "free" ? (old.draft || 0) : 0, count: old.count || 0, lastCheckedDate: todayStr(), todayDone: false }
+        U.dmode = ""; U.dailyMenu = false; save(); render(); return
+      }
+      if (!t || t < 1) { toast("⚠️"); return }
+      U.dmode = ""
+      S.daily = { mode: "goal", target: Math.min(t, 999999), step: st, owedDays: old.owedDays || 0, draft: old.draft || 0, lastCheckedDate: old.lastCheckedDate || todayStr(), todayDone: !!old.todayDone }
       U.dailyMenu = false; save(); render()
     }
-    else if (act === "dailyMenu") { U.dailyMenu = !U.dailyMenu; render() }
+    else if (act === "dailyMenu") { U.dailyMenu = !U.dailyMenu; U.dmode = ""; render() }
+    else if (act === "dmode") { U.dmode = v; render() }
     else if (act === "tap") {
       dailyTick()
       var ds = S.daily
       if (ds.todayDone) return
       var cycles = 0
       ds.draft = (ds.draft || 0) + (ds.step || 1)
+      if (ds.mode === "free") ds.count = (ds.count || 0) + (ds.step || 1)
       while (ds.draft >= ds.target) {
         ds.draft -= ds.target
         cycles++
+        if (ds.mode === "free") continue
         if (ds.owedDays > 0) ds.owedDays--; else ds.todayDone = true
       }
       save()
@@ -1270,6 +1290,39 @@
     var ta = document.getElementById("noteText")
     if (ta && !ta._g) { ta._g = 1; noteGrow(ta) }
   }).observe(document.body, { childList: true, subtree: true })
+  var hgDrag = null, hgSpin = false
+  document.addEventListener("pointerdown", function (e) {
+    var w = e.target.closest && e.target.closest("#hgbox.free .hgw")
+    if (!w || hgSpin || document.querySelector("#hgbox.flip")) return
+    var r = w.getBoundingClientRect()
+    hgDrag = { w: w, x: e.clientX, half: r.height / 2, bottom: e.clientY >= r.top + r.height / 2, a: 0 }
+    try { w.setPointerCapture(e.pointerId) } catch (x) {}
+  })
+  document.addEventListener("pointermove", function (e) {
+    if (!hgDrag) return
+    var dx = e.clientX - hgDrag.x, a = Math.atan(dx / hgDrag.half) * 180 / Math.PI * (hgDrag.bottom ? -1 : 1)
+    hgDrag.a = Math.max(-38, Math.min(38, a))
+    hgDrag.w.style.transform = "rotate(" + hgDrag.a.toFixed(1) + "deg)"
+  })
+  function hgRelease() {
+    if (!hgDrag) return
+    var d = hgDrag, a = d.a; hgDrag = null
+    if (Math.abs(a) < 6) { d.w.style.transition = "transform .25s"; d.w.style.transform = ""; setTimeout(function () { d.w.style.transition = "" }, 300); return }
+    hgSpin = true
+    var an = d.w.animate([
+      { transform: "rotate(" + a + "deg)" }, { transform: "rotate(" + (-a * 0.38) + "deg)" }, { transform: "rotate(" + (a * 0.14) + "deg)" },
+      { transform: "rotate(" + (-a * 0.05) + "deg)" }, { transform: "rotate(0deg)" }
+    ], { duration: 1000, easing: "ease-in-out" })
+    var fin = function () {
+      d.w.style.transform = ""; hgSpin = false
+      haptic("medium")
+      var b = document.querySelector("[data-act=tap]"); if (b) b.click()
+    }
+    an.onfinish = fin
+  }
+  document.addEventListener("pointerup", hgRelease)
+  document.addEventListener("pointercancel", hgRelease)
+
   function noteDirty() {
     var ta = document.getElementById("noteText"), sb = document.getElementById("noteSave"), tw = document.getElementById("trashw")
     if (!ta || !sb) return
