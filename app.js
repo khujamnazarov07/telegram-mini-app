@@ -532,8 +532,8 @@
   var SIM = null
   var hgShown = 0
   var hgFlip = false
-  var R = 3.6                        // qum donasi radiusi
-  var NECK = 5.6                     // bo'yincha yarim kengligi
+  var R = 2.9                        // qum donasi radiusi
+  var NECK = 4.6                     // bo'yincha yarim kengligi
   var HC = 100, HT = 54, HB = 246, HM = 150, HNS = 64
   var HDY = (HB - HT) / HNS
   var GATE_Y = 145                   // "eshik": har bosishda faqat kerakli miqdordagi dona o'tkaziladi
@@ -543,9 +543,9 @@
   function hwAt(y) {
     var d = Math.abs(y - HM)
     if (d > 96) d = 96
-    if (d <= 50) { var u = d / 50; return NECK + (52 - NECK) * Math.pow(0.5 * (1 - Math.cos(Math.PI * u)), 1.1) }
-    var v = (d - 50) / 46
-    return 41 + 11 * Math.sqrt(Math.max(0, 1 - v * v))
+    var v = (d - 50) / 52, e = 54 * Math.sqrt(Math.max(0, 1 - v * v))
+    var u = Math.min(1, d / 24), sm = u * u * (3 - 2 * u)
+    return NECK + (Math.max(e, 12) - NECK) * sm
   }
   for (var hk = 0; hk <= HNS; hk++) { var hy = HT + hk * HDY, hh = hwAt(hy); WL.push([HC - hh, hy]); WR.push([HC + hh, hy]) }
 
@@ -643,7 +643,7 @@
 
   function simBuild(fallen) {
     var s = { g: [], allow: 0, crossed: 0, stall: 0, maxv: 1, rest: 0, raf: 0, els: null, sps: null, spi: [], onIdle: null }
-    var cand = [], sp = 7.7, rowH = sp * 0.866
+    var cand = [], sp = 6.2, rowH = sp * 0.866
     for (var y = HT + R + 2; y <= GATE_Y - R - 1; y += rowH) {
       var hw = hwAt(y) - R - 0.3
       if (hw < 0) continue
@@ -728,6 +728,9 @@
       '<linearGradient id="hgRim" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".95"/><stop offset=".5" stop-color="#fff" stop-opacity=".4"/><stop offset="1" stop-color="#fff" stop-opacity=".95"/></linearGradient>' +
       '<linearGradient id="hgCapFace" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="#9df0cd" stop-opacity=".92"/><stop offset="1" stop-color="#2fb487" stop-opacity=".92"/></linearGradient>' +
       '<linearGradient id="hgCapSide" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#1f8f6a" stop-opacity=".95"/><stop offset=".35" stop-color="#4fcfa1" stop-opacity=".95"/><stop offset="1" stop-color="#157a5b" stop-opacity=".95"/></linearGradient>' +
+      '<linearGradient id="hgShade" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#fff" stop-opacity=".34"/><stop offset=".38" stop-color="#fff" stop-opacity=".02"/><stop offset=".72" stop-color="#00382a" stop-opacity=".06"/><stop offset="1" stop-color="#00382a" stop-opacity=".34"/></linearGradient>' +
+      '<radialGradient id="hgFloor"><stop offset="0" stop-color="#00382a" stop-opacity=".42"/><stop offset="1" stop-color="#00382a" stop-opacity="0"/></radialGradient>' +
+      '<filter id="hgBlur" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="2.4"/></filter>' +
       '<clipPath id="hgClip"><path d="' + glassPath(0.6) + '"/></clipPath>' +
       '<filter id="hgGoo" filterUnits="userSpaceOnUse" x="0" y="0" width="200" height="300" color-interpolation-filters="sRGB">' +
       '<feGaussianBlur in="SourceGraphic" stdDeviation="1.3" result="b"/>' +
@@ -736,8 +739,10 @@
       '<feColorMatrix in="n" type="matrix" values="1 0 0 0 0  1 0 0 0 0  1 0 0 0 0  0 0 0 0 1" result="ng"/>' +
       '<feComposite in="g" in2="ng" operator="arithmetic" k1=".4" k2=".86" k3="0" k4="0" result="gt"/>' +
       '<feComposite in="gt" in2="g" operator="in"/></filter></defs>'
-    HG_BACK = defs + capBottom() + '<path d="' + glassPath(0) + '" fill="url(#hgGlass)"/>'
-    HG_FRONT = '<path d="' + glassPath(0) + '" fill="none" stroke="url(#hgRim)" stroke-opacity=".9" stroke-width="1.4" stroke-linejoin="round"/>' +
+    HG_BACK = defs + '<ellipse cx="100" cy="270" rx="66" ry="9" fill="url(#hgFloor)"/>' + capBottom() + '<path d="' + glassPath(0) + '" fill="url(#hgGlass)"/>'
+    HG_FRONT = '<g clip-path="url(#hgClip)"><path d="' + glassPath(0) + '" fill="none" stroke="#fff" stroke-opacity=".55" stroke-width="7" filter="url(#hgBlur)"/></g>' +
+      '<path d="' + glassPath(2.2) + '" fill="none" stroke="#fff" stroke-opacity=".3" stroke-width="1"/>' +
+      '<path d="' + glassPath(0) + '" fill="none" stroke="url(#hgRim)" stroke-opacity=".9" stroke-width="1.4" stroke-linejoin="round"/>' +
       '<path d="' + edgePath(1, 66, 120, 9) + '" fill="none" stroke="#fff" stroke-opacity=".55" stroke-width="5" stroke-linecap="round"/>' +
       '<path d="' + edgePath(1, 70, 100, 15) + '" fill="none" stroke="#fff" stroke-opacity=".35" stroke-width="3" stroke-linecap="round"/>' +
       '<path d="' + edgePath(-1, 180, 232, 9) + '" fill="none" stroke="#fff" stroke-opacity=".5" stroke-width="5" stroke-linecap="round"/>' +
@@ -757,7 +762,7 @@
       '<g clip-path="url(#hgClip)"><g filter="url(#hgGoo)">', i, p
     for (i = 0; i < 100; i++) {
       p = SIM.g[i]
-      h += '<circle class="sg" cx="' + f2(p.x) + '" cy="' + f2(p.y) + '" r="' + f2(R * 1.15) + '" fill="url(#hgSand)"/>'
+      h += '<circle class="sg" cx="' + f2(p.x) + '" cy="' + f2(p.y) + '" r="' + f2(R * 1.2) + '" fill="url(#hgSand)"/>'
     }
     h += '</g><g>'
     for (i = 0; i < SIM.spi.length; i++) {
@@ -769,7 +774,7 @@
       var mx = HC + (Math.random() - 0.5) * 2 * (hwAt(my) - 8)
       h += '<circle class="mote" style="animation-delay:-' + (Math.random() * 6).toFixed(1) + 's" cx="' + f2(mx) + '" cy="' + f2(my) + '" r="' + (0.7 + Math.random() * 0.8).toFixed(2) + '" fill="#fff"/>'
     }
-    return h + '</g></g>' + HG_FRONT + "</svg></div>"
+    return h + '</g><rect x="40" y="50" width="120" height="200" fill="url(#hgShade)"/></g>' + HG_FRONT + "</svg></div>"
   }
   // markaziy fon: minimal naqsh, nur, suzuvchi zarralar
   function hgBg() {
@@ -779,13 +784,13 @@
     h += '<i class="orb o1"></i><i class="orb o2"></i><i class="orb o3"></i><i class="orb o4"></i>'
     var kinds = ["ring", "dia", "dot", "ring", "dia", "dot", "bar"], i
     for (i = 0; i < 10; i++) {
-      var sz = 9 + Math.random() * 13
+      var sz = 6 + Math.random() * 8
       h += '<i class="fx ' + kinds[i % kinds.length] + '" style="top:' + (6 + (i * 10.5) % 84).toFixed(0) + "%;--z:" + sz.toFixed(0) + "px;--d:" + (13 + Math.random() * 12).toFixed(1) + "s;--dl:-" + (Math.random() * 22).toFixed(1) + 's"></i>'
     }
     h += '<i class="hgsweep"></i>'
     var cols = ["#3fcf9c", "#7fd8ff", "#5fe0ab", "#34c3b4"]
     for (var k = 0; k < 14; k++) {
-      var sz2 = 2 + Math.random() * 4
+      var sz2 = 1.2 + Math.random() * 2
       h += '<i class="pt' + (Math.random() < 0.22 ? " ring" : "") + '" style="left:' + (4 + Math.random() * 92).toFixed(1) + "%;top:" + (4 + Math.random() * 78).toFixed(1) + "%;--s:" + sz2.toFixed(1) + "px;--c:" + cols[k % cols.length] + ";--d:" + (4 + Math.random() * 5).toFixed(1) + "s;--dl:-" + (Math.random() * 8).toFixed(1) + "s;--dx:" + ((Math.random() - 0.5) * 16).toFixed(0) + 'px"></i>'
     }
     return h
@@ -904,7 +909,7 @@
     if (ds.todayDone) h += '<div class="done center">✦ ' + esc(tr("cong")) + "</div>"
     else h += '<div class="stats mini"><div><b>' + target + "</b><span>" + esc(tr("needed")) + '</span></div><div><b id="dDone">' + draft + "</b><span>" + esc(tr("done_n")) + '</span></div><div><b id="dLeft">' + Math.max(0, target - draft) + "</b><span>" + esc(tr("left_n")) + "</span></div></div>"
     h += "</div></div>"
-    h += ds.todayDone ? '<button class="tap-round off" disabled>✓</button>' : '<button class="tap-round" data-act="tap" aria-label="+">' + (ic("add") + (step > 1 ? '<b class="stp">' + step + "</b>" : "")) + "</button>"
+    h += ds.todayDone ? '<button class="tap-round off" disabled>✓</button>' : '<div class="tapzone"><i class="tb b1"></i><i class="tb b2"></i><i class="tb b3"></i><button class="tap-round" data-act="tap" aria-label="+">' + (ic("add") + (step > 1 ? '<b class="stp">' + step + "</b>" : "")) + "</button></div>"
     return h + "</div>"
   }
 
