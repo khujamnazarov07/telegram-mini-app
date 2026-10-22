@@ -339,3 +339,5 @@ body.indetail #app { min-height: calc(100vh - 60px); min-height: calc(100dvh - 6
 .seg button { flex: 1; padding: 9px 6px; border-radius: 9px; font-weight: 600; font-size: 14px; color: var(--hint); }
 .seg button.on { background: var(--accent); color: #fff; }
 .hgbox.free .hgw { touch-action: pan-y; cursor: grab; -webkit-user-select: none; user-select: none; }
+
+.pt { z-index: 4; }
