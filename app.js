@@ -556,6 +556,7 @@
 
   function simStep(s) {
     var G = s.g, n = G.length, i, j, p, q, maxv = 0
+    if (s.wake > 0) s.wake--
     for (i = 0; i < n; i++) {
       p = G[i]
       var vx = (p.x - p.px) * 0.985, vy = (p.y - p.py) * 0.985
@@ -640,7 +641,7 @@
         }
       }
       var mv = Math.abs(p.x - p.px) + Math.abs(p.y - p.py)
-      if (p.t && mv < 0.11 && (s.allow <= 0 || p.crossed)) { p.px = p.x; p.py = p.y; mv = 0 }
+      if (p.t && mv < 0.11 && !(s.wake > 0) && (s.allow <= 0 || p.crossed)) { p.px = p.x; p.py = p.y; mv = 0 }
       if (mv > maxv) maxv = mv
     }
     s.maxv = maxv
@@ -686,7 +687,7 @@
       p.x = 2 * HC - p.x; p.y = HT + HB - p.y
       p.px = p.x; p.py = p.y; p.crossed = false; p.t = false
     }
-    s.crossed = 0; s.allow = fallen; s.stall = 0; s.maxv = 1; s.rest = 0
+    s.crossed = 0; s.allow = fallen; s.stall = 0; s.maxv = 1; s.rest = 0; s.wake = 360
   }
 
   function hgFallen(ds) {
