@@ -335,3 +335,7 @@ body.indetail #app { min-height: calc(100vh - 60px); min-height: calc(100dvh - 6
 @keyframes fxmove { from { transform: translateX(-120%) rotate(0deg); } to { transform: translateX(calc(100vw)) rotate(220deg); } }
 @media (prefers-reduced-motion: reduce) { .fx { animation: none; left: 70%; } }
 
+.seg { display: flex; gap: 3px; padding: 3px; border-radius: 12px; background: var(--line); }
+.seg button { flex: 1; padding: 9px 6px; border-radius: 9px; font-weight: 600; font-size: 14px; color: var(--hint); }
+.seg button.on { background: var(--accent); color: #fff; }
+.hgbox.free .hgw { touch-action: pan-y; cursor: grab; -webkit-user-select: none; user-select: none; }
