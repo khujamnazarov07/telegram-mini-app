@@ -1272,7 +1272,7 @@
       openTg("https://t.me/share/url?url=" + encodeURIComponent("https://t.me/" + CFG.BOT) + "&text=" + encodeURIComponent("✨ " + sn + ". " + nd.a + " — " + nd.t + "\n🤖 @" + CFG.BOT))
     }
     else if (act === "setLang") { S.lang = v; TCACHE = {}; save(); U.more = "menu"; render(); if (wheels.lang) wheels.lang.set(LANGS.indexOf(v), true) }
-    else if (act === "openBot") openTg("https://t.me/" + CFG.BOT)
+    else if (act === "openBot") openTg("https://t.me/" + CFG.BOT + "?start=start")
     else if (act === "openChannel") openTg("https://t.me/" + CFG.CHANNEL)
   })
 
