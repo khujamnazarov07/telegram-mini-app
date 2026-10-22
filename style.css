@@ -166,7 +166,7 @@ textarea { width: 100%; min-height: 96px; padding: 12px; border-radius: 12px; bo
 .hgbox { position: relative; z-index: 2; display: flex; justify-content: center; }
 .hgw { position: relative; width: 176px; height: 264px; }
 .hg { position: absolute; inset: 0; width: 100%; height: 100%; display: block; overflow: visible; filter: drop-shadow(0 8px 12px rgba(0, 60, 45, .28)); }
-.hgfrost { position: absolute; inset: 0; -webkit-backdrop-filter: blur(11px) saturate(1.7) brightness(1.08); backdrop-filter: blur(11px) saturate(1.7) brightness(1.08); background: linear-gradient(135deg, rgba(255, 255, 255, .30), rgba(255, 255, 255, .07) 56%, rgba(255, 255, 255, .14)); }
+.hgfrost { position: absolute; inset: 0; -webkit-backdrop-filter: blur(13px) saturate(1.9) brightness(1.06); backdrop-filter: blur(13px) saturate(1.9) brightness(1.06); background: linear-gradient(135deg, rgba(255, 255, 255, .42), rgba(210, 255, 235, .1) 50%, rgba(255, 255, 255, .2)); }
 .orb { position: absolute; border-radius: 50%; filter: blur(18px); opacity: .55; pointer-events: none; animation: orbx var(--d) ease-in-out var(--dl) infinite alternate; }
 .orb.o1 { width: 130px; height: 130px; left: -12%; top: 18%; background: radial-gradient(circle, #5fe0ab, rgba(95, 224, 171, 0) 70%); --tx: 250%; --ty: 40%; --d: 9s; --dl: 0s; }
 .orb.o2 { width: 100px; height: 100px; right: -8%; top: 50%; background: radial-gradient(circle, #34c3b4, rgba(52, 195, 180, 0) 70%); --tx: -270%; --ty: -50%; --d: 11s; --dl: -3s; }
@@ -195,9 +195,17 @@ textarea { width: 100%; min-height: 96px; padding: 12px; border-radius: 12px; bo
 .hgstage .done { position: relative; z-index: 2; margin-top: 8px; color: var(--tx); font-weight: 600; }
 .stats.mini { width: 100%; margin-top: 8px; }
 .daily .done { margin-top: 10px; }
-.tap-round { margin: auto 0 6px; width: 124px; height: 124px; border-radius: 50%; font-size: 54px; font-weight: 300; line-height: 1; color: #fff; background: radial-gradient(circle at 32% 28%, #52d1a8, #1d8a67 70%); box-shadow: 0 10px 26px rgba(29, 138, 103, .45), inset 0 -6px 12px rgba(0, 0, 0, .12); transition: transform .12s, box-shadow .12s; }
-.tap-round:active { transform: scale(.93); box-shadow: 0 4px 12px rgba(29, 138, 103, .4); }
-.tap-round.off { background: var(--line); box-shadow: none; color: var(--hint); cursor: default; }
+.tapzone { --ti: #0d6b51; position: relative; width: 190px; height: 170px; margin: auto 0 6px; display: grid; place-items: center; }
+:root[data-theme="dark"] .tapzone { --ti: #e4fff4; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]):not([data-theme="dark"]) .tapzone { --ti: #e4fff4; } }
+.tb { position: absolute; border-radius: 50%; filter: blur(10px); pointer-events: none; animation: tbmove var(--d, 7s) ease-in-out infinite alternate; }
+.tb.b1 { width: 84px; height: 84px; left: 12px; top: 18px; background: radial-gradient(circle, #34d399, rgba(52, 211, 153, 0) 72%); --d: 6s; --x: 70px; --y: 40px; }
+.tb.b2 { width: 70px; height: 70px; right: 10px; bottom: 12px; background: radial-gradient(circle, #38bdf8, rgba(56, 189, 248, 0) 72%); --d: 8s; --x: -60px; --y: -34px; }
+.tb.b3 { width: 60px; height: 60px; right: 26px; top: 10px; background: radial-gradient(circle, #fde68a, rgba(253, 230, 138, 0) 72%); --d: 5s; --x: -50px; --y: 60px; }
+@keyframes tbmove { from { transform: translate(0, 0) scale(1); } to { transform: translate(var(--x), var(--y)) scale(1.25); } }
+.tap-round { position: relative; z-index: 1; margin: 0; width: 124px; height: 124px; border-radius: 50%; font-size: 54px; font-weight: 300; line-height: 1; color: var(--ti); background: linear-gradient(145deg, rgba(255, 255, 255, .55), rgba(95, 224, 171, .28) 55%, rgba(47, 158, 119, .22)); -webkit-backdrop-filter: blur(12px) saturate(1.8); backdrop-filter: blur(12px) saturate(1.8); border: 1.5px solid rgba(255, 255, 255, .75); box-shadow: 0 12px 30px rgba(31, 157, 116, .32), inset 0 2px 0 rgba(255, 255, 255, .85), inset 0 -10px 18px rgba(255, 255, 255, .14), inset 0 0 22px rgba(255, 255, 255, .22); transition: transform .12s, box-shadow .12s; }
+.tap-round:active { transform: scale(.93); box-shadow: 0 5px 14px rgba(31, 157, 116, .3), inset 0 2px 0 rgba(255, 255, 255, .85); }
+.tap-round.off { margin: auto 0 6px; background: var(--line); box-shadow: none; color: var(--hint); cursor: default; -webkit-backdrop-filter: none; backdrop-filter: none; border-color: transparent; }
 @media (prefers-reduced-motion: reduce) { .hgbox.flip, .hgaura, .orb, .hgsweep, .pt, .hg .halo, .hg .spk, .hg .mote { animation: none; } .hg .spk { opacity: .7; } }
 
 /* ====== Ism ma'nosi ====== */
@@ -216,7 +224,15 @@ textarea { width: 100%; min-height: 96px; padding: 12px; border-radius: 12px; bo
 .gear .msi { font-size: 22px; }
 .name-card .fav { color: #ff3b5c; font-size: 0; line-height: 1; }
 .name-card .fav .msi { font-size: 15px; }
-.tap-round { position: relative; display: grid; place-items: center; }
+.tapzone { --ti: #0d6b51; position: relative; width: 190px; height: 170px; margin: auto 0 6px; display: grid; place-items: center; }
+:root[data-theme="dark"] .tapzone { --ti: #e4fff4; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]):not([data-theme="dark"]) .tapzone { --ti: #e4fff4; } }
+.tb { position: absolute; border-radius: 50%; filter: blur(10px); pointer-events: none; animation: tbmove var(--d, 7s) ease-in-out infinite alternate; }
+.tb.b1 { width: 84px; height: 84px; left: 12px; top: 18px; background: radial-gradient(circle, #34d399, rgba(52, 211, 153, 0) 72%); --d: 6s; --x: 70px; --y: 40px; }
+.tb.b2 { width: 70px; height: 70px; right: 10px; bottom: 12px; background: radial-gradient(circle, #38bdf8, rgba(56, 189, 248, 0) 72%); --d: 8s; --x: -60px; --y: -34px; }
+.tb.b3 { width: 60px; height: 60px; right: 26px; top: 10px; background: radial-gradient(circle, #fde68a, rgba(253, 230, 138, 0) 72%); --d: 5s; --x: -50px; --y: 60px; }
+@keyframes tbmove { from { transform: translate(0, 0) scale(1); } to { transform: translate(var(--x), var(--y)) scale(1.25); } }
+.tap-round { position: relative; z-index: 1; margin: 0; width: 124px; height: 124px; border-radius: 50%; font-size: 54px; font-weight: 300; line-height: 1; color: var(--ti); background: linear-gradient(145deg, rgba(255, 255, 255, .55), rgba(95, 224, 171, .28) 55%, rgba(47, 158, 119, .22)); -webkit-backdrop-filter: blur(12px) saturate(1.8); backdrop-filter: blur(12px) saturate(1.8); border: 1.5px solid rgba(255, 255, 255, .75); box-shadow: 0 12px 30px rgba(31, 157, 116, .32), inset 0 2px 0 rgba(255, 255, 255, .85), inset 0 -10px 18px rgba(255, 255, 255, .14), inset 0 0 22px rgba(255, 255, 255, .22); transition: transform .12s, box-shadow .12s; }
 .tap-round .msi { font-size: 64px; }
 .tap-round .stp { position: absolute; bottom: 20px; font-size: 15px; font-weight: 700; }
 /* ism kartasi (slayd) */
@@ -318,3 +334,4 @@ body.indetail #app { min-height: calc(100vh - 60px); min-height: calc(100dvh - 6
 .fx.bar { height: 3px; width: calc(var(--z) * 1.6); border-radius: 99px; background: var(--fxb); }
 @keyframes fxmove { from { transform: translateX(-120%) rotate(0deg); } to { transform: translateX(calc(100vw)) rotate(220deg); } }
 @media (prefers-reduced-motion: reduce) { .fx { animation: none; left: 70%; } }
+
