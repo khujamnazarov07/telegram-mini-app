@@ -727,6 +727,9 @@
       '<linearGradient id="hgRim" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".95"/><stop offset=".5" stop-color="#fff" stop-opacity=".4"/><stop offset="1" stop-color="#fff" stop-opacity=".95"/></linearGradient>' +
       '<linearGradient id="hgCapFace" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="#9df0cd" stop-opacity=".92"/><stop offset="1" stop-color="#2fb487" stop-opacity=".92"/></linearGradient>' +
       '<linearGradient id="hgCapSide" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#1f8f6a" stop-opacity=".95"/><stop offset=".35" stop-color="#4fcfa1" stop-opacity=".95"/><stop offset="1" stop-color="#157a5b" stop-opacity=".95"/></linearGradient>' +
+      '<radialGradient id="hgBodyT" gradientUnits="userSpaceOnUse" cx="76" cy="96" r="78"><stop offset="0" stop-color="#fff" stop-opacity=".5"/><stop offset=".45" stop-color="#e9fff6" stop-opacity=".14"/><stop offset="1" stop-color="#0b6a50" stop-opacity=".42"/></radialGradient>' +
+      '<radialGradient id="hgBodyB" gradientUnits="userSpaceOnUse" cx="76" cy="204" r="78"><stop offset="0" stop-color="#fff" stop-opacity=".5"/><stop offset=".45" stop-color="#e9fff6" stop-opacity=".14"/><stop offset="1" stop-color="#0b6a50" stop-opacity=".42"/></radialGradient>' +
+      '<linearGradient id="hgWin" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".85"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>' +
       '<linearGradient id="hgShade" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#fff" stop-opacity=".34"/><stop offset=".38" stop-color="#fff" stop-opacity=".02"/><stop offset=".72" stop-color="#00382a" stop-opacity=".06"/><stop offset="1" stop-color="#00382a" stop-opacity=".34"/></linearGradient>' +
       '<radialGradient id="hgFloor"><stop offset="0" stop-color="#00382a" stop-opacity=".42"/><stop offset="1" stop-color="#00382a" stop-opacity="0"/></radialGradient>' +
       '<filter id="hgBlur" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="2.4"/></filter>' +
@@ -739,15 +742,20 @@
       '<feComposite in="g" in2="ng" operator="arithmetic" k1=".4" k2=".86" k3="0" k4="0" result="gt"/>' +
       '<feComposite in="gt" in2="g" operator="in"/></filter></defs>'
     HG_BACK = defs + '<ellipse cx="100" cy="270" rx="66" ry="9" fill="url(#hgFloor)"/>' + capBottom() + '<path d="' + glassPath(0) + '" fill="url(#hgGlass)"/>'
-    HG_FRONT = '<g clip-path="url(#hgClip)"><path d="' + glassPath(0) + '" fill="none" stroke="#fff" stroke-opacity=".55" stroke-width="7" filter="url(#hgBlur)"/></g>' +
-      '<path d="' + glassPath(2.2) + '" fill="none" stroke="#fff" stroke-opacity=".3" stroke-width="1"/>' +
-      '<path d="' + glassPath(0) + '" fill="none" stroke="url(#hgRim)" stroke-opacity=".9" stroke-width="1.4" stroke-linejoin="round"/>' +
-      '<path d="' + edgePath(1, 66, 120, 9) + '" fill="none" stroke="#fff" stroke-opacity=".55" stroke-width="5" stroke-linecap="round"/>' +
-      '<path d="' + edgePath(1, 70, 100, 15) + '" fill="none" stroke="#fff" stroke-opacity=".35" stroke-width="3" stroke-linecap="round"/>' +
-      '<path d="' + edgePath(-1, 180, 232, 9) + '" fill="none" stroke="#fff" stroke-opacity=".5" stroke-width="5" stroke-linecap="round"/>' +
-      '<path d="' + edgePath(-1, 200, 228, 15) + '" fill="none" stroke="#fff" stroke-opacity=".3" stroke-width="3" stroke-linecap="round"/>' +
-      '<path d="' + edgePath(-1, 68, 112, 6) + '" fill="none" stroke="#fff" stroke-opacity=".4" stroke-width="1.6" stroke-linecap="round"/>' +
-      '<path d="' + edgePath(1, 188, 232, 6) + '" fill="none" stroke="#fff" stroke-opacity=".4" stroke-width="1.6" stroke-linecap="round"/>' +
+    HG_FRONT = '<g clip-path="url(#hgClip)"><rect x="40" y="52" width="120" height="98" fill="url(#hgBodyT)"/><rect x="40" y="150" width="120" height="98" fill="url(#hgBodyB)"/>' +
+      '<path d="' + glassPath(0) + '" fill="none" stroke="#06503c" stroke-opacity=".55" stroke-width="5" filter="url(#hgBlur)"/>' +
+      '<path d="' + glassPath(0) + '" fill="none" stroke="#fff" stroke-opacity=".6" stroke-width="9" filter="url(#hgBlur)" transform="translate(-1.5 0)"/></g>' +
+      '<path d="M63 82 Q57 104 64 128 L71 126 Q65 104 69 84Z" fill="url(#hgWin)" opacity=".8"/>' +
+      '<path d="M131 190 Q137 168 130 148 L123 150 Q129 168 125 188Z" fill="url(#hgWin)" opacity=".65" transform="rotate(180 128 169)"/>' +
+      '<path d="M76 70 Q96 63 124 70" fill="none" stroke="#fff" stroke-opacity=".75" stroke-width="2" stroke-linecap="round"/>' +
+      '<path d="M76 230 Q100 237 124 230" fill="none" stroke="#fff" stroke-opacity=".55" stroke-width="2" stroke-linecap="round"/>' +
+      '<circle cx="66" cy="76" r="2.4" fill="#fff"/><circle cx="134" cy="224" r="2.4" fill="#fff"/><circle cx="72" cy="70" r="1.2" fill="#fff"/>' +
+      '<ellipse cx="100" cy="246" rx="53" ry="6" fill="none" stroke="#fff" stroke-opacity=".5" stroke-width="1.2"/>' +
+      '<path d="' + glassPath(0) + '" fill="none" stroke="#04523d" stroke-opacity=".35" stroke-width="2.6" stroke-linejoin="round"/>' +
+      '<path d="' + glassPath(1.6) + '" fill="none" stroke="#fff" stroke-opacity=".95" stroke-width="1.3" stroke-linejoin="round"/>' +
+      '<path d="' + glassPath(4) + '" fill="none" stroke="#fff" stroke-opacity=".28" stroke-width="1" stroke-linejoin="round"/>' +
+      '<path d="' + edgePath(-1, 84, 134, 5.5) + '" fill="none" stroke="#fff" stroke-opacity=".5" stroke-width="1.8" stroke-linecap="round"/>' +
+      '<path d="' + edgePath(1, 166, 216, 5.5) + '" fill="none" stroke="#fff" stroke-opacity=".5" stroke-width="1.8" stroke-linecap="round"/>' +
       capTop()
     var uri = "url('data:image/svg+xml," + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 176 264"><path d="' + glassPx(0.88) + '"/></svg>').replace(/'/g, "%27").replace(/\(/g, "%28").replace(/\)/g, "%29") + "')"
     HG_CLIP = "-webkit-mask:" + uri + " center/100% 100% no-repeat;mask:" + uri + " center/100% 100% no-repeat"
