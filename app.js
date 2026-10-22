@@ -1290,35 +1290,46 @@
     var ta = document.getElementById("noteText")
     if (ta && !ta._g) { ta._g = 1; noteGrow(ta) }
   }).observe(document.body, { childList: true, subtree: true })
-  var hgDrag = null, hgSpin = false
+  var hgDrag = null, hgAnim = null
+  function hgAngle(w) {
+    var m = getComputedStyle(w).transform
+    if (!m || m === "none") return 0
+    var v = m.match(/matrix\(([^)]+)\)/)
+    if (!v) return 0
+    var p = v[1].split(",")
+    return Math.atan2(parseFloat(p[1]), parseFloat(p[0])) * 180 / Math.PI
+  }
   document.addEventListener("pointerdown", function (e) {
     var w = e.target.closest && e.target.closest("#hgbox.free .hgw")
-    if (!w || hgSpin || document.querySelector("#hgbox.flip")) return
+    if (!w || document.querySelector("#hgbox.flip")) return
+    var a0 = 0
+    if (hgAnim) { a0 = hgAngle(w); hgAnim.onfinish = null; hgAnim.cancel(); hgAnim = null; w.style.transform = "rotate(" + a0.toFixed(1) + "deg)" }
     var r = w.getBoundingClientRect()
-    hgDrag = { w: w, x: e.clientX, half: r.height / 2, bottom: e.clientY >= r.top + r.height / 2, a: 0 }
+    hgDrag = { w: w, x: e.clientX, half: r.height / 2, bottom: e.clientY >= r.top + r.height / 2, a0: a0, a: a0, armed: Math.abs(a0) < 6 }
     try { w.setPointerCapture(e.pointerId) } catch (x) {}
   })
   document.addEventListener("pointermove", function (e) {
     if (!hgDrag) return
-    var dx = e.clientX - hgDrag.x, a = Math.atan(dx / hgDrag.half) * 180 / Math.PI * (hgDrag.bottom ? -1 : 1)
+    var dx = e.clientX - hgDrag.x, a = hgDrag.a0 + Math.atan(dx / hgDrag.half) * 180 / Math.PI * (hgDrag.bottom ? -1 : 1)
     hgDrag.a = Math.max(-38, Math.min(38, a))
     hgDrag.w.style.transform = "rotate(" + hgDrag.a.toFixed(1) + "deg)"
+    if (Math.abs(hgDrag.a) < 6) hgDrag.armed = true
+    else if (hgDrag.armed && Math.abs(hgDrag.a) >= 14) {
+      hgDrag.armed = false
+      haptic("medium")
+      var b = document.querySelector("[data-act=tap]"); if (b) b.click()
+    }
   })
   function hgRelease() {
     if (!hgDrag) return
     var d = hgDrag, a = d.a; hgDrag = null
-    if (Math.abs(a) < 6) { d.w.style.transition = "transform .25s"; d.w.style.transform = ""; setTimeout(function () { d.w.style.transition = "" }, 300); return }
-    hgSpin = true
+    if (Math.abs(a) < 0.5) { d.w.style.transform = ""; return }
     var an = d.w.animate([
       { transform: "rotate(" + a + "deg)" }, { transform: "rotate(" + (-a * 0.38) + "deg)" }, { transform: "rotate(" + (a * 0.14) + "deg)" },
       { transform: "rotate(" + (-a * 0.05) + "deg)" }, { transform: "rotate(0deg)" }
-    ], { duration: 1000, easing: "ease-in-out" })
-    var fin = function () {
-      d.w.style.transform = ""; hgSpin = false
-      haptic("medium")
-      var b = document.querySelector("[data-act=tap]"); if (b) b.click()
-    }
-    an.onfinish = fin
+    ], { duration: 900, easing: "ease-in-out" })
+    hgAnim = an
+    an.onfinish = function () { d.w.style.transform = ""; if (hgAnim === an) hgAnim = null }
   }
   document.addEventListener("pointerup", hgRelease)
   document.addEventListener("pointercancel", hgRelease)
