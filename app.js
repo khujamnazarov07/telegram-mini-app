@@ -533,7 +533,7 @@
   var hgShown = 0
   var hgFlip = false
   var R = 3.6                        // qum donasi radiusi
-  var NECK = 6.8                     // bo'yincha yarim kengligi
+  var NECK = 5.6                     // bo'yincha yarim kengligi
   var HC = 100, HT = 54, HB = 246, HM = 150, HNS = 64
   var HDY = (HB - HT) / HNS
   var GATE_Y = 145                   // "eshik": har bosishda faqat kerakli miqdordagi dona o'tkaziladi
@@ -543,9 +543,9 @@
   function hwAt(y) {
     var d = Math.abs(y - HM)
     if (d > 96) d = 96
-    if (d <= 50) { var u = d / 50; return NECK + (50 - NECK) * Math.pow(0.5 * (1 - Math.cos(Math.PI * u)), 1.15) }
+    if (d <= 50) { var u = d / 50; return NECK + (52 - NECK) * Math.pow(0.5 * (1 - Math.cos(Math.PI * u)), 1.1) }
     var v = (d - 50) / 46
-    return 43 + 7 * Math.sqrt(Math.max(0, 1 - v * v))
+    return 41 + 11 * Math.sqrt(Math.max(0, 1 - v * v))
   }
   for (var hk = 0; hk <= HNS; hk++) { var hy = HT + hk * HDY, hh = hwAt(hy); WL.push([HC - hh, hy]); WR.push([HC + hh, hy]) }
 
@@ -707,28 +707,44 @@
     return "M" + a.join("L") + "L" + b.reverse().join("L") + "Z"
   }
   var HG_BACK = "", HG_FRONT = "", HG_CLIP = ""
+  function capTop() {
+    return '<path d="M42 37 L42 46 A58 8 0 0 0 158 46 L158 37 Z" fill="url(#hgCapSide)"/>' +
+      '<path d="M44 40 A56 7 0 0 0 156 40" fill="none" stroke="#fff" stroke-opacity=".28" stroke-width="1.2" stroke-linecap="round"/>' +
+      '<ellipse cx="100" cy="37" rx="58" ry="8" fill="url(#hgCapFace)" stroke="#fff" stroke-opacity=".7" stroke-width="1"/>' +
+      '<ellipse cx="100" cy="37.6" rx="47" ry="5.2" fill="none" stroke="#fff" stroke-opacity=".38" stroke-width="1"/>' +
+      '<path d="M58 34.2 Q100 29.6 142 34.2" fill="none" stroke="#fff" stroke-opacity=".75" stroke-width="1.5" stroke-linecap="round"/>'
+  }
+  function capBottom() {
+    return '<path d="M42 250 L42 259 A58 8 0 0 0 158 259 L158 250 Z" fill="url(#hgCapSide)"/>' +
+      '<ellipse cx="100" cy="250" rx="58" ry="8" fill="url(#hgCapFace)" stroke="#fff" stroke-opacity=".7" stroke-width="1"/>' +
+      '<ellipse cx="100" cy="250.6" rx="47" ry="5.2" fill="none" stroke="#fff" stroke-opacity=".38" stroke-width="1"/>' +
+      '<path d="M58 247.2 Q100 242.6 142 247.2" fill="none" stroke="#fff" stroke-opacity=".6" stroke-width="1.5" stroke-linecap="round"/>'
+  }
   function hgStatic() {
     if (HG_BACK) return
     var defs = '<defs>' +
-      '<linearGradient id="hgGlass" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".16"/><stop offset="1" stop-color="#d8fff0" stop-opacity=".05"/></linearGradient>' +
-      '<linearGradient id="hgSand" gradientUnits="userSpaceOnUse" x1="0" x2="0" y1="' + HT + '" y2="' + HB + '"><stop offset="0" stop-color="#fffaf0"/><stop offset=".35" stop-color="#f8e9bf"/><stop offset=".5" stop-color="#f1dba0"/><stop offset=".65" stop-color="#f8e9bf"/><stop offset="1" stop-color="#fffaf0"/></linearGradient>' +
-      '<linearGradient id="hgRim" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".95"/><stop offset=".5" stop-color="#fff" stop-opacity=".35"/><stop offset="1" stop-color="#fff" stop-opacity=".95"/></linearGradient>' +
+      '<linearGradient id="hgGlass" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".2"/><stop offset="1" stop-color="#fff" stop-opacity=".05"/></linearGradient>' +
+      '<linearGradient id="hgSand" gradientUnits="userSpaceOnUse" x1="0" x2="0" y1="' + HT + '" y2="' + HB + '"><stop offset="0" style="stop-color:var(--s1)"/><stop offset=".5" style="stop-color:var(--s2)"/><stop offset="1" style="stop-color:var(--s1)"/></linearGradient>' +
+      '<linearGradient id="hgRim" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".95"/><stop offset=".5" stop-color="#fff" stop-opacity=".4"/><stop offset="1" stop-color="#fff" stop-opacity=".95"/></linearGradient>' +
+      '<linearGradient id="hgCapFace" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="#9df0cd" stop-opacity=".92"/><stop offset="1" stop-color="#2fb487" stop-opacity=".92"/></linearGradient>' +
+      '<linearGradient id="hgCapSide" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#1f8f6a" stop-opacity=".95"/><stop offset=".35" stop-color="#4fcfa1" stop-opacity=".95"/><stop offset="1" stop-color="#157a5b" stop-opacity=".95"/></linearGradient>' +
       '<clipPath id="hgClip"><path d="' + glassPath(0.6) + '"/></clipPath>' +
       '<filter id="hgGoo" filterUnits="userSpaceOnUse" x="0" y="0" width="200" height="300" color-interpolation-filters="sRGB">' +
-      '<feGaussianBlur in="SourceGraphic" stdDeviation="1.5" result="b"/>' +
-      '<feColorMatrix in="b" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -8" result="g"/>' +
-      '<feGaussianBlur in="g" stdDeviation="3.2" result="gl"/>' +
-      '<feColorMatrix in="gl" mode="matrix" values="1 0 0 0 0  0 .9 0 0 0  0 0 .6 0 0  0 0 0 .3 0" result="gl2"/>' +
-      '<feMerge><feMergeNode in="gl2"/><feMergeNode in="g"/></feMerge></filter></defs>'
-    HG_BACK = defs + '<path d="' + glassPath(0) + '" fill="url(#hgGlass)"/>' +
-      '<rect x="89" y="146.5" width="22" height="7" rx="3.5" fill="#fff" fill-opacity=".22"/>'
-    HG_FRONT = '<path d="' + glassPath(0) + '" fill="none" stroke="url(#hgRim)" stroke-opacity=".85" stroke-width="1.4" stroke-linejoin="round"/>' +
-      '<path d="' + edgePath(-1, 68, 116, 7) + '" fill="none" stroke="#fff" stroke-opacity=".5" stroke-width="1.8" stroke-linecap="round"/>' +
-      '<path d="' + edgePath(1, 184, 232, 7) + '" fill="none" stroke="#fff" stroke-opacity=".5" stroke-width="1.8" stroke-linecap="round"/>' +
-      '<path d="' + edgePath(-1, 70, 100, 12) + '" fill="none" stroke="#fff" stroke-opacity=".08" stroke-width="6" stroke-linecap="round"/>' +
-      '<path d="' + edgePath(1, 200, 230, 12) + '" fill="none" stroke="#fff" stroke-opacity=".08" stroke-width="6" stroke-linecap="round"/>' +
-      '<path d="' + edgePath(1, 70, 98, 6) + '" fill="none" stroke="#fff" stroke-opacity=".28" stroke-width="1.4" stroke-linecap="round"/>' +
-      '<path d="' + edgePath(-1, 202, 230, 6) + '" fill="none" stroke="#fff" stroke-opacity=".28" stroke-width="1.4" stroke-linecap="round"/>'
+      '<feGaussianBlur in="SourceGraphic" stdDeviation="1.3" result="b"/>' +
+      '<feColorMatrix in="b" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 20 -9" result="g"/>' +
+      '<feTurbulence type="fractalNoise" baseFrequency=".95" numOctaves="2" seed="4" result="n"/>' +
+      '<feColorMatrix in="n" type="matrix" values="1 0 0 0 0  1 0 0 0 0  1 0 0 0 0  0 0 0 0 1" result="ng"/>' +
+      '<feComposite in="g" in2="ng" operator="arithmetic" k1=".4" k2=".86" k3="0" k4="0" result="gt"/>' +
+      '<feComposite in="gt" in2="g" operator="in"/></filter></defs>'
+    HG_BACK = defs + capBottom() + '<path d="' + glassPath(0) + '" fill="url(#hgGlass)"/>'
+    HG_FRONT = '<path d="' + glassPath(0) + '" fill="none" stroke="url(#hgRim)" stroke-opacity=".9" stroke-width="1.4" stroke-linejoin="round"/>' +
+      '<path d="' + edgePath(1, 66, 120, 9) + '" fill="none" stroke="#fff" stroke-opacity=".55" stroke-width="5" stroke-linecap="round"/>' +
+      '<path d="' + edgePath(1, 70, 100, 15) + '" fill="none" stroke="#fff" stroke-opacity=".35" stroke-width="3" stroke-linecap="round"/>' +
+      '<path d="' + edgePath(-1, 180, 232, 9) + '" fill="none" stroke="#fff" stroke-opacity=".5" stroke-width="5" stroke-linecap="round"/>' +
+      '<path d="' + edgePath(-1, 200, 228, 15) + '" fill="none" stroke="#fff" stroke-opacity=".3" stroke-width="3" stroke-linecap="round"/>' +
+      '<path d="' + edgePath(-1, 68, 112, 6) + '" fill="none" stroke="#fff" stroke-opacity=".4" stroke-width="1.6" stroke-linecap="round"/>' +
+      '<path d="' + edgePath(1, 188, 232, 6) + '" fill="none" stroke="#fff" stroke-opacity=".4" stroke-width="1.6" stroke-linecap="round"/>' +
+      capTop()
     var uri = "url('data:image/svg+xml," + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 176 264"><path d="' + glassPx(0.88) + '"/></svg>').replace(/'/g, "%27").replace(/\(/g, "%28").replace(/\)/g, "%29") + "')"
     HG_CLIP = "-webkit-mask:" + uri + " center/100% 100% no-repeat;mask:" + uri + " center/100% 100% no-repeat"
   }
@@ -737,7 +753,7 @@
     else if (!SIM || SIM.crossed + SIM.allow !== fallen) simBuild(fallen)
     hgFlip = false
     hgStatic()
-    var h = '<div class="hgw"><div class="hgfrost" style="' + HG_CLIP + '"></div><i class="hgcap t"></i><i class="hgcap b"></i><svg id="hgsvg" class="hg" viewBox="0 0 200 300" aria-hidden="true">' + HG_BACK +
+    var h = '<div class="hgw"><div class="hgfrost" style="' + HG_CLIP + '"></div><svg id="hgsvg" class="hg" viewBox="0 0 200 300" aria-hidden="true">' + HG_BACK +
       '<g clip-path="url(#hgClip)"><g filter="url(#hgGoo)">', i, p
     for (i = 0; i < 100; i++) {
       p = SIM.g[i]
@@ -746,12 +762,12 @@
     h += '</g><g>'
     for (i = 0; i < SIM.spi.length; i++) {
       p = SIM.g[SIM.spi[i]]
-      h += '<g class="spg" transform="translate(' + f2(p.x) + " " + f2(p.y) + ')"><path class="spk" style="--t:' + (1.6 + Math.random() * 1.8).toFixed(2) + "s;--dl:-" + (Math.random() * 3).toFixed(2) + "s;--sc:" + (0.7 + Math.random() * 0.7).toFixed(2) + '" d="M0 -3 L.8 -.8 L3 0 L.8 .8 L0 3 L-.8 .8 L-3 0 L-.8 -.8Z" fill="#fffbe6"/></g>'
+      h += '<g class="spg" transform="translate(' + f2(p.x) + " " + f2(p.y) + ')"><path class="spk" style="--t:' + (1.6 + Math.random() * 1.8).toFixed(2) + "s;--dl:-" + (Math.random() * 3).toFixed(2) + "s;--sc:" + (0.7 + Math.random() * 0.7).toFixed(2) + '" d="M0 -3 L.8 -.8 L3 0 L.8 .8 L0 3 L-.8 .8 L-3 0 L-.8 -.8Z" fill="#fff"/></g>'
     }
     for (i = 0; i < 10; i++) {   // shisha ichidagi mayda chang zarralari
       var top = i < 5, my = top ? 62 + Math.random() * 34 : 206 + Math.random() * 30
       var mx = HC + (Math.random() - 0.5) * 2 * (hwAt(my) - 8)
-      h += '<circle class="mote" style="animation-delay:-' + (Math.random() * 6).toFixed(1) + 's" cx="' + f2(mx) + '" cy="' + f2(my) + '" r="' + (0.7 + Math.random() * 0.8).toFixed(2) + '" fill="#fff6c8"/>'
+      h += '<circle class="mote" style="animation-delay:-' + (Math.random() * 6).toFixed(1) + 's" cx="' + f2(mx) + '" cy="' + f2(my) + '" r="' + (0.7 + Math.random() * 0.8).toFixed(2) + '" fill="#fff"/>'
     }
     return h + '</g></g>' + HG_FRONT + "</svg></div>"
   }
@@ -767,7 +783,7 @@
       h += '<i class="fx ' + kinds[i % kinds.length] + '" style="top:' + (6 + (i * 10.5) % 84).toFixed(0) + "%;--z:" + sz.toFixed(0) + "px;--d:" + (13 + Math.random() * 12).toFixed(1) + "s;--dl:-" + (Math.random() * 22).toFixed(1) + 's"></i>'
     }
     h += '<i class="hgsweep"></i>'
-    var cols = ["#ffffff", "#fff3b0", "#d6ffe9", "#9fe6ff"]
+    var cols = ["#3fcf9c", "#7fd8ff", "#5fe0ab", "#34c3b4"]
     for (var k = 0; k < 14; k++) {
       var sz2 = 2 + Math.random() * 4
       h += '<i class="pt' + (Math.random() < 0.22 ? " ring" : "") + '" style="left:' + (4 + Math.random() * 92).toFixed(1) + "%;top:" + (4 + Math.random() * 78).toFixed(1) + "%;--s:" + sz2.toFixed(1) + "px;--c:" + cols[k % cols.length] + ";--d:" + (4 + Math.random() * 5).toFixed(1) + "s;--dl:-" + (Math.random() * 8).toFixed(1) + "s;--dx:" + ((Math.random() - 0.5) * 16).toFixed(0) + 'px"></i>'
