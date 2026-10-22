@@ -543,9 +543,8 @@
   function hwAt(y) {
     var d = Math.abs(y - HM)
     if (d > 96) d = 96
-    var v = (d - 50) / 52, e = 54 * Math.sqrt(Math.max(0, 1 - v * v))
-    var u = Math.min(1, d / 24), sm = u * u * (3 - 2 * u)
-    return NECK + (Math.max(e, 12) - NECK) * sm
+    var v = (d - 68) / 68, e = 58 * Math.sqrt(Math.max(0, 1 - v * v))
+    return Math.sqrt(NECK * NECK + e * e)
   }
   for (var hk = 0; hk <= HNS; hk++) { var hy = HT + hk * HDY, hh = hwAt(hy); WL.push([HC - hh, hy]); WR.push([HC + hh, hy]) }
 
