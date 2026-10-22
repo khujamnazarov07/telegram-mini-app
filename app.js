@@ -741,7 +741,7 @@
       '<feColorMatrix in="n" type="matrix" values="1 0 0 0 0  1 0 0 0 0  1 0 0 0 0  0 0 0 0 1" result="ng"/>' +
       '<feComposite in="g" in2="ng" operator="arithmetic" k1=".4" k2=".86" k3="0" k4="0" result="gt"/>' +
       '<feComposite in="gt" in2="g" operator="in"/></filter></defs>'
-    HG_BACK = defs + '<ellipse cx="100" cy="270" rx="66" ry="9" fill="url(#hgFloor)"/>' + capBottom() + '<path d="' + glassPath(0) + '" fill="url(#hgGlass)"/>'
+    HG_BACK = defs + '<ellipse cx="100" cy="270" rx="66" ry="9" fill="url(#hgFloor)"/>' + '<path d="' + glassPath(0) + '" fill="url(#hgGlass)"/>' + capBottom()
     HG_FRONT = '<g clip-path="url(#hgClip)"><rect x="40" y="52" width="120" height="98" fill="url(#hgBodyT)"/><rect x="40" y="150" width="120" height="98" fill="url(#hgBodyB)"/>' +
       '<path d="' + glassPath(0) + '" fill="none" stroke="#06503c" stroke-opacity=".55" stroke-width="5" filter="url(#hgBlur)"/>' +
       '<path d="' + glassPath(0) + '" fill="none" stroke="#fff" stroke-opacity=".6" stroke-width="9" filter="url(#hgBlur)" transform="translate(-1.5 0)"/></g>' +
@@ -750,10 +750,12 @@
       '<path d="M76 70 Q96 63 124 70" fill="none" stroke="#fff" stroke-opacity=".75" stroke-width="2" stroke-linecap="round"/>' +
       '<path d="M76 230 Q100 237 124 230" fill="none" stroke="#fff" stroke-opacity=".55" stroke-width="2" stroke-linecap="round"/>' +
       '<circle cx="66" cy="76" r="2.4" fill="#fff"/><circle cx="134" cy="224" r="2.4" fill="#fff"/><circle cx="72" cy="70" r="1.2" fill="#fff"/>' +
-      '<ellipse cx="100" cy="246" rx="53" ry="6" fill="none" stroke="#fff" stroke-opacity=".5" stroke-width="1.2"/>' +
-      '<path d="' + glassPath(0) + '" fill="none" stroke="#04523d" stroke-opacity=".35" stroke-width="2.6" stroke-linejoin="round"/>' +
-      '<path d="' + glassPath(1.6) + '" fill="none" stroke="#fff" stroke-opacity=".95" stroke-width="1.3" stroke-linejoin="round"/>' +
-      '<path d="' + glassPath(4) + '" fill="none" stroke="#fff" stroke-opacity=".28" stroke-width="1" stroke-linejoin="round"/>' +
+      '<path d="' + edgePath(-1, 49, 251, 0) + '" fill="none" stroke="#04523d" stroke-opacity=".35" stroke-width="2.6" stroke-linecap="round"/>' +
+      '<path d="' + edgePath(1, 49, 251, 0) + '" fill="none" stroke="#04523d" stroke-opacity=".35" stroke-width="2.6" stroke-linecap="round"/>' +
+      '<path d="' + edgePath(-1, 49, 251, 1.6) + '" fill="none" stroke="#fff" stroke-opacity=".95" stroke-width="1.3" stroke-linecap="round"/>' +
+      '<path d="' + edgePath(1, 49, 251, 1.6) + '" fill="none" stroke="#fff" stroke-opacity=".95" stroke-width="1.3" stroke-linecap="round"/>' +
+      '<path d="' + edgePath(-1, 49, 251, 4) + '" fill="none" stroke="#fff" stroke-opacity=".28" stroke-width="1" stroke-linecap="round"/>' +
+      '<path d="' + edgePath(1, 49, 251, 4) + '" fill="none" stroke="#fff" stroke-opacity=".28" stroke-width="1" stroke-linecap="round"/>' +
       '<path d="' + edgePath(-1, 84, 134, 5.5) + '" fill="none" stroke="#fff" stroke-opacity=".5" stroke-width="1.8" stroke-linecap="round"/>' +
       '<path d="' + edgePath(1, 166, 216, 5.5) + '" fill="none" stroke="#fff" stroke-opacity=".5" stroke-width="1.8" stroke-linecap="round"/>' +
       capTop()
