@@ -17,6 +17,8 @@
     nav_daily: "Salavot|Салавот|Салават|Salawat|الصلاة|Salavat|Salawat|赞圣|सलावात|Salawat",
     nav_more: "Yana|Яна|Ещё|More|المزيد|Daha|Lainnya|更多|और|Más",
     search: "Ism qidirish...|Исм қидириш...|Поиск имени...|Search a name...|ابحث عن اسم...|İsim ara...|Cari nama...|搜索名字...|नाम खोजें...|Buscar nombre...",
+    hikmat: "Kun hikmati|Кун ҳикмати|Мудрость дня|Wisdom of the day|حكمة اليوم|Günün hikmeti|Hikmah hari ini|每日智慧|आज की हिकमत|Sabiduría del día",
+    more_t: "Ko'proq|Кўпроқ|Ещё|More|المزيد|Daha fazla|Selengkapnya|更多|और देखें|Más",
     favs: "Sevimlilar|Севимлилар|Избранное|Favorites|المفضلة|Favoriler|Favorit|收藏|पसंदीदा|Favoritos",
     favs_empty: "Hali belgilangan ism yo'q|Ҳали белгиланган исм йўқ|Пока нет отмеченных имён|No favorites yet|لا توجد أسماء مفضلة بعد|Henüz favori yok|Belum ada favorit|暂无收藏|अभी कोई पसंदीदा नहीं|Aún no hay favoritos",
     no_result: "Hech narsa topilmadi|Ҳеч нарса топилмади|Ничего не найдено|Nothing found|لم يتم العثور على شيء|Sonuç yok|Tidak ditemukan|没有结果|कुछ नहीं मिला|Sin resultados",
@@ -228,11 +230,32 @@
     return out
   }
   function viewNames() {
+    var searching = !!U.q.trim(), open = U.namesOpen || searching
     return '<h1>📖 ' + esc(tr("nav_names")) + '</h1><p class="sub">Asmo ul-Husna · 99</p>' +
-      '<input id="q" class="search" type="search" autocomplete="off" placeholder="' + esc(tr("search")) + '" value="' + esc(U.q) + '">' +
-      '<div id="grid">' + nameCards(filterNames()) + "</div>"
+      '<div id="sbox" class="sbox' + (U.q ? " has" : "") + '"><input id="q" class="search" type="search" autocomplete="off" aria-label="' + esc(tr("search")) + '" value="' + esc(U.q) + '">' +
+      '<div id="ph" class="ph" aria-hidden="true"><span></span><span></span></div></div>' +
+      '<div id="ngrid" class="ngrid' + (open ? " open" : "") + '"><div id="grid">' + nameCards(filterNames()) + "</div></div>" +
+      '<button id="ntog" class="btn block moodtog" data-act="namesToggle"' + (searching ? " hidden" : "") + ">" + ic(U.namesOpen ? "expand_less" : "expand_more") + " <span>" + esc(tr(U.namesOpen ? "mood_less" : "mood_all")) + "</span></button>" +
+      '<button class="hikrow" data-act="hikmat"><span>' + esc(tr("hikmat")) + "</span>" + ic("chevron_right") + "</button>"
   }
-
+  var phT = null
+  function phStart() {
+    clearInterval(phT); phT = null
+    var box = document.getElementById("ph")
+    if (!box) return
+    var cur = box.firstChild, oth = box.lastChild, k = 0
+    var items = [tr("search"), D.names[0].t, D.names[3].t, D.names[11].t, D.names[12].t]
+    function put(el, y, o, tt) { el.style.transition = tt ? "transform .5s cubic-bezier(.3,.7,.2,1), opacity .5s" : "none"; el.style.transform = "translateY(" + y + "%)"; el.style.opacity = o }
+    cur.textContent = items[0]; put(cur, 0, 1, false); put(oth, 120, 0, false)
+    phT = setInterval(function () {
+      if (!document.getElementById("ph")) { clearInterval(phT); phT = null; return }
+      if (document.hidden) return
+      k = (k + 1) % items.length
+      oth.textContent = items[k]; put(oth, 120, 0, false); void oth.offsetWidth
+      put(cur, -120, 0, true); put(oth, 0, 1, true)
+      var t = cur; cur = oth; oth = t
+    }, 2000)
+  }
   // ====================
   // ISMLAR UCHUN YASHIL SKROLL (ramka ichida yuradi, raqamli pufak bilan)
   // ====================
@@ -342,7 +365,7 @@
       '<div class="slidewrap"><div id="slide" class="slide' + dirCls + '" data-n="' + n + '">' +
       '<div class="card hero"><div class="hnav" dir="ltr"><button class="rb" data-act="step" data-v="-1" aria-label="Previous">' + ic("chevron_left") + '</button><div class="no">' + n + ' / 99</div><button class="rb" data-act="step" data-v="1" aria-label="Next">' + ic("chevron_right") + "</button></div>" +
       '<div class="ar">' + d.a + '</div><div class="tr">' + esc(d.t) + "</div></div>" +
-      (mean ? '<div class="card mean"><strong>' + ic("menu_book") + " " + esc(tr("meaning")) + '</strong><div class="mt">' + rich(mean) + "</div></div>" : "") +
+      (mean ? '<div class="card mean"><strong>' + ic("menu_book") + " " + esc(tr("meaning")) + '</strong><div class="mt clamp' + (U.mexp ? " open" : "") + '">' + rich(mean) + '</div><button class="mtog" data-act="meanTog" hidden>' + ic(U.mexp ? "expand_less" : "expand_more") + " <span>" + esc(tr(U.mexp ? "mood_less" : "more_t")) + "</span></button></div>" : "") +
       '<div class="likepop" aria-hidden="true">' + ic("favorite", "fill") + "</div></div></div>" +
       '<div class="acts" dir="ltr">' +
       '<button class="act' + (U.dpanel === "audio" ? " on" : "") + '" data-act="dpanel" data-v="audio" aria-label="Audio">' + ic("music_note") + "</button>" +
@@ -350,6 +373,18 @@
       '<button class="act" data-act="shareName" data-v="' + n + '" aria-label="Share">' + ic("share") + "</button>" +
       '<button id="actFav" class="act like' + (liked ? " liked" : "") + '" data-act="fav" data-v="' + n + '" aria-label="Like">' + ic("favorite", liked ? "fill" : "") + "</button></div>" +
       '<div id="dpanel">' + panelHtml(n) + "</div>"
+  }
+  function meanFit() {
+    var mt = document.querySelector("#slide .mt.clamp")
+    if (!mt) return
+    var btn = mt.parentNode.querySelector(".mtog")
+    var fs = parseFloat(getComputedStyle(mt).fontSize) || 16
+    var wasOpen = mt.classList.contains("open")
+    mt.classList.remove("clamp", "open")
+    var full = mt.scrollHeight
+    mt.classList.add("clamp"); if (wasOpen) mt.classList.add("open")
+    if (full <= fs * 11.5 + 10) { mt.classList.add("fits"); if (btn) btn.hidden = true }
+    else if (btn) btn.hidden = false
   }
   function setLike(n, on) {
     if (on) S.favs[n] = 1; else delete S.favs[n]
@@ -390,10 +425,14 @@
     }
     navBusy = true
     setTimeout(function () { navBusy = false }, 320)
-    U.detail = nextN(U.detail, dir); U.dir = dir > 0 ? "next" : "prev"; U.dpanel = ""
+    U.detail = nextN(U.detail, dir); U.dir = dir > 0 ? "next" : "back"; U.dpanel = ""; U.mexp = false
+    if (ghost && dir < 0) { ghost.className = "slide ghost under"; ghost.style.transform = "none"; ghost.style.opacity = "1" }
     render()
     var w = document.querySelector(".slidewrap")
-    if (ghost && w) {
+    if (ghost && w && dir < 0) {
+      w.appendChild(ghost)
+      setTimeout(function () { if (ghost.parentNode) ghost.parentNode.removeChild(ghost) }, 500)
+    } else if (ghost && w) {
       w.appendChild(ghost)
       void ghost.offsetWidth
       ghost.style.transition = "transform .4s cubic-bezier(.45, 0, .85, .55), opacity .4s ease-in"
@@ -1008,6 +1047,8 @@
     document.body.classList.toggle("indetail", !!U.detail)
     initDigits()
     hgAttach()
+    meanFit()
+    phStart()
     nsUpdate()
     renderNav()
     if (wheels.theme) updateThemeLabels()
@@ -1019,7 +1060,10 @@
   }
   function goBack() {
     if (U.detail) { U.detail = 0; render(); return }
-    if (U.tab === "more" && U.more !== "menu") { U.more = "menu"; render(); return }
+    if (U.tab === "more" && U.more !== "menu") {
+      if (U.hikBack) { U.hikBack = false; U.tab = "names" }
+      U.more = "menu"; render(); return
+    }
     if (U.tab === "mood" && U.moodPick) { U.moodPick = ""; render() }
   }
 
@@ -1182,8 +1226,8 @@
     if (Date.now() - swipedAt < 350) return
     haptic("light")
 
-    if (act === "tab") { U.tab = v; U.detail = 0; U.more = "menu"; U.moodPick = ""; render() }
-    else if (act === "open") { U.detail = parseInt(v, 10); U.dpanel = ""; U.dir = ""; render() }
+    if (act === "tab") { U.tab = v; U.hikBack = false; U.detail = 0; U.more = "menu"; U.moodPick = ""; render() }
+    else if (act === "open") { U.detail = parseInt(v, 10); U.dpanel = ""; U.dir = ""; U.mexp = false; render() }
     else if (act === "closeDetail" || act === "moreBack") goBack()
     else if (act === "fav") { var n = parseInt(v, 10); setLike(n, !S.favs[n]) }
     else if (act === "step") navDetail(parseInt(v, 10))
@@ -1213,6 +1257,23 @@
     }
     else if (act === "moodAgain") { U.moodPick = ""; render() }
     else if (act === "moodPage") { U.moodPage = parseInt(v, 10); render() }
+    else if (act === "namesToggle") {
+      U.namesOpen = !U.namesOpen
+      var ng2 = document.getElementById("ngrid")
+      if (ng2) ng2.classList.toggle("open", U.namesOpen)
+      el.innerHTML = ic(U.namesOpen ? "expand_less" : "expand_more") + " <span>" + esc(tr(U.namesOpen ? "mood_less" : "mood_all")) + "</span>"
+      nsUpdate(); setTimeout(nsUpdate, 250); setTimeout(nsUpdate, 520)
+    }
+    else if (act === "hikmat") {
+      var dt = new Date(), dn = Math.floor((Date.UTC(dt.getFullYear(), dt.getMonth(), dt.getDate()) - Date.UTC(dt.getFullYear(), 0, 0)) / 864e5)
+      U.tab = "more"; U.more = "quote"; U.quoteIdx = dn % D.quotes.length; U.hikBack = true; render()
+    }
+    else if (act === "meanTog") {
+      U.mexp = !U.mexp
+      var mt = document.querySelector("#slide .mt")
+      if (mt) mt.classList.toggle("open", U.mexp)
+      el.innerHTML = ic(U.mexp ? "expand_less" : "expand_more") + " <span>" + esc(tr(U.mexp ? "mood_less" : "more_t")) + "</span>"
+    }
     else if (act === "moodToggle") {
       U.moodOpen = !U.moodOpen
       var mg = document.getElementById("moodgrid")
@@ -1391,6 +1452,10 @@
     if (ev.target && ev.target.id === "q") {
       U.q = ev.target.value
       document.getElementById("grid").innerHTML = nameCards(filterNames())
+      var sq = !!U.q.trim(), ng = document.getElementById("ngrid"), nt = document.getElementById("ntog"), sbx = document.getElementById("sbox")
+      if (ng) ng.classList.toggle("open", U.namesOpen || sq)
+      if (nt) nt.hidden = sq
+      if (sbx) sbx.classList.toggle("has", !!U.q)
       nsUpdate()
     }
   })
