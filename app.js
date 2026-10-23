@@ -431,7 +431,9 @@
     var w = document.querySelector(".slidewrap")
     if (ghost && w && dir < 0) {
       w.appendChild(ghost)
-      setTimeout(function () { if (ghost.parentNode) ghost.parentNode.removeChild(ghost) }, 500)
+      var ns = document.getElementById("slide")
+      if (ns) { ghost.style.height = ns.offsetHeight + "px"; ghost.style.overflow = "hidden" }
+      setTimeout(function () { if (ghost.parentNode) ghost.parentNode.removeChild(ghost) }, 470)
     } else if (ghost && w) {
       w.appendChild(ghost)
       void ghost.offsetWidth
