@@ -240,7 +240,10 @@ textarea { width: 100%; min-height: 96px; padding: 12px; border-radius: 12px; bo
 .slidewrap::before { content: ""; position: absolute; inset: 10px 14px -8px; border-radius: var(--radius); background: var(--card); border: 1px solid var(--line); opacity: .55; z-index: 0; }
 .slide { position: relative; z-index: 1; touch-action: pan-y; user-select: none; -webkit-user-select: none; will-change: transform; }
 .slide .mean { margin-top: 12px; }
-.slide.in-next, .slide.in-prev { animation: fromBehind .42s cubic-bezier(.2, .8, .2, 1); }
+.slide.in-next { animation: fromBehind .42s cubic-bezier(.2, .8, .2, 1); }
+.slide.in-back { z-index: 6; animation: backIn .46s cubic-bezier(.2, .8, .2, 1); }
+@keyframes backIn { from { transform: translateX(-135%) rotate(-12deg); opacity: .35; } to { transform: none; opacity: 1; } }
+.slide.ghost.under { z-index: 2; }
 @keyframes fromBehind { from { transform: scale(.86) translateY(22px); opacity: .5; filter: brightness(.8); } to { transform: none; opacity: 1; filter: none; } }
 .slide.ghost { position: absolute; top: 0; left: 0; z-index: 5; pointer-events: none; }
 .hnav { display: flex; align-items: center; justify-content: space-between; }
@@ -263,7 +266,7 @@ textarea { width: 100%; min-height: 96px; padding: 12px; border-radius: 12px; bo
 .likepop.show { animation: bigpop .8s ease-out; }
 @keyframes bigpop { 0% { opacity: 0; transform: scale(.3); } 25% { opacity: 1; transform: scale(1.15); } 60% { opacity: 1; transform: scale(1); } 100% { opacity: 0; transform: scale(1.1); } }
 #dpanel .panel { margin-top: 4px; }
-@media (prefers-reduced-motion: reduce) { .slide.in-next, .slide.in-prev, .act.pop .msi, .bp, .likepop.show { animation: none; } }
+@media (prefers-reduced-motion: reduce) { .slide.in-next, .slide.in-back, .act.pop .msi, .bp, .likepop.show { animation: none; } }
 
 /* ---- Kayfiyat ---- */
 .hico { font-size: 26px; vertical-align: -5px; color: var(--accent); }
@@ -341,3 +344,24 @@ body.indetail #app { min-height: calc(100vh - 60px); min-height: calc(100dvh - 6
 .hgbox.free .hgw { touch-action: pan-y; cursor: grab; -webkit-user-select: none; user-select: none; }
 
 .pt { z-index: 4; }
+
+/* ====== Ismlar sahifasi: yig'ilgan ro'yxat, aylanuvchi qidiruv, kun hikmati, ma'no chegarasi ====== */
+.ngrid { position: relative; max-height: 366px; overflow: hidden; transition: max-height .45s ease; -webkit-mask-image: linear-gradient(#000 74%, transparent); mask-image: linear-gradient(#000 74%, transparent); }
+.ngrid.open { max-height: 12000px; -webkit-mask-image: none; mask-image: none; }
+.ngrid .grid3 { grid-auto-rows: 92px; }
+#ntog[hidden] { display: none; }
+.sbox { position: relative; margin-bottom: 12px; }
+.sbox .search { margin-bottom: 0; }
+.ph { position: absolute; inset: 0 15px; overflow: hidden; pointer-events: none; color: var(--hint); transition: opacity .15s; }
+.ph span { position: absolute; inset-inline-start: 0; top: 50%; margin-top: -.7em; line-height: 1.4; white-space: nowrap; will-change: transform; }
+.sbox.has .ph { opacity: 0; }
+.hikrow { width: 100%; display: flex; align-items: center; justify-content: space-between; margin-top: 12px; padding: 12px 16px; min-height: 48px; background: var(--card); border: 1px solid var(--line); border-radius: 14px; font-weight: 600; text-align: start; }
+.hikrow .msi { font-size: 24px; color: var(--hint); }
+[dir="rtl"] .hikrow .msi { transform: scaleX(-1); }
+.mean .mt { overflow: hidden; transition: max-height .35s ease; }
+.mean .mt.clamp { max-height: 11.5em; -webkit-mask-image: linear-gradient(#000 68%, transparent); mask-image: linear-gradient(#000 68%, transparent); }
+.mean .mt.clamp.open { max-height: 300em; -webkit-mask-image: none; mask-image: none; }
+.mean .mt.fits { max-height: none; -webkit-mask-image: none; mask-image: none; }
+.mtog { display: flex; align-items: center; justify-content: center; gap: 2px; width: 100%; margin-top: 6px; min-height: 36px; color: var(--accent); font-weight: 600; }
+.mtog[hidden] { display: none; }
+.mtog .msi { font-size: 22px; }
