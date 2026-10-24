@@ -358,7 +358,7 @@
   function audioUrl(n) {
     try {
       var u = CFG.AUDIO_URL
-      if (typeof u === "function") return String(u(n))
+      if (typeof u === "function") return encodeURI(String(u(n)))
       if (typeof u === "string") return u + n + ".mp3"
     } catch (e) {}
     return ""
