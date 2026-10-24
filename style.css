@@ -376,7 +376,7 @@ html[data-gender="female"], :root[data-gender="female"][data-theme="light"] {
 html[data-gender="female"] body { background: none; position: relative; padding-bottom: calc(var(--nav-h) + 26px + env(safe-area-inset-bottom)); }
 html[data-gender="female"] body::before {
   content: ""; position: fixed; top: 60px; right: 0; width: min(66vw, 310px); aspect-ratio: 330 / 400;
-  background: url(blossom.svg?v=29) no-repeat top right / contain; pointer-events: none; z-index: 0;
+  background: url(blossom.svg?v=30) no-repeat top right / contain; pointer-events: none; z-index: 0;
 }
 html[data-gender="female"] body.indetail::before { opacity: .55; }
 html[data-gender="female"] #app { position: relative; z-index: 1; }
@@ -424,4 +424,40 @@ html[data-gender="female"][data-theme="dark"] .search, html[data-gender="female"
   }
   html[data-gender="female"]:not([data-theme="light"]):not([data-theme="dark"]) .hdr { background: rgba(40, 24, 33, .55); }
   html[data-gender="female"]:not([data-theme="light"]):not([data-theme="dark"]) .nav { background: rgba(48, 30, 40, .62); }
+}
+
+/* ====== AYOL: shisha (glass) sayqali + Salavot sahifasi ====== */
+html[data-gender="female"] :is(.card, .name-card, .btn:not(.success):not(.primary), .search, .chip, .mood-card, .list > button, .gear, .act, .hikrow, .wheel, .num-btn, .dg) {
+  background: linear-gradient(135deg, rgba(255, 255, 255, .38) 0%, rgba(255, 255, 255, .12) 55%, rgba(255, 255, 255, .22) 100%);
+  border: 1px solid rgba(255, 255, 255, .72);
+  -webkit-backdrop-filter: blur(12px) saturate(1.7); backdrop-filter: blur(12px) saturate(1.7);
+  box-shadow: 0 10px 26px rgba(205, 95, 135, .16), inset 0 1.5px 0 rgba(255, 255, 255, .9), inset 0 0 0 1px rgba(255, 255, 255, .16), inset 0 -10px 18px rgba(255, 255, 255, .10);
+}
+html[data-gender="female"] .nav, html[data-gender="female"] .hdr {
+  background: linear-gradient(135deg, rgba(255, 255, 255, .42), rgba(255, 255, 255, .14));
+  -webkit-backdrop-filter: blur(16px) saturate(1.7); backdrop-filter: blur(16px) saturate(1.7);
+}
+html[data-gender="female"] .nav { box-shadow: 0 12px 30px rgba(205, 95, 135, .22), inset 0 1.5px 0 rgba(255, 255, 255, .9), inset 0 0 0 1px rgba(255, 255, 255, .2); }
+html[data-gender="female"] .act.liked, html[data-gender="female"] .gear.on, html[data-gender="female"] .chip.on { border-color: var(--accent); }
+html[data-gender="female"][data-theme="dark"] :is(.card, .name-card, .btn:not(.success):not(.primary), .search, .chip, .mood-card, .list > button, .gear, .act, .hikrow, .wheel, .num-btn, .dg) {
+  background: linear-gradient(135deg, rgba(255, 255, 255, .17), rgba(255, 255, 255, .04) 55%, rgba(255, 255, 255, .09));
+  border-color: rgba(255, 255, 255, .22);
+  box-shadow: 0 10px 26px rgba(0, 0, 0, .3), inset 0 1.5px 0 rgba(255, 255, 255, .22), inset 0 0 0 1px rgba(255, 255, 255, .05);
+}
+html[data-gender="female"][data-theme="dark"] .nav, html[data-gender="female"][data-theme="dark"] .hdr { background: linear-gradient(135deg, rgba(70, 40, 56, .62), rgba(40, 24, 33, .5)); }
+/* Salavot: yashil -> pushti */
+html[data-gender="female"] .hgstage { filter: hue-rotate(180deg) saturate(.95); border-radius: 30px; }
+html[data-gender="female"] .tb.b1 { background: radial-gradient(circle, #f472b6, rgba(244, 114, 182, 0) 72%); }
+html[data-gender="female"] .tb.b2 { background: radial-gradient(circle, #fda4af, rgba(253, 164, 175, 0) 72%); }
+html[data-gender="female"] .tb.b3 { background: radial-gradient(circle, #fde2e8, rgba(253, 226, 232, 0) 72%); }
+html[data-gender="female"] .tapzone { --ti: #b63a69; }
+html[data-gender="female"][data-theme="dark"] .tapzone { --ti: #ffe3ee; }
+html[data-gender="female"] .tap-round {
+  background: linear-gradient(145deg, rgba(255, 255, 255, .6), rgba(248, 160, 192, .34) 55%, rgba(217, 98, 140, .26));
+  box-shadow: 0 12px 30px rgba(217, 98, 140, .34), inset 0 2px 0 rgba(255, 255, 255, .9), inset 0 -10px 18px rgba(255, 255, 255, .16), inset 0 0 22px rgba(255, 255, 255, .26);
+}
+html[data-gender="female"] .tap-round.off { background: rgba(255, 255, 255, .3); box-shadow: none; }
+html[data-gender="female"] .dg::after { border-color: var(--accent); }
+@media (prefers-color-scheme: dark) {
+  html[data-gender="female"]:not([data-theme="light"]):not([data-theme="dark"]) .tapzone { --ti: #ffe3ee; }
 }
