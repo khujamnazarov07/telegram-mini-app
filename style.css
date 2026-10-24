@@ -376,7 +376,7 @@ html[data-gender="female"], :root[data-gender="female"][data-theme="light"] {
 html[data-gender="female"] body { background: none; position: relative; padding-bottom: calc(var(--nav-h) + 26px + env(safe-area-inset-bottom)); }
 html[data-gender="female"] body::before {
   content: ""; position: fixed; top: 60px; right: 0; width: min(66vw, 310px); aspect-ratio: 330 / 400;
-  background: url(blossom.svg?v=37) no-repeat top right / contain; pointer-events: none; z-index: 0;
+  background: url(blossom.svg?v=38) no-repeat top right / contain; pointer-events: none; z-index: 0;
 }
 html[data-gender="female"] #app { position: relative; z-index: 1; }
 html[data-gender="female"] .card, html[data-gender="female"] .name-card, html[data-gender="female"] .btn, html[data-gender="female"] .search,
