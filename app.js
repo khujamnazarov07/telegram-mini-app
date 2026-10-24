@@ -66,8 +66,8 @@
     settings: "Sozlamalar|Созламалар|Настройки|Settings|الإعدادات|Ayarlar|Pengaturan|设置|सेटिंग्स|Ajustes",
     theme_t: "Mavzu|Мавзу|Тема|Theme|السمة|Tema|Tema|主题|थीम|Tema",
     th_auto: "Avtomatik|Автоматик|Автоматически|Automatic|تلقائي|Otomatik|Otomatis|自动|स्वचालित|Automático",
-    th_male: "Erkaklar uchun|Эркаклар учун|Для мужчин|For men|للرجال|Erkekler için|Untuk pria|男士|पुरुषों के लिए|Para hombres",
-    th_female: "Ayollar uchun|Аёллар учун|Для женщин|For women|للنساء|Kadınlar için|Untuk wanita|女士|महिलाओं के लिए|Para mujeres",
+    th_male: "Qora-qizil|Қора-қизил|Чёрно-красная|Black & red|أسود وأحمر|Siyah-kırmızı|Hitam-merah|黑红|काला-लाल|Negro y rojo",
+    th_female: "Pushti|Пушти|Розовая|Pink|وردي|Pembe|Merah muda|粉色|गुलाबी|Rosa",
     gender_info: "O'z genderingizni tanlashingiz qulayroq bo'lishi mumkin|Ўз гендерингизни танлашингиз қулайроқ бўлиши мумкин|Вам может быть удобнее выбрать тему для своего пола|Choosing the theme for your own gender may feel more comfortable|قد يكون اختيار السمة المناسبة لجنسك أكثر راحة|Kendi cinsiyetinize uygun temayı seçmek daha rahat olabilir|Memilih tema sesuai jenis kelamin Anda mungkin lebih nyaman|选择适合您性别的主题可能更舒适|अपने लिंग के अनुसार थीम चुनना अधिक सुविधाजनक हो सकता है|Elegir el tema para tu género puede resultar más cómodo",
     flt_all: "Odatiy|Одатий|Обычный|Default|افتراضي|Varsayılan|Default|默认|डिफ़ॉल्ट|Predeterminado",
     flt_note: "Qaydli|Қайдли|С заметками|With notes|مع ملاحظات|Notlu|Dengan catatan|有笔记|नोट वाले|Con notas",
@@ -1058,9 +1058,9 @@
     }
     if (U.more === "theme") {
       var gg = '<button class="btn small back" data-act="moreBack">' + ic("arrow_back") + " " + esc(tr("back")) + "</button><h1>" + ic("palette") + " " + esc(tr("theme_t")) + '</h1><div class="list">'
-      var TH = [["auto", "brightness_auto", "th_auto"], ["male", "male", "th_male"], ["female", "female", "th_female"]]
+      var TH = [["auto", "auto", "th_auto"], ["male", "male", "th_male"], ["female", "female", "th_female"]]
       var cur = S.gender === "female" ? "female" : S.gender === "male" ? "male" : "auto"
-      for (var ti = 0; ti < TH.length; ti++) gg += '<button class="' + (cur === TH[ti][0] ? "sel" : "") + '" data-act="setGender" data-v="' + TH[ti][0] + '">' + ic(TH[ti][1]) + " " + esc(tr(TH[ti][2])) + (cur === TH[ti][0] ? ic("check", "chk") : "") + "</button>"
+      for (var ti = 0; ti < TH.length; ti++) gg += '<button class="' + (cur === TH[ti][0] ? "sel" : "") + '" data-act="setGender" data-v="' + TH[ti][0] + '">' + '<i class="sw sw-' + TH[ti][1] + '"></i>' + esc(tr(TH[ti][2])) + (cur === TH[ti][0] ? ic("check", "chk") : "") + "</button>"
       return gg + '</div><p class="ginfo">' + ic("info") + " <span>" + esc(tr("gender_info")) + "</span></p>"
     }
     if (U.more === "settings") {
