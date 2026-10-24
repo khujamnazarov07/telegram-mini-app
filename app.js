@@ -663,7 +663,7 @@
       var v = list[V.i], qs = vQs(v), menu = '<button data-act="vqset" data-v="auto"' + (V.q === "auto" ? ' class="on"' : "") + ">Auto</button>"
       for (var k = 0; k < qs.length; k++) menu += '<button data-act="vqset" data-v="' + qs[k] + '"' + (String(V.q) === String(qs[k]) ? ' class="on"' : "") + ">" + qs[k] + "p</button>"
       h += '<div class="vp" id="vp"><video id="vid" playsinline webkit-playsinline preload="auto"></video><div id="vbig" class="vbig" data-act="vplay">' + ic("play_arrow") + '</div><div id="vsp" class="vspin"></div>' +
-        '<div class="vctl"><button id="vpb" data-act="vplay">' + ic("play_arrow") + '</button><div id="vseek" class="vseek"><i id="vbuf"></i><i id="vpos"></i></div><span id="vtc" class="vtc">0:00 / 0:00</span><button id="vqb" class="vqb" data-act="vq"></button><button data-act="vfs">' + ic("fullscreen") + '</button></div>' +
+        '<div class="vctl"><button id="vpb" data-act="vplay">' + ic("play_arrow") + '</button><div id="vseek" class="vseek"><i id="vbuf"></i><i id="vpos"></i></div><span id="vtc" class="vtc">0:00 / 0:00</span>' + (qs.length > 1 ? '<button id="vqb" class="vqb" data-act="vq"></button>' : "") + '<button data-act="vfs">' + ic("fullscreen") + '</button></div>' +
         '<div id="vmenu" class="vmenu" hidden><div class="vmt">' + esc(tr("quality")) + "</div>" + menu + "</div></div>" +
         '<div class="vtitle">' + esc(vTitle(v, V.i)) + "</div>"
     }
