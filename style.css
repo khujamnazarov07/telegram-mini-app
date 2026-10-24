@@ -376,7 +376,7 @@ html[data-gender="female"], :root[data-gender="female"][data-theme="light"] {
 html[data-gender="female"] body { background: none; position: relative; padding-bottom: calc(var(--nav-h) + 26px + env(safe-area-inset-bottom)); }
 html[data-gender="female"] body::before {
   content: ""; position: fixed; top: 60px; right: 0; width: min(66vw, 310px); aspect-ratio: 330 / 400;
-  background: url(blossom.svg?v=35) no-repeat top right / contain; pointer-events: none; z-index: 0;
+  background: url(blossom.svg?v=36) no-repeat top right / contain; pointer-events: none; z-index: 0;
 }
 html[data-gender="female"] #app { position: relative; z-index: 1; }
 html[data-gender="female"] .card, html[data-gender="female"] .name-card, html[data-gender="female"] .btn, html[data-gender="female"] .search,
@@ -492,3 +492,33 @@ html[data-gender="female"][data-theme="dark"] .hgstage { --tx: #f7e8ec; --tx2: r
 html[data-gender="female"] .hgstage .orb, html[data-gender="female"] .hgstage .hgpat, html[data-gender="female"] .hgstage .hgaura { display: none; }
 html[data-gender="female"] .hgstage .hg, html[data-gender="female"] .hgstage .pt { filter: hue-rotate(180deg); }
 html[data-gender="female"] .hgstage .hg { filter: hue-rotate(180deg) drop-shadow(0 8px 12px rgba(160, 50, 95, .28)); }
+
+/* ====== ERKAK: qora + qizil, diagonal chiziqlar ====== */
+html[data-gender="male"], :root[data-gender="male"][data-theme="dark"] { color-scheme: dark; --bg: #0c0c0e; --card: #151518; --text: #f3f3f4; --hint: #9a9aa2; --line: rgba(255, 255, 255, .09); --accent: #e5202f; --accent-text: #fff; --radius: 12px; }
+:root[data-gender="male"][data-theme="light"] { color-scheme: light; --bg: #f2f2f3; --card: #ffffff; --text: #17171a; --hint: #75757d; --line: rgba(20, 20, 26, .10); --accent: #d4111f; --accent-text: #fff; --radius: 12px; }
+@media (prefers-color-scheme: dark) { :root[data-gender="male"]:not([data-theme="light"]):not([data-theme="dark"]) { color-scheme: dark; --bg: #0c0c0e; --card: #151518; --text: #f3f3f4; --hint: #9a9aa2; --line: rgba(255, 255, 255, .09); --accent: #e5202f; } }
+html[data-gender="male"] h1 { text-transform: uppercase; letter-spacing: .03em; font-weight: 800; }
+html[data-gender="male"] body::before { content: ""; position: fixed; top: 60px; right: 0; width: 190px; height: 120px; pointer-events: none; z-index: 0; opacity: .5;
+  background: linear-gradient(115deg, transparent 0 46%, var(--accent) 46% 60%, transparent 60% 68%, var(--accent) 68% 74%, transparent 74%);
+  -webkit-mask-image: linear-gradient(180deg, #000, transparent); mask-image: linear-gradient(180deg, #000, transparent); }
+html[data-gender="male"] #app { position: relative; z-index: 1; }
+html[data-gender="male"] .btn.primary, html[data-gender="male"] .btn.success { text-transform: uppercase; letter-spacing: .05em; font-weight: 700; }
+html[data-gender="male"] .btn.success { background: var(--accent); border-color: var(--accent); color: #fff; }
+html[data-gender="male"] .card, html[data-gender="male"] .name-card { border-radius: 10px; }
+html[data-gender="male"] .card { border-inline-start: 3px solid var(--accent); }
+html[data-gender="male"] .nav { background: var(--bg); border-top: 1px solid var(--line); }
+html[data-gender="male"] .nav button.on { position: relative; }
+html[data-gender="male"] .nav button.on::after { content: ""; position: absolute; top: 0; left: 28%; right: 28%; height: 3px; background: var(--accent); transform: skewX(-30deg); }
+html[data-gender="male"] .hdr { background: var(--bg); }
+/* Salavot */
+html[data-gender="male"] .hgstage { --tx: #f3f3f4; --tx2: rgba(243, 243, 244, .62); border-radius: 12px; border: 1px solid rgba(255, 255, 255, .08);
+  background: linear-gradient(115deg, transparent 0 74%, rgba(229, 32, 47, .85) 74% 80%, transparent 80% 83%, rgba(229, 32, 47, .45) 83% 85%, transparent 85%), linear-gradient(160deg, #19191c, #0b0b0d); }
+html[data-gender="male"] .hgstage .orb, html[data-gender="male"] .hgstage .hgpat, html[data-gender="male"] .hgstage .hgaura { display: none; }
+html[data-gender="male"] .hgstage .pt { filter: hue-rotate(210deg); }
+html[data-gender="male"] .hgstage .hg { filter: hue-rotate(210deg) drop-shadow(0 8px 12px rgba(0, 0, 0, .5)); }
+html[data-gender="male"] .tb.b1 { background: radial-gradient(circle, #ef4444, rgba(239, 68, 68, 0) 72%); }
+html[data-gender="male"] .tb.b2 { background: radial-gradient(circle, #b91c1c, rgba(185, 28, 28, 0) 72%); }
+html[data-gender="male"] .tb.b3 { background: radial-gradient(circle, #fca5a5, rgba(252, 165, 165, 0) 72%); }
+html[data-gender="male"] .tapzone { --ti: #fff; }
+html[data-gender="male"] .tap-round { background: linear-gradient(145deg, #ff4b58, #c20f1d 70%); box-shadow: 0 12px 28px rgba(229, 32, 47, .4), inset 0 2px 0 rgba(255, 255, 255, .35); }
+html[data-gender="male"] .tap-round.off { background: #2a2a2e; box-shadow: none; }
