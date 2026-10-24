@@ -656,7 +656,10 @@
     var list = vList()
     if (!list.length) return '<p class="empty">' + ic("movie") + " " + esc(tr("no_video")) + "<br><small>config.js → VIDEOS</small></p>"
     var h = ""
-    if (V.i >= 0 && list[V.i]) {
+    if (V.i >= 0 && list[V.i] && list[V.i].tg) {
+      var tgp = String(list[V.i].tg).replace(/^https?:\/\/t\.me\//, "").replace(/^\//, "")
+      h += '<div class="vp vtgp"><iframe src="https://t.me/' + esc(tgp) + '?embed=1&mode=tme&dark=' + ((S.theme === "dark" || (S.theme === "auto" && window.matchMedia && matchMedia("(prefers-color-scheme: dark)").matches)) ? 1 : 0) + '" allowfullscreen loading="lazy"></iframe></div><div class="vtitle">' + esc(vTitle(list[V.i], V.i)) + "</div>"
+    } else if (V.i >= 0 && list[V.i]) {
       var v = list[V.i], qs = vQs(v), menu = '<button data-act="vqset" data-v="auto"' + (V.q === "auto" ? ' class="on"' : "") + ">Auto</button>"
       for (var k = 0; k < qs.length; k++) menu += '<button data-act="vqset" data-v="' + qs[k] + '"' + (String(V.q) === String(qs[k]) ? ' class="on"' : "") + ">" + qs[k] + "p</button>"
       h += '<div class="vp" id="vp"><video id="vid" playsinline webkit-playsinline preload="auto"></video><div id="vbig" class="vbig" data-act="vplay">' + ic("play_arrow") + '</div><div id="vsp" class="vspin"></div>' +
