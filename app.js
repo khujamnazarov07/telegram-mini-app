@@ -66,11 +66,12 @@
     settings: "Sozlamalar|Созламалар|Настройки|Settings|الإعدادات|Ayarlar|Pengaturan|设置|सेटिंग्स|Ajustes",
     theme_t: "Mavzu|Мавзу|Тема|Theme|السمة|Tema|Tema|主题|थीम|Tema",
     th_auto: "Avtomatik|Автоматик|Автоматически|Automatic|تلقائي|Otomatik|Otomatis|自动|स्वचालित|Automático",
-    th_male: "Qora-qizil|Қора-қизил|Чёрно-красная|Black & red|أسود وأحمر|Siyah-kırmızı|Hitam-merah|黑红|काला-लाल|Negro y rojo",
-    th_female: "Pushti|Пушти|Розовая|Pink|وردي|Pembe|Merah muda|粉色|गुलाबी|Rosa",
+    th_male: "Erkaklar uchun|Эркаклар учун|Для мужчин|For men|للرجال|Erkekler için|Untuk pria|男士|पुरुषों के लिए|Para hombres",
+    th_female: "Ayollar uchun|Аёллар учун|Для женщин|For women|للنساء|Kadınlar için|Untuk wanita|女士|महिलाओं के लिए|Para mujeres",
     gender_info: "O'z genderingizni tanlashingiz qulayroq bo'lishi mumkin|Ўз гендерингизни танлашингиз қулайроқ бўлиши мумкин|Вам может быть удобнее выбрать тему для своего пола|Choosing the theme for your own gender may feel more comfortable|قد يكون اختيار السمة المناسبة لجنسك أكثر راحة|Kendi cinsiyetinize uygun temayı seçmek daha rahat olabilir|Memilih tema sesuai jenis kelamin Anda mungkin lebih nyaman|选择适合您性别的主题可能更舒适|अपने लिंग के अनुसार थीम चुनना अधिक सुविधाजनक हो सकता है|Elegir el tema para tu género puede resultar más cómodo",
     flt_all: "Odatiy|Одатий|Обычный|Default|افتراضي|Varsayılan|Default|默认|डिफ़ॉल्ट|Predeterminado",
     flt_note: "Qaydli|Қайдли|С заметками|With notes|مع ملاحظات|Notlu|Dengan catatan|有笔记|नोट वाले|Con notas",
+    mode_t: "Rejim|Режим|Режим|Mode|الوضع|Mod|Mode|模式|मोड|Modo",
     about_text: "Asmo ul-Husna — Allohning 99 go'zal ismini o'rganish va his qilish uchun yaratilgan.|Асмо ул-Ҳусна — Аллоҳнинг 99 гўзал исмини ўрганиш ва ҳис қилиш учун яратилган.|Асмо уль-Хусна создан для изучения и осмысления 99 прекрасных имён Аллаха.|Asmo ul-Husna was created to learn and reflect on the 99 Beautiful Names of Allah.|تم إنشاء أسماء الله الحسنى لتعلم والتفكر في 99 اسماً من أسماء الله الحسنى.|Esma ül-Hüsna, Allah'ın 99 Güzel İsmini öğrenmek ve üzerinde düşünmek için oluşturuldu.|Asmaul Husna dibuat untuk mempelajari dan merenungkan 99 Nama Indah Allah.|真主的99个美名旨在帮助您学习并默思真主的99个美名。|असमाउल हुस्ना अल्लाह के 99 सुंदर नामों को सीखने और उन पर विचार करने के लिए बनाया गया है।|Asma ul-Husna fue creado para aprender y reflexionar sobre los 99 Hermosos Nombres de Alá.",
     open_bot: "Botni ochish|Ботни очиш|Открыть бота|Open bot|افتح البوت|Botu aç|Buka bot|打开机器人|बॉट खोलें|Abrir bot",
     open_channel: "Kanal|Канал|Канал|Channel|القناة|Kanal|Kanal|频道|चैनल|Canal",
@@ -1058,14 +1059,21 @@
     }
     if (U.more === "theme") {
       var gg = '<button class="btn small back" data-act="moreBack">' + ic("arrow_back") + " " + esc(tr("back")) + "</button><h1>" + ic("palette") + " " + esc(tr("theme_t")) + '</h1><div class="list">'
-      var TH = [["auto", "auto", "th_auto"], ["male", "male", "th_male"], ["female", "female", "th_female"]]
+      var TH = [["auto", "brightness_auto", "th_auto"], ["male", "man", "th_male"], ["female", "woman", "th_female"]]
       var cur = S.gender === "female" ? "female" : S.gender === "male" ? "male" : "auto"
-      for (var ti = 0; ti < TH.length; ti++) gg += '<button class="' + (cur === TH[ti][0] ? "sel" : "") + '" data-act="setGender" data-v="' + TH[ti][0] + '">' + '<i class="sw sw-' + TH[ti][1] + '"></i>' + esc(tr(TH[ti][2])) + (cur === TH[ti][0] ? ic("check", "chk") : "") + "</button>"
+      for (var ti = 0; ti < TH.length; ti++) gg += '<button class="' + (cur === TH[ti][0] ? "sel" : "") + '" data-act="setGender" data-v="' + TH[ti][0] + '">' + ic(TH[ti][1]) + " " + esc(tr(TH[ti][2])) + (cur === TH[ti][0] ? ic("check", "chk") : "") + "</button>"
       return gg + '</div><p class="ginfo">' + ic("info") + " <span>" + esc(tr("gender_info")) + "</span></p>"
+    }
+    if (U.more === "mode") {
+      var mm = '<button class="btn small back" data-act="moreBack">' + ic("arrow_back") + " " + esc(tr("back")) + "</button><h1>" + ic("contrast") + " " + esc(tr("mode_t")) + '</h1><div class="list">'
+      var MD = ["auto", "light", "dark"]
+      for (var mi = 0; mi < MD.length; mi++) mm += '<button class="' + (S.theme === MD[mi] ? "sel" : "") + '" data-act="setMode" data-v="' + MD[mi] + '">' + ic(THEME_ICONS[MD[mi]]) + " " + esc(tr("th_" + MD[mi])) + (S.theme === MD[mi] ? ic("check", "chk") : "") + "</button>"
+      return mm + "</div>"
     }
     if (U.more === "settings") {
       var cg = S.gender === "female" ? "th_female" : S.gender === "male" ? "th_male" : "th_auto"
       return '<button class="btn small back" data-act="moreBack">' + ic("arrow_back") + " " + esc(tr("back")) + "</button><h1>" + ic("settings") + " " + esc(tr("settings")) + '</h1><p class="sub">&nbsp;</p><div class="list">' +
+        '<button data-act="more" data-v="mode">' + ic("contrast") + " " + esc(tr("mode_t")) + " · " + esc(tr("th_" + S.theme)) + "</button>" +
         '<button data-act="more" data-v="theme">' + ic("palette") + " " + esc(tr("theme_t")) + " · " + esc(tr(cg)) + "</button>" +
         '<button data-act="more" data-v="lang">' + ic("translate") + " " + esc(tr("lang")) + " · " + LANG_NAMES[S.lang] + "</button></div>"
     }
@@ -1119,7 +1127,7 @@
     if (U.detail) { U.detail = 0; render(); return }
     if (U.tab === "more" && U.more !== "menu") {
       if (U.hikBack) { U.hikBack = false; U.tab = "names" }
-      U.more = (U.more === "lang" || U.more === "theme") ? "settings" : "menu"; render(); return
+      U.more = (U.more === "lang" || U.more === "theme" || U.more === "mode") ? "settings" : "menu"; render(); return
     }
     if (U.tab === "mood" && U.moodPick) { U.moodPick = ""; render() }
   }
@@ -1402,6 +1410,7 @@
       openTg("https://t.me/share/url?url=" + encodeURIComponent("https://t.me/" + CFG.BOT) + "&text=" + encodeURIComponent("✨ " + sn + ". " + nd.a + " — " + nd.t + "\n🤖 @" + CFG.BOT))
     }
     else if (act === "setGender") { S.gender = v; save(); applyGender(); render() }
+    else if (act === "setMode") { S.theme = v; save(); applyTheme(); if (wheels.theme) wheels.theme.set(THEMES.indexOf(v), true); render() }
     else if (act === "nf") { U.nf = v; render() }
     else if (act === "setLang") { S.langSet = true; S.lang = v; TCACHE = {}; save(); U.more = "settings"; render(); if (wheels.lang) wheels.lang.set(LANGS.indexOf(v), true) }
     else if (act === "openBot") openTg("https://t.me/" + CFG.BOT)
