@@ -376,7 +376,7 @@ html[data-gender="female"], :root[data-gender="female"][data-theme="light"] {
 html[data-gender="female"] body { background: none; position: relative; padding-bottom: calc(var(--nav-h) + 26px + env(safe-area-inset-bottom)); }
 html[data-gender="female"] body::before {
   content: ""; position: fixed; top: 60px; right: 0; width: min(66vw, 310px); aspect-ratio: 330 / 400;
-  background: url(blossom.svg?v=41) no-repeat top right / contain; pointer-events: none; z-index: 0;
+  background: url(blossom.svg?v=42) no-repeat top right / contain; pointer-events: none; z-index: 0;
 }
 html[data-gender="female"] #app { position: relative; z-index: 1; }
 html[data-gender="female"] .card, html[data-gender="female"] .name-card, html[data-gender="female"] .btn, html[data-gender="female"] .search,
@@ -544,3 +544,19 @@ html[data-gender="male"] .fchip { border-radius: 8px; text-transform: uppercase;
 .sw-auto { background: linear-gradient(135deg, #2f9e77 50%, #1b2320 50%); }
 .sw-male { background: linear-gradient(135deg, #e5202f 50%, #0c0c0e 50%); }
 .sw-female { background: linear-gradient(135deg, #f08cb0 50%, #fbe3ea 50%); }
+
+/* Salavot: yuklanish (progress) chizig'i */
+.dbar { position: relative; z-index: 2; width: 100%; margin-top: 10px; }
+.dnums { display: flex; justify-content: space-between; align-items: baseline; font-size: 20px; padding: 0 2px 6px; }
+.dnums b { color: var(--tx); }
+.dnums b:nth-child(2) { font-size: 26px; }
+.dtrack { height: 16px; border-radius: 999px; background: rgba(127, 127, 127, .22); overflow: hidden; position: relative; }
+.dtrack i { display: block; height: 100%; width: 0; border-radius: inherit; background: linear-gradient(90deg, var(--s2), var(--s1)); transition: width .55s cubic-bezier(.3, .7, .2, 1); }
+.dcap { display: flex; justify-content: space-between; font-size: 12px; color: var(--tx2); padding: 6px 2px 0; }
+.dtot { text-align: center; font-size: 13px; color: var(--tx2); margin-top: 8px; }
+.dtot b { color: var(--tx); }
+html[data-gender="female"] .dtrack { height: 20px; background: rgba(255, 255, 255, .28); border: 1px solid rgba(255, 255, 255, .7); box-shadow: inset 0 2px 5px rgba(205, 95, 135, .15); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); }
+html[data-gender="female"] .dtrack i { background: linear-gradient(90deg, #f7b0c8, #e8709b); box-shadow: inset 0 1.5px 0 rgba(255, 255, 255, .6); }
+html[data-gender="male"] .dtrack { height: 18px; border-radius: 0; background: rgba(255, 255, 255, .08); transform: skewX(-24deg); margin: 0 6px; }
+html[data-gender="male"] .dtrack i { border-radius: 0; background: linear-gradient(90deg, #a30f1b, #e5202f); }
+html[data-gender="male"] .dcap { text-transform: uppercase; letter-spacing: .05em; font-size: 11px; }
