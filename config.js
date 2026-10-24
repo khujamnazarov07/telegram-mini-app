@@ -21,5 +21,6 @@ window.CONFIG = {
 
   // Videolar (sahifaning o'zida ko'riladi). Sifatlar ixtiyoriy: faqat borlarini yozing, Auto internet tezligiga qarab tanlaydi.
   // Misol: { t: "Sarlavha", poster: "video/1.jpg", src: { 1080: "video/1_1080.mp4", 720: "video/1_720.mp4", 480: "video/1_480.mp4" } }
+  // Telegram kanal posti ham bo'ladi (ochiq kanal): { t: "Film", tg: "AsmaulHusnaOfficial/12" } yoki to'liq t.me havolasi. Sifat tanlovi bunda yo'q.
   VIDEOS: []
 }
