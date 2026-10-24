@@ -72,6 +72,7 @@
     flt_all: "Odatiy|Одатий|Обычный|Default|افتراضي|Varsayılan|Default|默认|डिफ़ॉल्ट|Predeterminado",
     flt_note: "Qaydli|Қайдли|С заметками|With notes|مع ملاحظات|Notlu|Dengan catatan|有笔记|नोट वाले|Con notas",
     mode_t: "Rejim|Режим|Режим|Mode|الوضع|Mod|Mode|模式|मोड|Modo",
+    quality: "Sifat|Сифат|Качество|Quality|الجودة|Kalite|Kualitas|画质|गुणवत्ता|Calidad",
     about_text: "Asmo ul-Husna — Allohning 99 go'zal ismini o'rganish va his qilish uchun yaratilgan.|Асмо ул-Ҳусна — Аллоҳнинг 99 гўзал исмини ўрганиш ва ҳис қилиш учун яратилган.|Асмо уль-Хусна создан для изучения и осмысления 99 прекрасных имён Аллаха.|Asmo ul-Husna was created to learn and reflect on the 99 Beautiful Names of Allah.|تم إنشاء أسماء الله الحسنى لتعلم والتفكر في 99 اسماً من أسماء الله الحسنى.|Esma ül-Hüsna, Allah'ın 99 Güzel İsmini öğrenmek ve üzerinde düşünmek için oluşturuldu.|Asmaul Husna dibuat untuk mempelajari dan merenungkan 99 Nama Indah Allah.|真主的99个美名旨在帮助您学习并默思真主的99个美名。|असमाउल हुस्ना अल्लाह के 99 सुंदर नामों को सीखने और उन पर विचार करने के लिए बनाया गया है।|Asma ul-Husna fue creado para aprender y reflexionar sobre los 99 Hermosos Nombres de Alá.",
     open_bot: "Botni ochish|Ботни очиш|Открыть бота|Open bot|افتح البوت|Botu aç|Buka bot|打开机器人|बॉट खोलें|Abrir bot",
     open_channel: "Kanal|Канал|Канал|Channel|القناة|Kanal|Kanal|频道|चैनल|Canal",
@@ -525,6 +526,15 @@
       setTimeout(function () { s.el.style.transition = "" }, 240)
     }
   }
+  var seekEl = null
+  function seekTo(e) {
+    var r = seekEl.getBoundingClientRect(), f = Math.max(0, Math.min(1, (e.clientX - r.left) / r.width))
+    if (seekEl.id === "vseek") { var vid = document.getElementById("vid"); if (vid && vid.duration) { vid.currentTime = f * vid.duration; V.t = vid.currentTime; vUi() } }
+    else if (AU.duration) { AU.currentTime = f * AU.duration; audUi() }
+  }
+  document.addEventListener("pointerdown", function (e) { var t = e.target.closest && e.target.closest("#vseek, #aseek"); if (t) { seekEl = t; seekTo(e); e.stopPropagation() } }, true)
+  document.addEventListener("pointermove", function (e) { if (seekEl) seekTo(e) })
+  document.addEventListener("pointerup", function () { seekEl = null })
   document.addEventListener("pointerup", swEnd)
   document.addEventListener("pointercancel", swEnd)
 
@@ -536,30 +546,133 @@
     var next = page === pages ? 1 : page + 1
     return '<div class="pager"><button class="btn small" data-act="' + act + '" data-v="' + prev + '">《</button><span class="pg">' + page + "/" + pages + '</span><button class="btn small" data-act="' + act + '" data-v="' + next + '">》</button></div>'
   }
-  function viewMedia() {
-    var h = '<h1>🎞 ' + esc(tr("nav_media")) + '</h1><p class="sub">&nbsp;</p>' +
-      '<div class="seg"><button class="btn ' + (U.mode === "video" ? "success" : "") + '" data-act="mode" data-v="video">🎬 ' + esc(tr("video")) + "</button>" +
-      '<button class="btn ' + (U.mode === "audio" ? "success" : "") + '" data-act="mode" data-v="audio">🎧 ' + esc(tr("audio")) + "</button></div>"
-    if (U.mode === "video") {
-      var posts = CFG.VIDEO_POSTS || []
-      if (!posts.length) return h + '<p class="empty">🎬 ' + esc(tr("no_video")) + "<br><small>config.js → VIDEO_POSTS</small></p>"
+  // ---------- AUDIO (global pleyer, tab almashganda ham davom etadi)
+  var AU = new Audio(), A = { n: 0 }
+  AU.preload = "none"
+  function fmtT(t) { t = Math.max(0, Math.floor(t || 0)); var m = Math.floor(t / 60), x = t % 60; return m + ":" + (x < 10 ? "0" : "") + x }
+  function audUi() {
+    var n = A.n || 1, d = D.names[n - 1]
+    var b = document.getElementById("apb"); if (b) b.innerHTML = ic(AU.paused ? "play_arrow" : "pause")
+    var t = document.getElementById("apt"); if (t) t.textContent = n + ". " + d.t
+    var ar = document.getElementById("apa"); if (ar) ar.textContent = d.a
+    var p = document.getElementById("app_"), dur = AU.duration || 0
+    if (p) p.style.width = dur ? Math.min(100, AU.currentTime * 100 / dur) + "%" : "0%"
+    var c = document.getElementById("apc"); if (c) c.textContent = fmtT(AU.currentTime) + " / " + fmtT(dur)
+    var cur = document.querySelectorAll("[data-act=aud].cur"), i
+    for (i = 0; i < cur.length; i++) cur[i].classList.remove("cur", "play")
+    var now = document.querySelector("[data-act=aud][data-v='" + A.n + "']")
+    if (now) { now.classList.add("cur"); if (!AU.paused) now.classList.add("play") }
+  }
+  function audPlay(n) {
+    if (A.n === n) { if (AU.paused) { var r = AU.play(); if (r && r.catch) r.catch(function () {}) } else AU.pause(); audUi(); return }
+    A.n = n; AU.src = audioUrl(n)
+    var r2 = AU.play(); if (r2 && r2.catch) r2.catch(function () {})
+    audUi()
+    var row = document.querySelector("[data-act=aud][data-v='" + n + "']")
+    if (row && row.scrollIntoView && U.tab === "media") { /* ro'yxat o'zi turadi */ }
+  }
+  ;["timeupdate", "play", "pause", "loadedmetadata", "durationchange"].forEach(function (e) { AU.addEventListener(e, audUi) })
+  AU.addEventListener("ended", function () { audPlay(A.n >= 99 ? 1 : A.n + 1) })
+  AU.addEventListener("error", function () { if (A.n) toast(tr("no_audio")) })
+  function audioView() {
+    var n = A.n || 1, grid = S.audView === "grid", d = D.names[n - 1]
+    var h = '<div class="aplayer card"><button id="apb" class="apb" data-act="audToggle">' + ic(AU.paused ? "play_arrow" : "pause") + "</button>" +
+      '<div class="ainfo"><div class="arow1"><span id="apt">' + n + ". " + esc(d.t) + '</span><span id="apa" class="apa">' + d.a + '</span></div><div id="aseek" class="aseek"><i id="app_"></i></div><div id="apc" class="apc">0:00 / 0:00</div></div>' +
+      '<div class="actl"><button data-act="audPrev" aria-label="prev">' + ic("skip_previous") + '</button><button data-act="audNext" aria-label="next">' + ic("skip_next") + "</button></div></div>"
+    h += '<div class="audhead"><span>' + ic("graphic_eq") + " 99 · " + esc(tr("audio")) + '</span><button class="vtg" data-act="audView" aria-label="view">' + ic(grid ? "view_list" : "grid_view") + "</button></div>"
+    if (grid) {
       h += '<div class="grid3">'
-      for (var i = 0; i < posts.length; i++) {
-        h += '<button class="btn" data-act="video" data-v="' + posts[i] + '">▶ ' + (i + 1) + "</button>"
-      }
+      for (var i = 1; i <= 99; i++) h += '<button class="name-card' + (i === A.n ? " cur" + (AU.paused ? "" : " play") : "") + '" data-act="aud" data-v="' + i + '"><span class="num">' + i + '</span><div class="ar">' + D.names[i - 1].a + '</div><div class="tr">' + esc(D.names[i - 1].t) + "</div></button>"
       return h + "</div>"
     }
-    var n = U.audioN, d = D.names[n - 1]
-    h += '<div class="card hero"><div class="no">' + n + " / 99</div><div class=\"ar\">" + d.a + '</div><div class="tr">' + esc(d.t) + "</div>" + audioBlock(n) + "</div>"
-    var group = Math.ceil(n / 9), from = (group - 1) * 9 + 1, to = Math.min(from + 8, 99)
-    h += '<p class="sub center" style="margin-top:14px">' + esc(tr("pick_num")) + '</p><div class="nums">'
-    var row = '<div class="row5">'
-    for (var j = from; j <= to; j++) {
-      row += '<button class="num-btn ' + (j === n ? "on" : "") + '" data-act="aud" data-v="' + j + '">' + j + "</button>"
-      if ((j - from) === 4 || j === to) { h += row + "</div>"; row = '<div class="row5">' }
+    h += '<div class="alist">'
+    for (var j = 1; j <= 99; j++) h += '<button class="arow' + (j === A.n ? " cur" + (AU.paused ? "" : " play") : "") + '" data-act="aud" data-v="' + j + '"><span class="an">' + j + '</span><span class="at">' + esc(D.names[j - 1].t) + '</span><span class="aa">' + D.names[j - 1].a + "</span>" + ic("graphic_eq", "eq") + "</button>"
+    return h + "</div>"
+  }
+  // ---------- VIDEO (YouTube kabi: avto sifat, sahifa ichida)
+  var V = { i: -1, q: "auto", cur: 0, t: 0, stalls: [], timer: 0 }
+  function vList() { return CFG.VIDEOS || [] }
+  function vQs(v) { var k = Object.keys(v.src || {}).map(Number).sort(function (a, b) { return b - a }); return k }
+  function vSpeed() {
+    var c = navigator.connection || navigator.mozConnection || {}
+    var d = c.downlink || 5
+    if (c.saveData) d = Math.min(d, 1.5)
+    return d
+  }
+  function vNeed(q) { return q >= 1080 ? 6 : q >= 720 ? 3 : q >= 480 ? 1.6 : 0.8 }
+  function vAuto(v) {
+    var qs = vQs(v), sp = vSpeed()
+    for (var i = 0; i < qs.length; i++) if (sp >= vNeed(qs[i])) return qs[i]
+    return qs[qs.length - 1]
+  }
+  function vSet(q, keep) {
+    var vid = document.getElementById("vid"), v = vList()[V.i]
+    if (!vid || !v || !v.src[q]) return
+    var t = keep ? vid.currentTime : (V.t || 0), was = keep ? !vid.paused : false
+    V.cur = q; vid.src = v.src[q]
+    vid.addEventListener("loadedmetadata", function f() { vid.removeEventListener("loadedmetadata", f); if (t) try { vid.currentTime = t } catch (e) {} ; if (was) { var r = vid.play(); if (r && r.catch) r.catch(function () {}) } })
+    vqUi()
+  }
+  function vqUi() {
+    var b = document.getElementById("vqb"); if (b) b.textContent = (V.q === "auto" ? "Auto · " : "") + V.cur + "p"
+  }
+  function vUi() {
+    var vid = document.getElementById("vid"); if (!vid) return
+    var d = vid.duration || 0
+    var pb = document.getElementById("vpb"); if (pb) pb.innerHTML = ic(vid.paused ? "play_arrow" : "pause")
+    var big = document.getElementById("vbig"); if (big) big.classList.toggle("hide", !vid.paused)
+    var ps = document.getElementById("vpos"); if (ps) ps.style.width = d ? vid.currentTime * 100 / d + "%" : "0%"
+    var bf = document.getElementById("vbuf"); if (bf) { var e = 0; try { for (var i = 0; i < vid.buffered.length; i++) if (vid.buffered.start(i) <= vid.currentTime + .5) e = vid.buffered.end(i) } catch (x) {} bf.style.width = d ? e * 100 / d + "%" : "0%" }
+    var tc = document.getElementById("vtc"); if (tc) tc.textContent = fmtT(vid.currentTime) + " / " + fmtT(d)
+    var sp = document.getElementById("vsp"); if (sp) sp.classList.toggle("on", vid.readyState < 3 && !vid.paused)
+    V.t = vid.currentTime
+  }
+  function vAhead(vid) { try { for (var i = 0; i < vid.buffered.length; i++) if (vid.buffered.start(i) <= vid.currentTime + .5) return vid.buffered.end(i) - vid.currentTime } catch (e) {} return 0 }
+  function vAdapt() {
+    var vid = document.getElementById("vid"), v = vList()[V.i]
+    if (!vid) { clearInterval(V.timer); V.timer = 0; return }
+    if (V.q !== "auto" || !v || vid.paused) return
+    var qs = vQs(v), k = qs.indexOf(V.cur), now = Date.now()
+    V.stalls = V.stalls.filter(function (x) { return now - x < 40000 })
+    if (V.stalls.length >= 2 && k < qs.length - 1) { V.stalls = []; V.last = now; vSet(qs[k + 1], true); return }
+    if (k > 0 && vAhead(vid) > 25 && !V.stalls.length && now - (V.last || 0) > 45000 && vSpeed() >= vNeed(qs[k - 1]) * 1.3) { V.last = now; vSet(qs[k - 1], true) }
+  }
+  function mediaInit() {
+    var vid = document.getElementById("vid")
+    if (!vid) { if (V.timer) { clearInterval(V.timer); V.timer = 0 } audUi(); return }
+    var v = vList()[V.i]; if (!v) return
+    V.cur = V.q === "auto" ? vAuto(v) : (v.src[V.q] ? +V.q : vAuto(v))
+    vid.preload = "auto"; vid.src = v.src[V.cur]; if (v.poster) vid.poster = v.poster
+    vid.addEventListener("loadedmetadata", function () { if (V.t) try { vid.currentTime = V.t } catch (e) {}; vUi() }, { once: true })
+    ;["timeupdate", "play", "pause", "progress", "durationchange", "canplay", "playing"].forEach(function (e) { vid.addEventListener(e, vUi) })
+    vid.addEventListener("waiting", function () { if (!vid.seeking) V.stalls.push(Date.now()); vUi() })
+    vid.addEventListener("ended", function () { vUi() })
+    if (V.timer) clearInterval(V.timer)
+    V.timer = setInterval(vAdapt, 4000)
+    vqUi(); vUi()
+  }
+  function vTitle(v, i) { var t = v.t; if (t && typeof t === "object") t = t[S.lang] || t.en || t.uz; return t || (tr("video") + " " + (i + 1)) }
+  function videoView() {
+    var list = vList()
+    if (!list.length) return '<p class="empty">' + ic("movie") + " " + esc(tr("no_video")) + "<br><small>config.js → VIDEOS</small></p>"
+    var h = ""
+    if (V.i >= 0 && list[V.i]) {
+      var v = list[V.i], qs = vQs(v), menu = '<button data-act="vqset" data-v="auto"' + (V.q === "auto" ? ' class="on"' : "") + ">Auto</button>"
+      for (var k = 0; k < qs.length; k++) menu += '<button data-act="vqset" data-v="' + qs[k] + '"' + (String(V.q) === String(qs[k]) ? ' class="on"' : "") + ">" + qs[k] + "p</button>"
+      h += '<div class="vp" id="vp"><video id="vid" playsinline webkit-playsinline preload="auto"></video><div id="vbig" class="vbig" data-act="vplay">' + ic("play_arrow") + '</div><div id="vsp" class="vspin"></div>' +
+        '<div class="vctl"><button id="vpb" data-act="vplay">' + ic("play_arrow") + '</button><div id="vseek" class="vseek"><i id="vbuf"></i><i id="vpos"></i></div><span id="vtc" class="vtc">0:00 / 0:00</span><button id="vqb" class="vqb" data-act="vq"></button><button data-act="vfs">' + ic("fullscreen") + '</button></div>' +
+        '<div id="vmenu" class="vmenu" hidden><div class="vmt">' + esc(tr("quality")) + "</div>" + menu + "</div></div>" +
+        '<div class="vtitle">' + esc(vTitle(v, V.i)) + "</div>"
     }
-    h += "</div>" + pagerHtml(group, 11, "audGroup")
-    return h
+    h += '<div class="vlist">'
+    for (var i = 0; i < list.length; i++) h += '<button class="vcard' + (i === V.i ? " cur" : "") + '" data-act="vsel" data-v="' + i + '"><span class="vth"' + (list[i].poster ? ' style="background-image:url(' + esc(list[i].poster) + ')"' : "") + ">" + ic("play_arrow") + '</span><span class="vtt">' + esc(vTitle(list[i], i)) + "</span></button>"
+    return h + "</div>"
+  }
+  function viewMedia() {
+    var h = '<h1>' + ic("movie") + " " + esc(tr("nav_media")) + '</h1><p class="sub">&nbsp;</p>' +
+      '<div class="seg"><button class="btn ' + (U.mode === "video" ? "success" : "") + '" data-act="mode" data-v="video">' + ic("movie") + " " + esc(tr("video")) + "</button>" +
+      '<button class="btn ' + (U.mode === "audio" ? "success" : "") + '" data-act="mode" data-v="audio">' + ic("music_note") + " " + esc(tr("audio")) + "</button></div>"
+    return h + (U.mode === "video" ? videoView() : audioView())
   }
 
   // ====================
@@ -1124,7 +1237,7 @@
     initDigits()
     hgAttach()
     meanFit()
-    phStart()
+    phStart(); mediaInit()
     nsUpdate()
     renderNav()
     if (wheels.theme) updateThemeLabels()
@@ -1324,8 +1437,17 @@
       save(); toast("✓ " + tr("saved")); noteDirty()
       var nb = document.querySelector(".acts .act[data-v=note]"); if (nb) nb.classList.toggle("has", !!S.notes[n2])
     }
-    else if (act === "mode") { U.mode = v; render() }
-    else if (act === "aud") { U.audioN = parseInt(v, 10); render(); autoplay() }
+    else if (act === "mode") { U.mode = v; var vv = document.getElementById("vid"); if (vv) { V.t = vv.currentTime; vv.pause() } render() }
+    else if (act === "aud") audPlay(parseInt(v, 10))
+    else if (act === "audToggle") audPlay(A.n || 1)
+    else if (act === "audPrev") audPlay(A.n <= 1 ? 99 : (A.n || 1) - 1)
+    else if (act === "audNext") audPlay(A.n >= 99 ? 1 : (A.n || 0) + 1)
+    else if (act === "audView") { S.audView = S.audView === "grid" ? "list" : "grid"; save(); render() }
+    else if (act === "vsel") { V.i = parseInt(v, 10); V.t = 0; V.stalls = []; render(); var v2 = document.getElementById("vid"); if (v2) { var pr = v2.play(); if (pr && pr.catch) pr.catch(function () {}) } }
+    else if (act === "vplay") { var v3 = document.getElementById("vid"); if (v3) { if (v3.paused) { var p3 = v3.play(); if (p3 && p3.catch) p3.catch(function () {}) } else v3.pause() } }
+    else if (act === "vq") { var m = document.getElementById("vmenu"); if (m) m.hidden = !m.hidden }
+    else if (act === "vqset") { V.q = v; var m2 = document.getElementById("vmenu"); var vd = vList()[V.i]; vSet(v === "auto" ? vAuto(vd) : +v, true); if (m2) { m2.hidden = true; var bs = m2.querySelectorAll("button"); for (var bi = 0; bi < bs.length; bs[bi].classList.toggle("on", bs[bi].getAttribute("data-v") === v), bi++); } vqUi() }
+    else if (act === "vfs") { var v4 = document.getElementById("vp"), v5 = document.getElementById("vid"); try { if (document.fullscreenElement) document.exitFullscreen(); else if (v4 && v4.requestFullscreen) v4.requestFullscreen(); else if (v5 && v5.webkitEnterFullscreen) v5.webkitEnterFullscreen() } catch (e) {} }
     else if (act === "audGroup") { U.audioN = (parseInt(v, 10) - 1) * 9 + 1; render(); autoplay() }
     else if (act === "video") openTg("https://t.me/" + CFG.CHANNEL + "/" + v)
     else if (act === "mood") {
