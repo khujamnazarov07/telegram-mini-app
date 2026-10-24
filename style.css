@@ -376,7 +376,7 @@ html[data-gender="female"], :root[data-gender="female"][data-theme="light"] {
 html[data-gender="female"] body { background: none; position: relative; padding-bottom: calc(var(--nav-h) + 26px + env(safe-area-inset-bottom)); }
 html[data-gender="female"] body::before {
   content: ""; position: fixed; top: 60px; right: 0; width: min(66vw, 310px); aspect-ratio: 330 / 400;
-  background: url(blossom.svg?v=32) no-repeat top right / contain; pointer-events: none; z-index: 0;
+  background: url(blossom.svg?v=33) no-repeat top right / contain; pointer-events: none; z-index: 0;
 }
 html[data-gender="female"] #app { position: relative; z-index: 1; }
 html[data-gender="female"] .card, html[data-gender="female"] .name-card, html[data-gender="female"] .btn, html[data-gender="female"] .search,
@@ -427,9 +427,9 @@ html[data-gender="female"][data-theme="dark"] .search, html[data-gender="female"
 
 /* ====== AYOL: shisha (glass) sayqali + Salavot sahifasi ====== */
 html[data-gender="female"] :is(.card, .name-card, .btn:not(.success):not(.primary), .search, .chip, .mood-card, .list > button, .gear, .act, .hikrow, .wheel, .num-btn, .dg) {
-  background: linear-gradient(135deg, rgba(255, 255, 255, .55) 0%, rgba(255, 255, 255, .34) 55%, rgba(255, 255, 255, .44) 100%);
+  background: linear-gradient(135deg, rgba(255, 255, 255, .42) 0%, rgba(255, 255, 255, .20) 55%, rgba(255, 255, 255, .30) 100%);
   border: 1px solid rgba(255, 255, 255, .72);
-  -webkit-backdrop-filter: blur(20px) saturate(1.7); backdrop-filter: blur(20px) saturate(1.7);
+  -webkit-backdrop-filter: blur(9px) saturate(1.6); backdrop-filter: blur(9px) saturate(1.6);
   box-shadow: 0 10px 26px rgba(205, 95, 135, .16), inset 0 1.5px 0 rgba(255, 255, 255, .9), inset 0 0 0 1px rgba(255, 255, 255, .16), inset 0 -10px 18px rgba(255, 255, 255, .10);
 }
 html[data-gender="female"] .nav, html[data-gender="female"] .hdr {
@@ -439,7 +439,7 @@ html[data-gender="female"] .nav, html[data-gender="female"] .hdr {
 html[data-gender="female"] .nav { box-shadow: 0 12px 30px rgba(205, 95, 135, .22), inset 0 1.5px 0 rgba(255, 255, 255, .9), inset 0 0 0 1px rgba(255, 255, 255, .2); }
 html[data-gender="female"] .act.liked, html[data-gender="female"] .gear.on, html[data-gender="female"] .chip.on { border-color: var(--accent); }
 html[data-gender="female"][data-theme="dark"] :is(.card, .name-card, .btn:not(.success):not(.primary), .search, .chip, .mood-card, .list > button, .gear, .act, .hikrow, .wheel, .num-btn, .dg) {
-  background: linear-gradient(135deg, rgba(60, 35, 48, .55), rgba(60, 35, 48, .38) 55%, rgba(60, 35, 48, .48));
+  background: linear-gradient(135deg, rgba(60, 35, 48, .38), rgba(60, 35, 48, .22) 55%, rgba(60, 35, 48, .32));
   border-color: rgba(255, 255, 255, .22);
   box-shadow: 0 10px 26px rgba(0, 0, 0, .3), inset 0 1.5px 0 rgba(255, 255, 255, .22), inset 0 0 0 1px rgba(255, 255, 255, .05);
 }
@@ -460,3 +460,8 @@ html[data-gender="female"] .dg::after { border-color: var(--accent); }
 @media (prefers-color-scheme: dark) {
   html[data-gender="female"]:not([data-theme="light"]):not([data-theme="dark"]) .tapzone { --ti: #ffe3ee; }
 }
+
+html[data-gender="female"] .ngrid { -webkit-mask-image: none; mask-image: none; }
+html[data-gender="female"] .ngrid::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 34%; pointer-events: none; background: linear-gradient(180deg, rgba(243, 213, 220, 0), rgba(243, 213, 220, .92)); transition: opacity .3s; }
+html[data-gender="female"][data-theme="dark"] .ngrid::after { background: linear-gradient(180deg, rgba(42, 26, 34, 0), rgba(42, 26, 34, .92)); }
+html[data-gender="female"] .ngrid.open::after { opacity: 0; }
