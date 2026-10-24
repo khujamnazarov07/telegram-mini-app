@@ -942,12 +942,24 @@
     if (!SIM || !SIM.els || !SIM.raf) { setTimeout(cb, SIM && SIM.allow > 0 ? 400 : 250); return }
     SIM.onIdle = cb
   }
-  function hgStats() {
+  function dBarHtml(ds, target, draft) {
+    var free = ds.mode === "free", pct = Math.min(100, Math.floor(draft * 100 / target))
+    return '<div class="dbar"><div class="dnums"><b>' + fmtNum(target) + '</b><b id="dDone">' + draft + '</b><b id="dLeft">' + Math.max(0, target - draft) + "</b></div>" +
+      '<div class="dtrack"><i id="dFill" style="width:' + pct + '%"></i></div>' +
+      '<div class="dcap"><span>' + esc(tr("needed")) + "</span><span>" + esc(tr("done_n")) + "</span><span>" + esc(tr("left_n")) + "</span></div>" +
+      (free ? '<div class="dtot"><span>' + esc(tr("total_n")) + ': </span><b id="dTot">' + (ds.count || 0) + "</b></div>" : "") + "</div>"
+  }
+  function hgStats(full) {
     var ds = S.daily
     var d = document.getElementById("dDone"), l = document.getElementById("dLeft")
     var tt = document.getElementById("dTot"); if (tt) tt.textContent = ds.count || 0
     if (d) d.textContent = ds.draft || 0
     if (l) l.textContent = Math.max(0, ds.target - (ds.draft || 0))
+    var f = document.getElementById("dFill")
+    if (f) {
+      f.style.width = (full ? 100 : Math.min(100, Math.floor((ds.draft || 0) * 100 / ds.target))) + "%"
+      if (full) setTimeout(function () { var g = document.getElementById("dFill"); if (g && S.daily) g.style.width = Math.min(100, Math.floor((S.daily.draft || 0) * 100 / S.daily.target)) + "%" }, 1100)
+    }
   }
 
   // ---- 6 xonali "soat" tanlagich: 000,000 (har bir raqam vertikal g'ildirak)
@@ -1022,8 +1034,7 @@
     if (owed > 0) h += '<p class="owed center">⊘ ' + esc(tr("owed").replace("{n}", owed)) + "</p>"
     h += '<div id="hgwrap" class="hgwrap"><div id="hgstage" class="hgstage">' + hgBg() + '<div id="hgbox" class="hgbox' + (ds.mode === "free" ? " free" : "") + '">' + hgSvg(hgShown) + "</div>"
     if (ds.todayDone) h += '<div class="done center">✦ ' + esc(tr("cong")) + "</div>"
-    else if (ds.mode === "free") h += '<div class="stats mini" style="grid-template-columns:1fr 1fr"><div><b id="dTot">' + (ds.count || 0) + "</b><span>" + esc(tr("total_n")) + '</span></div><div><b id="dDone">' + draft + "</b><span>" + esc(tr("cycle_n")) + " /100</span></div></div>"
-    else h += '<div class="stats mini"><div><b>' + target + "</b><span>" + esc(tr("needed")) + '</span></div><div><b id="dDone">' + draft + "</b><span>" + esc(tr("done_n")) + '</span></div><div><b id="dLeft">' + Math.max(0, target - draft) + "</b><span>" + esc(tr("left_n")) + "</span></div></div>"
+    else h += dBarHtml(ds, target, draft)
     h += "</div></div>"
     h += ds.todayDone ? '<button class="tap-round off" disabled>✓</button>' : '<div class="tapzone"><i class="tb b1"></i><i class="tb b2"></i><i class="tb b3"></i><button class="tap-round" data-act="tap" aria-label="+">' + (ic("add") + (step > 1 ? '<b class="stp">' + step + "</b>" : "")) + "</button></div>"
     return h + "</div>"
@@ -1381,7 +1392,7 @@
       if (to > from) { hgDrop(from, to); hgShown = to }
       var stg = document.getElementById("hgstage")
       if (stg) { stg.classList.remove("pulse"); void stg.offsetWidth; stg.classList.add("pulse") }
-      hgStats()
+      hgStats(cycles > 0)
       if (cycles > 0) {
         hgWhenIdle(function () {
           try { tg && tg.HapticFeedback && tg.HapticFeedback.notificationOccurred("success") } catch (e) {}
