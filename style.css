@@ -376,7 +376,7 @@ html[data-gender="female"], :root[data-gender="female"][data-theme="light"] {
 html[data-gender="female"] body { background: none; position: relative; padding-bottom: calc(var(--nav-h) + 26px + env(safe-area-inset-bottom)); }
 html[data-gender="female"] body::before {
   content: ""; position: fixed; top: 60px; right: 0; width: min(66vw, 310px); aspect-ratio: 330 / 400;
-  background: url(blossom.svg?v=34) no-repeat top right / contain; pointer-events: none; z-index: 0;
+  background: url(blossom.svg?v=35) no-repeat top right / contain; pointer-events: none; z-index: 0;
 }
 html[data-gender="female"] #app { position: relative; z-index: 1; }
 html[data-gender="female"] .card, html[data-gender="female"] .name-card, html[data-gender="female"] .btn, html[data-gender="female"] .search,
@@ -445,7 +445,7 @@ html[data-gender="female"][data-theme="dark"] :is(.card, .name-card, .btn:not(.s
 }
 html[data-gender="female"][data-theme="dark"] .nav, html[data-gender="female"][data-theme="dark"] .hdr { background: linear-gradient(135deg, rgba(70, 40, 56, .62), rgba(40, 24, 33, .5)); }
 /* Salavot: yashil -> pushti */
-html[data-gender="female"] .hgstage { filter: hue-rotate(180deg) saturate(.95); border-radius: 30px; }
+html[data-gender="female"] .hgstage { border-radius: 30px; }
 html[data-gender="female"] .tb.b1 { background: radial-gradient(circle, #f472b6, rgba(244, 114, 182, 0) 72%); }
 html[data-gender="female"] .tb.b2 { background: radial-gradient(circle, #fda4af, rgba(253, 164, 175, 0) 72%); }
 html[data-gender="female"] .tb.b3 { background: radial-gradient(circle, #fde2e8, rgba(253, 226, 232, 0) 72%); }
@@ -473,3 +473,22 @@ html[data-gender="female"] .ngrid.open::after { opacity: 0; }
 .star .msi { font-size: 26px; }
 .star.on { color: #f5b301; }
 .star.on .msi { font-variation-settings: "FILL" 1; }
+
+/* ayol: animatsiyalarda opacity/filter yo'q (orqa fon ochilib ketmasin) */
+html[data-gender="female"] .slide.in-back { animation-name: backInF; }
+html[data-gender="female"] .slide.in-next { animation-name: fromBehindF; }
+@keyframes backInF { from { transform: translateX(-135%) rotate(-12deg); } to { transform: none; } }
+@keyframes fromBehindF { from { transform: scale(.88) translateY(22px); } to { transform: none; } }
+html[data-gender="female"] .slide .card { background: linear-gradient(135deg, rgba(255, 255, 255, .5), rgba(255, 255, 255, .3)); }
+html[data-gender="female"][data-theme="dark"] .slide .card { background: linear-gradient(135deg, rgba(60, 35, 48, .5), rgba(60, 35, 48, .34)); }
+/* Salavot: shisha */
+html[data-gender="female"] .hgstage { filter: none; --tx: #3a2830; --tx2: rgba(58, 40, 48, .62);
+  background: linear-gradient(135deg, rgba(255, 255, 255, .42), rgba(255, 255, 255, .14) 55%, rgba(255, 255, 255, .26));
+  border: 1px solid rgba(255, 255, 255, .72); -webkit-backdrop-filter: blur(9px) saturate(1.6); backdrop-filter: blur(9px) saturate(1.6);
+  box-shadow: 0 10px 26px rgba(205, 95, 135, .16), inset 0 1.5px 0 rgba(255, 255, 255, .9), inset 0 -10px 18px rgba(255, 255, 255, .1); }
+html[data-gender="female"][data-theme="dark"] .hgstage { --tx: #f7e8ec; --tx2: rgba(247, 232, 236, .7);
+  background: linear-gradient(135deg, rgba(255, 255, 255, .14), rgba(255, 255, 255, .04) 55%, rgba(255, 255, 255, .08));
+  border-color: rgba(255, 255, 255, .22); box-shadow: 0 10px 26px rgba(0, 0, 0, .3), inset 0 1.5px 0 rgba(255, 255, 255, .2); }
+html[data-gender="female"] .hgstage .orb, html[data-gender="female"] .hgstage .hgpat, html[data-gender="female"] .hgstage .hgaura { display: none; }
+html[data-gender="female"] .hgstage .hg, html[data-gender="female"] .hgstage .pt { filter: hue-rotate(180deg); }
+html[data-gender="female"] .hgstage .hg { filter: hue-rotate(180deg) drop-shadow(0 8px 12px rgba(160, 50, 95, .28)); }
