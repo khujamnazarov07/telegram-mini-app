@@ -63,6 +63,14 @@
     rate_all: "Umumiy reyting|Умумий рейтинг|Общий рейтинг|Overall rating|التقييم العام|Genel puan|Rating umum|总评分|कुल रेटिंग|Valoración general",
     rate_my: "Sizning bahoyingiz|Сизнинг баҳойингиз|Ваша оценка|Your rating|تقييمك|Puanınız|Penilaian Anda|您的评分|आपकी रेटिंग|Tu valoración",
     like_app: "Ilova yoqdi|Илова ёқди|Нравится|Like|أعجبني|Beğen|Suka|喜欢|पसंद|Me gusta",
+    settings: "Sozlamalar|Созламалар|Настройки|Settings|الإعدادات|Ayarlar|Pengaturan|设置|सेटिंग्स|Ajustes",
+    theme_t: "Mavzu|Мавзу|Тема|Theme|السمة|Tema|Tema|主题|थीम|Tema",
+    th_auto: "Avtomatik|Автоматик|Автоматически|Automatic|تلقائي|Otomatik|Otomatis|自动|स्वचालित|Automático",
+    th_male: "Erkaklar uchun|Эркаклар учун|Для мужчин|For men|للرجال|Erkekler için|Untuk pria|男士|पुरुषों के लिए|Para hombres",
+    th_female: "Ayollar uchun|Аёллар учун|Для женщин|For women|للنساء|Kadınlar için|Untuk wanita|女士|महिलाओं के लिए|Para mujeres",
+    gender_info: "O'z genderingizni tanlashingiz qulayroq bo'lishi mumkin|Ўз гендерингизни танлашингиз қулайроқ бўлиши мумкин|Вам может быть удобнее выбрать тему для своего пола|Choosing the theme for your own gender may feel more comfortable|قد يكون اختيار السمة المناسبة لجنسك أكثر راحة|Kendi cinsiyetinize uygun temayı seçmek daha rahat olabilir|Memilih tema sesuai jenis kelamin Anda mungkin lebih nyaman|选择适合您性别的主题可能更舒适|अपने लिंग के अनुसार थीम चुनना अधिक सुविधाजनक हो सकता है|Elegir el tema para tu género puede resultar más cómodo",
+    flt_all: "Odatiy|Одатий|Обычный|Default|افتراضي|Varsayılan|Default|默认|डिफ़ॉल्ट|Predeterminado",
+    flt_note: "Qaydli|Қайдли|С заметками|With notes|مع ملاحظات|Notlu|Dengan catatan|有笔记|नोट वाले|Con notas",
     about_text: "Asmo ul-Husna — Allohning 99 go'zal ismini o'rganish va his qilish uchun yaratilgan.|Асмо ул-Ҳусна — Аллоҳнинг 99 гўзал исмини ўрганиш ва ҳис қилиш учун яратилган.|Асмо уль-Хусна создан для изучения и осмысления 99 прекрасных имён Аллаха.|Asmo ul-Husna was created to learn and reflect on the 99 Beautiful Names of Allah.|تم إنشاء أسماء الله الحسنى لتعلم والتفكر في 99 اسماً من أسماء الله الحسنى.|Esma ül-Hüsna, Allah'ın 99 Güzel İsmini öğrenmek ve üzerinde düşünmek için oluşturuldu.|Asmaul Husna dibuat untuk mempelajari dan merenungkan 99 Nama Indah Allah.|真主的99个美名旨在帮助您学习并默思真主的99个美名。|असमाउल हुस्ना अल्लाह के 99 सुंदर नामों को सीखने और उन पर विचार करने के लिए बनाया गया है।|Asma ul-Husna fue creado para aprender y reflexionar sobre los 99 Hermosos Nombres de Alá.",
     open_bot: "Botni ochish|Ботни очиш|Открыть бота|Open bot|افتح البوت|Botu aç|Buka bot|打开机器人|बॉट खोलें|Abrir bot",
     open_channel: "Kanal|Канал|Канал|Channel|القناة|Kanal|Kanal|频道|चैनल|Canal",
@@ -86,7 +94,7 @@
   // STATE + STORAGE
   // ====================
   var KEY = "asmo_miniapp_v1"
-  var S = { lang: "", theme: "auto", favs: {}, notes: {}, moodHist: {}, daily: null, savedAt: 0 }
+  var S = { lang: "", gender: "", theme: "auto", favs: {}, notes: {}, moodHist: {}, daily: null, savedAt: 0 }
   var memStore = null
 
   function load() {
@@ -190,7 +198,7 @@
   // ====================
   // UI STATE
   // ====================
-  var U = { tab: "names", detail: 0, q: "", mode: "video", audioN: 1, moodPage: 1, moodPick: "", more: "menu", quoteIdx: -1, dpanel: "", dir: "", moodOpen: false }
+  var U = { nf: "all", tab: "names", detail: 0, q: "", mode: "video", audioN: 1, moodPage: 1, moodPick: "", more: "menu", quoteIdx: -1, dpanel: "", dir: "", moodOpen: false }
   var app = document.getElementById("app")
   var navEl = document.getElementById("nav")
   var NAVS = [
@@ -244,15 +252,21 @@
     var q = plain(U.q.trim())
     var out = []
     for (var i = 1; i <= 99; i++) {
+      if (U.nf === "fav" && !S.favs[i]) continue
+      if (U.nf === "note" && !S.notes[i]) continue
       if (!q || plain(D.names[i - 1].t).indexOf(q) >= 0 || D.names[i - 1].a.indexOf(U.q.trim()) >= 0 || String(i) === q) out[out.length] = i
     }
     return out
   }
   function viewNames() {
-    var searching = !!U.q.trim(), open = U.namesOpen || searching
+    var searching = !!U.q.trim() || U.nf !== "all", open = U.namesOpen || searching
+    var fl = '<div class="flt">'
+    var FL = [["all", "format_list_numbered", "flt_all"], ["fav", "favorite", "favs"], ["note", "stylus_note", "flt_note"]]
+    for (var fi = 0; fi < FL.length; fi++) fl += '<button class="fchip' + (U.nf === FL[fi][0] ? " on" : "") + '" data-act="nf" data-v="' + FL[fi][0] + '">' + ic(FL[fi][1]) + "<span>" + esc(tr(FL[fi][2])) + "</span></button>"
+    fl += "</div>"
     return '<h1>📖 ' + esc(tr("nav_names")) + '</h1><p class="sub">Asmo ul-Husna · 99</p>' +
       '<div id="sbox" class="sbox' + (U.q ? " has" : "") + '"><input id="q" class="search" type="search" autocomplete="off" aria-label="' + esc(tr("search")) + '" value="' + esc(U.q) + '">' +
-      '<div id="ph" class="ph" aria-hidden="true"><span></span><span></span></div></div>' +
+      '<div id="ph" class="ph" aria-hidden="true"><span></span><span></span></div></div>' + fl +
       '<div id="ngrid" class="ngrid' + (open ? " open" : "") + '"><div id="grid">' + nameCards(filterNames()) + "</div></div>" +
       '<button id="ntog" class="btn block moodtog" data-act="namesToggle"' + (searching ? " hidden" : "") + ">" + ic(U.namesOpen ? "expand_less" : "expand_more") + " <span>" + esc(tr(U.namesOpen ? "mood_less" : "mood_all")) + "</span></button>" +
       '<button class="hikrow" data-act="hikmat"><span>' + esc(tr("hikmat")) + "</span>" + ic("chevron_right") + "</button>"
@@ -1042,27 +1056,31 @@
       }
       return h
     }
-    if (U.more === "gender") {
-      var gg = '<button class="btn small back" data-act="moreBack">‹ ' + esc(tr("back")) + "</button><h1>🌸 " + esc(tr("gender")) + '</h1><div class="grid3" style="grid-template-columns:1fr 1fr">'
-      gg += '<button class="btn ' + (S.gender === "female" ? "success" : "") + '" data-act="setGender" data-v="female">' + esc(tr("g_female")) + "</button>"
-      gg += '<button class="btn ' + (S.gender !== "female" ? "success" : "") + '" data-act="setGender" data-v="male">' + esc(tr("g_male")) + "</button>"
-      return gg + "</div>"
+    if (U.more === "theme") {
+      var gg = '<button class="btn small back" data-act="moreBack">' + ic("arrow_back") + " " + esc(tr("back")) + "</button><h1>" + ic("palette") + " " + esc(tr("theme_t")) + '</h1><div class="list">'
+      var TH = [["auto", "brightness_auto", "th_auto"], ["male", "male", "th_male"], ["female", "female", "th_female"]]
+      var cur = S.gender === "female" ? "female" : S.gender === "male" ? "male" : "auto"
+      for (var ti = 0; ti < TH.length; ti++) gg += '<button class="' + (cur === TH[ti][0] ? "sel" : "") + '" data-act="setGender" data-v="' + TH[ti][0] + '">' + ic(TH[ti][1]) + " " + esc(tr(TH[ti][2])) + (cur === TH[ti][0] ? ic("check", "chk") : "") + "</button>"
+      return gg + '</div><p class="ginfo">' + ic("info") + " <span>" + esc(tr("gender_info")) + "</span></p>"
+    }
+    if (U.more === "settings") {
+      var cg = S.gender === "female" ? "th_female" : S.gender === "male" ? "th_male" : "th_auto"
+      return '<button class="btn small back" data-act="moreBack">' + ic("arrow_back") + " " + esc(tr("back")) + "</button><h1>" + ic("settings") + " " + esc(tr("settings")) + '</h1><p class="sub">&nbsp;</p><div class="list">' +
+        '<button data-act="more" data-v="theme">' + ic("palette") + " " + esc(tr("theme_t")) + " · " + esc(tr(cg)) + "</button>" +
+        '<button data-act="more" data-v="lang">' + ic("translate") + " " + esc(tr("lang")) + " · " + LANG_NAMES[S.lang] + "</button></div>"
     }
     if (U.more === "lang") {
-      var l = '<button class="btn small back" data-act="moreBack">‹ ' + esc(tr("back")) + "</button><h1>🌐 " + esc(tr("lang")) + '</h1><div class="grid3" style="grid-template-columns:1fr 1fr">'
-      for (var j = 0; j < LANGS.length; j++) l += '<button class="btn ' + (S.lang === LANGS[j] ? "success" : "") + '" data-act="setLang" data-v="' + LANGS[j] + '">' + LANG_NAMES[LANGS[j]] + "</button>"
+      var l = '<button class="btn small back" data-act="moreBack">' + ic("arrow_back") + " " + esc(tr("back")) + "</button><h1>" + ic("translate") + " " + esc(tr("lang")) + '</h1><div class="grid3" style="grid-template-columns:1fr 1fr">'
+      for (var j = 0; j < LANGS.length; j++) l += '<button class="btn ' + (S.langSet !== false && S.lang === LANGS[j] ? "success" : "") + '" data-act="setLang" data-v="' + LANGS[j] + '">' + LANG_NAMES[LANGS[j]] + "</button>"
       return l + "</div>"
     }
     if (U.more === "about") {
-      return '<button class="btn small back" data-act="moreBack">‹ ' + esc(tr("back")) + "</button><h1>ℹ️ " + esc(tr("about")) + '</h1><div class="card stack"><p>✨ ' + esc(tr("about_text")) + '</p><p class="sub">🔖 Mini App ' + CFG.VERSION + "</p>" + aboutRate() +
+      return '<button class="btn small back" data-act="moreBack">' + ic("arrow_back") + " " + esc(tr("back")) + "</button><h1>" + ic("info") + " " + esc(tr("about")) + '</h1><div class="card stack"><p>✨ ' + esc(tr("about_text")) + '</p><p class="sub">🔖 Mini App ' + CFG.VERSION + "</p>" + aboutRate() +
         '<button class="btn primary block" data-act="openBot">🤖 ' + esc(tr("open_bot")) + '</button><button class="btn block" data-act="openChannel">📢 ' + esc(tr("open_channel")) + "</button></div>"
     }
-    return '<h1>✨ ' + esc(tr("nav_more")) + '</h1><p class="sub">&nbsp;</p><div class="list">' +
-      '<button data-act="more" data-v="quote"><span class="ic">💬</span>' + esc(tr("quote")) + "</button>" +
-      '<button data-act="more" data-v="favs"><span class="ic">❣️</span>' + esc(tr("favs")) + "</button>" +
-      '<button data-act="more" data-v="gender"><span class="ic">🌸</span>' + esc(tr("gender")) + " · " + esc(tr(S.gender === "female" ? "g_female" : "g_male")) + "</button>" +
-      '<button data-act="more" data-v="lang"><span class="ic">🌐</span>' + esc(tr("lang")) + " · " + LANG_NAMES[S.lang] + "</button>" +
-      '<button data-act="more" data-v="about"><span class="ic">ℹ️</span>' + esc(tr("about")) + "</button></div>"
+    return '<h1>' + ic("auto_awesome") + " " + esc(tr("nav_more")) + '</h1><p class="sub">&nbsp;</p><div class="list">' +
+      '<button data-act="more" data-v="settings">' + ic("settings") + " " + esc(tr("settings")) + "</button>" +
+      '<button data-act="more" data-v="about">' + ic("info") + " " + esc(tr("about")) + "</button></div>"
   }
 
   // ====================
@@ -1101,7 +1119,7 @@
     if (U.detail) { U.detail = 0; render(); return }
     if (U.tab === "more" && U.more !== "menu") {
       if (U.hikBack) { U.hikBack = false; U.tab = "names" }
-      U.more = "menu"; render(); return
+      U.more = (U.more === "lang" || U.more === "theme") ? "settings" : "menu"; render(); return
     }
     if (U.tab === "mood" && U.moodPick) { U.moodPick = ""; render() }
   }
@@ -1114,7 +1132,7 @@
   var THEME_ICONS = { light: "light_mode", dark: "dark_mode", auto: "brightness_auto" }
   var wheels = {}
 
-  function applyGender() { document.documentElement.setAttribute("data-gender", S.gender === "female" ? "female" : "male") }
+  function applyGender() { document.documentElement.setAttribute("data-gender", S.gender === "female" ? "female" : S.gender === "male" ? "male" : "auto") }
   function applyTheme() {
     applyGender()
     document.documentElement.setAttribute("data-theme", S.theme)
@@ -1383,8 +1401,9 @@
       var sn = parseInt(v, 10), nd = D.names[sn - 1]
       openTg("https://t.me/share/url?url=" + encodeURIComponent("https://t.me/" + CFG.BOT) + "&text=" + encodeURIComponent("✨ " + sn + ". " + nd.a + " — " + nd.t + "\n🤖 @" + CFG.BOT))
     }
-    else if (act === "setGender") { S.gender = v; save(); applyGender(); U.more = "menu"; render() }
-    else if (act === "setLang") { S.lang = v; TCACHE = {}; save(); U.more = "menu"; render(); if (wheels.lang) wheels.lang.set(LANGS.indexOf(v), true) }
+    else if (act === "setGender") { S.gender = v; save(); applyGender(); render() }
+    else if (act === "nf") { U.nf = v; render() }
+    else if (act === "setLang") { S.langSet = true; S.lang = v; TCACHE = {}; save(); U.more = "settings"; render(); if (wheels.lang) wheels.lang.set(LANGS.indexOf(v), true) }
     else if (act === "openBot") openTg("https://t.me/" + CFG.BOT)
     else if (act === "openChannel") openTg("https://t.me/" + CFG.CHANNEL)
   })
@@ -1496,7 +1515,7 @@
     if (ev.target && ev.target.id === "q") {
       U.q = ev.target.value
       document.getElementById("grid").innerHTML = nameCards(filterNames())
-      var sq = !!U.q.trim(), ng = document.getElementById("ngrid"), nt = document.getElementById("ntog"), sbx = document.getElementById("sbox")
+      var sq = !!U.q.trim() || U.nf !== "all", ng = document.getElementById("ngrid"), nt = document.getElementById("ntog"), sbx = document.getElementById("sbox")
       if (ng) ng.classList.toggle("open", U.namesOpen || sq)
       if (nt) nt.hidden = sq
       if (sbx) sbx.classList.toggle("has", !!U.q)
@@ -1521,7 +1540,8 @@
   // START
   // ====================
   load()
-  if (!S.lang) S.lang = detectLang()
+  var firstRun = !S.lang
+  if (firstRun) { S.lang = detectLang(); S.langSet = false }
   if (tg) {
     try {
       tg.ready()
@@ -1534,4 +1554,14 @@
   render()
   initHeader()
   cloudRead()
+  if (firstRun) {
+    var frT = [], frOn = true
+    function frStop() { frOn = false; for (var i = 0; i < frT.length; i++) clearTimeout(frT[i]); if (S.langSet === false) { S.langSet = true; save(); render() } }
+    function frAt(ms, fn) { frT.push(setTimeout(function () { if (frOn) fn() }, ms)) }
+    document.addEventListener("pointerdown", function () { if (frOn) frStop() }, true)
+    frAt(1600, function () { U.tab = "more"; U.more = "menu"; render() })
+    frAt(2700, function () { U.more = "settings"; render() })
+    frAt(3800, function () { U.more = "lang"; render() })
+    frAt(5000, function () { frOn = false; S.langSet = true; save(); render() })
+  }
 })()
