@@ -17,6 +17,9 @@
     nav_daily: "Salavot|Салавот|Салават|Salawat|الصلاة|Salavat|Salawat|赞圣|सलावात|Salawat",
     nav_more: "Yana|Яна|Ещё|More|المزيد|Daha|Lainnya|更多|और|Más",
     search: "Ism qidirish...|Исм қидириш...|Поиск имени...|Search a name...|ابحث عن اسم...|İsim ara...|Cari nama...|搜索名字...|नाम खोजें...|Buscar nombre...",
+    gender: "Jins|Жинс|Пол|Gender|الجنس|Cinsiyet|Jenis kelamin|性别|लिंग|Género",
+    g_female: "Ayol|Аёл|Женский|Female|أنثى|Kadın|Perempuan|女|महिला|Mujer",
+    g_male: "Erkak|Эркак|Мужской|Male|ذكر|Erkek|Laki-laki|男|पुरुष|Hombre",
     hikmat: "Kun hikmati|Кун ҳикмати|Мудрость дня|Wisdom of the day|حكمة اليوم|Günün hikmeti|Hikmah hari ini|每日智慧|आज की हिकमत|Sabiduría del día",
     more_t: "Ko'proq|Кўпроқ|Ещё|More|المزيد|Daha fazla|Selengkapnya|更多|और देखें|Más",
     favs: "Sevimlilar|Севимлилар|Избранное|Favorites|المفضلة|Favoriler|Favorit|收藏|पसंदीदा|Favoritos",
@@ -1012,6 +1015,12 @@
       }
       return h
     }
+    if (U.more === "gender") {
+      var gg = '<button class="btn small back" data-act="moreBack">‹ ' + esc(tr("back")) + "</button><h1>🌸 " + esc(tr("gender")) + '</h1><div class="grid3" style="grid-template-columns:1fr 1fr">'
+      gg += '<button class="btn ' + (S.gender === "female" ? "success" : "") + '" data-act="setGender" data-v="female">' + esc(tr("g_female")) + "</button>"
+      gg += '<button class="btn ' + (S.gender !== "female" ? "success" : "") + '" data-act="setGender" data-v="male">' + esc(tr("g_male")) + "</button>"
+      return gg + "</div>"
+    }
     if (U.more === "lang") {
       var l = '<button class="btn small back" data-act="moreBack">‹ ' + esc(tr("back")) + "</button><h1>🌐 " + esc(tr("lang")) + '</h1><div class="grid3" style="grid-template-columns:1fr 1fr">'
       for (var j = 0; j < LANGS.length; j++) l += '<button class="btn ' + (S.lang === LANGS[j] ? "success" : "") + '" data-act="setLang" data-v="' + LANGS[j] + '">' + LANG_NAMES[LANGS[j]] + "</button>"
@@ -1024,6 +1033,7 @@
     return '<h1>✨ ' + esc(tr("nav_more")) + '</h1><p class="sub">&nbsp;</p><div class="list">' +
       '<button data-act="more" data-v="quote"><span class="ic">💬</span>' + esc(tr("quote")) + "</button>" +
       '<button data-act="more" data-v="favs"><span class="ic">❣️</span>' + esc(tr("favs")) + "</button>" +
+      '<button data-act="more" data-v="gender"><span class="ic">🌸</span>' + esc(tr("gender")) + " · " + esc(tr(S.gender === "female" ? "g_female" : "g_male")) + "</button>" +
       '<button data-act="more" data-v="lang"><span class="ic">🌐</span>' + esc(tr("lang")) + " · " + LANG_NAMES[S.lang] + "</button>" +
       '<button data-act="more" data-v="about"><span class="ic">ℹ️</span>' + esc(tr("about")) + "</button></div>"
   }
@@ -1077,7 +1087,9 @@
   var THEME_ICONS = { light: "light_mode", dark: "dark_mode", auto: "brightness_auto" }
   var wheels = {}
 
+  function applyGender() { document.documentElement.setAttribute("data-gender", S.gender === "female" ? "female" : "male") }
   function applyTheme() {
+    applyGender()
     document.documentElement.setAttribute("data-theme", S.theme)
     if (tg && tg.setHeaderColor) {
       try {
@@ -1342,6 +1354,7 @@
       var sn = parseInt(v, 10), nd = D.names[sn - 1]
       openTg("https://t.me/share/url?url=" + encodeURIComponent("https://t.me/" + CFG.BOT) + "&text=" + encodeURIComponent("✨ " + sn + ". " + nd.a + " — " + nd.t + "\n🤖 @" + CFG.BOT))
     }
+    else if (act === "setGender") { S.gender = v; save(); applyGender(); U.more = "menu"; render() }
     else if (act === "setLang") { S.lang = v; TCACHE = {}; save(); U.more = "menu"; render(); if (wheels.lang) wheels.lang.set(LANGS.indexOf(v), true) }
     else if (act === "openBot") openTg("https://t.me/" + CFG.BOT)
     else if (act === "openChannel") openTg("https://t.me/" + CFG.CHANNEL)
