@@ -456,12 +456,21 @@
     } else if (ghost && w) {
       w.appendChild(ghost)
       void ghost.offsetWidth
-      ghost.style.transition = "transform .4s cubic-bezier(.45, 0, .85, .55), opacity .4s ease-in"
+      ghost.style.transition = document.documentElement.getAttribute("data-gender") === "female" ? "transform .4s cubic-bezier(.45, 0, .85, .55)" : "transform .4s cubic-bezier(.45, 0, .85, .55), opacity .4s ease-in"
       ghost.style.transform = "translateX(" + (dir > 0 ? -135 : 135) + "%) rotate(" + (dir > 0 ? -12 : 12) + "deg)"
-      ghost.style.opacity = "0"
+      if (document.documentElement.getAttribute("data-gender") !== "female") ghost.style.opacity = "0"
       setTimeout(function () { if (ghost.parentNode) ghost.parentNode.removeChild(ghost) }, 450)
     }
   }
+  var awayAt = 0
+  function resumeApp() {
+    navBusy = false; sw = null
+    if (awayAt && Date.now() - awayAt > 15000) { awayAt = 0; location.reload(); return }
+    awayAt = 0
+    try { render() } catch (x) { location.reload() }
+  }
+  document.addEventListener("visibilitychange", function () { if (document.hidden) awayAt = Date.now(); else resumeApp() })
+  window.addEventListener("pageshow", function (e) { if (e.persisted) location.reload() })
   var sw = null, swipedAt = 0, lastTap = 0
   document.addEventListener("pointerdown", function (e) {
     var el = U.detail && e.target.closest && e.target.closest("#app") && !e.target.closest("textarea, audio, input") ? document.getElementById("slide") : null
@@ -477,8 +486,10 @@
     }
     if (sw && sw.drag) {
       sw.dx = dx
-      sw.el.style.transform = "translateX(" + dx + "px) rotate(" + dx / 26 + "deg)"
-      sw.el.style.opacity = String(1 - Math.min(Math.abs(dx) / 420, 0.5))
+      if (dx < 0) {
+        sw.el.style.transform = "translateX(" + dx + "px) rotate(" + dx / 26 + "deg)"
+        if (document.documentElement.getAttribute("data-gender") !== "female") sw.el.style.opacity = String(1 - Math.min(Math.abs(dx) / 420, 0.5))
+      }
     }
   })
   function swEnd(e) {
