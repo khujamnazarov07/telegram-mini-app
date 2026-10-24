@@ -376,7 +376,7 @@ html[data-gender="female"], :root[data-gender="female"][data-theme="light"] {
 html[data-gender="female"] body { background: none; position: relative; padding-bottom: calc(var(--nav-h) + 26px + env(safe-area-inset-bottom)); }
 html[data-gender="female"] body::before {
   content: ""; position: fixed; top: 60px; right: 0; width: min(66vw, 310px); aspect-ratio: 330 / 400;
-  background: url(blossom.svg?v=33) no-repeat top right / contain; pointer-events: none; z-index: 0;
+  background: url(blossom.svg?v=34) no-repeat top right / contain; pointer-events: none; z-index: 0;
 }
 html[data-gender="female"] #app { position: relative; z-index: 1; }
 html[data-gender="female"] .card, html[data-gender="female"] .name-card, html[data-gender="female"] .btn, html[data-gender="female"] .search,
@@ -465,3 +465,11 @@ html[data-gender="female"] .ngrid { -webkit-mask-image: none; mask-image: none; 
 html[data-gender="female"] .ngrid::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 34%; pointer-events: none; background: linear-gradient(180deg, rgba(243, 213, 220, 0), rgba(243, 213, 220, .92)); transition: opacity .3s; }
 html[data-gender="female"][data-theme="dark"] .ngrid::after { background: linear-gradient(180deg, rgba(42, 26, 34, 0), rgba(42, 26, 34, .92)); }
 html[data-gender="female"] .ngrid.open::after { opacity: 0; }
+
+.rate { display: grid; gap: 10px; }
+.rrow { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.stars { display: inline-flex; gap: 2px; }
+.star { background: none; border: 0; padding: 2px; color: var(--hint); line-height: 1; }
+.star .msi { font-size: 26px; }
+.star.on { color: #f5b301; }
+.star.on .msi { font-variation-settings: "FILL" 1; }
