@@ -13,5 +13,9 @@ window.CONFIG = {
   // Umumiy reyting uchun server manzili: GET -> {avg,count,likes}; POST {uid,rate,like} -> shu format. Bo'sh bo'lsa umumiy reyting "—" ko'rinadi.
   RATE_URL: "",
 
-  VIDEO_POSTS: []
+  VIDEO_POSTS: [],
+
+  // Videolar (sahifaning o'zida ko'riladi). Sifatlar ixtiyoriy: faqat borlarini yozing, Auto internet tezligiga qarab tanlaydi.
+  // Misol: { t: "Sarlavha", poster: "video/1.jpg", src: { 1080: "video/1_1080.mp4", 720: "video/1_720.mp4", 480: "video/1_480.mp4" } }
+  VIDEOS: []
 }
