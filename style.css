@@ -376,7 +376,7 @@ html[data-gender="female"], :root[data-gender="female"][data-theme="light"] {
 html[data-gender="female"] body { background: none; position: relative; padding-bottom: calc(var(--nav-h) + 26px + env(safe-area-inset-bottom)); }
 html[data-gender="female"] body::before {
   content: ""; position: fixed; top: 60px; right: 0; width: min(66vw, 310px); aspect-ratio: 330 / 400;
-  background: url(blossom.svg?v=36) no-repeat top right / contain; pointer-events: none; z-index: 0;
+  background: url(blossom.svg?v=37) no-repeat top right / contain; pointer-events: none; z-index: 0;
 }
 html[data-gender="female"] #app { position: relative; z-index: 1; }
 html[data-gender="female"] .card, html[data-gender="female"] .name-card, html[data-gender="female"] .btn, html[data-gender="female"] .search,
@@ -522,3 +522,20 @@ html[data-gender="male"] .tb.b3 { background: radial-gradient(circle, #fca5a5, r
 html[data-gender="male"] .tapzone { --ti: #fff; }
 html[data-gender="male"] .tap-round { background: linear-gradient(145deg, #ff4b58, #c20f1d 70%); box-shadow: 0 12px 28px rgba(229, 32, 47, .4), inset 0 2px 0 rgba(255, 255, 255, .35); }
 html[data-gender="male"] .tap-round.off { background: #2a2a2e; box-shadow: none; }
+
+.flt { display: flex; gap: 8px; margin: 0 0 12px; overflow-x: auto; scrollbar-width: none; }
+.flt::-webkit-scrollbar { display: none; }
+.fchip { display: inline-flex; align-items: center; gap: 5px; flex: none; padding: 7px 13px; border-radius: 999px; background: var(--card); border: 1px solid var(--line); font-size: 14px; color: var(--text); transition: background .2s, color .2s, border-color .2s; }
+.fchip .msi { font-size: 18px; }
+.fchip.on { background: var(--accent); border-color: var(--accent); color: var(--accent-text); }
+.fchip.on .msi { font-variation-settings: "FILL" 1; }
+.list > button { display: flex; align-items: center; gap: 10px; }
+.list > button .msi:first-child { font-size: 24px; color: var(--accent); }
+.list > button.sel { border-color: var(--accent); }
+.list > button .chk { margin-inline-start: auto; color: var(--accent); }
+h1 .msi { font-size: 26px; vertical-align: -5px; color: var(--accent); }
+.btn.back .msi { font-size: 18px; vertical-align: -4px; }
+.ginfo { display: flex; gap: 8px; align-items: flex-start; color: var(--hint); font-size: 14px; margin: 14px 2px; }
+.ginfo .msi { font-size: 20px; flex: none; }
+html[data-gender="female"] .fchip:not(.on) { background: linear-gradient(135deg, rgba(255, 255, 255, .42), rgba(255, 255, 255, .2)); border-color: rgba(255, 255, 255, .72); -webkit-backdrop-filter: blur(9px); backdrop-filter: blur(9px); }
+html[data-gender="male"] .fchip { border-radius: 8px; text-transform: uppercase; font-size: 12px; letter-spacing: .04em; }
