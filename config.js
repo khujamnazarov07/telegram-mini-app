@@ -4,9 +4,13 @@ window.CONFIG = {
   BOT: "AsmaulHusnarobot",
   CHANNEL: "AsmaulHusnaOfficial",
 
-  // Audio fayl manzili (n = 1..99). Mp3 fayllarni shu saytga yuklang: audio/001.mp3 ... audio/099.mp3
+  // Audio fayllar ro'yxati: papkadagi fayl nomlari, ISM TARTIBI BILAN (1-ism, 2-ism, ... 99-ism). Misol: "11. Ал-Мутакаббир.mp3"
+  AUDIO_DIR: "audio111.mp3/",
+  AUDIO_FILES: [],
   AUDIO_URL: function (n) {
-    return "audio111.mp3/" + ("00" + n).slice(-3) + ".mp3"
+    var f = (window.CONFIG.AUDIO_FILES || [])[n - 1]
+    if (f) return window.CONFIG.AUDIO_DIR + f
+    return window.CONFIG.AUDIO_DIR + ("00" + n).slice(-3) + ".mp3"
   },
 
   // Kanaldagi video postlar raqami, masalan [5, 6, 7]. Bo'sh bo'lsa, video bo'limi ko'rsatma chiqaradi.
