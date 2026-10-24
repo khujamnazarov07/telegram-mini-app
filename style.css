@@ -375,10 +375,10 @@ html[data-gender="female"], :root[data-gender="female"][data-theme="light"] {
 }
 html[data-gender="female"] body { background: none; position: relative; padding-bottom: calc(var(--nav-h) + 26px + env(safe-area-inset-bottom)); }
 html[data-gender="female"] body::before {
-  content: ""; position: fixed; top: 60px; right: 0; width: min(66vw, 310px); aspect-ratio: 330 / 400;
-  background: url(blossom.svg?v=30) no-repeat top right / contain; pointer-events: none; z-index: 0;
+  content: ""; position: fixed; top: 0; right: 0; width: min(54vw, 250px); aspect-ratio: 330 / 400; opacity: .5;
+  background: url(blossom.svg?v=31) no-repeat top right / contain; pointer-events: none; z-index: 0;
+  -webkit-mask-image: linear-gradient(180deg, #000 0, #000 45px, transparent 135px); mask-image: linear-gradient(180deg, #000 0, #000 45px, transparent 135px);
 }
-html[data-gender="female"] body.indetail::before { opacity: .55; }
 html[data-gender="female"] #app { position: relative; z-index: 1; }
 html[data-gender="female"] .card, html[data-gender="female"] .name-card, html[data-gender="female"] .btn, html[data-gender="female"] .search,
 html[data-gender="female"] .chip, html[data-gender="female"] .mood-card, html[data-gender="female"] .list > button, html[data-gender="female"] .gear,
