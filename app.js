@@ -60,6 +60,9 @@
     another: "Yana|Яна|Ещё|Another|آخر|Başka|Lainnya|换一条|और|Otra",
     lang: "Til|Тил|Язык|Language|اللغة|Dil|Bahasa|语言|भाषा|Idioma",
     about: "Haqida|Ҳақида|О приложении|About|حول|Hakkında|Tentang|关于|के बारे में|Acerca de",
+    rate_all: "Umumiy reyting|Умумий рейтинг|Общий рейтинг|Overall rating|التقييم العام|Genel puan|Rating umum|总评分|कुल रेटिंग|Valoración general",
+    rate_my: "Sizning bahoyingiz|Сизнинг баҳойингиз|Ваша оценка|Your rating|تقييمك|Puanınız|Penilaian Anda|您的评分|आपकी रेटिंग|Tu valoración",
+    like_app: "Ilova yoqdi|Илова ёқди|Нравится|Like|أعجبني|Beğen|Suka|喜欢|पसंद|Me gusta",
     about_text: "Asmo ul-Husna — Allohning 99 go'zal ismini o'rganish va his qilish uchun yaratilgan.|Асмо ул-Ҳусна — Аллоҳнинг 99 гўзал исмини ўрганиш ва ҳис қилиш учун яратилган.|Асмо уль-Хусна создан для изучения и осмысления 99 прекрасных имён Аллаха.|Asmo ul-Husna was created to learn and reflect on the 99 Beautiful Names of Allah.|تم إنشاء أسماء الله الحسنى لتعلم والتفكر في 99 اسماً من أسماء الله الحسنى.|Esma ül-Hüsna, Allah'ın 99 Güzel İsmini öğrenmek ve üzerinde düşünmek için oluşturuldu.|Asmaul Husna dibuat untuk mempelajari dan merenungkan 99 Nama Indah Allah.|真主的99个美名旨在帮助您学习并默思真主的99个美名。|असमाउल हुस्ना अल्लाह के 99 सुंदर नामों को सीखने और उन पर विचार करने के लिए बनाया गया है।|Asma ul-Husna fue creado para aprender y reflexionar sobre los 99 Hermosos Nombres de Alá.",
     open_bot: "Botni ochish|Ботни очиш|Открыть бота|Open bot|افتح البوت|Botu aç|Buka bot|打开机器人|बॉट खोलें|Abrir bot",
     open_channel: "Kanal|Канал|Канал|Channel|القناة|Kanal|Kanal|频道|चैनल|Canal",
@@ -198,6 +201,19 @@
     ["more", "auto_awesome", "nav_more"]
   ]
 
+  function aboutRate() {
+    var g = U.rg, my = S.rate || 0, st = "", mine = ""
+    for (var i = 1; i <= 5; i++) mine += '<button class="star' + (i <= my ? " on" : "") + '" data-act="rateApp" data-v="' + i + '">' + ic("star") + "</button>"
+    return '<div class="rate"><div class="rrow"><span>' + esc(tr("rate_all")) + '</span><b>' + (g && g.count ? "★ " + (+g.avg).toFixed(1) + " · " + g.count : "—") + '</b></div>' +
+      '<div class="rrow"><span>' + esc(tr("rate_my")) + '</span><span class="stars">' + mine + '</span></div>' +
+      '<button class="btn block' + (S.appLike ? " success" : "") + '" data-act="likeApp">' + (S.appLike ? "❤️" : "🤍") + " " + esc(tr("like_app")) + (g && g.likes ? " · " + g.likes : "") + "</button></div>"
+  }
+  function rateSync(send) {
+    var u = CFG.RATE_URL; if (!u || !window.fetch) return
+    var uid = (tg && tg.initDataUnsafe && tg.initDataUnsafe.user && tg.initDataUnsafe.user.id) || 0
+    var o = send ? { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ uid: uid, rate: S.rate || 0, like: S.appLike ? 1 : 0 }) } : {}
+    fetch(u, o).then(function (r) { return r.json() }).then(function (j) { U.rg = j; if (U.more === "about") render() }).catch(function () {})
+  }
   function ic(name, cls) { return '<span class="msi' + (cls ? " " + cls : "") + '" aria-hidden="true">' + name + "</span>" }
   function renderNav() {
     var h = ""
@@ -1027,7 +1043,7 @@
       return l + "</div>"
     }
     if (U.more === "about") {
-      return '<button class="btn small back" data-act="moreBack">‹ ' + esc(tr("back")) + "</button><h1>ℹ️ " + esc(tr("about")) + '</h1><div class="card stack"><p>✨ ' + esc(tr("about_text")) + '</p><p class="sub">🔖 Mini App ' + CFG.VERSION + "</p>" +
+      return '<button class="btn small back" data-act="moreBack">‹ ' + esc(tr("back")) + "</button><h1>ℹ️ " + esc(tr("about")) + '</h1><div class="card stack"><p>✨ ' + esc(tr("about_text")) + '</p><p class="sub">🔖 Mini App ' + CFG.VERSION + "</p>" + aboutRate() +
         '<button class="btn primary block" data-act="openBot">🤖 ' + esc(tr("open_bot")) + '</button><button class="btn block" data-act="openChannel">📢 ' + esc(tr("open_channel")) + "</button></div>"
     }
     return '<h1>✨ ' + esc(tr("nav_more")) + '</h1><p class="sub">&nbsp;</p><div class="list">' +
@@ -1339,7 +1355,9 @@
       }
     }
     else if (act === "spoil") el.classList.toggle("show")
-    else if (act === "more") { U.more = v; if (v === "quote") U.quoteIdx = -1; render() }
+    else if (act === "rateApp") { S.rate = +v; save(); rateSync(true); render() }
+    else if (act === "likeApp") { S.appLike = !S.appLike; save(); rateSync(true); render() }
+    else if (act === "more") { U.more = v; if (v === "about") rateSync(false); if (v === "quote") U.quoteIdx = -1; render() }
     else if (act === "quoteNext") {
       var i = Math.floor(Math.random() * D.quotes.length)
       if (i === U.quoteIdx) i = (i + 1) % D.quotes.length
