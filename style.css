@@ -367,31 +367,32 @@ body.indetail #app { min-height: calc(100vh - 60px); min-height: calc(100dvh - 6
 .mtog .msi { font-size: 22px; }
 
 /* ====== AYOL mavzusi (data-gender="female"): pushti shishasimon ====== */
-html[data-gender="female"] {
-  --bg: #f3d5dc; --card: rgba(255, 255, 255, .30); --text: #3a2830; --hint: #8c6d77;
+html[data-gender="female"], :root[data-gender="female"][data-theme="light"] {
+  color-scheme: light; --bg: #f3d5dc; --card: rgba(255, 255, 255, .16); --text: #3a2830; --hint: #8c6d77;
   --line: rgba(255, 255, 255, .62); --accent: #d9628c; --accent-text: #fff;
   background: linear-gradient(165deg, #f8e2e6 0%, #f2cdd7 52%, #ebbfcc 100%) fixed;
   min-height: 100%;
 }
 html[data-gender="female"] body { background: none; position: relative; padding-bottom: calc(var(--nav-h) + 26px + env(safe-area-inset-bottom)); }
 html[data-gender="female"] body::before {
-  content: ""; position: absolute; top: 52px; right: 0; width: min(62vw, 300px); aspect-ratio: 330 / 400;
-  background: url(blossom.svg?v=26) no-repeat top right / contain; pointer-events: none; z-index: 7;
+  content: ""; position: fixed; top: 60px; right: 0; width: min(66vw, 310px); aspect-ratio: 330 / 400;
+  background: url(blossom.svg?v=29) no-repeat top right / contain; pointer-events: none; z-index: 0;
 }
-html[data-gender="female"] body.indetail::before { opacity: .0; }
+html[data-gender="female"] body.indetail::before { opacity: .55; }
+html[data-gender="female"] #app { position: relative; z-index: 1; }
 html[data-gender="female"] .card, html[data-gender="female"] .name-card, html[data-gender="female"] .btn, html[data-gender="female"] .search,
 html[data-gender="female"] .chip, html[data-gender="female"] .mood-card, html[data-gender="female"] .list > button, html[data-gender="female"] .gear,
 html[data-gender="female"] .act, html[data-gender="female"] .hikrow, html[data-gender="female"] .wheel, html[data-gender="female"] .num-btn {
-  -webkit-backdrop-filter: blur(14px) saturate(1.5); backdrop-filter: blur(14px) saturate(1.5);
+  -webkit-backdrop-filter: blur(10px) saturate(1.6); backdrop-filter: blur(10px) saturate(1.6);
   box-shadow: 0 8px 22px rgba(200, 100, 135, .16), inset 0 1px 0 rgba(255, 255, 255, .75), inset 0 -8px 16px rgba(255, 255, 255, .10);
 }
 html[data-gender="female"] .name-card, html[data-gender="female"] .mood-card { border-radius: 20px; }
 html[data-gender="female"] .card { border-radius: 22px; }
 html[data-gender="female"] .search { border-radius: 18px; }
-html[data-gender="female"] .hdr { background: rgba(255, 255, 255, .34); -webkit-backdrop-filter: blur(16px) saturate(1.5); backdrop-filter: blur(16px) saturate(1.5); border-bottom: 1px solid rgba(255, 255, 255, .6); }
+html[data-gender="female"] .hdr { background: rgba(255, 255, 255, .20); -webkit-backdrop-filter: blur(16px) saturate(1.5); backdrop-filter: blur(16px) saturate(1.5); border-bottom: 1px solid rgba(255, 255, 255, .6); }
 html[data-gender="female"] .nav {
   inset-inline: 12px; bottom: calc(10px + env(safe-area-inset-bottom)); height: var(--nav-h); padding-bottom: 0; border-radius: 26px;
-  background: rgba(255, 255, 255, .42); border: 1px solid rgba(255, 255, 255, .7);
+  background: rgba(255, 255, 255, .22); border: 1px solid rgba(255, 255, 255, .7);
   -webkit-backdrop-filter: blur(18px) saturate(1.6); backdrop-filter: blur(18px) saturate(1.6);
   box-shadow: 0 10px 28px rgba(200, 100, 135, .22), inset 0 1px 0 rgba(255, 255, 255, .8);
 }
