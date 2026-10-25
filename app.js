@@ -1314,7 +1314,11 @@
   ]
   function applyGender() {
     var root = document.documentElement, st = root.style
-    root.setAttribute("data-gender", S.gender === "female" ? "female" : S.gender === "male" ? "male" : "auto")
+    var ng = S.gender === "female" ? "female" : S.gender === "male" ? "male" : "auto"
+    if (root.getAttribute("data-gender") && root.getAttribute("data-gender") !== ng) {
+      root.classList.add("tsw"); clearTimeout(window._tsw); window._tsw = setTimeout(function () { root.classList.remove("tsw") }, 450)
+    }
+    root.setAttribute("data-gender", ng)
     var P = PINKS[S.fcolor | 0] || PINKS[0], M = MALES[S.mcolor | 0] || MALES[0]
     var gl = S.fgl == null ? 50 : S.fgl, bl = S.fbl == null ? 9 : S.fbl
     st.setProperty("--fa", P.a); st.setProperty("--fa2", P.a2)
