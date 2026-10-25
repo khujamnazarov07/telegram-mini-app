@@ -73,6 +73,9 @@
     flt_note: "Qaydli|Қайдли|С заметками|With notes|مع ملاحظات|Notlu|Dengan catatan|有笔记|नोट वाले|Con notas",
     mode_t: "Rejim|Режим|Режим|Mode|الوضع|Mod|Mode|模式|मोड|Modo",
     quality: "Sifat|Сифат|Качество|Quality|الجودة|Kalite|Kualitas|画质|गुणवत्ता|Calidad",
+    t_color: "Rang|Ранг|Цвет|Color|اللون|Renk|Warna|颜色|रंग|Color",
+    t_glass: "Shisha|Шиша|Стекло|Glass|الزجاج|Cam|Kaca|玻璃|काँच|Cristal",
+    t_blur: "Xiralik|Хиралик|Размытие|Blur|التمويه|Bulanıklık|Buram|模糊|धुंधलापन|Desenfoque",
     about_text: "Asmo ul-Husna — Allohning 99 go'zal ismini o'rganish va his qilish uchun yaratilgan.|Асмо ул-Ҳусна — Аллоҳнинг 99 гўзал исмини ўрганиш ва ҳис қилиш учун яратилган.|Асмо уль-Хусна создан для изучения и осмысления 99 прекрасных имён Аллаха.|Asmo ul-Husna was created to learn and reflect on the 99 Beautiful Names of Allah.|تم إنشاء أسماء الله الحسنى لتعلم والتفكر في 99 اسماً من أسماء الله الحسنى.|Esma ül-Hüsna, Allah'ın 99 Güzel İsmini öğrenmek ve üzerinde düşünmek için oluşturuldu.|Asmaul Husna dibuat untuk mempelajari dan merenungkan 99 Nama Indah Allah.|真主的99个美名旨在帮助您学习并默思真主的99个美名。|असमाउल हुस्ना अल्लाह के 99 सुंदर नामों को सीखने और उन पर विचार करने के लिए बनाया गया है।|Asma ul-Husna fue creado para aprender y reflexionar sobre los 99 Hermosos Nombres de Alá.",
     open_bot: "Botni ochish|Ботни очиш|Открыть бота|Open bot|افتح البوت|Botu aç|Buka bot|打开机器人|बॉट खोलें|Abrir bot",
     open_channel: "Kanal|Канал|Канал|Channel|القناة|Kanal|Kanal|频道|चैनल|Canal",
@@ -1217,11 +1220,8 @@
       return h
     }
     if (U.more === "theme") {
-      var gg = '<button class="btn small back" data-act="moreBack">' + ic("arrow_back") + " " + esc(tr("back")) + "</button><h1>" + ic("palette") + " " + esc(tr("theme_t")) + '</h1><div class="list">'
-      var TH = [["auto", "brightness_auto", "th_auto"], ["male", "man", "th_male"], ["female", "woman", "th_female"]]
-      var cur = S.gender === "female" ? "female" : S.gender === "male" ? "male" : "auto"
-      for (var ti = 0; ti < TH.length; ti++) gg += '<button class="' + (cur === TH[ti][0] ? "sel" : "") + '" data-act="setGender" data-v="' + TH[ti][0] + '">' + ic(TH[ti][1]) + " " + esc(tr(TH[ti][2])) + (cur === TH[ti][0] ? ic("check", "chk") : "") + "</button>"
-      return gg + '</div><p class="ginfo">' + ic("info") + " <span>" + esc(tr("gender_info")) + "</span></p>"
+      return '<button class="btn small back" data-act="moreBack">' + ic("arrow_back") + " " + esc(tr("back")) + "</button><h1>" + ic("palette") + " " + esc(tr("theme_t")) + '</h1><p class="sub">&nbsp;</p><div id="vwTheme" class="vw"><div class="vw-track"></div></div>' +
+        '<div id="themeOpts" class="topts">' + themeOpts() + '</div><p class="ginfo">' + ic("info") + " <span>" + esc(tr("gender_info")) + "</span></p>"
     }
     if (U.more === "mode") {
       var mm = '<button class="btn small back" data-act="moreBack">' + ic("arrow_back") + " " + esc(tr("back")) + "</button><h1>" + ic("contrast") + " " + esc(tr("mode_t")) + '</h1><div class="list">'
@@ -1272,7 +1272,7 @@
     initDigits()
     hgAttach()
     meanFit()
-    phStart(); mediaInit()
+    phStart(); mediaInit(); themeInit()
     nsUpdate()
     renderNav()
     if (wheels.theme) updateThemeLabels()
@@ -1299,7 +1299,73 @@
   var THEME_ICONS = { light: "light_mode", dark: "dark_mode", auto: "brightness_auto" }
   var wheels = {}
 
-  function applyGender() { document.documentElement.setAttribute("data-gender", S.gender === "female" ? "female" : S.gender === "male" ? "male" : "auto") }
+  var PINKS = [
+    { a: "#d9628c", a2: "#ef8db0", b: ["#f8e2e6", "#f2cdd7", "#ebbfcc"], d: ["#3a2230", "#2c1b25", "#22141c"], h: 180, bh: 0 },
+    { a: "#e3745f", a2: "#f2a08f", b: ["#fbe6df", "#f5d0c4", "#eec1b3"], d: ["#3b2520", "#2d1b17", "#22130f"], h: 222, bh: 42 },
+    { a: "#9b6fd0", a2: "#bd9be8", b: ["#eee6f8", "#ddd0f0", "#cfc0e8"], d: ["#2e2340", "#221a30", "#181022"], h: 115, bh: -65 },
+    { a: "#c2415f", a2: "#e0708a", b: ["#f6dde2", "#ecc3cd", "#e2adba"], d: ["#3a1f27", "#2b161d", "#200f15"], h: 195, bh: 15 },
+    { a: "#c98a7a", a2: "#e0ac9e", b: ["#f6e6e0", "#ecd3ca", "#e1c1b6"], d: ["#392923", "#2b1e19", "#20150f"], h: 225, bh: 45 }
+  ]
+  var MALES = [
+    { a: "#e5202f", a2: "#a30f1b", a3: "#ff4b58", h: 210, t: "#fff" },
+    { a: "#d4a437", a2: "#8f6a14", a3: "#f2cf77", h: 252, t: "#1a1300" },
+    { a: "#3b7bff", a2: "#1f4fc4", a3: "#7aa6ff", h: 70, t: "#fff" },
+    { a: "#8b5cf6", a2: "#5b34c4", a3: "#b79bff", h: 115, t: "#fff" }
+  ]
+  function applyGender() {
+    var root = document.documentElement, st = root.style
+    root.setAttribute("data-gender", S.gender === "female" ? "female" : S.gender === "male" ? "male" : "auto")
+    var P = PINKS[S.fcolor | 0] || PINKS[0], M = MALES[S.mcolor | 0] || MALES[0]
+    var gl = S.fgl == null ? 50 : S.fgl, bl = S.fbl == null ? 9 : S.fbl
+    st.setProperty("--fa", P.a); st.setProperty("--fa2", P.a2)
+    for (var i = 0; i < 3; i++) { st.setProperty("--fb" + (i + 1), P.b[i]); st.setProperty("--fd" + (i + 1), P.d[i]) }
+    st.setProperty("--fh", P.h + "deg"); st.setProperty("--fbh", P.bh + "deg")
+    st.setProperty("--gk", (1.65 - gl / 100 * 1.3).toFixed(2)); st.setProperty("--bk", (bl / 9).toFixed(2))
+    st.setProperty("--ma", M.a); st.setProperty("--ma2", M.a2); st.setProperty("--ma3", M.a3); st.setProperty("--mh", M.h + "deg"); st.setProperty("--mat", M.t)
+  }
+  function themeOpts() {
+    var h = "", i
+    if (S.gender === "female") {
+      for (i = 0; i < PINKS.length; i++) h += '<button class="sws' + (i === (S.fcolor | 0) ? " on" : "") + '" data-act="fcolor" data-v="' + i + '" style="--c:' + PINKS[i].a + '" aria-label="color"></button>'
+      var gl = S.fgl == null ? 50 : S.fgl, bl = S.fbl == null ? 9 : S.fbl
+      return '<div class="topt"><div class="tl"><span>' + esc(tr("t_color")) + '</span></div><div class="swrow">' + h + "</div></div>" +
+        '<div class="topt"><div class="tl"><span>' + esc(tr("t_glass")) + '</span><span id="fglv">' + gl + '</span></div><input id="fglr" class="rng" type="range" min="0" max="100" value="' + gl + '"></div>' +
+        '<div class="topt"><div class="tl"><span>' + esc(tr("t_blur")) + '</span><span id="fblv">' + bl + '</span></div><input id="fblr" class="rng" type="range" min="0" max="24" value="' + bl + '"></div>'
+    }
+    if (S.gender === "male") {
+      for (i = 0; i < MALES.length; i++) h += '<button class="sws' + (i === (S.mcolor | 0) ? " on" : "") + '" data-act="mcolor" data-v="' + i + '" style="--c:' + MALES[i].a + '" aria-label="color"></button>'
+      return '<div class="topt"><div class="tl"><span>' + esc(tr("t_color")) + '</span></div><div class="swrow">' + h + "</div></div>"
+    }
+    return ""
+  }
+  var TKEYS = ["auto", "male", "female"], TICONS = ["brightness_auto", "man", "woman"], TLAB = ["th_auto", "th_male", "th_female"]
+  function themeInit() {
+    var host = document.getElementById("vwTheme")
+    if (!host) return
+    var N = 3, IH = 52, COP = 9, MID = 4, track = host.firstChild
+    var h = '<div class="vw-pad"></div>'
+    for (var k = 0; k < COP; k++) for (var j = 0; j < N; j++) h += '<div class="vw-i">' + ic(TICONS[j]) + "<span>" + esc(tr(TLAB[j])) + "</span></div>"
+    track.innerHTML = h + '<div class="vw-pad"></div>'
+    var cur = S.gender === "female" ? 2 : S.gender === "male" ? 1 : 0, last = cur, timer = null
+    function jumpTo(i) { track.classList.add("jump"); track.scrollTop = (MID * N + i) * IH; void track.offsetWidth; track.classList.remove("jump") }
+    jumpTo(cur)
+    track.addEventListener("scroll", function () {
+      var p = Math.round(track.scrollTop / IH), i = ((p % N) + N) % N
+      if (i !== last) {
+        last = i; haptic("light")
+        S.gender = TKEYS[i]; applyGender()
+        var o = document.getElementById("themeOpts"); if (o) o.innerHTML = themeOpts()
+      }
+      if (p < N * 2 || p > N * (COP - 2)) jumpTo(i)
+      clearTimeout(timer)
+      timer = setTimeout(function () { jumpTo(last); save() }, 160)
+    })
+    track.addEventListener("click", function (e) {
+      var it = e.target.closest && e.target.closest(".vw-i"); if (!it) return
+      var idx = Array.prototype.indexOf.call(track.children, it) - 1
+      track.scrollTo({ top: idx * IH, behavior: "smooth" })
+    })
+  }
   function applyTheme() {
     applyGender()
     document.documentElement.setAttribute("data-theme", S.theme)
@@ -1579,6 +1645,8 @@
     }
     else if (act === "setGender") { S.gender = v; save(); applyGender(); render() }
     else if (act === "setMode") { S.theme = v; save(); applyTheme(); if (wheels.theme) wheels.theme.set(THEMES.indexOf(v), true); render() }
+    else if (act === "fcolor") { S.fcolor = parseInt(v, 10); applyGender(); save(); var o1 = document.getElementById("themeOpts"); if (o1) o1.innerHTML = themeOpts() }
+    else if (act === "mcolor") { S.mcolor = parseInt(v, 10); applyGender(); save(); var o2 = document.getElementById("themeOpts"); if (o2) o2.innerHTML = themeOpts() }
     else if (act === "nf") { U.nf = v; render() }
     else if (act === "setLang") { S.langSet = true; S.lang = v; TCACHE = {}; save(); U.more = "settings"; render(); if (wheels.lang) wheels.lang.set(LANGS.indexOf(v), true) }
     else if (act === "openBot") openTg("https://t.me/" + CFG.BOT)
@@ -1689,6 +1757,11 @@
   document.addEventListener("contextmenu", function (e) { if (e.target.closest && e.target.closest("#trashw")) e.preventDefault() })
 
   document.addEventListener("input", function (ev) {
+    if (ev.target && (ev.target.id === "fglr" || ev.target.id === "fblr")) {
+      var rv = parseInt(ev.target.value, 10)
+      if (ev.target.id === "fglr") { S.fgl = rv; var l1 = document.getElementById("fglv"); if (l1) l1.textContent = rv } else { S.fbl = rv; var l2 = document.getElementById("fblv"); if (l2) l2.textContent = rv }
+      applyGender(); clearTimeout(window._rt); window._rt = setTimeout(save, 400)
+    }
     if (ev.target && ev.target.id === "noteText") { noteGrow(ev.target); noteDirty() }
     if (ev.target && ev.target.id === "q") {
       U.q = ev.target.value
