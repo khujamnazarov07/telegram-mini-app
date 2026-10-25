@@ -419,9 +419,9 @@
   function nextN(n, dir) { return dir > 0 ? (n === 99 ? 1 : n + 1) : (n === 1 ? 99 : n - 1) }
   function panelHtml(n) {
     if (U.dpanel === "audio") return '<div class="card panel">' + audioBlock(n) + "</div>"
-    if (U.dpanel === "note") return '<div class="card panel stack"><strong>' + ic("stylus_note") + " " + esc(tr("note")) + '</strong><textarea id="noteText" class="nta" rows="1" placeholder="' + esc(tr("note_ph")) + '">' + esc(S.notes[n] || "") + "</textarea>" +
-      '<div class="nrow"><button id="noteSave" class="btn success" data-act="saveNote" data-v="' + n + '" hidden>' + esc(tr("save")) + "</button>" +
-      '<div class="trashw' + (S.notes[n] ? "" : " none") + '" id="trashw" data-v="' + n + '"><i class="hr"></i><i class="hr red"></i><button id="trashBtn" class="trash" aria-label="Delete">' + ic("delete") + "</button></div></div></div>"
+    if (U.dpanel === "note") return '<div class="card panel stack"><strong>' + ic("stylus_note") + " " + esc(tr("note")) + '</strong><div class="nline"><textarea id="noteText" class="nta" rows="1" placeholder="' + esc(tr("note_ph")) + '">' + esc(S.notes[n] || "") + "</textarea>" +
+      '<div class="trashw' + (S.notes[n] ? "" : " none") + '" id="trashw" data-v="' + n + '"><i class="hr"></i><i class="hr red"></i><button id="trashBtn" class="trash" aria-label="Delete">' + ic("delete") + "</button></div></div>" +
+      '<div class="nrow"><button id="noteSave" class="btn success block" data-act="saveNote" data-v="' + n + '" hidden>' + esc(tr("save")) + "</button></div></div>"
     return ""
   }
   function viewDetail() {
