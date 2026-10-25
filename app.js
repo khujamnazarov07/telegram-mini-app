@@ -259,7 +259,6 @@
   var SN = null
   function sMatch(i, qn) {
     if (!qn) return false
-    if (!window.SEARCH_IDX) { loadJs("search.js?v=46", function () { SN = null; var g = document.getElementById("grid"); if (g && U.q.trim()) { g.innerHTML = nameCards(filterNames()); nsUpdate() } }); return false }
     if (!SN) { SN = {}; var ix = window.SEARCH_IDX || {}; for (var k in ix) SN[k] = ix[k].map(snorm) }
     var l = SN[i]; if (!l) return false
     for (var j = 0; j < l.length; j++) if (l[j].indexOf(qn) >= 0) return true
@@ -382,26 +381,13 @@
     return '<audio id="player" controls preload="none" src="' + esc(audioUrl(n)) + '"></audio><p id="audioErr" class="notice" hidden>' + esc(tr("no_audio")) + "</p>"
   }
   // Ism ma'nosi (meanings.js dan): tanlangan til -> en -> uz -> ru -> birinchi bo'sh bo'lmagani
-  var LOADED = {}
-  function loadJs(src, cb) {
-    if (LOADED[src]) { if (LOADED[src] === 2) { cb && cb() } else if (cb) LOADED[src + "_cb"] = (LOADED[src + "_cb"] || []).concat(cb); return }
-    LOADED[src] = 1
-    var sc = document.createElement("script")
-    sc.src = src; sc.async = true
-    sc.onload = function () { LOADED[src] = 2; var l = LOADED[src + "_cb"] || []; for (var i = 0; i < l.length; i++) l[i](); cb && cb() }
-    sc.onerror = function () { LOADED[src] = 0 }
-    document.head.appendChild(sc)
-  }
-  function loadMean(lang) {
-    var by = window.MEANINGS_BY || {}
-    if (by[lang]) return true
-    loadJs("meanings/" + lang + ".js?v=46", function () { if (U.detail || U.dpanel) render() })
-    return false
-  }
   function meaningOf(n) {
-    var by = window.MEANINGS_BY || {}
-    if (!by[S.lang]) { loadMean(S.lang); return "" }
-    return String(by[S.lang][n - 1] || "").trim()
+    var m = window.MEANINGS && window.MEANINGS[n - 1]
+    if (!m) return ""
+    if (typeof m === "string") return m
+    var v = m[S.lang] || m.en || m.uz || m.ru || ""
+    if (!v) for (var k in m) if (m[k]) { v = m[k]; break }
+    return String(v).trim()
   }
   // Xavfsiz oddiy HTML: faqat ruxsat etilgan teglar, qolgani matn
   function rich(s) {
@@ -1727,9 +1713,6 @@
   render()
   initHeader()
   cloudRead()
-  var idle = window.requestIdleCallback || function (f) { return setTimeout(f, 1200) }
-  idle(function () { loadMean(S.lang); loadJs("search.js?v=46") })
-  window.addEventListener("load", function () { try { if ("serviceWorker" in navigator && location.protocol === "https:") navigator.serviceWorker.register("sw.js") } catch (e) {} })
   if (firstRun) {
     var frT = [], frOn = true
     function frStop() { frOn = false; for (var i = 0; i < frT.length; i++) clearTimeout(frT[i]); if (S.langSet === false) { S.langSet = true; save(); render() } }
