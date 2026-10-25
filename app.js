@@ -250,13 +250,27 @@
     }
     return h + "</div>"
   }
+  function snorm(x) {
+    x = String(x).toLowerCase()
+    try { x = x.normalize("NFD") } catch (e) {}
+    return x.replace(/[\u0300-\u036f\u064b-\u065f\u0670\u0640]/g, "").replace(/[\s'`\u2019\u02bc\u2018\u02bb\u02bf\u02be\-.,]/g, "")
+      .replace(/ё/g, "е").replace(/ў/g, "у").replace(/ҳ/g, "х").replace(/қ/g, "к").replace(/ғ/g, "г").replace(/ъ|ь/g, "")
+  }
+  var SN = null
+  function sMatch(i, qn) {
+    if (!qn) return false
+    if (!SN) { SN = {}; var ix = window.SEARCH_IDX || {}; for (var k in ix) SN[k] = ix[k].map(snorm) }
+    var l = SN[i]; if (!l) return false
+    for (var j = 0; j < l.length; j++) if (l[j].indexOf(qn) >= 0) return true
+    return false
+  }
   function filterNames() {
-    var q = plain(U.q.trim())
+    var q = plain(U.q.trim()), qn = snorm(U.q.trim())
     var out = []
     for (var i = 1; i <= 99; i++) {
       if (U.nf === "fav" && !S.favs[i]) continue
       if (U.nf === "note" && !S.notes[i]) continue
-      if (!q || plain(D.names[i - 1].t).indexOf(q) >= 0 || D.names[i - 1].a.indexOf(U.q.trim()) >= 0 || String(i) === q) out[out.length] = i
+      if (!q || plain(D.names[i - 1].t).indexOf(q) >= 0 || D.names[i - 1].a.indexOf(U.q.trim()) >= 0 || String(i) === q || sMatch(i, qn)) out[out.length] = i
     }
     return out
   }
