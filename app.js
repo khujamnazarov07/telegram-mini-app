@@ -419,8 +419,7 @@
   function nextN(n, dir) { return dir > 0 ? (n === 99 ? 1 : n + 1) : (n === 1 ? 99 : n - 1) }
   function panelHtml(n) {
     if (U.dpanel === "audio") return '<div class="card panel">' + audioBlock(n) + "</div>"
-    if (U.dpanel === "note") return '<div class="card panel stack"><strong>' + ic("stylus_note") + " " + esc(tr("note")) + '</strong><div class="nline"><textarea id="noteText" class="nta" rows="1" placeholder="' + esc(tr("note_ph")) + '">' + esc(S.notes[n] || "") + "</textarea>" +
-      '<div class="trashw' + (S.notes[n] ? "" : " none") + '" id="trashw" data-v="' + n + '"><i class="hr"></i><i class="hr red"></i><button id="trashBtn" class="trash" aria-label="Delete">' + ic("delete") + "</button></div></div>" +
+    if (U.dpanel === "note") return '<div class="card panel stack"><strong>' + ic("stylus_note") + " " + esc(tr("note")) + '</strong><div class="nline"><div class="nbox"><div class="trashw' + (S.notes[n] ? "" : " none") + '" id="trashw" data-v="' + n + '"><i class="hr"></i><i class="hr red"></i><button id="trashBtn" class="trash" aria-label="Delete">' + ic("delete") + '</button></div><div id="noteText" class="nta" contenteditable="plaintext-only" role="textbox" spellcheck="false" data-ph="' + esc(tr("note_ph")) + '">' + esc(S.notes[n] || "") + "</div></div></div>" +
       '<div class="nrow"><button id="noteSave" class="btn success block" data-act="saveNote" data-v="' + n + '" hidden>' + esc(tr("save")) + "</button></div></div>"
     return ""
   }
@@ -1467,9 +1466,9 @@
       if (U.dpanel === "audio") autoplay()
     }
     else if (act === "saveNote") {
-      var n2 = parseInt(v, 10), val = document.getElementById("noteText").value.trim()
+      var n2 = parseInt(v, 10), val = noteVal(document.getElementById("noteText"))
       if (val) S.notes[n2] = val.slice(0, 1000); else delete S.notes[n2]
-      document.getElementById("noteText").value = S.notes[n2] || ""; noteGrow(document.getElementById("noteText"))
+      document.getElementById("noteText").textContent = S.notes[n2] || ""
       save(); toast("✓ " + tr("saved")); noteDirty()
       var nb = document.querySelector(".acts .act[data-v=note]"); if (nb) nb.classList.toggle("has", !!S.notes[n2])
     }
@@ -1596,7 +1595,8 @@
     })
   }
 
-  function noteGrow(ta) { if (!ta) return; ta.style.height = "auto"; ta.style.height = ta.scrollHeight + 2 + "px" }
+  function noteGrow(ta) {}
+  function noteVal(el) { return String((el && el.innerText) || "").replace(/\r/g, "").trim() }
   new MutationObserver(function () {
     var ta = document.getElementById("noteText")
     if (ta && !ta._g) { ta._g = 1; noteGrow(ta) }
@@ -1648,7 +1648,7 @@
   function noteDirty() {
     var ta = document.getElementById("noteText"), sb = document.getElementById("noteSave"), tw = document.getElementById("trashw")
     if (!ta || !sb) return
-    var n = U.detail, cur = ta.value.trim(), old = (S.notes[n] || "").trim()
+    var n = U.detail, cur = noteVal(ta), old = (S.notes[n] || "").trim()
     sb.hidden = cur === old
     if (tw) tw.classList.toggle("none", !cur && !old)
   }
@@ -1667,7 +1667,7 @@
       trashT = null; w.classList.remove("hold")
       var n = parseInt(w.getAttribute("data-v"), 10), ta = document.getElementById("noteText")
       delete S.notes[n]; save()
-      if (ta) ta.value = ""
+      if (ta) ta.textContent = ""
       var nb = document.querySelector(".acts .act[data-v=note]"); if (nb) { nb.classList.remove("has"); nb.classList.remove("on") }
       noteDirty()
       var pn2 = document.querySelector("#dpanel .panel")
