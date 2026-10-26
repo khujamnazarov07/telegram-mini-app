@@ -65,7 +65,7 @@
     like_app: "Ilova yoqdi|Илова ёқди|Нравится|Like|أعجبني|Beğen|Suka|喜欢|पसंद|Me gusta",
     settings: "Sozlamalar|Созламалар|Настройки|Settings|الإعدادات|Ayarlar|Pengaturan|设置|सेटिंग्स|Ajustes",
     tz_dev: "Qurilma vaqti|Қурилма вақти|Время устройства|Device time|وقت الجهاز|Cihaz saati|Waktu perangkat|设备时间|डिवाइस समय|Hora del dispositivo",
-    tz_hint: "Shaharni bosing: 20:00–08:00 tun, qolgan payt kun|Шаҳарни босинг: 20:00–08:00 тун, қолган пайт кун|Нажмите город: 20:00–08:00 ночь, остальное день|Tap a city: 20:00–08:00 night, otherwise day|اضغط على مدينة: 20:00–08:00 ليل والباقي نهار|Bir şehre dokunun: 20:00–08:00 gece, diğer saatler gündüz|Ketuk kota: 20:00–08:00 malam, selain itu siang|点击城市：20:00–08:00 夜间，其余日间|शहर चुनें: 20:00–08:00 रात, बाकी दिन|Toca una ciudad: 20:00–08:00 noche, resto día",
+    tz_hint: "Kun va tun avtomatik almashishi uchun o'z shahringizni yoki davlatingizga yaqin shaharni tanlang. Tanlov faqat shu uchun, hech qanday ma'lumot yig'ilmaydi.|Кун ва тун автоматик алмашиши учун ўз шаҳрингизни ёки давлатингизга яқин шаҳарни танланг. Танлов фақат шу учун, ҳеч қандай маълумот йиғилмайди.|Чтобы день и ночь переключались автоматически, выберите свой город или ближайший к вашей стране. Выбор нужен только для этого, никакие данные не собираются.|To switch day and night automatically, pick your city or one near your country. The choice is used only for this; no data is collected.|لتبديل النهار والليل تلقائيًا، اختر مدينتك أو مدينة قريبة من بلدك. يُستخدم الاختيار لهذا فقط ولا تُجمع أي بيانات.|Gece ve gündüzün otomatik değişmesi için şehrinizi veya ülkenize yakın bir şehri seçin. Seçim yalnızca bunun için kullanılır, veri toplanmaz.|Agar siang dan malam berganti otomatis, pilih kota Anda atau yang dekat dengan negara Anda. Pilihan hanya untuk ini, tidak ada data yang dikumpulkan.|为了自动切换日夜，请选择您所在的城市或靠近您国家的城市。此选择仅用于此，不会收集任何数据。|दिन और रात अपने आप बदलने के लिए अपना शहर या अपने देश के पास का शहर चुनें। यह चुनाव केवल इसी के लिए है, कोई डेटा एकत्र नहीं होता।|Para cambiar automáticamente entre día y noche, elige tu ciudad o una cercana a tu país. La elección solo sirve para esto; no se recopilan datos.",
     theme_t: "Mavzu|Мавзу|Тема|Theme|السمة|Tema|Tema|主题|थीम|Tema",
     th_auto: "Avtomatik|Автоматик|Автоматически|Automatic|تلقائي|Otomatik|Otomatis|自动|स्वचालित|Automático",
     th_male: "Erkaklar uchun|Эркаклар учун|Для мужчин|For men|للرجال|Erkekler için|Untuk pria|男士|पुरुषों के लिए|Para hombres",
@@ -1314,6 +1314,35 @@
     ["Mexiko", -99.1, 19.4, "America/Mexico_City"], ["San-Paulu", -46.6, -23.5, "America/Sao_Paulo"]
   ]
   var CCOL = ["#ff5d73", "#ffb020", "#3ddc97", "#4cc9f0", "#c77dff", "#ff8fab", "#f4d35e", "#5eead4"]
+  var CNAMES = {
+    "Moskva": "Moskva|Москва|Москва|Moscow|موسكو|Moskova|Moskow|莫斯科|मॉस्को|Moscú",
+    "Seul": "Seul|Сеул|Сеул|Seoul|سيول|Seul|Seoul|首尔|सियोल|Seúl",
+    "London": "London|Лондон|Лондон|London|لندن|Londra|London|伦敦|लंदन|Londres",
+    "Toshkent": "Toshkent|Тошкент|Ташкент|Tashkent|طشقند|Taşkent|Tashkent|塔什干|ताशकंद|Taskent",
+    "Makka": "Makka|Макка|Мекка|Mecca|مكة المكرمة|Mekke|Makkah|麦加|मक्का|La Meca",
+    "Istanbul": "Istanbul|Истанбул|Стамбул|Istanbul|إسطنبول|İstanbul|Istanbul|伊斯坦布尔|इस्तांबुल|Estambul",
+    "Dubay": "Dubay|Дубай|Дубай|Dubai|دبي|Dubai|Dubai|迪拜|दुबई|Dubái",
+    "Nyu-York": "Nyu-York|Нью-Йорк|Нью-Йорк|New York|نيويورك|New York|New York|纽约|न्यूयॉर्क|Nueva York",
+    "Tokio": "Tokio|Токио|Токио|Tokyo|طوكيو|Tokyo|Tokyo|东京|टोक्यो|Tokio",
+    "Pekin": "Pekin|Пекин|Пекин|Beijing|بكين|Pekin|Beijing|北京|बीजिंग|Pekín",
+    "Dehli": "Dehli|Деҳли|Дели|Delhi|دلهي|Delhi|Delhi|德里|दिल्ली|Delhi",
+    "Jakarta": "Jakarta|Жакарта|Джакарта|Jakarta|جاكرتا|Cakarta|Jakarta|雅加达|जकार्ता|Yakarta",
+    "Sidney": "Sidney|Сидней|Сидней|Sydney|سيدني|Sidney|Sydney|悉尼|सिडनी|Sídney",
+    "Qohira": "Qohira|Қоҳира|Каир|Cairo|القاهرة|Kahire|Kairo|开罗|काहिरा|El Cairo",
+    "Lagos": "Lagos|Лагос|Лагос|Lagos|لاغوس|Lagos|Lagos|拉各斯|लागोस|Lagos",
+    "Nayrobi": "Nayrobi|Найроби|Найроби|Nairobi|نيروبي|Nairobi|Nairobi|内罗毕|नैरोबी|Nairobi",
+    "Madrid": "Madrid|Мадрид|Мадрид|Madrid|مدريد|Madrid|Madrid|马德里|मैड्रिड|Madrid",
+    "Parij": "Parij|Париж|Париж|Paris|باريس|Paris|Paris|巴黎|पेरिस|París",
+    "Tehron": "Tehron|Теҳрон|Тегеран|Tehran|طهران|Tahran|Teheran|德黑兰|तेहरान|Teherán",
+    "Karachi": "Karachi|Карачи|Карачи|Karachi|كراتشي|Karaçi|Karachi|卡拉奇|कराची|Karachi",
+    "Dakka": "Dakka|Дакка|Дакка|Dhaka|دكا|Dakka|Dhaka|达卡|ढाका|Daca",
+    "Bangkok": "Bangkok|Бангкок|Бангкок|Bangkok|بانكوك|Bangkok|Bangkok|曼谷|बैंकॉक|Bangkok",
+    "Almati": "Almati|Алмати|Алматы|Almaty|ألماتي|Almatı|Almaty|阿拉木图|अल्माटी|Almatý",
+    "Los-Anjeles": "Los-Anjeles|Лос-Анжелес|Лос-Анджелес|Los Angeles|لوس أنجلوس|Los Angeles|Los Angeles|洛杉矶|लॉस एंजिल्स|Los Ángeles",
+    "Mexiko": "Mexiko|Мексика|Мехико|Mexico City|مدينة مكسيكو|Meksiko|Kota Meksiko|墨西哥城|मेक्सिको सिटी|Ciudad de México",
+    "San-Paulu": "San-Paulu|Сан-Паулу|Сан-Паулу|São Paulo|ساو باولو|São Paulo|São Paulo|圣保罗|साओ पाउलो|São Paulo"
+  }
+  function cname(c) { var a = (CNAMES[c[0]] || c[0]).split("|"), i = LANGS.indexOf(S.lang); return a[i < 0 ? 3 : i] || a[3] || c[0] }
   function cityByName(n) { for (var i = 0; i < CITIES.length; i++) if (CITIES[i][0] === n) return CITIES[i]; return null }
   function cityHour(c) {
     try {
@@ -1334,7 +1363,7 @@
   function gText() {
     var c = cityByName(S.tz), t = cityHour(c), n = (t.h >= 20 || t.h < 8)
     var el = document.getElementById("gtxt")
-    if (el) el.innerHTML = ic(n ? "dark_mode" : "light_mode") + " <b>" + esc(c ? c[0] : tr("tz_dev")) + "</b> · " + ("0" + t.h).slice(-2) + ":" + ("0" + t.m).slice(-2)
+    if (el) el.innerHTML = ic(n ? "dark_mode" : "light_mode") + " <b>" + esc(c ? cname(c) : tr("tz_dev")) + "</b> · " + ("0" + t.h).slice(-2) + ":" + ("0" + t.m).slice(-2)
   }
   function startGlobe() {
     var cv = document.getElementById("gl")
