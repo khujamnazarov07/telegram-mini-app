@@ -77,6 +77,8 @@
     quality: "Sifat|Сифат|Качество|Quality|الجودة|Kalite|Kualitas|画质|गुणवत्ता|Calidad",
     t_color: "Rang|Ранг|Цвет|Color|اللون|Renk|Warna|颜色|रंग|Color",
     t_glass: "Shisha|Шиша|Стекло|Glass|الزجاج|Cam|Kaca|玻璃|काँच|Cristal",
+    t_gon: "Shisha effekti|Шиша эффекти|Эффект стекла|Glass effect|تأثير الزجاج|Cam efekti|Efek kaca|玻璃效果|काँच प्रभाव|Efecto cristal",
+    t_solid: "Fon rangi|Фон ранги|Цвет фона|Background color|لون الخلفية|Arka plan rengi|Warna latar|背景颜色|पृष्ठभूमि का रंग|Color de fondo",
     t_blur: "Xiralik|Хиралик|Размытие|Blur|التمويه|Bulanıklık|Buram|模糊|धुंधलापन|Desenfoque",
     about_text: "Asmo ul-Husna — Allohning 99 go'zal ismini o'rganish va his qilish uchun yaratilgan.|Асмо ул-Ҳусна — Аллоҳнинг 99 гўзал исмини ўрганиш ва ҳис қилиш учун яратилган.|Асмо уль-Хусна создан для изучения и осмысления 99 прекрасных имён Аллаха.|Asmo ul-Husna was created to learn and reflect on the 99 Beautiful Names of Allah.|تم إنشاء أسماء الله الحسنى لتعلم والتفكر في 99 اسماً من أسماء الله الحسنى.|Esma ül-Hüsna, Allah'ın 99 Güzel İsmini öğrenmek ve üzerinde düşünmek için oluşturuldu.|Asmaul Husna dibuat untuk mempelajari dan merenungkan 99 Nama Indah Allah.|真主的99个美名旨在帮助您学习并默思真主的99个美名。|असमाउल हुस्ना अल्लाह के 99 सुंदर नामों को सीखने और उन पर विचार करने के लिए बनाया गया है।|Asma ul-Husna fue creado para aprender y reflexionar sobre los 99 Hermosos Nombres de Alá.",
     open_bot: "Botni ochish|Ботни очиш|Открыть бота|Open bot|افتح البوت|Botu aç|Buka bot|打开机器人|बॉट खोलें|Abrir bot",
@@ -1451,6 +1453,9 @@
     { a: "#3b7bff", a2: "#1f4fc4", a3: "#7aa6ff", h: 70, t: "#fff" },
     { a: "#8b5cf6", a2: "#5b34c4", a3: "#b79bff", h: 115, t: "#fff" }
   ]
+  var SOLF = [["#fbeef1", "#ffffff", "#2a1a22", "#38262f"], ["#fdf1e8", "#fffaf5", "#2b1d17", "#3a2a22"], ["#f2eefa", "#fbf9ff", "#241d33", "#30284a"], ["#eaf5ef", "#f8fffb", "#16251f", "#21332b"], ["#f6efe4", "#fffdf8", "#27221a", "#362f24"], ["#eaf1f8", "#f9fcff", "#18222d", "#233241"]]
+  var SOLM = [["#f2f2f3", "#ffffff", "#0c0c0e", "#151518"], ["#eef2f8", "#ffffff", "#0a1020", "#121a2e"], ["#eef4ef", "#ffffff", "#0a140f", "#122019"], ["#f6eef0", "#ffffff", "#150a0d", "#21121a"], ["#eef0f3", "#ffffff", "#101317", "#1a1f26"], ["#f4efe9", "#ffffff", "#14100c", "#201a14"], ["#f2eff8", "#ffffff", "#110d1c", "#1b1530"]]
+  function gOn() { return S.gender === "female" ? S.fgon !== false : S.gender === "male" ? S.mgon === true : false }
   function applyGender() {
     var root = document.documentElement, st = root.style
     var ng = S.gender === "female" ? "female" : S.gender === "male" ? "male" : "auto"
@@ -1459,7 +1464,11 @@
     }
     root.setAttribute("data-gender", ng)
     var P = PINKS[S.fcolor | 0] || PINKS[0], M = MALES[S.mcolor | 0] || MALES[0]
-    var gl = S.fgl == null ? 50 : S.fgl, bl = S.fbl == null ? 9 : S.fbl
+    var fem = S.gender === "female"
+    var gl = fem ? (S.fgl == null ? 50 : S.fgl) : (S.mgl == null ? 50 : S.mgl), bl = fem ? (S.fbl == null ? 9 : S.fbl) : (S.mbl == null ? 9 : S.mbl)
+    var SO = fem ? (SOLF[S.fsol | 0] || SOLF[0]) : (SOLM[S.msol | 0] || SOLM[0])
+    root.setAttribute("data-glass", gOn() ? "on" : "off")
+    st.setProperty("--sbl", SO[0]); st.setProperty("--scl", SO[1]); st.setProperty("--sbd", SO[2]); st.setProperty("--scd", SO[3])
     st.setProperty("--fa", P.a); st.setProperty("--fa2", P.a2)
     for (var i = 0; i < 3; i++) { st.setProperty("--fb" + (i + 1), P.b[i]); st.setProperty("--fd" + (i + 1), P.d[i]) }
     st.setProperty("--fh", P.h + "deg"); st.setProperty("--fbh", P.bh + "deg")
@@ -1467,19 +1476,23 @@
     st.setProperty("--ma", M.a); st.setProperty("--ma2", M.a2); st.setProperty("--ma3", M.a3); st.setProperty("--mh", M.h + "deg"); st.setProperty("--mat", M.t)
   }
   function themeOpts() {
-    var h = "", i
-    if (S.gender === "female") {
-      for (i = 0; i < PINKS.length; i++) h += '<button class="sws' + (i === (S.fcolor | 0) ? " on" : "") + '" data-act="fcolor" data-v="' + i + '" style="--c:' + PINKS[i].a + '" aria-label="color"></button>'
-      var gl = S.fgl == null ? 50 : S.fgl, bl = S.fbl == null ? 9 : S.fbl
-      return '<div class="topt"><div class="tl"><span>' + esc(tr("t_color")) + '</span></div><div class="swrow">' + h + "</div></div>" +
-        '<div class="topt"><div class="tl"><span>' + esc(tr("t_glass")) + '</span><span id="fglv">' + gl + '</span></div><input id="fglr" class="rng" type="range" min="0" max="100" value="' + gl + '"></div>' +
+    var h = "", i, fem = S.gender === "female", mal = S.gender === "male"
+    if (!fem && !mal) return ""
+    var arr = fem ? PINKS : MALES, cur = (fem ? S.fcolor : S.mcolor) | 0, act = fem ? "fcolor" : "mcolor"
+    for (i = 0; i < arr.length; i++) h += '<button class="sws' + (i === cur ? " on" : "") + '" data-act="' + act + '" data-v="' + i + '" style="--c:' + arr[i].a + '" aria-label="color"></button>'
+    var on = gOn(), dk = effTheme() === "dark"
+    var out = '<div class="topt"><div class="tl"><span>' + esc(tr("t_color")) + '</span></div><div class="swrow">' + h + "</div></div>" +
+      '<div class="topt"><div class="tl"><span>' + esc(tr("t_gon")) + '</span><button class="tgl' + (on ? " on" : "") + '" data-act="gtoggle" aria-label="glass"><i></i></button></div></div>'
+    if (on) {
+      var gl = fem ? (S.fgl == null ? 50 : S.fgl) : (S.mgl == null ? 50 : S.mgl), bl = fem ? (S.fbl == null ? 9 : S.fbl) : (S.mbl == null ? 9 : S.mbl)
+      out += '<div class="topt"><div class="tl"><span>' + esc(tr("t_glass")) + '</span><span id="fglv">' + gl + '</span></div><input id="fglr" class="rng" type="range" min="0" max="100" value="' + gl + '"></div>' +
         '<div class="topt"><div class="tl"><span>' + esc(tr("t_blur")) + '</span><span id="fblv">' + bl + '</span></div><input id="fblr" class="rng" type="range" min="0" max="24" value="' + bl + '"></div>'
+    } else {
+      var SL = fem ? SOLF : SOLM, sc = (fem ? S.fsol : S.msol) | 0, sh = ""
+      for (i = 0; i < SL.length; i++) sh += '<button class="sws' + (i === sc ? " on" : "") + '" data-act="gsol" data-v="' + i + '" style="--c:' + (dk ? SL[i][3] : SL[i][0]) + '" aria-label="color"></button>'
+      out += '<div class="topt"><div class="tl"><span>' + esc(tr("t_solid")) + '</span></div><div class="swrow">' + sh + "</div></div>"
     }
-    if (S.gender === "male") {
-      for (i = 0; i < MALES.length; i++) h += '<button class="sws' + (i === (S.mcolor | 0) ? " on" : "") + '" data-act="mcolor" data-v="' + i + '" style="--c:' + MALES[i].a + '" aria-label="color"></button>'
-      return '<div class="topt"><div class="tl"><span>' + esc(tr("t_color")) + '</span></div><div class="swrow">' + h + "</div></div>"
-    }
-    return ""
+    return out
   }
   var TKEYS = ["auto", "male", "female"], TICONS = ["brightness_auto", "man", "woman"], TLAB = ["th_auto", "th_male", "th_female"]
   function themeInit() {
@@ -1790,6 +1803,8 @@
     else if (act === "setGender") { S.gender = v; save(); applyGender(); render() }
     else if (act === "tzDev") { S.tz = ""; save(); applyTheme(); render() }
     else if (act === "setMode") { S.theme = v; save(); applyTheme(); if (wheels.theme) wheels.theme.set(THEMES.indexOf(v), true); render() }
+    else if (act === "gtoggle") { if (S.gender === "female") S.fgon = !gOn(); else S.mgon = !gOn(); applyGender(); save(); var o3 = document.getElementById("themeOpts"); if (o3) o3.innerHTML = themeOpts() }
+    else if (act === "gsol") { if (S.gender === "female") S.fsol = parseInt(v, 10); else S.msol = parseInt(v, 10); applyGender(); save(); var o4 = document.getElementById("themeOpts"); if (o4) o4.innerHTML = themeOpts() }
     else if (act === "fcolor") { S.fcolor = parseInt(v, 10); applyGender(); save(); var o1 = document.getElementById("themeOpts"); if (o1) o1.innerHTML = themeOpts() }
     else if (act === "mcolor") { S.mcolor = parseInt(v, 10); applyGender(); save(); var o2 = document.getElementById("themeOpts"); if (o2) o2.innerHTML = themeOpts() }
     else if (act === "nf") { U.nf = v; render() }
@@ -1904,7 +1919,8 @@
   document.addEventListener("input", function (ev) {
     if (ev.target && (ev.target.id === "fglr" || ev.target.id === "fblr")) {
       var rv = parseInt(ev.target.value, 10)
-      if (ev.target.id === "fglr") { S.fgl = rv; var l1 = document.getElementById("fglv"); if (l1) l1.textContent = rv } else { S.fbl = rv; var l2 = document.getElementById("fblv"); if (l2) l2.textContent = rv }
+      var fm = S.gender === "female"
+      if (ev.target.id === "fglr") { if (fm) S.fgl = rv; else S.mgl = rv; var l1 = document.getElementById("fglv"); if (l1) l1.textContent = rv } else { if (fm) S.fbl = rv; else S.mbl = rv; var l2 = document.getElementById("fblv"); if (l2) l2.textContent = rv }
       applyGender(); clearTimeout(window._rt); window._rt = setTimeout(save, 400)
     }
     if (ev.target && ev.target.id === "noteText") { noteGrow(ev.target); noteDirty() }
