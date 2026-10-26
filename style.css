@@ -661,9 +661,9 @@ html[data-gender="female"] .nbox { background: rgb(255 255 255 / calc(.3 * var(-
 html[data-gender="female"] body::before { filter: hue-rotate(var(--fbh, 0deg)); }
 html[data-gender="female"][data-theme="dark"] body::before { filter: hue-rotate(var(--fbh, 0deg)) brightness(.82) saturate(.95); }
 /* mavzu tanlash: vertikal cheksiz g'ildirak */
-.vw { position: relative; height: 156px; overflow: hidden; border-radius: 16px; background: var(--card); border: 1px solid var(--line); -webkit-mask-image: linear-gradient(#0000 0, #000 28%, #000 72%, #0000 100%); mask-image: linear-gradient(#0000 0, #000 28%, #000 72%, #0000 100%); margin-bottom: 14px; }
-.vw::after { content: ""; position: absolute; left: 8px; right: 8px; top: 52px; height: 52px; border-radius: 13px; border: 1.5px solid var(--accent); opacity: .7; pointer-events: none; }
-.vw-track { height: 100%; overflow-y: scroll; scroll-snap-type: y mandatory; scrollbar-width: none; overscroll-behavior: contain; touch-action: pan-y; }
+.vw { position: relative; height: 156px; overflow: hidden; border-radius: 16px; background: var(--card); border: 1px solid var(--line); margin-bottom: 14px; }
+.vw::after { content: ""; position: absolute; z-index: 0; left: 8px; right: 8px; top: 52px; height: 52px; border-radius: 13px; border: 1.5px solid var(--accent); background: color-mix(in srgb, var(--accent) 16%, transparent); pointer-events: none; }
+.vw-track { position: relative; z-index: 1; -webkit-mask-image: linear-gradient(#0000 0, #000 28%, #000 72%, #0000 100%); mask-image: linear-gradient(#0000 0, #000 28%, #000 72%, #0000 100%); height: 100%; overflow-y: scroll; scroll-snap-type: y mandatory; scrollbar-width: none; overscroll-behavior: contain; touch-action: pan-y; }
 .vw-track::-webkit-scrollbar { display: none; }
 .vw-track.jump { scroll-snap-type: none; }
 .vw-pad { height: 52px; }
@@ -738,3 +738,13 @@ html[data-gender="male"][data-glass="off"][data-theme] :is(.card, .name-card) { 
 
 #bgc { position: fixed; inset: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; display: none; opacity: .9; }
 html[data-gender="male"][data-glass="on"] body::after { display: none; }
+
+/* mavzu g'ildiragi: markaziy tanlov shisha tugma kabi */
+html[data-glass="on"] .vw::after {
+  background: linear-gradient(135deg, color-mix(in srgb, var(--accent) calc(34% * var(--gk, 1)), transparent), color-mix(in srgb, var(--accent) calc(12% * var(--gk, 1)), transparent));
+  border: 1px solid rgba(255, 255, 255, .6);
+  -webkit-backdrop-filter: blur(calc(9px * var(--bk, 1))) saturate(1.6); backdrop-filter: blur(calc(9px * var(--bk, 1))) saturate(1.6);
+  box-shadow: 0 6px 16px color-mix(in srgb, var(--accent) 30%, transparent), inset 0 1.5px 0 rgba(255, 255, 255, .8), inset 0 -6px 12px rgba(255, 255, 255, .08);
+}
+html[data-gender="male"][data-glass="on"] .vw::after { border-radius: 6px; transform: skewX(-8deg); }
+html[data-gender="male"] .vw::after { border-radius: 6px; }
