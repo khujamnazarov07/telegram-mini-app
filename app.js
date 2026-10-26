@@ -1456,6 +1456,47 @@
   var SOLF = [["#fbeef1", "#ffffff", "#2a1a22", "#38262f"], ["#fdf1e8", "#fffaf5", "#2b1d17", "#3a2a22"], ["#f2eefa", "#fbf9ff", "#241d33", "#30284a"], ["#eaf5ef", "#f8fffb", "#16251f", "#21332b"], ["#f6efe4", "#fffdf8", "#27221a", "#362f24"], ["#eaf1f8", "#f9fcff", "#18222d", "#233241"]]
   var SOLM = [["#f2f2f3", "#ffffff", "#0c0c0e", "#151518"], ["#eef2f8", "#ffffff", "#0a1020", "#121a2e"], ["#eef4ef", "#ffffff", "#0a140f", "#122019"], ["#f6eef0", "#ffffff", "#150a0d", "#21121a"], ["#eef0f3", "#ffffff", "#101317", "#1a1f26"], ["#f4efe9", "#ffffff", "#14100c", "#201a14"], ["#f2eff8", "#ffffff", "#110d1c", "#1b1530"]]
   function gOn() { return S.gender === "female" ? S.fgon !== false : S.gender === "male" ? S.mgon === true : false }
+  // Erkak mavzusi: shisha ortidagi dumaloqlar (tasodifiy sekin harakat: jamlanish va tarqalish)
+  var BG = { cv: null, on: false, b: [], t: 0, last: 0, mode: 0, col: [] }
+  function bgFx() {
+    var want = S.gender === "male" && gOn() && !(window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches)
+    var cs = getComputedStyle(document.documentElement)
+    BG.col = [cs.getPropertyValue("--ma").trim() || "#e5202f", cs.getPropertyValue("--ma2").trim() || "#a30f1b", cs.getPropertyValue("--ma3").trim() || "#ff4b58"]
+    if (!want) { BG.on = false; if (BG.cv) BG.cv.style.display = "none"; return }
+    if (!BG.cv) {
+      BG.cv = document.createElement("canvas"); BG.cv.id = "bgc"; document.body.insertBefore(BG.cv, document.body.firstChild)
+      for (var i = 0; i < 6; i++) BG.b[i] = { x: Math.random(), y: Math.random(), r: .1 + Math.random() * .16, tx: Math.random(), ty: Math.random(), tr: .1 + Math.random() * .16, c: i % 3 }
+    }
+    BG.cv.style.display = "block"
+    if (BG.on) return
+    BG.on = true
+    function loop(ts) {
+      if (!BG.on) return
+      requestAnimationFrame(loop)
+      if (document.hidden || ts - BG.last < 40) return
+      var dt = Math.min(.1, (ts - BG.last) / 1000); BG.last = ts; BG.t += dt
+      var cv = BG.cv, w = Math.round(window.innerWidth / 3), h = Math.round(window.innerHeight / 3)
+      if (cv.width !== w || cv.height !== h) { cv.width = w; cv.height = h }
+      if (BG.t > 7 + Math.random() * 3) {
+        BG.t = 0; BG.mode = 1 - BG.mode
+        for (var k = 0; k < BG.b.length; k++) {
+          var o = BG.b[k]
+          if (BG.mode) { o.tx = .5 + (Math.random() - .5) * .22; o.ty = .5 + (Math.random() - .5) * .22 } else { o.tx = Math.random(); o.ty = Math.random() }
+          o.tr = .08 + Math.random() * .2
+        }
+      }
+      var g = cv.getContext("2d"), m = Math.max(w, h)
+      g.clearRect(0, 0, w, h)
+      for (var j = 0; j < BG.b.length; j++) {
+        var p = BG.b[j], f = Math.min(1, dt * .35)
+        p.x += (p.tx - p.x) * f; p.y += (p.ty - p.y) * f; p.r += (p.tr - p.r) * f
+        var rad = p.r * m, gr = g.createRadialGradient(p.x * w, p.y * h, 0, p.x * w, p.y * h, rad)
+        gr.addColorStop(0, BG.col[p.c]); gr.addColorStop(.55, BG.col[p.c] + "99"); gr.addColorStop(1, "rgba(0,0,0,0)")
+        g.globalAlpha = .55; g.fillStyle = gr; g.beginPath(); g.arc(p.x * w, p.y * h, rad, 0, 6.2832); g.fill()
+      }
+    }
+    requestAnimationFrame(loop)
+  }
   function applyGender() {
     var root = document.documentElement, st = root.style
     var ng = S.gender === "female" ? "female" : S.gender === "male" ? "male" : "auto"
@@ -1474,6 +1515,7 @@
     st.setProperty("--fh", P.h + "deg"); st.setProperty("--fbh", P.bh + "deg")
     st.setProperty("--gk", (1.65 - gl / 100 * 1.3).toFixed(2)); st.setProperty("--bk", (bl / 9).toFixed(2))
     st.setProperty("--ma", M.a); st.setProperty("--ma2", M.a2); st.setProperty("--ma3", M.a3); st.setProperty("--mh", M.h + "deg"); st.setProperty("--mat", M.t)
+    bgFx()
   }
   function themeOpts() {
     var h = "", i, fem = S.gender === "female", mal = S.gender === "male"
