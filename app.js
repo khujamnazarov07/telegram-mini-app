@@ -64,6 +64,8 @@
     rate_my: "Sizning bahoyingiz|Сизнинг баҳойингиз|Ваша оценка|Your rating|تقييمك|Puanınız|Penilaian Anda|您的评分|आपकी रेटिंग|Tu valoración",
     like_app: "Ilova yoqdi|Илова ёқди|Нравится|Like|أعجبني|Beğen|Suka|喜欢|पसंद|Me gusta",
     settings: "Sozlamalar|Созламалар|Настройки|Settings|الإعدادات|Ayarlar|Pengaturan|设置|सेटिंग्स|Ajustes",
+    tz_dev: "Qurilma vaqti|Қурилма вақти|Время устройства|Device time|وقت الجهاز|Cihaz saati|Waktu perangkat|设备时间|डिवाइस समय|Hora del dispositivo",
+    tz_hint: "Shaharni bosing: 20:00–08:00 tun, qolgan payt kun|Шаҳарни босинг: 20:00–08:00 тун, қолган пайт кун|Нажмите город: 20:00–08:00 ночь, остальное день|Tap a city: 20:00–08:00 night, otherwise day|اضغط على مدينة: 20:00–08:00 ليل والباقي نهار|Bir şehre dokunun: 20:00–08:00 gece, diğer saatler gündüz|Ketuk kota: 20:00–08:00 malam, selain itu siang|点击城市：20:00–08:00 夜间，其余日间|शहर चुनें: 20:00–08:00 रात, बाकी दिन|Toca una ciudad: 20:00–08:00 noche, resto día",
     theme_t: "Mavzu|Мавзу|Тема|Theme|السمة|Tema|Tema|主题|थीम|Tema",
     th_auto: "Avtomatik|Автоматик|Автоматически|Automatic|تلقائي|Otomatik|Otomatis|自动|स्वचालित|Automático",
     th_male: "Erkaklar uchun|Эркаклар учун|Для мужчин|For men|للرجال|Erkekler için|Untuk pria|男士|पुरुषों के लिए|Para hombres",
@@ -99,7 +101,7 @@
   // STATE + STORAGE
   // ====================
   var KEY = "asmo_miniapp_v1"
-  var S = { lang: "", gender: "", theme: "auto", favs: {}, notes: {}, moodHist: {}, daily: null, savedAt: 0 }
+  var S = { lang: "", gender: "", theme: "auto", tz: "", favs: {}, notes: {}, moodHist: {}, daily: null, savedAt: 0 }
   var memStore = null
 
   function load() {
@@ -693,7 +695,7 @@
     var h = ""
     if (V.i >= 0 && list[V.i] && list[V.i].tg) {
       var tgp = String(list[V.i].tg).replace(/^https?:\/\/t\.me\//, "").replace(/^\//, "")
-      h += '<div class="vp vtgp"><iframe src="https://t.me/' + esc(tgp) + '?embed=1&mode=tme&dark=' + ((S.theme === "dark" || (S.theme === "auto" && window.matchMedia && matchMedia("(prefers-color-scheme: dark)").matches)) ? 1 : 0) + '" allowfullscreen loading="lazy"></iframe></div><div class="vtitle">' + esc(vTitle(list[V.i], V.i)) + "</div>"
+      h += '<div class="vp vtgp"><iframe src="https://t.me/' + esc(tgp) + '?embed=1&mode=tme&dark=' + (effTheme() === "dark" ? 1 : 0) + '" allowfullscreen loading="lazy"></iframe></div><div class="vtitle">' + esc(vTitle(list[V.i], V.i)) + "</div>"
     } else if (V.i >= 0 && list[V.i]) {
       var v = list[V.i], qs = vQs(v), menu = '<button data-act="vqset" data-v="auto"' + (V.q === "auto" ? ' class="on"' : "") + ">Auto</button>"
       for (var k = 0; k < qs.length; k++) menu += '<button data-act="vqset" data-v="' + qs[k] + '"' + (String(V.q) === String(qs[k]) ? ' class="on"' : "") + ">" + qs[k] + "p</button>"
@@ -1227,7 +1229,9 @@
       var mm = '<button class="btn small back" data-act="moreBack">' + ic("arrow_back") + " " + esc(tr("back")) + "</button><h1>" + ic("contrast") + " " + esc(tr("mode_t")) + '</h1><div class="list">'
       var MD = ["auto", "light", "dark"]
       for (var mi = 0; mi < MD.length; mi++) mm += '<button class="' + (S.theme === MD[mi] ? "sel" : "") + '" data-act="setMode" data-v="' + MD[mi] + '">' + ic(THEME_ICONS[MD[mi]]) + " " + esc(tr("th_" + MD[mi])) + (S.theme === MD[mi] ? ic("check", "chk") : "") + "</button>"
-      return mm + "</div>"
+      mm += "</div>"
+      if (S.theme === "auto") mm += '<div class="globe"><canvas id="gl"></canvas><div id="gtxt" class="gtxt"></div><button class="btn small' + (S.tz ? "" : " success") + '" data-act="tzDev">' + esc(tr("tz_dev")) + '</button><p class="ginfo">' + ic("info") + " <span>" + esc(tr("tz_hint")) + "</span></p></div>"
+      return mm
     }
     if (U.more === "settings") {
       var cg = S.gender === "female" ? "th_female" : S.gender === "male" ? "th_male" : "th_auto"
@@ -1274,6 +1278,7 @@
     meanFit()
     phStart(); mediaInit(); themeInit()
     nsUpdate()
+    if (U.tab === "more" && U.more === "mode") startGlobe()
     renderNav()
     if (wheels.theme) updateThemeLabels()
     if (tg && tg.BackButton) {
@@ -1295,6 +1300,111 @@
   // ====================
   // HEADER: silindr (wheel) tanlagichlar
   // ====================
+  // ====================
+  // GLOBUS (avto kun/tun: tanlangan shahar vaqti bo'yicha)
+  // ====================
+  var GMASK = "0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001efefd800000000000000000000000000000000000000b2bf3b00000000005000000000000000000000000786da02edc000000011f769828000000000000002374c1f10b83ef80000e001efffc5d7630000000000003f3b9ff747c3f84000ffbbffffffcee7fff8000000000efff5ffd0f03807002dffaffddfbffdfffc000000000293afbdc02803000005eeef56ff346bafe700000000007802f9be03e00000008dfc8ffc5ffcbe0060000000001800bff5fb7e000005840edbfc57de6ff8068000000000000ffffffff800006d7ffffffffffffff8180000000000007bf3ffe10000031f9fffbffffefefca00000000000000dff65de0000000ffb6ef65fad377fd90000000000000175fe0fa00000000ef35d3ffffacc778000000000000039e6d0650000004d1e803127744e78f40000000000000335fe1b00000001a7f04685fff7cc7f080000000000007fff65800000007a092e69cd8bf7ffd000000000000007dffef80000000620c3f59febfff7d38c0000000000007fffcf0000000037e047fceef9bdff13e0000000000007b5bd6000000005ac8059fff6bfed689800000000000025fd58000000012de88322de34996d02000000000000022e9b000000001174fbc8ffc5ff8ba200000000000000053018000000006db0db54cff5936d80000000000000013401800000007dad7d5bf2f7afed680000000000000003e01000000007ffeffcae49dfbfffd0000000000000009c0040000000eeebddf5b40bef77580000000000000001e164000000077f6f7e7ec05fbfba20000000000000001c10400000007feecf97de07f8ff000000000000000000f70300000007e7fbb89f001707b000000000000000000ff010000000ff7ffdabd001607b01800000000000000003c00000000ff8cfb7cf001801c01000000000000000007c00000001beebfe6700008007c1800000000000000001c24000000fdffbffa2000c00ec0800000000000000000076800000dbdf9fbf3000200ac0e00000000000000000d7fc0000037ff6bbfe000600c824000000000000000000fec000003c6faf7780003000006000000000000000000ee680000088cfe73e0001004020000000000000000000d97e00000006fecbc000000a060000000000000000000f6fc00000003f7b7800000040e0000000000000000001a9ee000000077d4f000000003ae800000000000000000df5c00000006f6fa0000000b359600000000000000002ff6fe0000001b7fc000000073d8f20800000000000000f77fe8000001f7b800000002a581f0000000000000001df5db8000000fe7800000002010155400000000000001e9ef7e0000006f6800000000310078600000000000001b6fe7c000001fdb4000000003fa03e180000000000000eb7ffe000001ff5800000000014003180000000000000f34df8000000b798000000000000000c00000000000006f3fb8000000bf702000000000030800000000000000057f7e80000015ebc3000000000252000000000000000037b7e80000019fbda0000000007da00100000000000001f5ff80000016fe0e0000000007f9000000000000000009fba8000000eec1c000000001777800000000000000003fff0000001fd41c00000000feafc040000000000000075ed0000000f9a2c00000000fcdd402000000000000003ee800000006bc1000000001f5efa00000000000000005d980000000ffc0000000001fff7e000000000000000077f80000000ffc00000000007fffe00000000000000007f7000000003d80000000001fedfc00000000000000007de000000003e00000000000bdfd400000000000000005ea000000002400000000000e1f780000000000000000768000000000000000000000002c000000000000000006780000000000000000000000038003000000000000003e00000000000000000000000000003000000000000001a00000000000000000000000018006000000000000001800000000000000000000000010030000000000000000c00000000000000000000000000040000000000000001c00000000000000000000000000000000000000000000e00000000000000000000000000000000000000000000b000000000000000000000000000000000000000000003c00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+  var CITIES = [
+    ["Moskva", 37.6, 55.8, "Europe/Moscow"], ["Seul", 127, 37.5, "Asia/Seoul"], ["London", -0.1, 51.5, "Europe/London"], ["Toshkent", 69.3, 41.3, "Asia/Tashkent"],
+    ["Makka", 39.8, 21.4, "Asia/Riyadh"], ["Istanbul", 29, 41, "Europe/Istanbul"], ["Dubay", 55.3, 25.3, "Asia/Dubai"], ["Nyu-York", -74, 40.7, "America/New_York"],
+    ["Tokio", 139.7, 35.7, "Asia/Tokyo"], ["Pekin", 116.4, 39.9, "Asia/Shanghai"], ["Dehli", 77.2, 28.6, "Asia/Kolkata"], ["Jakarta", 106.8, -6.2, "Asia/Jakarta"],
+    ["Sidney", 151.2, -33.9, "Australia/Sydney"], ["Qohira", 31.2, 30, "Africa/Cairo"], ["Lagos", 3.4, 6.5, "Africa/Lagos"], ["Nayrobi", 36.8, -1.3, "Africa/Nairobi"],
+    ["Madrid", -3.7, 40.4, "Europe/Madrid"], ["Parij", 2.3, 48.9, "Europe/Paris"], ["Tehron", 51.4, 35.7, "Asia/Tehran"], ["Karachi", 67, 24.9, "Asia/Karachi"],
+    ["Dakka", 90.4, 23.8, "Asia/Dhaka"], ["Bangkok", 100.5, 13.8, "Asia/Bangkok"], ["Almati", 76.9, 43.2, "Asia/Almaty"], ["Los-Anjeles", -118.2, 34, "America/Los_Angeles"],
+    ["Mexiko", -99.1, 19.4, "America/Mexico_City"], ["San-Paulu", -46.6, -23.5, "America/Sao_Paulo"]
+  ]
+  var CCOL = ["#ff5d73", "#ffb020", "#3ddc97", "#4cc9f0", "#c77dff", "#ff8fab", "#f4d35e", "#5eead4"]
+  function cityByName(n) { for (var i = 0; i < CITIES.length; i++) if (CITIES[i][0] === n) return CITIES[i]; return null }
+  function cityHour(c) {
+    try {
+      if (c && window.Intl && Intl.DateTimeFormat) {
+        var p = new Intl.DateTimeFormat("en-GB", { timeZone: c[3], hour: "2-digit", minute: "2-digit", hour12: false }).format(new Date()).split(":")
+        return { h: parseInt(p[0], 10) % 24, m: parseInt(p[1], 10) }
+      }
+    } catch (e) {}
+    var d = new Date()
+    return { h: d.getHours(), m: d.getMinutes() }
+  }
+  function effTheme() {
+    if (S.theme !== "auto") return S.theme
+    var t = cityHour(cityByName(S.tz))
+    return (t.h >= 20 || t.h < 8) ? "dark" : "light"
+  }
+  var curEff = ""
+  function gText() {
+    var c = cityByName(S.tz), t = cityHour(c), n = (t.h >= 20 || t.h < 8)
+    var el = document.getElementById("gtxt")
+    if (el) el.innerHTML = ic(n ? "dark_mode" : "light_mode") + " <b>" + esc(c ? c[0] : tr("tz_dev")) + "</b> · " + ("0" + t.h).slice(-2) + ":" + ("0" + t.m).slice(-2)
+  }
+  function startGlobe() {
+    var cv = document.getElementById("gl")
+    if (!cv || !cv.getContext) return
+    var W = cv.clientWidth || 240, dpr = Math.min(2, window.devicePixelRatio || 1)
+    cv.width = W * dpr; cv.height = W * dpr
+    var g = cv.getContext("2d"), R = W / 2 - 6
+    var sel = cityByName(S.tz)
+    var lon0 = sel ? sel[1] : -new Date().getTimezoneOffset() / 4, tilt = 0.38, drag = false, sx = 0, sl = 0, moved = 0, last = 0, ph = 0
+    var land = []
+    for (var i = 0; i < 16200; i++) if (parseInt(GMASK.charAt(i >> 2), 16) & (8 >> (i & 3))) land[land.length] = [-180 + (i % 180 + 0.5) * 2, 90 - (Math.floor(i / 180) + 0.5) * 2]
+    var cs = getComputedStyle(cv), fg = cs.color
+    function pr(lo, la) {
+      var l = (lo - lon0) * Math.PI / 180, p = la * Math.PI / 180
+      var x = Math.cos(p) * Math.sin(l), y = Math.cos(tilt) * Math.sin(p) - Math.sin(tilt) * Math.cos(p) * Math.cos(l), z = Math.sin(tilt) * Math.sin(p) + Math.cos(tilt) * Math.cos(p) * Math.cos(l)
+      return [W / 2 + x * R, W / 2 - y * R, z]
+    }
+    function draw(ts) {
+      if (document.getElementById("gl") !== cv) return
+      requestAnimationFrame(draw)
+      if (document.hidden || ts - last < 33) return
+      var dt = last ? (ts - last) / 1000 : 0
+      last = ts; ph += dt
+      if (!drag) lon0 += 5 * dt
+      g.setTransform(dpr, 0, 0, dpr, 0, 0)
+      g.clearRect(0, 0, W, W)
+      var grd = g.createRadialGradient(W * .4, W * .38, R * .1, W / 2, W / 2, R)
+      grd.addColorStop(0, "rgba(120,160,150,.16)"); grd.addColorStop(1, "rgba(120,160,150,.04)")
+      g.fillStyle = grd; g.beginPath(); g.arc(W / 2, W / 2, R, 0, 6.2832); g.fill()
+      g.strokeStyle = "rgba(128,150,145,.35)"; g.lineWidth = 1; g.stroke()
+      g.fillStyle = fg
+      for (var k = 0; k < land.length; k++) {
+        var q = pr(land[k][0], land[k][1])
+        if (q[2] <= 0.02) continue
+        g.globalAlpha = 0.2 + 0.6 * q[2]
+        var r = 1 + 1 * q[2]
+        g.fillRect(q[0] - r / 2, q[1] - r / 2, r, r)
+      }
+      g.globalAlpha = 1
+      for (var m = 0; m < CITIES.length; m++) {
+        var c = CITIES[m], p2 = pr(c[1], c[2])
+        if (p2[2] <= 0.05) continue
+        var on = sel && sel[0] === c[0], col = CCOL[m % CCOL.length], pu = 0.5 + 0.5 * Math.sin(ph * 2.2 + m)
+        g.globalAlpha = 0.25 + 0.3 * pu; g.fillStyle = col
+        g.beginPath(); g.arc(p2[0], p2[1], (on ? 8 : 5.5) + 2 * pu, 0, 6.2832); g.fill()
+        g.globalAlpha = 1; g.beginPath(); g.arc(p2[0], p2[1], on ? 4 : 3, 0, 6.2832); g.fill()
+        if (on) { g.strokeStyle = fg; g.lineWidth = 1.5; g.beginPath(); g.arc(p2[0], p2[1], 6, 0, 6.2832); g.stroke() }
+      }
+      g.fillStyle = fg
+    }
+    requestAnimationFrame(draw)
+    cv.addEventListener("pointerdown", function (e) { drag = true; moved = 0; sx = e.clientX; sl = lon0 })
+    cv.addEventListener("pointermove", function (e) { if (!drag) return; moved = Math.max(moved, Math.abs(e.clientX - sx)); lon0 = sl - (e.clientX - sx) * 0.5 })
+    cv.addEventListener("pointercancel", function () { drag = false })
+    cv.addEventListener("pointerup", function (e) {
+      var was = drag; drag = false
+      if (!was || moved > 6) return
+      var rc = cv.getBoundingClientRect(), x = e.clientX - rc.left, y = e.clientY - rc.top, best = null, bd = 22 * 22
+      for (var m = 0; m < CITIES.length; m++) {
+        var p3 = pr(CITIES[m][1], CITIES[m][2])
+        if (p3[2] <= 0.05) continue
+        var d = (p3[0] - x) * (p3[0] - x) + (p3[1] - y) * (p3[1] - y)
+        if (d < bd) { bd = d; best = CITIES[m] }
+      }
+      if (best) { S.tz = best[0]; sel = best; save(); applyTheme(); gText() }
+    })
+    gText()
+  }
+  setInterval(function () { if (S.theme === "auto" && effTheme() !== curEff) applyTheme(); gText() }, 30000)
+
   var THEMES = ["light", "dark", "auto"]
   var THEME_ICONS = { light: "light_mode", dark: "dark_mode", auto: "brightness_auto" }
   var wheels = {}
@@ -1372,11 +1482,12 @@
   }
   function applyTheme() {
     applyGender()
-    document.documentElement.setAttribute("data-theme", S.theme)
+    curEff = effTheme()
+    document.documentElement.setAttribute("data-theme", curEff)
     if (tg && tg.setHeaderColor) {
       try {
-        if (S.theme === "light") { tg.setHeaderColor("#f6f7f4"); tg.setBackgroundColor && tg.setBackgroundColor("#f6f7f4") }
-        else if (S.theme === "dark") { tg.setHeaderColor("#131816"); tg.setBackgroundColor && tg.setBackgroundColor("#131816") }
+        if (curEff === "light") { tg.setHeaderColor("#f6f7f4"); tg.setBackgroundColor && tg.setBackgroundColor("#f6f7f4") }
+        else if (curEff === "dark") { tg.setHeaderColor("#131816"); tg.setBackgroundColor && tg.setBackgroundColor("#131816") }
         else tg.setHeaderColor("bg_color")
       } catch (e) {}
     }
@@ -1648,6 +1759,7 @@
       openTg("https://t.me/share/url?url=" + encodeURIComponent("https://t.me/" + CFG.BOT) + "&text=" + encodeURIComponent("✨ " + sn + ". " + nd.a + " — " + nd.t + "\n🤖 @" + CFG.BOT))
     }
     else if (act === "setGender") { S.gender = v; save(); applyGender(); render() }
+    else if (act === "tzDev") { S.tz = ""; save(); applyTheme(); render() }
     else if (act === "setMode") { S.theme = v; save(); applyTheme(); if (wheels.theme) wheels.theme.set(THEMES.indexOf(v), true); render() }
     else if (act === "fcolor") { S.fcolor = parseInt(v, 10); applyGender(); save(); var o1 = document.getElementById("themeOpts"); if (o1) o1.innerHTML = themeOpts() }
     else if (act === "mcolor") { S.mcolor = parseInt(v, 10); applyGender(); save(); var o2 = document.getElementById("themeOpts"); if (o2) o2.innerHTML = themeOpts() }
