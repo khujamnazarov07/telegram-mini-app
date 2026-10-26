@@ -735,3 +735,6 @@ html[data-gender="female"][data-glass="off"][data-theme] .nav { background: var(
 html[data-gender="female"][data-glass="off"] .ngrid::after { background: linear-gradient(180deg, transparent, var(--bg)); }
 html[data-gender="male"][data-glass="off"][data-theme] .hdr, html[data-gender="male"][data-glass="off"][data-theme] .nav { background: var(--bg); }
 html[data-gender="male"][data-glass="off"][data-theme] :is(.card, .name-card) { background: var(--card); }
+
+#bgc { position: fixed; inset: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; display: none; opacity: .9; }
+html[data-gender="male"][data-glass="on"] body::after { display: none; }
