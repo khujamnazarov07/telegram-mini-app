@@ -1807,6 +1807,15 @@
   }
   applyTheme()
   render()
+  var lastHit = 0
+  function track() {
+    var u = CFG.STATS_URL
+    if (!u || !tg || !tg.initData || !window.fetch || Date.now() - lastHit < 1800000) return
+    lastHit = Date.now()
+    try { fetch(u.replace(/\/$/, "") + "/hit", { method: "POST", body: tg.initData, keepalive: true }).catch(function () {}) } catch (e) {}
+  }
+  track()
+  document.addEventListener("visibilitychange", function () { if (!document.hidden) track() })
   initHeader()
   cloudRead()
   var idle = window.requestIdleCallback || function (f) { return setTimeout(f, 1200) }
