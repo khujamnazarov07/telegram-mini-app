@@ -403,7 +403,42 @@
   // ====================
   // AUDIO / DETAIL
   // ====================
+  // Audio fayllar ro'yxati GitHub'dagi audio papkasidan avtomatik olinadi (ism tartibi fayl nomidagi raqamdan)
+  var AUDMAP = null
+  function audBuild(files) {
+    var nums = [], map = {}, i, f, m
+    files = files.filter(function (x) { return /\.(mp3|m4a|ogg|wav)$/i.test(x) })
+    for (i = 0; i < files.length; i++) { m = /^\s*(\d+)/.exec(files[i]); nums[i] = m ? parseInt(m[1], 10) : -1 }
+    var has = {}, numbered = 0
+    for (i = 0; i < nums.length; i++) if (nums[i] >= 0) { has[nums[i]] = 1; numbered++ }
+    if (numbered < files.length / 2) {
+      files.sort()
+      for (i = 0; i < files.length && i < 99; i++) map[i + 1] = files[i]
+      return map
+    }
+    var off = (has[100] || (!has[1] && has[2])) ? 1 : 0
+    for (i = 0; i < files.length; i++) if (nums[i] - off >= 1 && nums[i] - off <= 99) map[nums[i] - off] = files[i]
+    return map
+  }
+  function audInit() {
+    var repo = CFG.AUDIO_REPO, dir = String(CFG.AUDIO_DIR || "audio1/").replace(/\/$/, "")
+    if (!repo || !window.fetch) return
+    try {
+      var c = JSON.parse(localStorage.getItem("asmo_aud") || "null")
+      if (c && c.files && c.files.length) { AUDMAP = audBuild(c.files); if (Date.now() - c.t < 6 * 3600000) return }
+    } catch (e) {}
+    fetch("https://api.github.com/repos/" + repo + "/contents/" + dir).then(function (r) { return r.json() }).then(function (j) {
+      if (!j || !j.length) return
+      var fl = []
+      for (var i = 0; i < j.length; i++) if (j[i].type === "file") fl[fl.length] = j[i].name
+      if (!fl.length) return
+      AUDMAP = audBuild(fl)
+      try { localStorage.setItem("asmo_aud", JSON.stringify({ t: Date.now(), files: fl })) } catch (e) {}
+      if (U.tab === "media" || U.detail) render()
+    }).catch(function () {})
+  }
   function audioUrl(n) {
+    if (AUDMAP && AUDMAP[n]) return encodeURI(String(CFG.AUDIO_DIR || "audio1/") + AUDMAP[n])
     try {
       var u = CFG.AUDIO_URL
       if (typeof u === "function") return encodeURI(String(u(n)))
@@ -2066,6 +2101,7 @@
       if (tg.setHeaderColor) tg.setHeaderColor("bg_color")
     } catch (e) {}
   }
+  audInit()
   applyTheme()
   render()
   var lastHit = 0
