@@ -757,7 +757,7 @@ html[data-gender="male"] .vw::after { border-radius: 6px; }
 .nh-ic .msi { font-size: 24px; }
 .nh-x { display: flex; flex-direction: column; line-height: 1.1; }
 .nh-x b { font-size: 19px; font-weight: 800; letter-spacing: .01em; background: linear-gradient(90deg, var(--text), var(--accent)); -webkit-background-clip: text; background-clip: text; color: transparent; }
-.nh-x small { font-size: 11px; font-weight: 700; color: var(--hint); letter-spacing: .12em; margin-top: 2px; }
+.nh-x small { font-size: 10.5px; font-weight: 600; color: var(--hint); letter-spacing: .02em; margin-top: 2px; white-space: nowrap; }
 .sbox .search { padding-inline-end: 48px; }
 .sgo { position: absolute; inset-inline-end: 5px; top: 50%; transform: translateY(-50%); width: 36px; height: 36px; border-radius: 11px; border: 0; display: grid; place-items: center; color: var(--accent-text, #fff); background: var(--accent); box-shadow: 0 4px 10px color-mix(in srgb, var(--accent) 35%, transparent); }
 .sgo .msi { font-size: 22px; }
@@ -765,3 +765,4 @@ html[data-gender="male"] .vw::after { border-radius: 6px; }
 html[data-gender="male"] .nh-ic, html[data-gender="male"] .sgo { border-radius: 8px; }
 html[data-gender="male"] .nh-x b { text-transform: uppercase; }
 .ngrid:not(.open) + .moodtog { margin-top: -50px; position: relative; z-index: 2; }
+.nhn { font-style: normal; display: inline-block; min-width: 2ch; text-align: end; font-variant-numeric: tabular-nums; color: var(--accent); font-weight: 800; }
