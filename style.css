@@ -794,3 +794,35 @@ html[data-gender="male"] .vseg, html[data-gender="male"] .vseg button { border-r
 .pctl .apb { width: 66px; height: 66px; color: var(--accent-text, #fff); box-shadow: 0 8px 20px color-mix(in srgb, var(--accent) 40%, transparent); }
 .pctl .apb .msi { font-size: 40px; }
 @media (prefers-reduced-motion: reduce) { .pdisc { animation: none; } }
+
+/* Media sarlavhasi + toggle bir qatorda */
+.mhead { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 12px; }
+.mhead h1 { margin: 0; }
+.mseg button { width: auto; min-width: 44px; padding: 0 12px; display: flex; align-items: center; gap: 6px; font-weight: 700; font-size: 15px; height: 38px; }
+.mseg .msi { font-size: 22px; }
+html[data-gender="male"] .mseg button span { text-transform: uppercase; font-size: 13px; letter-spacing: .04em; }
+/* disk: shisha va xira, ortidagi to'lqin ko'rinadi */
+.pdisc { background: radial-gradient(circle at 35% 30%, rgba(255, 255, 255, .32), rgba(255, 255, 255, .06) 72%), color-mix(in srgb, var(--accent) 10%, transparent); -webkit-backdrop-filter: blur(9px) saturate(1.6); backdrop-filter: blur(9px) saturate(1.6); border: 1.5px solid rgba(255, 255, 255, .5); box-shadow: 0 8px 26px color-mix(in srgb, var(--accent) 28%, transparent), inset 0 2px 0 rgba(255, 255, 255, .5), inset 0 0 18px rgba(255, 255, 255, .12); }
+.plg { background: color-mix(in srgb, var(--accent) 55%, var(--text)); filter: drop-shadow(0 1px 4px rgba(0, 0, 0, .35)); }
+.pctl { position: relative; }
+.pctl .pmin { position: absolute; inset-inline-end: 0; width: 40px; height: 40px; color: var(--hint); }
+.pctl .pmin .msi { font-size: 30px; }
+/* mini pleyer (menyu ustiga yopishadi) */
+.mini { position: fixed; z-index: 30; inset-inline: 12px; bottom: calc(var(--nav-h) + 16px + env(safe-area-inset-bottom)); height: 58px; border-radius: 18px; display: flex; align-items: center; gap: 6px; padding: 0 8px 0 8px; background: var(--card); border: 1px solid var(--line); box-shadow: 0 10px 26px rgba(0, 0, 0, .25); cursor: pointer; overflow: hidden; -webkit-backdrop-filter: blur(14px) saturate(1.5); backdrop-filter: blur(14px) saturate(1.5); }
+.mini[hidden] { display: none; }
+.mdisc { flex: none; width: 42px; height: 42px; border-radius: 50%; display: grid; place-items: center; border: 1.5px solid color-mix(in srgb, var(--accent) 60%, transparent); background: color-mix(in srgb, var(--accent) 12%, transparent); animation: pspin 8s linear infinite; animation-play-state: paused; }
+.mini.playing .mdisc { animation-play-state: running; }
+.mdisc .plg { width: 62%; }
+.mtx { flex: 1; min-width: 0; display: flex; flex-direction: column; line-height: 1.2; }
+.mtx b { font-size: 14px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.mtx .apa { font-size: 17px; text-align: start; }
+.mini button { flex: none; width: 38px; height: 38px; border-radius: 50%; display: grid; place-items: center; color: var(--text); }
+.mini .mpb { background: var(--accent); color: var(--accent-text, #fff); }
+.mini .msi { font-size: 24px; }
+.mpr { position: absolute; left: 0; right: 0; bottom: 0; height: 3px; background: rgba(127, 127, 127, .25); }
+.mpr u { display: block; height: 100%; width: 0; background: var(--accent); text-decoration: none; }
+body.hasmini #app { padding-bottom: 76px; }
+html[data-gender="male"] .mini { border-radius: 10px; }
+html[data-gender="male"] .mini .mpb { border-radius: 8px; transform: skewX(-10deg); }
+html[data-gender="female"] .mini { bottom: calc(var(--nav-h) + 24px + env(safe-area-inset-bottom)); }
+@media (prefers-reduced-motion: reduce) { .mdisc { animation: none; } }
