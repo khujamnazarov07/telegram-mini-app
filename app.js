@@ -720,6 +720,8 @@
     if (!cv || !cv.getContext) return
     var W = cv.clientWidth || 300, dpr = Math.min(2, window.devicePixelRatio || 1), last = 0
     cv.width = W * dpr; cv.height = W * dpr
+    var cv0 = document.getElementById("pcv0"), g0 = cv0 ? cv0.getContext("2d") : null
+    if (cv0) { cv0.width = W * dpr; cv0.height = W * dpr }
     var g = cv.getContext("2d"), NB = 64
     PV.idle = false
     function frame(ts) {
@@ -745,19 +747,23 @@
       function rgba(a) { return "rgba(" + c[0] + "," + c[1] + "," + c[2] + "," + a + ")" }
       g.setTransform(dpr * S2, 0, 0, dpr * S2, 0, 0)
       g.clearRect(0, 0, 300, 300)
-      // orqadagi 5 ta nuqta (har biri o'z chastotasi bilan nafas oladi)
-      for (i = 0; i < 5; i++) {
-        var a = -Math.PI / 2 + i * 2 * Math.PI / 5 + Math.sin(PV.t * .3 + i) * .25, px = cx + Math.cos(a) * 62, py = cy + Math.sin(a) * 62, rr = 38 + e[i] * 70
-        var gr = g.createRadialGradient(px, py, 0, px, py, rr)
-        gr.addColorStop(0, rgba(.16 + e[i] * .42)); gr.addColorStop(1, rgba(0))
-        g.fillStyle = gr; g.beginPath(); g.arc(px, py, rr, 0, 6.2832); g.fill()
+      // shisha ortidagi 5 ta nuqta (har biri o'z chastotasi bilan nafas oladi), tashqi doira ichida
+      if (g0) {
+        g0.setTransform(dpr * S2, 0, 0, dpr * S2, 0, 0); g0.clearRect(0, 0, 300, 300)
+        for (i = 0; i < 5; i++) {
+          var a = -Math.PI / 2 + i * 2 * Math.PI / 5 + Math.sin(PV.t * .3 + i) * .25, px = cx + Math.cos(a) * 100, py = cy + Math.sin(a) * 100, rr = 28 + e[i] * 46
+          var gr = g0.createRadialGradient(px, py, 0, px, py, rr)
+          gr.addColorStop(0, rgba(.3 + e[i] * .6)); gr.addColorStop(1, rgba(0))
+          g0.fillStyle = gr; g0.beginPath(); g0.arc(px, py, rr, 0, 6.2832); g0.fill()
+        }
       }
       // suyuq halqa: 5 chastota = 5 ta to'lqin
-      var R1 = 72 + e[0] * 5
+      var R1 = 80 + e[0] * 5
       g.beginPath()
       for (var q = 0; q <= 120; q++) {
         var th = q / 120 * 6.2832, rv = R1
-        for (i = 0; i < 5; i++) rv += e[i] * 8 * Math.sin((i + 2) * th + PV.t * (.7 + .25 * i) * (i % 2 ? 1 : -1) + i)
+        for (i = 0; i < 5; i++) rv += e[i] * 6 * Math.sin((i + 2) * th + PV.t * (.7 + .25 * i) * (i % 2 ? 1 : -1) + i)
+        rv = Math.max(76, Math.min(128, rv))
         var X = cx + Math.cos(th) * rv, Y = cy + Math.sin(th) * rv
         if (q) g.lineTo(X, Y); else g.moveTo(X, Y)
       }
@@ -770,7 +776,7 @@
         else { var fp = mm * 4, f0 = Math.floor(fp), f1 = Math.min(4, f0 + 1); v = (e[f0] + (e[f1] - e[f0]) * (fp - f0)) * (.75 + .25 * Math.sin(i * .9 + PV.t * 5)) }
         v = Math.min(1, Math.max(0, v))
         PV.bv[i] = (PV.bv[i] || 0) + (v - (PV.bv[i] || 0)) * (v > (PV.bv[i] || 0) ? .6 : .2)
-        var an = i / NB * 6.2832 - 1.5708, r0 = 66, r1 = r0 + 8 + PV.bv[i] * 64
+        var an = i / NB * 6.2832 - 1.5708, r0 = 74, r1 = Math.min(140, r0 + 6 + PV.bv[i] * 58)
         g.beginPath(); g.moveTo(cx + Math.cos(an) * r0, cy + Math.sin(an) * r0); g.lineTo(cx + Math.cos(an) * r1, cy + Math.sin(an) * r1); g.stroke()
       }
     }
@@ -778,7 +784,7 @@
   }
   function audioView() {
     var n = A.n || 1, grid = S.audView === "grid", d = D.names[n - 1]
-    var h = U.audMini ? "" : '<div id="aplr" class="aplayer pro card' + (AU.paused ? "" : " playing") + '"><div class="pcv"><canvas id="pcv"></canvas><div class="pdisc"><i class="plg"></i></div></div>' +
+    var h = U.audMini ? "" : '<div id="aplr" class="aplayer pro card' + (AU.paused ? "" : " playing") + '"><div class="pcv"><canvas id="pcv0"></canvas><div class="pglass"></div><canvas id="pcv"></canvas><div class="pdisc"><i class="plg"></i></div></div>' +
       '<div class="ptitle"><div id="apt" class="pt1">' + n + ". " + esc(d.t) + '</div><div id="apa" class="apa">' + d.a + '</div></div>' +
       '<div class="pseek"><span id="ptc" class="ptm">0:00</span><div id="aseek" class="aseek"><i id="app_"></i></div><span id="ptd" class="ptm">0:00</span></div>' +
       '<div class="pctl"><button data-act="audPrev" aria-label="prev">' + ic("skip_previous") + '</button><button id="apb" class="apb" data-act="audToggle" aria-label="play">' + ic(AU.paused ? "play_arrow" : "pause") + '</button><button data-act="audNext" aria-label="next">' + ic("skip_next") + '</button><button class="pmin" data-act="audMin" aria-label="minimize">' + ic("expand_more") + "</button></div></div>"
