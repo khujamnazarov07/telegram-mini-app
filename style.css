@@ -826,3 +826,6 @@ html[data-gender="male"] .mini { border-radius: 10px; }
 html[data-gender="male"] .mini .mpb { border-radius: 8px; transform: skewX(-10deg); }
 html[data-gender="female"] .mini { bottom: calc(var(--nav-h) + 24px + env(safe-area-inset-bottom)); }
 @media (prefers-reduced-motion: reduce) { .mdisc { animation: none; } }
+
+/* tashqi shisha doira (maksimal xiralik), markaziy disk esa tiniq */
+.pcv canvas
