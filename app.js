@@ -305,12 +305,11 @@
     cancelAnimationFrame(nhRaf)
     var el = document.getElementById("nhn")
     if (!el || (window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches)) return
-    var t0 = 0, CT = 2400, HOLD = 4600
+    var CT = 2400, HOLD = 4600
     function step(ts) {
       if (!document.getElementById("nhn")) return
       nhRaf = requestAnimationFrame(step)
-      if (!t0) t0 = ts
-      var d = (ts - t0) % (CT + HOLD), v = 99
+      var d = ts % (CT + HOLD), v = 99
       if (d < CT) { var p = d / CT; v = Math.max(1, Math.round(99 * (1 - Math.pow(1 - p, 2)))) }
       if (el.textContent !== String(v)) el.textContent = v
     }
@@ -1615,7 +1614,7 @@
     host.appendChild(track)
 
     var items = track.querySelectorAll(".w-item")
-    var cur = startIdx, quiet = true, timer = null, raf = 0, lastC = -1, busy = false
+    var cur = startIdx, quiet = true, timer = null, raf = 0, lastC = -1, busy = false, touching = false, demo = false
 
     function iw() { return items[0].offsetWidth }
     function absPos() { return Math.max(0, Math.min(items.length - 1, Math.round(track.scrollLeft / iw()))) }
@@ -1634,7 +1633,7 @@
         items[i].setAttribute("aria-selected", ad < 0.5 ? "true" : "false")
       }
       var cc = absPos()
-      if (cc !== lastC) { if (lastC !== -1 && !quiet) haptic("light"); lastC = cc }
+      if (cc !== lastC) { if (lastC !== -1 && !quiet && !demo) haptic("light"); lastC = cc }
     }
     // ko'rinishi bir xil bo'lgan o'rta nusxaga ko'chirish (sakrash sezilmaydi)
     function recenter() {
@@ -1662,19 +1661,26 @@
       paint()
       setTimeout(function () { quiet = false }, smooth ? 420 : 60)
     }
+    function commit() {
+      if (track.classList.contains("drag") || touching || demo) return
+      var n = idxOf(absPos())
+      recenter()
+      if (!quiet && n !== cur) { cur = n; onPick(n) }
+    }
     track.addEventListener("scroll", function () {
       if (!raf) raf = requestAnimationFrame(paint)
+      if (demo) return
       // chekkaga yaqinlashganda darrov o'rtaga qaytarish
       var p = track.scrollLeft / iw()
       if (!busy && (p < N || p > N * (COPIES - 1) - 1)) { busy = true; recenter(); busy = false }
       clearTimeout(timer)
-      timer = setTimeout(function () {
-        if (track.classList.contains("drag")) return
-        var n = idxOf(absPos())
-        recenter()
-        if (!quiet && n !== cur) { cur = n; onPick(n) }
-      }, 130)
+      timer = setTimeout(commit, 130)
     })
+    // barmoq ushlab turilganda tanlov o'zgarmaydi: faqat qo'yib yuborilgach
+    track.addEventListener("touchstart", function () { touching = true; clearTimeout(timer) }, { passive: true })
+    function tend() { touching = false; clearTimeout(timer); timer = setTimeout(commit, 180) }
+    track.addEventListener("touchend", tend, { passive: true })
+    track.addEventListener("touchcancel", tend, { passive: true })
     // sichqoncha bilan sudrash (kompyuter)
     var down = false, sx = 0, sl = 0
     track.addEventListener("pointerdown", function (e) {
@@ -1702,7 +1708,20 @@
     window.addEventListener("resize", function () { set(cur, false) })
     set(startIdx, false)
     setTimeout(function () { set(cur, false) }, 250)
-    return { set: set }
+    // avtomatik aylanish: f = 0..1, dir = -1/1 (bir to'liq aylanib o'sha joyga qaytadi)
+    function spin(f, dir) {
+      if (touching || down || track.classList.contains("drag")) return
+      if (!demo) { demo = true; track.classList.add("jump") }
+      track.scrollLeft = (MID * N + cur) * iw() + dir * f * N * iw()
+    }
+    function spinEnd() {
+      if (!demo) return
+      track.scrollLeft = (MID * N + cur) * iw()
+      demo = false
+      track.classList.remove("jump")
+      paint()
+    }
+    return { set: set, spin: spin, spinEnd: spinEnd }
   }
 
   function updateThemeLabels() {
@@ -1725,6 +1744,20 @@
     wheels.theme = makeWheel("wTheme", themeLabels, Math.max(0, THEMES.indexOf(S.theme)), function (i) {
       S.theme = THEMES[i]; save(); applyTheme()
     })
+    // 99 hisobi bilan bir xil ritm: 2.4s aylanish + 4.6s kutish, har safar qarama-qarshi tomonga
+    var reduced = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches
+    var spinning = false
+    function hs(ts) {
+      requestAnimationFrame(hs)
+      if (reduced) return
+      var d = ts % 7000, dir = (Math.floor(ts / 7000) % 2) ? 1 : -1
+      if (document.hidden) { if (spinning) { wheels.lang.spinEnd(); wheels.theme.spinEnd(); spinning = false } return }
+      if (d < 2400) {
+        var f = 1 - Math.pow(1 - d / 2400, 2)
+        wheels.lang.spin(f, dir); wheels.theme.spin(f, dir); spinning = true
+      } else if (spinning) { wheels.lang.spinEnd(); wheels.theme.spinEnd(); spinning = false }
+    }
+    requestAnimationFrame(hs)
   }
 
   // ====================
