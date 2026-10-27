@@ -5,6 +5,7 @@ window.CONFIG = {
   CHANNEL: "AsmaulHusnaOfficial",
 
   // Audio fayllar ro'yxati: papkadagi fayl nomlari, ISM TARTIBI BILAN (1-ism, 2-ism, ... 99-ism). Misol: "11. Ал-Мутакаббир.mp3"
+  AUDIO_REPO: "khujamnazarov07/telegram-mini-app",
   AUDIO_DIR: "audio1/",
   AUDIO_FILES: [],
   AUDIO_URL: function (n) {
