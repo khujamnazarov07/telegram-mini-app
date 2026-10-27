@@ -660,10 +660,29 @@
     var c1 = document.getElementById("ptc"); if (c1) c1.textContent = fmtT(AU.currentTime)
     var c2 = document.getElementById("ptd"); if (c2) c2.textContent = fmtT(dur)
     var pl = document.getElementById("aplr"); if (pl) pl.classList.toggle("playing", !AU.paused)
+    var mn = document.getElementById("mini")
+    if (mn && !mn.hidden) {
+      mn.classList.toggle("playing", !AU.paused)
+      var q1 = document.getElementById("mpt"); if (q1) q1.textContent = n + ". " + d.t
+      var q2 = document.getElementById("mpa"); if (q2) q2.textContent = d.a
+      var q3 = document.getElementById("mpb"); if (q3) q3.innerHTML = ic(AU.paused ? "play_arrow" : "pause")
+      var q4 = document.getElementById("mpu"); if (q4) q4.style.width = dur ? Math.min(100, AU.currentTime * 100 / dur) + "%" : "0%"
+    }
     var cur = document.querySelectorAll("[data-act=aud].cur"), i
     for (i = 0; i < cur.length; i++) cur[i].classList.remove("cur", "play")
     var now = document.querySelector("[data-act=aud][data-v='" + A.n + "']")
     if (now) { now.classList.add("cur"); if (!AU.paused) now.classList.add("play") }
+  }
+  function miniSync() {
+    var want = !!U.audMini && !U.detail, m = document.getElementById("mini")
+    document.body.classList.toggle("hasmini", want)
+    if (!want) { if (m) m.hidden = true; return }
+    var n = A.n || 1, d = D.names[n - 1]
+    if (!m) { m = document.createElement("div"); m.id = "mini"; m.className = "mini"; m.setAttribute("data-act", "audOpen"); document.body.appendChild(m) }
+    m.innerHTML = '<div class="mdisc"><i class="plg"></i></div><div class="mtx"><b id="mpt">' + n + ". " + esc(d.t) + '</b><span id="mpa" class="apa">' + d.a + '</span></div>' +
+      '<button data-act="audPrev" aria-label="prev">' + ic("skip_previous") + '</button><button id="mpb" class="mpb" data-act="audToggle" aria-label="play">' + ic(AU.paused ? "play_arrow" : "pause") + '</button><button data-act="audNext" aria-label="next">' + ic("skip_next") + '</button><i class="mpr"><u id="mpu"></u></i>'
+    m.hidden = false; m.classList.toggle("playing", !AU.paused)
+    audUi()
   }
   function audPlay(n) {
     if (PV.ctx && PV.ctx.state === "suspended") { try { PV.ctx.resume() } catch (e) {} }
@@ -734,11 +753,11 @@
         g.fillStyle = gr; g.beginPath(); g.arc(px, py, rr, 0, 6.2832); g.fill()
       }
       // suyuq halqa: 5 chastota = 5 ta to'lqin
-      var R1 = 88 + e[0] * 5
+      var R1 = 72 + e[0] * 5
       g.beginPath()
       for (var q = 0; q <= 120; q++) {
         var th = q / 120 * 6.2832, rv = R1
-        for (i = 0; i < 5; i++) rv += e[i] * 9 * Math.sin((i + 2) * th + PV.t * (.7 + .25 * i) * (i % 2 ? 1 : -1) + i)
+        for (i = 0; i < 5; i++) rv += e[i] * 8 * Math.sin((i + 2) * th + PV.t * (.7 + .25 * i) * (i % 2 ? 1 : -1) + i)
         var X = cx + Math.cos(th) * rv, Y = cy + Math.sin(th) * rv
         if (q) g.lineTo(X, Y); else g.moveTo(X, Y)
       }
@@ -751,7 +770,7 @@
         else { var fp = mm * 4, f0 = Math.floor(fp), f1 = Math.min(4, f0 + 1); v = (e[f0] + (e[f1] - e[f0]) * (fp - f0)) * (.75 + .25 * Math.sin(i * .9 + PV.t * 5)) }
         v = Math.min(1, Math.max(0, v))
         PV.bv[i] = (PV.bv[i] || 0) + (v - (PV.bv[i] || 0)) * (v > (PV.bv[i] || 0) ? .6 : .2)
-        var an = i / NB * 6.2832 - 1.5708, r0 = 100 + e[0] * 4, r1 = r0 + 4 + PV.bv[i] * 34
+        var an = i / NB * 6.2832 - 1.5708, r0 = 66, r1 = r0 + 8 + PV.bv[i] * 64
         g.beginPath(); g.moveTo(cx + Math.cos(an) * r0, cy + Math.sin(an) * r0); g.lineTo(cx + Math.cos(an) * r1, cy + Math.sin(an) * r1); g.stroke()
       }
     }
@@ -759,10 +778,10 @@
   }
   function audioView() {
     var n = A.n || 1, grid = S.audView === "grid", d = D.names[n - 1]
-    var h = '<div id="aplr" class="aplayer pro card' + (AU.paused ? "" : " playing") + '"><div class="pcv"><canvas id="pcv"></canvas><div class="pdisc"><i class="plg"></i></div></div>' +
+    var h = U.audMini ? "" : '<div id="aplr" class="aplayer pro card' + (AU.paused ? "" : " playing") + '"><div class="pcv"><canvas id="pcv"></canvas><div class="pdisc"><i class="plg"></i></div></div>' +
       '<div class="ptitle"><div id="apt" class="pt1">' + n + ". " + esc(d.t) + '</div><div id="apa" class="apa">' + d.a + '</div></div>' +
       '<div class="pseek"><span id="ptc" class="ptm">0:00</span><div id="aseek" class="aseek"><i id="app_"></i></div><span id="ptd" class="ptm">0:00</span></div>' +
-      '<div class="pctl"><button data-act="audPrev" aria-label="prev">' + ic("skip_previous") + '</button><button id="apb" class="apb" data-act="audToggle" aria-label="play">' + ic(AU.paused ? "play_arrow" : "pause") + '</button><button data-act="audNext" aria-label="next">' + ic("skip_next") + "</button></div></div>"
+      '<div class="pctl"><button data-act="audPrev" aria-label="prev">' + ic("skip_previous") + '</button><button id="apb" class="apb" data-act="audToggle" aria-label="play">' + ic(AU.paused ? "play_arrow" : "pause") + '</button><button data-act="audNext" aria-label="next">' + ic("skip_next") + '</button><button class="pmin" data-act="audMin" aria-label="minimize">' + ic("expand_more") + "</button></div></div>"
     h += '<div class="audhead"><span>' + ic("graphic_eq") + " 99 · " + esc(tr("audio")) + '</span><div class="vseg"><button class="' + (grid ? "on" : "") + '" data-act="audView" data-v="grid" aria-label="grid">' + ic("apps") + '</button><button class="' + (grid ? "" : "on") + '" data-act="audView" data-v="list" aria-label="list">' + ic("lists") + "</button></div></div>"
     if (grid) {
       h += '<div class="grid3">'
@@ -856,9 +875,8 @@
     return h + "</div>"
   }
   function viewMedia() {
-    var h = '<h1>' + ic("movie") + " " + esc(tr("nav_media")) + '</h1><p class="sub">&nbsp;</p>' +
-      '<div class="seg"><button class="btn ' + (U.mode === "video" ? "success" : "") + '" data-act="mode" data-v="video">' + ic("movie") + " " + esc(tr("video")) + "</button>" +
-      '<button class="btn ' + (U.mode === "audio" ? "success" : "") + '" data-act="mode" data-v="audio">' + ic("music_note") + " " + esc(tr("audio")) + "</button></div>"
+    var h = '<div class="mhead"><h1>' + ic("movie") + " " + esc(tr("nav_media")) + '</h1><div class="vseg mseg"><button class="' + (U.mode === "video" ? "on" : "") + '" data-act="mode" data-v="video">' + ic("movie") + "<span>" + esc(tr("video")) + '</span></button>' +
+      '<button class="' + (U.mode === "audio" ? "on" : "") + '" data-act="mode" data-v="audio">' + ic("music_note") + "<span>" + esc(tr("audio")) + "</span></button></div></div>"
     return h + (U.mode === "video" ? videoView() : audioView())
   }
 
@@ -1425,6 +1443,7 @@
     meanFit()
     phStart(); nhStart(); mediaInit(); themeInit()
     nsUpdate()
+    miniSync()
     if (U.tab === "more" && U.more === "mode") startGlobe()
     renderNav()
     if (wheels.theme) updateThemeLabels()
@@ -1919,6 +1938,8 @@
     }
     else if (act === "mode") { U.mode = v; var vv = document.getElementById("vid"); if (vv) { V.t = vv.currentTime; vv.pause() } render() }
     else if (act === "aud") audPlay(parseInt(v, 10))
+    else if (act === "audMin") { U.audMini = true; render() }
+    else if (act === "audOpen") { U.audMini = false; U.detail = 0; U.tab = "media"; U.mode = "audio"; render() }
     else if (act === "audToggle") audPlay(A.n || 1)
     else if (act === "audPrev") audPlay(A.n <= 1 ? 99 : (A.n || 1) - 1)
     else if (act === "audNext") audPlay(A.n >= 99 ? 1 : (A.n || 0) + 1)
