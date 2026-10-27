@@ -764,3 +764,4 @@ html[data-gender="male"] .vw::after { border-radius: 6px; }
 .sgo:active { transform: translateY(-50%) scale(.92); }
 html[data-gender="male"] .nh-ic, html[data-gender="male"] .sgo { border-radius: 8px; }
 html[data-gender="male"] .nh-x b { text-transform: uppercase; }
+.ngrid:not(.open) + .moodtog { margin-top: -50px; position: relative; z-index: 2; }
