@@ -747,36 +747,44 @@
       function rgba(a) { return "rgba(" + c[0] + "," + c[1] + "," + c[2] + "," + a + ")" }
       g.setTransform(dpr * S2, 0, 0, dpr * S2, 0, 0)
       g.clearRect(0, 0, 300, 300)
-      // shisha ortidagi 5 ta nuqta (har biri o'z chastotasi bilan nafas oladi), tashqi doira ichida
+      // to'lqin radiusi: sukunatda doira chetiga yopishadi, musiqada kengayadi
+      var ea = (e[0] + e[1] + e[2] + e[3] + e[4]) / 5, RB = 71 + ea * 40
+      function wavePath(gx) {
+        gx.beginPath()
+        for (var q = 0; q <= 120; q++) {
+          var th = q / 120 * 6.2832, rv = RB
+          for (var k2 = 0; k2 < 5; k2++) rv += e[k2] * 7 * Math.sin((k2 + 2) * th + PV.t * (.7 + .25 * k2) * (k2 % 2 ? 1 : -1) + k2)
+          rv = Math.max(71, Math.min(112, rv))
+          var X = cx + Math.cos(th) * rv, Y = cy + Math.sin(th) * rv
+          if (q) gx.lineTo(X, Y); else gx.moveTo(X, Y)
+        }
+        gx.closePath()
+      }
+      // eng orqa fon: aylanib turuvchi 5 ta nur + xira to'lqin
       if (g0) {
         g0.setTransform(dpr * S2, 0, 0, dpr * S2, 0, 0); g0.clearRect(0, 0, 300, 300)
         for (i = 0; i < 5; i++) {
-          var a = -Math.PI / 2 + i * 2 * Math.PI / 5 + Math.sin(PV.t * .3 + i) * .25, px = cx + Math.cos(a) * 100, py = cy + Math.sin(a) * 100, rr = 28 + e[i] * 46
+          var a = i * 2 * Math.PI / 5 + PV.t * .45, px = cx + Math.cos(a) * (96 + e[i] * 10), py = cy + Math.sin(a) * (96 + e[i] * 10), rr = 26 + e[i] * 44
           var gr = g0.createRadialGradient(px, py, 0, px, py, rr)
-          gr.addColorStop(0, rgba(.3 + e[i] * .6)); gr.addColorStop(1, rgba(0))
+          gr.addColorStop(0, rgba(.34 + e[i] * .55)); gr.addColorStop(1, rgba(0))
           g0.fillStyle = gr; g0.beginPath(); g0.arc(px, py, rr, 0, 6.2832); g0.fill()
         }
+        wavePath(g0); g0.fillStyle = rgba(.28 + ea * .5); g0.fill()
       }
-      // suyuq halqa: 5 chastota = 5 ta to'lqin
-      var R1 = 80 + e[0] * 5
-      g.beginPath()
-      for (var q = 0; q <= 120; q++) {
-        var th = q / 120 * 6.2832, rv = R1
-        for (i = 0; i < 5; i++) rv += e[i] * 6 * Math.sin((i + 2) * th + PV.t * (.7 + .25 * i) * (i % 2 ? 1 : -1) + i)
-        rv = Math.max(76, Math.min(128, rv))
-        var X = cx + Math.cos(th) * rv, Y = cy + Math.sin(th) * rv
-        if (q) g.lineTo(X, Y); else g.moveTo(X, Y)
-      }
-      g.closePath(); g.fillStyle = rgba(.1 + e[1] * .1); g.fill(); g.strokeStyle = rgba(.9); g.lineWidth = 2.2; g.stroke()
-      // atrofdagi chiziqlar (spektr)
-      g.lineCap = "round"; g.lineWidth = 3; g.strokeStyle = rgba(.85)
+      // old qatlam: shishasimon to'lqin
+      wavePath(g)
+      var gg = g.createRadialGradient(cx, cy, 70, cx, cy, 116)
+      gg.addColorStop(0, "rgba(255,255,255,.34)"); gg.addColorStop(1, "rgba(255,255,255,.08)")
+      g.fillStyle = gg; g.fill(); g.strokeStyle = "rgba(255,255,255,.75)"; g.lineWidth = 1.8; g.stroke()
+      // nur chiziqlari (uzunligi chegaralangan)
+      g.lineCap = "round"; g.lineWidth = 3; g.strokeStyle = rgba(.95)
       for (i = 0; i < NB; i++) {
         var mm = Math.abs(i - NB / 2) / (NB / 2), v
         if (d) { var bi = Math.min(d.length - 1, 1 + Math.floor(Math.pow(mm, 1.25) * 70)); v = d[bi] / 255 * 1.25 }
         else { var fp = mm * 4, f0 = Math.floor(fp), f1 = Math.min(4, f0 + 1); v = (e[f0] + (e[f1] - e[f0]) * (fp - f0)) * (.75 + .25 * Math.sin(i * .9 + PV.t * 5)) }
         v = Math.min(1, Math.max(0, v))
         PV.bv[i] = (PV.bv[i] || 0) + (v - (PV.bv[i] || 0)) * (v > (PV.bv[i] || 0) ? .6 : .2)
-        var an = i / NB * 6.2832 - 1.5708, r0 = 74, r1 = Math.min(140, r0 + 6 + PV.bv[i] * 58)
+        var an = i / NB * 6.2832 - 1.5708, r0 = 74, r1 = Math.min(124, r0 + 3 + PV.bv[i] * 46)
         g.beginPath(); g.moveTo(cx + Math.cos(an) * r0, cy + Math.sin(an) * r0); g.lineTo(cx + Math.cos(an) * r1, cy + Math.sin(an) * r1); g.stroke()
       }
     }
