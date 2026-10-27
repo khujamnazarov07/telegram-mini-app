@@ -66,6 +66,7 @@
     settings: "Sozlamalar|Созламалар|Настройки|Settings|الإعدادات|Ayarlar|Pengaturan|设置|सेटिंग्स|Ajustes",
     tz_dev: "Qurilma vaqti|Қурилма вақти|Время устройства|Device time|وقت الجهاز|Cihaz saati|Waktu perangkat|设备时间|डिवाइस समय|Hora del dispositivo",
     tz_hint: "Kun va tun avtomatik almashishi uchun o'z shahringizni yoki davlatingizga yaqin shaharni tanlang. Tanlov faqat shu uchun, hech qanday ma'lumot yig'ilmaydi.|Кун ва тун автоматик алмашиши учун ўз шаҳрингизни ёки давлатингизга яқин шаҳарни танланг. Танлов фақат шу учун, ҳеч қандай маълумот йиғилмайди.|Чтобы день и ночь переключались автоматически, выберите свой город или ближайший к вашей стране. Выбор нужен только для этого, никакие данные не собираются.|To switch day and night automatically, pick your city or one near your country. The choice is used only for this; no data is collected.|لتبديل النهار والليل تلقائيًا، اختر مدينتك أو مدينة قريبة من بلدك. يُستخدم الاختيار لهذا فقط ولا تُجمع أي بيانات.|Gece ve gündüzün otomatik değişmesi için şehrinizi veya ülkenize yakın bir şehri seçin. Seçim yalnızca bunun için kullanılır, veri toplanmaz.|Agar siang dan malam berganti otomatis, pilih kota Anda atau yang dekat dengan negara Anda. Pilihan hanya untuk ini, tidak ada data yang dikumpulkan.|为了自动切换日夜，请选择您所在的城市或靠近您国家的城市。此选择仅用于此，不会收集任何数据。|दिन और रात अपने आप बदलने के लिए अपना शहर या अपने देश के पास का शहर चुनें। यह चुनाव केवल इसी के लिए है, कोई डेटा एकत्र नहीं होता।|Para cambiar automáticamente entre día y noche, elige tu ciudad o una cercana a tu país. La elección solo sirve para esto; no se recopilan datos.",
+    nh_sub: "{n} go'zal ism|{n} гўзал исм|{n} прекрасных имён|{n} beautiful names|{n} اسمًا حسنى|{n} güzel isim|{n} nama indah|{n}个尊名|{n} सुंदर नाम|{n} nombres hermosos",
     theme_t: "Mavzu|Мавзу|Тема|Theme|السمة|Tema|Tema|主题|थीम|Tema",
     th_auto: "Avtomatik|Автоматик|Автоматически|Automatic|تلقائي|Otomatik|Otomatis|自动|स्वचालित|Automático",
     th_male: "Erkaklar uchun|Эркаклар учун|Для мужчин|For men|للرجال|Erkekler için|Untuk pria|男士|पुरुषों के लिए|Para hombres",
@@ -291,13 +292,29 @@
     var FL = [["all", "format_list_numbered", "flt_all"], ["fav", "favorite", "favs"], ["note", "stylus_note", "flt_note"]]
     for (var fi = 0; fi < FL.length; fi++) fl += '<button class="fchip' + (U.nf === FL[fi][0] ? " on" : "") + '" data-act="nf" data-v="' + FL[fi][0] + '">' + ic(FL[fi][1]) + "<span>" + esc(tr(FL[fi][2])) + "</span></button>"
     fl += "</div>"
-    return '<div class="nhead"><div class="nh-t"><span class="nh-ic">' + ic("menu_book") + '</span><div class="nh-x"><b>' + esc(tr("nav_names")) + '</b><small>99</small></div></div>' +
+    return '<div class="nhead"><div class="nh-t"><span class="nh-ic">' + ic("menu_book") + '</span><div class="nh-x"><b>' + esc(tr("nav_names")) + '</b><small>' + esc(tr("nh_sub")).replace("{n}", '<i id="nhn" class="nhn">99</i>') + '</small></div></div>' +
       '<div id="sbox" class="sbox' + (U.q ? " has" : "") + '"><input id="q" class="search" type="search" autocomplete="off" aria-label="' + esc(tr("search")) + '" value="' + esc(U.q) + '">' +
       '<div id="ph" class="ph" aria-hidden="true"><span></span><span></span></div>' +
       '<button class="sgo" data-act="sgo" aria-label="' + esc(tr("search")) + '">' + ic("search") + "</button></div></div>" + fl +
       '<div id="ngrid" class="ngrid' + (open ? " open" : "") + '"><div id="grid">' + nameCards(filterNames()) + "</div></div>" +
       '<button id="ntog" class="btn block moodtog" data-act="namesToggle"' + (searching ? " hidden" : "") + ">" + ic(U.namesOpen ? "expand_less" : "expand_more") + " <span>" + esc(tr(U.namesOpen ? "mood_less" : "mood_all")) + "</span></button>" +
       '<button class="hikrow" data-act="hikmat"><span>' + esc(tr("hikmat")) + "</span>" + ic("chevron_right") + "</button>"
+  }
+  var nhRaf = 0
+  function nhStart() {
+    cancelAnimationFrame(nhRaf)
+    var el = document.getElementById("nhn")
+    if (!el || (window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches)) return
+    var t0 = 0, CT = 2400, HOLD = 2600
+    function step(ts) {
+      if (!document.getElementById("nhn")) return
+      nhRaf = requestAnimationFrame(step)
+      if (!t0) t0 = ts
+      var d = (ts - t0) % (CT + HOLD), v = 99
+      if (d < CT) { var p = d / CT; v = Math.max(1, Math.round(99 * (1 - Math.pow(1 - p, 2)))) }
+      if (el.textContent !== String(v)) el.textContent = v
+    }
+    nhRaf = requestAnimationFrame(step)
   }
   var phT = null
   function phStart() {
@@ -1282,7 +1299,7 @@
     initDigits()
     hgAttach()
     meanFit()
-    phStart(); mediaInit(); themeInit()
+    phStart(); nhStart(); mediaInit(); themeInit()
     nsUpdate()
     if (U.tab === "more" && U.more === "mode") startGlobe()
     renderNav()
