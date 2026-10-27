@@ -226,9 +226,12 @@
       '<button class="btn block' + (S.appLike ? " success" : "") + '" data-act="likeApp">' + (S.appLike ? "❤️" : "🤍") + " " + esc(tr("like_app")) + (g && g.likes ? " · " + g.likes : "") + "</button></div>"
   }
   function rateSync(send) {
-    var u = CFG.RATE_URL; if (!u || !window.fetch) return
-    var uid = (tg && tg.initDataUnsafe && tg.initDataUnsafe.user && tg.initDataUnsafe.user.id) || 0
-    var o = send ? { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ uid: uid, rate: S.rate || 0, like: S.appLike ? 1 : 0 }) } : {}
+    var u = CFG.RATE_URL || (CFG.STATS_URL ? CFG.STATS_URL.replace(/\/$/, "") + "/rating" : ""); if (!u || !window.fetch) return
+    var o = {}
+    if (send) {
+      if (!tg || !tg.initData) return
+      o = { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ initData: tg.initData, rate: S.rate || 0, like: S.appLike ? 1 : 0 }) }
+    }
     fetch(u, o).then(function (r) { return r.json() }).then(function (j) { U.rg = j; if (U.more === "about") render() }).catch(function () {})
   }
   function ic(name, cls) { return '<span class="msi' + (cls ? " " + cls : "") + '" aria-hidden="true">' + name + "</span>" }
@@ -288,9 +291,10 @@
     var FL = [["all", "format_list_numbered", "flt_all"], ["fav", "favorite", "favs"], ["note", "stylus_note", "flt_note"]]
     for (var fi = 0; fi < FL.length; fi++) fl += '<button class="fchip' + (U.nf === FL[fi][0] ? " on" : "") + '" data-act="nf" data-v="' + FL[fi][0] + '">' + ic(FL[fi][1]) + "<span>" + esc(tr(FL[fi][2])) + "</span></button>"
     fl += "</div>"
-    return '<h1>📖 ' + esc(tr("nav_names")) + '</h1><p class="sub">Asmo ul-Husna · 99</p>' +
+    return '<div class="nhead"><div class="nh-t"><span class="nh-ic">' + ic("menu_book") + '</span><div class="nh-x"><b>' + esc(tr("nav_names")) + '</b><small>99</small></div></div>' +
       '<div id="sbox" class="sbox' + (U.q ? " has" : "") + '"><input id="q" class="search" type="search" autocomplete="off" aria-label="' + esc(tr("search")) + '" value="' + esc(U.q) + '">' +
-      '<div id="ph" class="ph" aria-hidden="true"><span></span><span></span></div></div>' + fl +
+      '<div id="ph" class="ph" aria-hidden="true"><span></span><span></span></div>' +
+      '<button class="sgo" data-act="sgo" aria-label="' + esc(tr("search")) + '">' + ic("search") + "</button></div></div>" + fl +
       '<div id="ngrid" class="ngrid' + (open ? " open" : "") + '"><div id="grid">' + nameCards(filterNames()) + "</div></div>" +
       '<button id="ntog" class="btn block moodtog" data-act="namesToggle"' + (searching ? " hidden" : "") + ">" + ic(U.namesOpen ? "expand_less" : "expand_more") + " <span>" + esc(tr(U.namesOpen ? "mood_less" : "mood_all")) + "</span></button>" +
       '<button class="hikrow" data-act="hikmat"><span>' + esc(tr("hikmat")) + "</span>" + ic("chevron_right") + "</button>"
@@ -1845,6 +1849,7 @@
     else if (act === "setGender") { S.gender = v; save(); applyGender(); render() }
     else if (act === "tzDev") { S.tz = ""; save(); applyTheme(); render() }
     else if (act === "setMode") { S.theme = v; save(); applyTheme(); if (wheels.theme) wheels.theme.set(THEMES.indexOf(v), true); render() }
+    else if (act === "sgo") { var qq = document.getElementById("q"); if (qq) { qq.focus(); if (qq.value) qq.select() } }
     else if (act === "gtoggle") { if (S.gender === "female") S.fgon = !gOn(); else S.mgon = !gOn(); applyGender(); save(); var o3 = document.getElementById("themeOpts"); if (o3) o3.innerHTML = themeOpts() }
     else if (act === "gsol") { if (S.gender === "female") S.fsol = parseInt(v, 10); else S.msol = parseInt(v, 10); applyGender(); save(); var o4 = document.getElementById("themeOpts"); if (o4) o4.innerHTML = themeOpts() }
     else if (act === "fcolor") { S.fcolor = parseInt(v, 10); applyGender(); save(); var o1 = document.getElementById("themeOpts"); if (o1) o1.innerHTML = themeOpts() }
