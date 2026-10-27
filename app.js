@@ -300,6 +300,21 @@
       '<button id="ntog" class="btn block moodtog" data-act="namesToggle"' + (searching ? " hidden" : "") + ">" + ic(U.namesOpen ? "expand_less" : "expand_more") + " <span>" + esc(tr(U.namesOpen ? "mood_less" : "mood_all")) + "</span></button>" +
       '<button class="hikrow" data-act="hikmat"><span>' + esc(tr("hikmat")) + "</span>" + ic("chevron_right") + "</button>"
   }
+  // umumiy soat: 99 hisobi va header g'ildiraklari bir ritmda (barmoq tegsa to'xtaydi, qo'yilgach 3s dan keyin boshidan)
+  var CLK = { t: 0, cyc: 0, tc: 0, resume: 0, pend: false, last: 0 }
+  function clkTouch(on) {
+    if (on) { CLK.tc++; CLK.resume = 1e15; CLK.pend = true; if (wheels.lang) wheels.lang.spinEnd(); if (wheels.theme) wheels.theme.spinEnd() }
+    else { CLK.tc = Math.max(0, CLK.tc - 1); if (!CLK.tc) CLK.resume = performance.now() + 3000 }
+  }
+  function clkTick(ts) {
+    if (ts === CLK.last) return
+    var dt = Math.min(100, ts - (CLK.last || ts)); CLK.last = ts
+    if (CLK.tc > 0 || ts < CLK.resume) return false
+    if (CLK.pend) { CLK.pend = false; CLK.t = 0; CLK.cyc++ }
+    CLK.t += dt
+    if (CLK.t >= 7000) { CLK.t -= 7000; CLK.cyc++ }
+    return true
+  }
   var nhRaf = 0
   function nhStart() {
     cancelAnimationFrame(nhRaf)
@@ -309,7 +324,8 @@
     function step(ts) {
       if (!document.getElementById("nhn")) return
       nhRaf = requestAnimationFrame(step)
-      var d = ts % (CT + HOLD), v = 99
+      clkTick(ts)
+      var d = CLK.t, v = 99
       if (d < CT) { var p = d / CT; v = Math.max(1, Math.round(99 * (1 - Math.pow(1 - p, 2)))) }
       if (el.textContent !== String(v)) el.textContent = v
     }
@@ -1677,8 +1693,8 @@
       timer = setTimeout(commit, 130)
     })
     // barmoq ushlab turilganda tanlov o'zgarmaydi: faqat qo'yib yuborilgach
-    track.addEventListener("touchstart", function () { touching = true; clearTimeout(timer) }, { passive: true })
-    function tend() { touching = false; clearTimeout(timer); timer = setTimeout(commit, 180) }
+    track.addEventListener("touchstart", function () { touching = true; clearTimeout(timer); clkTouch(true) }, { passive: true })
+    function tend() { if (!touching) return; touching = false; clearTimeout(timer); timer = setTimeout(commit, 180); clkTouch(false) }
     track.addEventListener("touchend", tend, { passive: true })
     track.addEventListener("touchcancel", tend, { passive: true })
     // sichqoncha bilan sudrash (kompyuter)
@@ -1750,8 +1766,10 @@
     function hs(ts) {
       requestAnimationFrame(hs)
       if (reduced) return
-      var d = ts % 7000, dir = (Math.floor(ts / 7000) % 2) ? 1 : -1
       if (document.hidden) { if (spinning) { wheels.lang.spinEnd(); wheels.theme.spinEnd(); spinning = false } return }
+      clkTick(ts)
+      if (CLK.tc > 0 || ts < CLK.resume) { if (spinning) { wheels.lang.spinEnd(); wheels.theme.spinEnd(); spinning = false } return }
+      var d = CLK.t, dir = (CLK.cyc % 2) ? 1 : -1
       if (d < 2400) {
         var f = 1 - Math.pow(1 - d / 2400, 2)
         wheels.lang.spin(f, dir); wheels.theme.spin(f, dir); spinning = true
