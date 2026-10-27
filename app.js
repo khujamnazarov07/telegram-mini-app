@@ -256,7 +256,7 @@
       var d = D.names[n - 1]
       h += '<button class="name-card" data-act="open" data-v="' + n + '"><span class="num">' + n + "</span>" +
         (S.favs[n] ? '<span class="fav">' + ic("favorite", "fill") + '</span>' : "") +
-        (S.notes[n] ? '<span class="fav nt' + (S.favs[n] ? " two" : "") + '">' + ic("stylus_note") + '</span>' : "") +
+        (S.notes[n] ? '<span class="fav nt' + (S.favs[n] ? " two" : "") + '">' + ic("bookmark") + '</span>' : "") +
         '<div class="ar">' + d.a + '</div><div class="tr">' + esc(d.t) + "</div></button>"
     }
     return h + "</div>"
@@ -289,7 +289,7 @@
   function viewNames() {
     var searching = !!U.q.trim() || U.nf !== "all", open = U.namesOpen || searching
     var fl = '<div class="flt">'
-    var FL = [["all", "format_list_numbered", "flt_all"], ["fav", "favorite", "favs"], ["note", "stylus_note", "flt_note"]]
+    var FL = [["all", "format_list_numbered", "flt_all"], ["fav", "favorite", "favs"], ["note", "bookmark", "flt_note"]]
     for (var fi = 0; fi < FL.length; fi++) fl += '<button class="fchip' + (U.nf === FL[fi][0] ? " on" : "") + '" data-act="nf" data-v="' + FL[fi][0] + '">' + ic(FL[fi][1]) + "<span>" + esc(tr(FL[fi][2])) + "</span></button>"
     fl += "</div>"
     return '<div class="nhead"><div class="nh-t"><span class="nh-ic">' + ic("menu_book") + '</span><div class="nh-x"><b>' + esc(tr("nav_names")) + '</b><small>' + esc(tr("nh_sub")).replace("{n}", '<i id="nhn" class="nhn">99</i>') + '</small></div></div>' +
@@ -305,7 +305,7 @@
     cancelAnimationFrame(nhRaf)
     var el = document.getElementById("nhn")
     if (!el || (window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches)) return
-    var t0 = 0, CT = 2400, HOLD = 2600
+    var t0 = 0, CT = 2400, HOLD = 4600
     function step(ts) {
       if (!document.getElementById("nhn")) return
       nhRaf = requestAnimationFrame(step)
