@@ -748,3 +748,19 @@ html[data-glass="on"] .vw::after {
 }
 html[data-gender="male"][data-glass="on"] .vw::after { border-radius: 6px; transform: skewX(-8deg); }
 html[data-gender="male"] .vw::after { border-radius: 6px; }
+
+/* Ismlar sarlavhasi + qidiruv bir qatorda */
+.nhead { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+.nhead .sbox { flex: 1; min-width: 0; margin: 0; }
+.nh-t { display: flex; align-items: center; gap: 8px; flex: none; }
+.nh-ic { width: 40px; height: 40px; border-radius: 13px; display: grid; place-items: center; color: var(--accent-text, #fff); background: linear-gradient(135deg, var(--accent), color-mix(in srgb, var(--accent) 55%, #fff)); box-shadow: 0 6px 14px color-mix(in srgb, var(--accent) 35%, transparent), inset 0 1px 0 rgba(255, 255, 255, .5); }
+.nh-ic .msi { font-size: 24px; }
+.nh-x { display: flex; flex-direction: column; line-height: 1.1; }
+.nh-x b { font-size: 19px; font-weight: 800; letter-spacing: .01em; background: linear-gradient(90deg, var(--text), var(--accent)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.nh-x small { font-size: 11px; font-weight: 700; color: var(--hint); letter-spacing: .12em; margin-top: 2px; }
+.sbox .search { padding-inline-end: 48px; }
+.sgo { position: absolute; inset-inline-end: 5px; top: 50%; transform: translateY(-50%); width: 36px; height: 36px; border-radius: 11px; border: 0; display: grid; place-items: center; color: var(--accent-text, #fff); background: var(--accent); box-shadow: 0 4px 10px color-mix(in srgb, var(--accent) 35%, transparent); }
+.sgo .msi { font-size: 22px; }
+.sgo:active { transform: translateY(-50%) scale(.92); }
+html[data-gender="male"] .nh-ic, html[data-gender="male"] .sgo { border-radius: 8px; }
+html[data-gender="male"] .nh-x b { text-transform: uppercase; }
