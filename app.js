@@ -311,7 +311,7 @@
     cancelAnimationFrame(nhRaf)
     var el = document.getElementById("nhn")
     if (!el || (window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches)) return
-    var CT = 2400, HOLD = 4600
+    var CT = 3000, HOLD = 7000
     function step(ts) {
       if (!document.getElementById("nhn")) return
       nhRaf = requestAnimationFrame(step)
@@ -657,15 +657,19 @@
     var ar = document.getElementById("apa"); if (ar) ar.textContent = d.a
     var p = document.getElementById("app_"), dur = AU.duration || 0
     if (p) p.style.width = dur ? Math.min(100, AU.currentTime * 100 / dur) + "%" : "0%"
-    var c = document.getElementById("apc"); if (c) c.textContent = fmtT(AU.currentTime) + " / " + fmtT(dur)
+    var c1 = document.getElementById("ptc"); if (c1) c1.textContent = fmtT(AU.currentTime)
+    var c2 = document.getElementById("ptd"); if (c2) c2.textContent = fmtT(dur)
+    var pl = document.getElementById("aplr"); if (pl) pl.classList.toggle("playing", !AU.paused)
     var cur = document.querySelectorAll("[data-act=aud].cur"), i
     for (i = 0; i < cur.length; i++) cur[i].classList.remove("cur", "play")
     var now = document.querySelector("[data-act=aud][data-v='" + A.n + "']")
     if (now) { now.classList.add("cur"); if (!AU.paused) now.classList.add("play") }
   }
   function audPlay(n) {
+    if (PV.ctx && PV.ctx.state === "suspended") { try { PV.ctx.resume() } catch (e) {} }
     if (A.n === n) { if (AU.paused) { var r = AU.play(); if (r && r.catch) r.catch(function () {}) } else AU.pause(); audUi(); return }
     A.n = n; AU.src = audioUrl(n)
+    pvHook()
     var r2 = AU.play(); if (r2 && r2.catch) r2.catch(function () {})
     audUi()
     var row = document.querySelector("[data-act=aud][data-v='" + n + "']")
@@ -674,12 +678,92 @@
   ;["timeupdate", "play", "pause", "loadedmetadata", "durationchange"].forEach(function (e) { AU.addEventListener(e, audUi) })
   AU.addEventListener("ended", function () { audPlay(A.n >= 99 ? 1 : A.n + 1) })
   AU.addEventListener("error", function () { if (A.n) toast(tr("no_audio")) })
+  // ---------- Jonli vizual (ovoz tahlili: WebAudio; bo'lmasa taqlid)
+  var PV = { ctx: null, an: null, data: null, hooked: false, fail: false, e: [0, 0, 0, 0, 0], bv: [], t: 0, raf: 0, col: [217, 98, 140], cc: 0, idle: false }
+  function pvHook() {
+    if (PV.hooked || PV.fail) return
+    try {
+      var AC = window.AudioContext || window.webkitAudioContext
+      if (!AC || location.origin === "null") { PV.fail = true; return }
+      var u = new URL(AU.src || "", location.href)
+      if (u.origin !== location.origin) { PV.fail = true; return }
+      PV.ctx = new AC()
+      var src = PV.ctx.createMediaElementSource(AU)
+      PV.an = PV.ctx.createAnalyser(); PV.an.fftSize = 256; PV.an.smoothingTimeConstant = .72
+      src.connect(PV.an); PV.an.connect(PV.ctx.destination)
+      PV.data = new Uint8Array(PV.an.frequencyBinCount); PV.hooked = true
+      if (PV.ctx.state === "suspended") PV.ctx.resume()
+    } catch (e) { PV.fail = true }
+  }
+  function pvStart() {
+    cancelAnimationFrame(PV.raf)
+    var cv = document.getElementById("pcv")
+    if (!cv || !cv.getContext) return
+    var W = cv.clientWidth || 300, dpr = Math.min(2, window.devicePixelRatio || 1), last = 0
+    cv.width = W * dpr; cv.height = W * dpr
+    var g = cv.getContext("2d"), NB = 64
+    PV.idle = false
+    function frame(ts) {
+      if (document.getElementById("pcv") !== cv) return
+      PV.raf = requestAnimationFrame(frame)
+      if (document.hidden || ts - last < 30) return
+      var dt = last ? Math.min(.1, (ts - last) / 1000) : .03; last = ts; PV.t += dt
+      if (!PV.cc--) { PV.cc = 40; var m = /(\d+)\D+(\d+)\D+(\d+)/.exec(getComputedStyle(cv).color); if (m) PV.col = [+m[1], +m[2], +m[3]] }
+      var playing = !AU.paused && !AU.ended, e = PV.e, tg = [0, 0, 0, 0, 0], i, d = null
+      if (playing) {
+        if (PV.hooked && PV.ctx.state === "running") {
+          PV.an.getByteFrequencyData(PV.data); d = PV.data
+          var R = [[0, 2], [3, 6], [7, 14], [15, 35], [36, 90]]
+          for (i = 0; i < 5; i++) { var sm = 0, cn = 0; for (var k = R[i][0]; k <= R[i][1] && k < d.length; k++) { sm += d[k]; cn++ } tg[i] = Math.min(1, Math.pow(sm / cn / 255, 1.1) * 1.55) }
+        } else {
+          for (i = 0; i < 5; i++) tg[i] = .3 + .32 * Math.abs(Math.sin(PV.t * (1.3 + .41 * i) + i * 1.9)) * (.65 + .35 * Math.sin(PV.t * .7 + i))
+        }
+      }
+      var still = true
+      for (i = 0; i < 5; i++) { e[i] += (tg[i] - e[i]) * (tg[i] > e[i] ? .5 : .1); if (e[i] > .01) still = false }
+      if (still && !playing) { if (PV.idle) return; PV.idle = true } else PV.idle = false
+      var S2 = W / 300, c = PV.col, cx = 150, cy = 150
+      function rgba(a) { return "rgba(" + c[0] + "," + c[1] + "," + c[2] + "," + a + ")" }
+      g.setTransform(dpr * S2, 0, 0, dpr * S2, 0, 0)
+      g.clearRect(0, 0, 300, 300)
+      // orqadagi 5 ta nuqta (har biri o'z chastotasi bilan nafas oladi)
+      for (i = 0; i < 5; i++) {
+        var a = -Math.PI / 2 + i * 2 * Math.PI / 5 + Math.sin(PV.t * .3 + i) * .25, px = cx + Math.cos(a) * 62, py = cy + Math.sin(a) * 62, rr = 38 + e[i] * 70
+        var gr = g.createRadialGradient(px, py, 0, px, py, rr)
+        gr.addColorStop(0, rgba(.16 + e[i] * .42)); gr.addColorStop(1, rgba(0))
+        g.fillStyle = gr; g.beginPath(); g.arc(px, py, rr, 0, 6.2832); g.fill()
+      }
+      // suyuq halqa: 5 chastota = 5 ta to'lqin
+      var R1 = 88 + e[0] * 5
+      g.beginPath()
+      for (var q = 0; q <= 120; q++) {
+        var th = q / 120 * 6.2832, rv = R1
+        for (i = 0; i < 5; i++) rv += e[i] * 9 * Math.sin((i + 2) * th + PV.t * (.7 + .25 * i) * (i % 2 ? 1 : -1) + i)
+        var X = cx + Math.cos(th) * rv, Y = cy + Math.sin(th) * rv
+        if (q) g.lineTo(X, Y); else g.moveTo(X, Y)
+      }
+      g.closePath(); g.fillStyle = rgba(.1 + e[1] * .1); g.fill(); g.strokeStyle = rgba(.9); g.lineWidth = 2.2; g.stroke()
+      // atrofdagi chiziqlar (spektr)
+      g.lineCap = "round"; g.lineWidth = 3; g.strokeStyle = rgba(.85)
+      for (i = 0; i < NB; i++) {
+        var mm = Math.abs(i - NB / 2) / (NB / 2), v
+        if (d) { var bi = Math.min(d.length - 1, 1 + Math.floor(Math.pow(mm, 1.25) * 70)); v = d[bi] / 255 * 1.25 }
+        else { var fp = mm * 4, f0 = Math.floor(fp), f1 = Math.min(4, f0 + 1); v = (e[f0] + (e[f1] - e[f0]) * (fp - f0)) * (.75 + .25 * Math.sin(i * .9 + PV.t * 5)) }
+        v = Math.min(1, Math.max(0, v))
+        PV.bv[i] = (PV.bv[i] || 0) + (v - (PV.bv[i] || 0)) * (v > (PV.bv[i] || 0) ? .6 : .2)
+        var an = i / NB * 6.2832 - 1.5708, r0 = 100 + e[0] * 4, r1 = r0 + 4 + PV.bv[i] * 34
+        g.beginPath(); g.moveTo(cx + Math.cos(an) * r0, cy + Math.sin(an) * r0); g.lineTo(cx + Math.cos(an) * r1, cy + Math.sin(an) * r1); g.stroke()
+      }
+    }
+    PV.raf = requestAnimationFrame(frame)
+  }
   function audioView() {
     var n = A.n || 1, grid = S.audView === "grid", d = D.names[n - 1]
-    var h = '<div class="aplayer card"><button id="apb" class="apb" data-act="audToggle">' + ic(AU.paused ? "play_arrow" : "pause") + "</button>" +
-      '<div class="ainfo"><div class="arow1"><span id="apt">' + n + ". " + esc(d.t) + '</span><span id="apa" class="apa">' + d.a + '</span></div><div id="aseek" class="aseek"><i id="app_"></i></div><div id="apc" class="apc">0:00 / 0:00</div></div>' +
-      '<div class="actl"><button data-act="audPrev" aria-label="prev">' + ic("skip_previous") + '</button><button data-act="audNext" aria-label="next">' + ic("skip_next") + "</button></div></div>"
-    h += '<div class="audhead"><span>' + ic("graphic_eq") + " 99 · " + esc(tr("audio")) + '</span><button class="vtg" data-act="audView" aria-label="view">' + ic(grid ? "view_list" : "grid_view") + "</button></div>"
+    var h = '<div id="aplr" class="aplayer pro card' + (AU.paused ? "" : " playing") + '"><div class="pcv"><canvas id="pcv"></canvas><div class="pdisc"><i class="plg"></i></div></div>' +
+      '<div class="ptitle"><div id="apt" class="pt1">' + n + ". " + esc(d.t) + '</div><div id="apa" class="apa">' + d.a + '</div></div>' +
+      '<div class="pseek"><span id="ptc" class="ptm">0:00</span><div id="aseek" class="aseek"><i id="app_"></i></div><span id="ptd" class="ptm">0:00</span></div>' +
+      '<div class="pctl"><button data-act="audPrev" aria-label="prev">' + ic("skip_previous") + '</button><button id="apb" class="apb" data-act="audToggle" aria-label="play">' + ic(AU.paused ? "play_arrow" : "pause") + '</button><button data-act="audNext" aria-label="next">' + ic("skip_next") + "</button></div></div>"
+    h += '<div class="audhead"><span>' + ic("graphic_eq") + " 99 · " + esc(tr("audio")) + '</span><div class="vseg"><button class="' + (grid ? "on" : "") + '" data-act="audView" data-v="grid" aria-label="grid">' + ic("apps") + '</button><button class="' + (grid ? "" : "on") + '" data-act="audView" data-v="list" aria-label="list">' + ic("lists") + "</button></div></div>"
     if (grid) {
       h += '<div class="grid3">'
       for (var i = 1; i <= 99; i++) h += '<button class="name-card' + (i === A.n ? " cur" + (AU.paused ? "" : " play") : "") + '" data-act="aud" data-v="' + i + '"><span class="num">' + i + '</span><div class="ar">' + D.names[i - 1].a + '</div><div class="tr">' + esc(D.names[i - 1].t) + "</div></button>"
@@ -739,7 +823,7 @@
   }
   function mediaInit() {
     var vid = document.getElementById("vid")
-    if (!vid) { if (V.timer) { clearInterval(V.timer); V.timer = 0 } audUi(); return }
+    if (!vid) { if (V.timer) { clearInterval(V.timer); V.timer = 0 } audUi(); pvStart(); return }
     var v = vList()[V.i]; if (!v) return
     V.cur = V.q === "auto" ? vAuto(v) : (v.src[V.q] ? +V.q : vAuto(v))
     vid.preload = "auto"; vid.src = v.src[V.cur]; if (v.poster) vid.poster = v.poster
@@ -1510,9 +1594,9 @@
   ]
   var MALES = [
     { a: "#e5202f", a2: "#a30f1b", a3: "#ff4b58", h: 210, t: "#fff" },
-    { a: "#d4a437", a2: "#8f6a14", a3: "#f2cf77", h: 252, t: "#1a1300" },
+    { a: "#0f9f6e", a2: "#06694a", a3: "#34d399", h: 0, t: "#fff" },
     { a: "#3b7bff", a2: "#1f4fc4", a3: "#7aa6ff", h: 70, t: "#fff" },
-    { a: "#8b5cf6", a2: "#5b34c4", a3: "#b79bff", h: 115, t: "#fff" }
+    { a: "#f26a1b", a2: "#b8430a", a3: "#ff9a52", h: 225, t: "#fff" }
   ]
   var SOLF = [["#fbeef1", "#ffffff", "#2a1a22", "#38262f"], ["#fdf1e8", "#fffaf5", "#2b1d17", "#3a2a22"], ["#f2eefa", "#fbf9ff", "#241d33", "#30284a"], ["#eaf5ef", "#f8fffb", "#16251f", "#21332b"], ["#f6efe4", "#fffdf8", "#27221a", "#362f24"], ["#eaf1f8", "#f9fcff", "#18222d", "#233241"]]
   var SOLM = [["#f2f2f3", "#ffffff", "#0c0c0e", "#151518"], ["#eef2f8", "#ffffff", "#0a1020", "#121a2e"], ["#eef4ef", "#ffffff", "#0a140f", "#122019"], ["#f6eef0", "#ffffff", "#150a0d", "#21121a"], ["#eef0f3", "#ffffff", "#101317", "#1a1f26"], ["#f4efe9", "#ffffff", "#14100c", "#201a14"], ["#f2eff8", "#ffffff", "#110d1c", "#1b1530"]]
@@ -1785,17 +1869,17 @@
     wheels.theme = makeWheel("wTheme", themeLabels, Math.max(0, THEMES.indexOf(S.theme)), function (i) {
       S.theme = THEMES[i]; save(); applyTheme()
     })
-    // 99 hisobi bilan bir xil ritm: 2.4s aylanish + 4.6s kutish, har safar qarama-qarshi tomonga
+    // 99 hisobi bilan bir xil ritm: 3s aylanish + 7s kutish, har safar qarama-qarshi tomonga
     var reduced = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches
     var spinning = false
     function hs(ts) {
       requestAnimationFrame(hs)
       if (reduced) return
-      var cs = Math.floor(ts / 7000) * 7000, d = ts - cs, dir = (Math.floor(ts / 7000) % 2) ? 1 : -1
+      var cs = Math.floor(ts / 10000) * 10000, d = ts - cs, dir = (Math.floor(ts / 10000) % 2) ? 1 : -1
       // barmoq tegsa to'xtaydi; qo'yilgach 3s o'tib, keyingi 99 hisobi boshlanishida birga davom etadi
       var ok = !document.hidden && CLK.tc === 0 && cs >= CLK.block
-      if (ok && d < 2400) {
-        var f = 1 - Math.pow(1 - d / 2400, 2)
+      if (ok && d < 3000) {
+        var f = 1 - Math.pow(1 - d / 3000, 2)
         wheels.lang.spin(f, dir); wheels.theme.spin(f, dir); spinning = true
       } else if (spinning) { wheels.lang.spinEnd(); wheels.theme.spinEnd(); spinning = false }
     }
@@ -1838,7 +1922,7 @@
     else if (act === "audToggle") audPlay(A.n || 1)
     else if (act === "audPrev") audPlay(A.n <= 1 ? 99 : (A.n || 1) - 1)
     else if (act === "audNext") audPlay(A.n >= 99 ? 1 : (A.n || 0) + 1)
-    else if (act === "audView") { S.audView = S.audView === "grid" ? "list" : "grid"; save(); render() }
+    else if (act === "audView") { S.audView = v === "list" ? "list" : "grid"; save(); render() }
     else if (act === "vsel") { V.i = parseInt(v, 10); V.t = 0; V.stalls = []; render(); var v2 = document.getElementById("vid"); if (v2) { var pr = v2.play(); if (pr && pr.catch) pr.catch(function () {}) } }
     else if (act === "vplay") { var v3 = document.getElementById("vid"); if (v3) { if (v3.paused) { var p3 = v3.play(); if (p3 && p3.catch) p3.catch(function () {}) } else v3.pause() } }
     else if (act === "vq") { var m = document.getElementById("vmenu"); if (m) m.hidden = !m.hidden }
