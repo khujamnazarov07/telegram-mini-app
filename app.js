@@ -224,7 +224,7 @@
     for (var i = 1; i <= 5; i++) mine += '<button class="star' + (i <= my ? " on" : "") + '" data-act="rateApp" data-v="' + i + '">' + ic("star") + "</button>"
     return '<div class="rate"><div class="rrow"><span>' + esc(tr("rate_all")) + '</span><b>' + (g && g.count ? "★ " + (+g.avg).toFixed(1) + " · " + g.count : "—") + '</b></div>' +
       '<div class="rrow"><span>' + esc(tr("rate_my")) + '</span><span class="stars">' + mine + '</span></div>' +
-      '<button class="btn block' + (S.appLike ? " success" : "") + '" data-act="likeApp">' + (S.appLike ? "❤️" : "🤍") + " " + esc(tr("like_app")) + (g && g.likes ? " · " + g.likes : "") + "</button></div>"
+      '<button class="btn block' + (S.appLike ? " success" : "") + '" data-act="likeApp">' + ic("favorite", S.appLike ? "fill" : "") + " " + esc(tr("like_app")) + (g && g.likes ? " · " + g.likes : "") + "</button></div>"
   }
   function rateSync(send) {
     var u = CFG.RATE_URL || (CFG.STATS_URL ? CFG.STATS_URL.replace(/\/$/, "") + "/rating" : ""); if (!u || !window.fetch) return
@@ -935,7 +935,7 @@
   // kayfiyat -> [ikonka, rang guruhi]
   var MOODIC = {
     "001": ["sentiment_very_satisfied", "pos"], "002": ["mood", "pos"], "004": ["sentiment_satisfied", "pos"], "005": ["emoji_events", "pos"],
-    "010": ["spa", "calm"], "011": ["self_improvement", "calm"], "012": ["volunteer_activism", "pos"], "013": ["auto_awesome", "pos"],
+    "010": ["eco", "calm"], "011": ["nightlight", "calm"], "012": ["volunteer_activism", "pos"], "013": ["auto_awesome", "pos"],
     "017": ["favorite", "love"], "019": ["thumb_up", "pos"], "021": ["wb_twilight", "calm"], "025": ["air", "calm"],
     "026": ["sentiment_neutral", "neu"], "027": ["balance", "neu"], "030": ["bedtime", "neu"], "031": ["battery_alert", "neu"],
     "033": ["hourglass_empty", "neu"], "034": ["help", "neu"], "035": ["psychology", "neu"], "038": ["trending_down", "sad"],
@@ -1460,8 +1460,8 @@
       return l + "</div>"
     }
     if (U.more === "about") {
-      return '<button class="btn small back" data-act="moreBack">' + ic("arrow_back") + " " + esc(tr("back")) + "</button><h1>" + ic("info") + " " + esc(tr("about")) + '</h1><div class="card stack"><p>✨ ' + esc(tr("about_text")) + '</p><p class="sub">🔖 Mini App ' + CFG.VERSION + "</p>" + aboutRate() +
-        '<button class="btn primary block" data-act="openBot">🤖 ' + esc(tr("open_bot")) + '</button><button class="btn block" data-act="openChannel">📢 ' + esc(tr("open_channel")) + "</button></div>"
+      return '<button class="btn small back" data-act="moreBack">' + ic("arrow_back") + " " + esc(tr("back")) + "</button><h1>" + ic("info") + " " + esc(tr("about")) + '</h1><div class="card stack"><p>' + ic("auto_awesome", "ab") + " " + esc(tr("about_text")) + '</p><p class="sub">' + ic("bookmark", "ab") + " Mini App " + CFG.VERSION + "</p>" + aboutRate() +
+        '<button class="btn primary block" data-act="openBot">' + ic("smart_toy") + " " + esc(tr("open_bot")) + '</button><button class="btn block" data-act="openChannel">' + ic("campaign") + " " + esc(tr("open_channel")) + "</button></div>"
     }
     return '<h1>' + ic("auto_awesome") + " " + esc(tr("nav_more")) + '</h1><p class="sub">&nbsp;</p><div class="list">' +
       '<button data-act="more" data-v="settings">' + ic("settings") + " " + esc(tr("settings")) + "</button>" +
