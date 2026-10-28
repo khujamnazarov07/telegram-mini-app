@@ -406,18 +406,24 @@
   // Audio fayllar ro'yxati GitHub'dagi audio papkasidan avtomatik olinadi (ism tartibi fayl nomidagi raqamdan)
   var AUDMAP = null
   function audBuild(files) {
-    var nums = [], map = {}, i, f, m
+    var items = [], map = {}, has = {}, i, k, m
     files = files.filter(function (x) { return /\.(mp3|m4a|ogg|wav)$/i.test(x) })
-    for (i = 0; i < files.length; i++) { m = /^\s*(\d+)/.exec(files[i]); nums[i] = m ? parseInt(m[1], 10) : -1 }
-    var has = {}, numbered = 0
-    for (i = 0; i < nums.length; i++) if (nums[i] >= 0) { has[nums[i]] = 1; numbered++ }
-    if (numbered < files.length / 2) {
+    for (i = 0; i < files.length; i++) {
+      m = /^\s*(\d+)(?:\s*[-\u2013\u2014]\s*(\d+))?/.exec(files[i])
+      if (!m) continue
+      var lo = parseInt(m[1], 10), hi = m[2] ? parseInt(m[2], 10) : lo
+      if (hi < lo || hi - lo > 5) hi = lo
+      items[items.length] = [lo, hi, files[i]]
+      for (k = lo; k <= hi; k++) has[k] = 1
+    }
+    if (items.length < files.length / 2) {
       files.sort()
       for (i = 0; i < files.length && i < 99; i++) map[i + 1] = files[i]
       return map
     }
-    var off = (has[100] || (!has[1] && has[2])) ? 1 : 0
-    for (i = 0; i < files.length; i++) if (nums[i] - off >= 1 && nums[i] - off <= 99) map[nums[i] - off] = files[i]
+    // 1-raqamli fayl "Alloh" (umumiy ism) bo'lsa, ism raqami = fayl raqami - 1; "25-26" kabi fayl ikki ismga xizmat qiladi
+    var off = (has[100] || (!has[1] && has[2]) || (has[1] && has[99] && !has[0] && items.length >= 99)) ? 1 : 0
+    for (i = 0; i < items.length; i++) for (k = items[i][0]; k <= items[i][1]; k++) if (k - off >= 1 && k - off <= 99) map[k - off] = items[i][2]
     return map
   }
   function audInit() {
@@ -653,8 +659,9 @@
   function audUi() {
     var n = A.n || 1, d = D.names[n - 1]
     var b = document.getElementById("apb"); if (b) b.innerHTML = ic(AU.paused ? "play_arrow" : "pause")
-    var t = document.getElementById("apt"); if (t) t.textContent = n + ". " + d.t
-    var ar = document.getElementById("apa"); if (ar) ar.textContent = d.a
+    var lb = audLbl(n)
+    var t = document.getElementById("apt"); if (t) t.textContent = lb.num + ". " + lb.t
+    var ar = document.getElementById("apa"); if (ar) ar.textContent = lb.a
     var p = document.getElementById("app_"), dur = AU.duration || 0
     if (p) p.style.width = dur ? Math.min(100, AU.currentTime * 100 / dur) + "%" : "0%"
     var c1 = document.getElementById("ptc"); if (c1) c1.textContent = fmtT(AU.currentTime)
@@ -663,14 +670,14 @@
     var mn = document.getElementById("mini")
     if (mn && !mn.hidden) {
       mn.classList.toggle("playing", !AU.paused)
-      var q1 = document.getElementById("mpt"); if (q1) q1.textContent = n + ". " + d.t
-      var q2 = document.getElementById("mpa"); if (q2) q2.textContent = d.a
+      var q1 = document.getElementById("mpt"); if (q1) q1.textContent = lb.num + ". " + lb.t
+      var q2 = document.getElementById("mpa"); if (q2) q2.textContent = lb.a
       var q3 = document.getElementById("mpb"); if (q3) q3.innerHTML = ic(AU.paused ? "play_arrow" : "pause")
       var q4 = document.getElementById("mpu"); if (q4) q4.style.width = dur ? Math.min(100, AU.currentTime * 100 / dur) + "%" : "0%"
     }
     var cur = document.querySelectorAll("[data-act=aud].cur"), i
     for (i = 0; i < cur.length; i++) cur[i].classList.remove("cur", "play")
-    var now = document.querySelector("[data-act=aud][data-v='" + A.n + "']")
+    var now = document.querySelector("[data-act=aud][data-v='" + audStart(A.n || 1) + "']")
     if (now) { now.classList.add("cur"); if (!AU.paused) now.classList.add("play") }
   }
   function miniSync() {
@@ -679,10 +686,23 @@
     if (!want) { if (m) m.hidden = true; return }
     var n = A.n || 1, d = D.names[n - 1]
     if (!m) { m = document.createElement("div"); m.id = "mini"; m.className = "mini"; m.setAttribute("data-act", "audOpen"); document.body.appendChild(m) }
-    m.innerHTML = '<div class="mdisc"><i class="plg"></i></div><div class="mtx"><b id="mpt">' + n + ". " + esc(d.t) + '</b><span id="mpa" class="apa">' + d.a + '</span></div>' +
+    m.innerHTML = '<div class="mdisc"><i class="plg"></i></div><div class="mtx"><b id="mpt">' + audLbl(n).num + ". " + esc(audLbl(n).t) + '</b><span id="mpa" class="apa">' + audLbl(n).a + '</span></div>' +
       '<button data-act="audPrev" aria-label="prev">' + ic("skip_previous") + '</button><button id="mpb" class="mpb" data-act="audToggle" aria-label="play">' + ic(AU.paused ? "play_arrow" : "pause") + '</button><button data-act="audNext" aria-label="next">' + ic("skip_next") + '</button><i class="mpr"><u id="mpu"></u></i>'
     m.hidden = false; m.classList.toggle("playing", !AU.paused)
     audUi()
+  }
+  // bitta fayl bir necha ismga xizmat qilsa (24-25), ular birga ko'rsatiladi
+  function audStart(n) { var u = audioUrl(n); while (n > 1 && audioUrl(n - 1) === u) n--; return n }
+  function audEnd(n) { var u = audioUrl(n); while (n < 99 && audioUrl(n + 1) === u) n++; return n }
+  function audLbl(n) {
+    var s = audStart(n), e = audEnd(n), a = D.names[s - 1], b = D.names[e - 1]
+    if (s === e) return { num: String(s), t: a.t, a: a.a, s: s, e: e }
+    return { num: s + "\u2013" + e, t: a.t + " \u00b7 " + b.t, a: a.a + " \u00b7 " + b.a, s: s, e: e }
+  }
+  function audStep(dir) {
+    var cur = A.n || (dir > 0 ? 0 : 1), n = cur, u = cur ? audioUrl(cur) : "", c = 0
+    do { n += dir; if (n > 99) n = 1; if (n < 1) n = 99; c++ } while (c < 99 && u && audioUrl(n) === u)
+    audPlay(n)
   }
   function audPlay(n) {
     if (PV.ctx && PV.ctx.state === "suspended") { try { PV.ctx.resume() } catch (e) {} }
@@ -695,7 +715,7 @@
     if (row && row.scrollIntoView && U.tab === "media") { /* ro'yxat o'zi turadi */ }
   }
   ;["timeupdate", "play", "pause", "loadedmetadata", "durationchange"].forEach(function (e) { AU.addEventListener(e, audUi) })
-  AU.addEventListener("ended", function () { audPlay(A.n >= 99 ? 1 : A.n + 1) })
+  AU.addEventListener("ended", function () { audStep(1) })
   AU.addEventListener("error", function () { if (A.n) toast(tr("no_audio")) })
   // ---------- Jonli vizual (ovoz tahlili: WebAudio; bo'lmasa taqlid)
   var PV = { ctx: null, an: null, data: null, hooked: false, fail: false, e: [0, 0, 0, 0, 0], bv: [], t: 0, raf: 0, col: [217, 98, 140], cc: 0, idle: false }
@@ -804,17 +824,23 @@
   function audioView() {
     var n = A.n || 1, grid = S.audView === "grid", d = D.names[n - 1]
     var h = U.audMini ? "" : '<div id="aplr" class="aplayer pro card' + (AU.paused ? "" : " playing") + '"><div class="pcv"><canvas id="pcv0"></canvas><canvas id="pcv"></canvas><canvas id="pcw"></canvas><div class="pdisc"><i class="plg"></i></div></div>' +
-      '<div class="ptitle"><div id="apt" class="pt1">' + n + ". " + esc(d.t) + '</div><div id="apa" class="apa">' + d.a + '</div></div>' +
+      '<div class="ptitle"><div id="apt" class="pt1">' + audLbl(n).num + ". " + esc(audLbl(n).t) + '</div><div id="apa" class="apa">' + audLbl(n).a + '</div></div>' +
       '<div class="pseek"><span id="ptc" class="ptm">0:00</span><div id="aseek" class="aseek"><i id="app_"></i></div><span id="ptd" class="ptm">0:00</span></div>' +
       '<div class="pctl"><button data-act="audPrev" aria-label="prev">' + ic("skip_previous") + '</button><button id="apb" class="apb" data-act="audToggle" aria-label="play">' + ic(AU.paused ? "play_arrow" : "pause") + '</button><button data-act="audNext" aria-label="next">' + ic("skip_next") + '</button><button class="pmin" data-act="audMin" aria-label="minimize">' + ic("expand_more") + "</button></div></div>"
     h += '<div class="audhead"><span>' + ic("graphic_eq") + " 99 · " + esc(tr("audio")) + '</span><div class="vseg"><button class="' + (grid ? "on" : "") + '" data-act="audView" data-v="grid" aria-label="grid">' + ic("apps") + '</button><button class="' + (grid ? "" : "on") + '" data-act="audView" data-v="list" aria-label="list">' + ic("lists") + "</button></div></div>"
     if (grid) {
       h += '<div class="grid3">'
-      for (var i = 1; i <= 99; i++) h += '<button class="name-card' + (i === A.n ? " cur" + (AU.paused ? "" : " play") : "") + '" data-act="aud" data-v="' + i + '"><span class="num">' + i + '</span><div class="ar">' + D.names[i - 1].a + '</div><div class="tr">' + esc(D.names[i - 1].t) + "</div></button>"
+      for (var i = 1; i <= 99; i = audEnd(i) + 1) {
+        var lg = audLbl(i), cu = A.n && audStart(A.n) === i
+        h += '<button class="name-card' + (cu ? " cur" + (AU.paused ? "" : " play") : "") + '" data-act="aud" data-v="' + i + '"><span class="num">' + lg.num + '</span><div class="ar">' + lg.a + '</div><div class="tr">' + esc(lg.t) + "</div></button>"
+      }
       return h + "</div>"
     }
     h += '<div class="alist">'
-    for (var j = 1; j <= 99; j++) h += '<button class="arow' + (j === A.n ? " cur" + (AU.paused ? "" : " play") : "") + '" data-act="aud" data-v="' + j + '"><span class="an">' + j + '</span><span class="at">' + esc(D.names[j - 1].t) + '</span><span class="aa">' + D.names[j - 1].a + "</span>" + ic("graphic_eq", "eq") + "</button>"
+    for (var jj = 1; jj <= 99; jj = audEnd(jj) + 1) {
+      var lj = audLbl(jj), cj = A.n && audStart(A.n) === jj
+      h += '<button class="arow' + (cj ? " cur" + (AU.paused ? "" : " play") : "") + '" data-act="aud" data-v="' + jj + '"><span class="an">' + lj.num + '</span><span class="at">' + esc(lj.t) + '</span><span class="aa">' + lj.a + "</span>" + ic("graphic_eq", "eq") + "</button>"
+    }
     return h + "</div>"
   }
   // ---------- VIDEO (YouTube kabi: avto sifat, sahifa ichida)
@@ -1966,8 +1992,8 @@
     else if (act === "audMin") { U.audMini = true; render() }
     else if (act === "audOpen") { U.audMini = false; U.detail = 0; U.tab = "media"; U.mode = "audio"; render() }
     else if (act === "audToggle") audPlay(A.n || 1)
-    else if (act === "audPrev") audPlay(A.n <= 1 ? 99 : (A.n || 1) - 1)
-    else if (act === "audNext") audPlay(A.n >= 99 ? 1 : (A.n || 0) + 1)
+    else if (act === "audPrev") audStep(-1)
+    else if (act === "audNext") audStep(1)
     else if (act === "audView") { S.audView = v === "list" ? "list" : "grid"; save(); render() }
     else if (act === "vsel") { V.i = parseInt(v, 10); V.t = 0; V.stalls = []; render(); var v2 = document.getElementById("vid"); if (v2) { var pr = v2.play(); if (pr && pr.catch) pr.catch(function () {}) } }
     else if (act === "vplay") { var v3 = document.getElementById("vid"); if (v3) { if (v3.paused) { var p3 = v3.play(); if (p3 && p3.catch) p3.catch(function () {}) } else v3.pause() } }
