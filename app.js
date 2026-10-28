@@ -723,6 +723,8 @@
     var cv0 = document.getElementById("pcv0"), g0 = cv0 ? cv0.getContext("2d") : null
     if (cv0) { cv0.width = W * dpr; cv0.height = W * dpr }
     var g = cv.getContext("2d"), NB = 64
+    var cw = document.getElementById("pcw"), gw = cw ? cw.getContext("2d") : null
+    if (cw) { cw.width = W * dpr; cw.height = W * dpr }
     PV.idle = false
     function frame(ts) {
       if (document.getElementById("pcv") !== cv) return
@@ -748,51 +750,60 @@
       g.setTransform(dpr * S2, 0, 0, dpr * S2, 0, 0)
       g.clearRect(0, 0, 300, 300)
       // to'lqin radiusi: sukunatda doira chetiga yopishadi, musiqada kengayadi
-      var ea = (e[0] + e[1] + e[2] + e[3] + e[4]) / 5, RB = 71 + ea * 40
-      function wavePath(gx) {
-        gx.beginPath()
-        for (var q = 0; q <= 120; q++) {
-          var th = q / 120 * 6.2832, rv = RB
-          for (var k2 = 0; k2 < 5; k2++) rv += e[k2] * 7 * Math.sin((k2 + 2) * th + PV.t * (.7 + .25 * k2) * (k2 % 2 ? 1 : -1) + k2)
-          rv = Math.max(71, Math.min(112, rv))
-          var X = cx + Math.cos(th) * rv, Y = cy + Math.sin(th) * rv
-          if (q) gx.lineTo(X, Y); else gx.moveTo(X, Y)
-        }
-        gx.closePath()
+      var ea = (e[0] + e[1] + e[2] + e[3] + e[4]) / 5, RB = 71 + ea * 40, pts = []
+      for (var q = 0; q <= 120; q++) {
+        var th = q / 120 * 6.2832, rv = RB
+        for (var k2 = 0; k2 < 5; k2++) rv += e[k2] * 7 * Math.sin((k2 + 2) * th + PV.t * (.7 + .25 * k2) * (k2 % 2 ? 1 : -1) + k2)
+        rv = Math.max(71, Math.min(112, rv))
+        pts[q] = [cx + Math.cos(th) * rv, cy + Math.sin(th) * rv]
       }
-      // eng orqa fon: aylanib turuvchi 5 ta nur + xira to'lqin
+      // eng orqa fon: 5 ta yumaloq nur erkin suzib yuradi
       if (g0) {
         g0.setTransform(dpr * S2, 0, 0, dpr * S2, 0, 0); g0.clearRect(0, 0, 300, 300)
         for (i = 0; i < 5; i++) {
-          var a = i * 2 * Math.PI / 5 + PV.t * .45, px = cx + Math.cos(a) * (96 + e[i] * 10), py = cy + Math.sin(a) * (96 + e[i] * 10), rr = 26 + e[i] * 44
+          var px = cx + 100 * Math.sin(PV.t * (.17 + .05 * i) + i * 1.7) * Math.cos(PV.t * .09 + i), py = cy + 100 * Math.cos(PV.t * (.13 + .043 * i) + i * 2.3) * Math.sin(PV.t * .07 + i * .8 + 1), rr = 30 + e[i] * 46
           var gr = g0.createRadialGradient(px, py, 0, px, py, rr)
-          gr.addColorStop(0, rgba(.34 + e[i] * .55)); gr.addColorStop(1, rgba(0))
+          gr.addColorStop(0, rgba(.36 + e[i] * .55)); gr.addColorStop(1, rgba(0))
           g0.fillStyle = gr; g0.beginPath(); g0.arc(px, py, rr, 0, 6.2832); g0.fill()
         }
-        wavePath(g0); g0.fillStyle = rgba(.28 + ea * .5); g0.fill()
       }
-      // old qatlam: shishasimon to'lqin
-      wavePath(g)
-      var gg = g.createRadialGradient(cx, cy, 70, cx, cy, 116)
-      gg.addColorStop(0, "rgba(255,255,255,.34)"); gg.addColorStop(1, "rgba(255,255,255,.08)")
-      g.fillStyle = gg; g.fill(); g.strokeStyle = "rgba(255,255,255,.75)"; g.lineWidth = 1.8; g.stroke()
-      // nur chiziqlari (uzunligi chegaralangan)
-      g.lineCap = "round"; g.lineWidth = 3; g.strokeStyle = rgba(.95)
+      // nur chiziqlari (pastki qatlam, uzunligi chegaralangan)
+      var segs = []
+      g.lineCap = "round"; g.lineWidth = 3.2; g.strokeStyle = rgba(.98)
       for (i = 0; i < NB; i++) {
         var mm = Math.abs(i - NB / 2) / (NB / 2), v
         if (d) { var bi = Math.min(d.length - 1, 1 + Math.floor(Math.pow(mm, 1.25) * 70)); v = d[bi] / 255 * 1.25 }
         else { var fp = mm * 4, f0 = Math.floor(fp), f1 = Math.min(4, f0 + 1); v = (e[f0] + (e[f1] - e[f0]) * (fp - f0)) * (.75 + .25 * Math.sin(i * .9 + PV.t * 5)) }
         v = Math.min(1, Math.max(0, v))
         PV.bv[i] = (PV.bv[i] || 0) + (v - (PV.bv[i] || 0)) * (v > (PV.bv[i] || 0) ? .6 : .2)
-        var an = i / NB * 6.2832 - 1.5708, r0 = 74, r1 = Math.min(124, r0 + 3 + PV.bv[i] * 46)
-        g.beginPath(); g.moveTo(cx + Math.cos(an) * r0, cy + Math.sin(an) * r0); g.lineTo(cx + Math.cos(an) * r1, cy + Math.sin(an) * r1); g.stroke()
+        var an = i / NB * 6.2832 - 1.5708, r0 = 74, r1 = Math.min(128, r0 + 4 + PV.bv[i] * 52)
+        segs[i] = [cx + Math.cos(an) * r0, cy + Math.sin(an) * r0, cx + Math.cos(an) * r1, cy + Math.sin(an) * r1]
+        g.beginPath(); g.moveTo(segs[i][0], segs[i][1]); g.lineTo(segs[i][2], segs[i][3]); g.stroke()
+      }
+      // chiziqlar ustida: to'lqin ichida chiziqlar xira (yumshoq) ko'rinadi + shisha qoplama
+      g.save(); g.beginPath()
+      for (var z = 0; z < pts.length; z++) { if (z) g.lineTo(pts[z][0], pts[z][1]); else g.moveTo(pts[z][0], pts[z][1]) }
+      g.closePath(); g.clip(); g.clearRect(0, 0, 300, 300)
+      var pass = [[13, .1], [8, .16], [4.5, .3]]
+      for (var ps = 0; ps < pass.length; ps++) {
+        g.lineWidth = pass[ps][0]; g.strokeStyle = rgba(pass[ps][1])
+        for (i = 0; i < NB; i++) { g.beginPath(); g.moveTo(segs[i][0], segs[i][1]); g.lineTo(segs[i][2], segs[i][3]); g.stroke() }
+      }
+      var gg = g.createRadialGradient(cx, cy, 70, cx, cy, 116)
+      gg.addColorStop(0, "rgba(255,255,255,.3)"); gg.addColorStop(1, "rgba(255,255,255,.07)")
+      g.fillStyle = gg; g.fillRect(0, 0, 300, 300)
+      g.restore()
+      if (gw) {
+        gw.setTransform(dpr * S2, 0, 0, dpr * S2, 0, 0); gw.clearRect(0, 0, 300, 300)
+        gw.beginPath(); for (var z2 = 0; z2 < pts.length; z2++) { if (z2) gw.lineTo(pts[z2][0], pts[z2][1]); else gw.moveTo(pts[z2][0], pts[z2][1]) }
+        gw.closePath(); gw.strokeStyle = "rgba(255,255,255,.8)"; gw.lineWidth = 1.8; gw.stroke()
       }
     }
     PV.raf = requestAnimationFrame(frame)
   }
   function audioView() {
     var n = A.n || 1, grid = S.audView === "grid", d = D.names[n - 1]
-    var h = U.audMini ? "" : '<div id="aplr" class="aplayer pro card' + (AU.paused ? "" : " playing") + '"><div class="pcv"><canvas id="pcv0"></canvas><div class="pglass"></div><canvas id="pcv"></canvas><div class="pdisc"><i class="plg"></i></div></div>' +
+    var h = U.audMini ? "" : '<div id="aplr" class="aplayer pro card' + (AU.paused ? "" : " playing") + '"><div class="pcv"><canvas id="pcv0"></canvas><canvas id="pcv"></canvas><canvas id="pcw"></canvas><div class="pdisc"><i class="plg"></i></div></div>' +
       '<div class="ptitle"><div id="apt" class="pt1">' + n + ". " + esc(d.t) + '</div><div id="apa" class="apa">' + d.a + '</div></div>' +
       '<div class="pseek"><span id="ptc" class="ptm">0:00</span><div id="aseek" class="aseek"><i id="app_"></i></div><span id="ptd" class="ptm">0:00</span></div>' +
       '<div class="pctl"><button data-act="audPrev" aria-label="prev">' + ic("skip_previous") + '</button><button id="apb" class="apb" data-act="audToggle" aria-label="play">' + ic(AU.paused ? "play_arrow" : "pause") + '</button><button data-act="audNext" aria-label="next">' + ic("skip_next") + '</button><button class="pmin" data-act="audMin" aria-label="minimize">' + ic("expand_more") + "</button></div></div>"
