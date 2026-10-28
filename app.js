@@ -59,6 +59,7 @@
     share: "Ulashish|Улашиш|Поделиться|Share|مشاركة|Paylaş|Bagikan|分享|शेयर करें|Compartir",
     another: "Yana|Яна|Ещё|Another|آخر|Başka|Lainnya|换一条|और|Otra",
     lang: "Til|Тил|Язык|Language|اللغة|Dil|Bahasa|语言|भाषा|Idioma",
+    remind: "Botdan eslatmalar|Ботдан эслатмалар|Напоминания от бота|Bot reminders|تذكيرات البوت|Bot hatırlatmaları|Pengingat bot|机器人提醒|बॉट रिमाइंडर|Recordatorios del bot",
     about: "Haqida|Ҳақида|О приложении|About|حول|Hakkında|Tentang|关于|के बारे में|Acerca de",
     rate_all: "Umumiy reyting|Умумий рейтинг|Общий рейтинг|Overall rating|التقييم العام|Genel puan|Rating umum|总评分|कुल रेटिंग|Valoración general",
     rate_my: "Sizning bahoyingiz|Сизнинг баҳойингиз|Ваша оценка|Your rating|تقييمك|Puanınız|Penilaian Anda|您的评分|आपकी रेटिंग|Tu valoración",
@@ -139,6 +140,7 @@
     try { window.localStorage.setItem(KEY, raw) } catch (e) {}
     clearTimeout(cloudTimer)
     cloudTimer = setTimeout(cloudWrite, 800)
+    syncPrefs()
   }
   // Telegram bulutidan o'qish: boshqa qurilmadagi yangiroq ma'lumot bo'lsa, almashtiriladi
   function cloudRead() {
@@ -1465,6 +1467,7 @@
     }
     return '<h1>' + ic("auto_awesome") + " " + esc(tr("nav_more")) + '</h1><p class="sub">&nbsp;</p><div class="list">' +
       '<button data-act="more" data-v="settings">' + ic("settings") + " " + esc(tr("settings")) + "</button>" +
+      '<button data-act="remind">' + ic(S.remind === false ? "notifications_off" : "notifications", S.remind === false ? "" : "fill") + " " + esc(tr("remind")) + " · " + (S.remind === false ? "OFF" : "ON") + "</button>" +
       '<button data-act="more" data-v="about">' + ic("info") + " " + esc(tr("about")) + "</button></div>"
   }
 
@@ -2076,6 +2079,7 @@
     }
     else if (act === "spoil") el.classList.toggle("show")
     else if (act === "rateApp") { S.rate = +v; save(); rateSync(true); render() }
+    else if (act === "remind") { S.remind = S.remind === false; save(); render() }
     else if (act === "likeApp") { S.appLike = !S.appLike; save(); rateSync(true); render() }
     else if (act === "more") { U.more = v; if (v === "about") rateSync(false); if (v === "quote") U.quoteIdx = -1; render() }
     else if (act === "quoteNext") {
@@ -2260,6 +2264,20 @@
   render()
   window.__asmoReady = true
   var lastHit = 0
+  var spT = 0, spLast = ""
+  function syncPrefs() {
+    var u = CFG.STATS_URL
+    if (!u || !tg || !tg.initData || !window.fetch) return
+    clearTimeout(spT)
+    spT = setTimeout(function () {
+      var ds = S.daily || {}
+      var p = { initData: tg.initData, lang: S.lang || "uz", tz: -new Date().getTimezoneOffset(), remind: S.remind === false ? 0 : 1, mode: ds.mode || "", done: ds.todayDone ? 1 : 0, owed: ds.owedDays || 0, date: ds.lastCheckedDate || "" }
+      var k = JSON.stringify([p.lang, p.tz, p.remind, p.mode, p.done, p.owed, p.date])
+      if (k === spLast) return
+      spLast = k
+      try { fetch(u.replace(/\/$/, "") + "/sync", { method: "POST", body: JSON.stringify(p), keepalive: true }).catch(function () { spLast = "" }) } catch (e) {}
+    }, 3000)
+  }
   function track() {
     var u = CFG.STATS_URL
     if (!u || !tg || !tg.initData || !window.fetch || Date.now() - lastHit < 1800000) return
@@ -2267,6 +2285,7 @@
     try { fetch(u.replace(/\/$/, "") + "/hit", { method: "POST", body: tg.initData, keepalive: true }).catch(function () {}) } catch (e) {}
   }
   track()
+  syncPrefs()
   document.addEventListener("visibilitychange", function () { if (!document.hidden) track() })
   initHeader()
   cloudRead()
