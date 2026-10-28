@@ -60,6 +60,9 @@
     another: "Yana|Яна|Ещё|Another|آخر|Başka|Lainnya|换一条|और|Otra",
     lang: "Til|Тил|Язык|Language|اللغة|Dil|Bahasa|语言|भाषा|Idioma",
     remind: "Botdan eslatmalar|Ботдан эслатмалар|Напоминания от бота|Bot reminders|تذكيرات البوت|Bot hatırlatmaları|Pengingat bot|机器人提醒|बॉट रिमाइंडर|Recordatorios del bot",
+    rm_daily: "Kunlik eslatma|Кунлик эслатма|Ежедневное напоминание|Daily reminder|تذكير يومي|Günlük hatırlatma|Pengingat harian|每日提醒|दैनिक रिमाइंडर|Recordatorio diario",
+    rm_due: "Salavot eslatmasi|Салавот эслатмаси|Напоминание о салавате|Salawat reminder|تذكير الصلاة|Salavat hatırlatması|Pengingat salawat|赞圣提醒|सलावात रिमाइंडर|Recordatorio de salawat",
+    rm_owed: "Qarz haqida ogohlantirish|Қарз ҳақида огоҳлантириш|Предупреждение о долге|Overdue warning|تنبيه التأخير|Borç uyarısı|Peringatan utang|欠款提醒|बकाया चेतावनी|Aviso de atraso",
     about: "Haqida|Ҳақида|О приложении|About|حول|Hakkında|Tentang|关于|के बारे में|Acerca de",
     rate_all: "Umumiy reyting|Умумий рейтинг|Общий рейтинг|Overall rating|التقييم العام|Genel puan|Rating umum|总评分|कुल रेटिंग|Valoración general",
     rate_my: "Sizning bahoyingiz|Сизнинг баҳойингиз|Ваша оценка|Your rating|تقييمك|Puanınız|Penilaian Anda|您的评分|आपकी रेटिंग|Tu valoración",
@@ -1454,7 +1457,19 @@
       return '<button class="btn small back" data-act="moreBack">' + ic("arrow_back") + " " + esc(tr("back")) + "</button><h1>" + ic("settings") + " " + esc(tr("settings")) + '</h1><p class="sub">&nbsp;</p><div class="list">' +
         '<button data-act="more" data-v="mode">' + ic("contrast") + " " + esc(tr("mode_t")) + " · " + esc(tr("th_" + S.theme)) + "</button>" +
         '<button data-act="more" data-v="theme">' + ic("palette") + " " + esc(tr("theme_t")) + " · " + esc(tr(cg)) + "</button>" +
-        '<button data-act="more" data-v="lang">' + ic("translate") + " " + esc(tr("lang")) + " · " + LANG_NAMES[S.lang] + "</button></div>"
+        '<button data-act="more" data-v="lang">' + ic("translate") + " " + esc(tr("lang")) + " · " + LANG_NAMES[S.lang] + "</button>" +
+        '<button data-act="more" data-v="remind">' + ic(S.remind === false ? "notifications_off" : "notifications") + " " + esc(tr("remind")) + " · " + (S.remind === false ? "OFF" : "ON") + "</button></div>"
+    }
+    if (U.more === "remind") {
+      var rp = rmGet(), on0 = S.remind !== false
+      function rrow(lbl, key, hk) {
+        var sel = ""
+        if (hk) { sel = '<select class="rsel" data-rm="' + hk + '">'; for (var q = 0; q < 24; q++) sel += '<option value="' + q + '"' + (rp[hk] === q ? " selected" : "") + ">" + ("0" + q).slice(-2) + ":00</option>"; sel += "</select>" }
+        return '<div class="topt"><div class="tl"><span>' + esc(tr(lbl)) + "</span>" + sel + '<button class="tgl' + (rp[key] ? " on" : "") + '" data-act="rmt" data-v="' + key + '" aria-label="' + key + '"><i></i></button></div></div>'
+      }
+      return '<button class="btn small back" data-act="moreBack">' + ic("arrow_back") + " " + esc(tr("back")) + "</button><h1>" + ic("notifications") + " " + esc(tr("remind")) + '</h1><p class="sub">&nbsp;</p><div class="card stack">' +
+        '<div class="topt"><div class="tl"><span><b>' + esc(tr("remind")) + '</b></span><button class="tgl' + (on0 ? " on" : "") + '" data-act="rmt" data-v="all" aria-label="all"><i></i></button></div></div>' +
+        (on0 ? rrow("rm_daily", "d", "dh") + rrow("rm_due", "s", "sh") + rrow("rm_owed", "o", "") : "") + "</div>"
     }
     if (U.more === "lang") {
       var l = '<button class="btn small back" data-act="moreBack">' + ic("arrow_back") + " " + esc(tr("back")) + "</button><h1>" + ic("translate") + " " + esc(tr("lang")) + '</h1><div class="grid3" style="grid-template-columns:1fr 1fr">'
@@ -1467,7 +1482,6 @@
     }
     return '<h1>' + ic("auto_awesome") + " " + esc(tr("nav_more")) + '</h1><p class="sub">&nbsp;</p><div class="list">' +
       '<button data-act="more" data-v="settings">' + ic("settings") + " " + esc(tr("settings")) + "</button>" +
-      '<button data-act="remind">' + ic(S.remind === false ? "notifications_off" : "notifications", S.remind === false ? "" : "fill") + " " + esc(tr("remind")) + " · " + (S.remind === false ? "OFF" : "ON") + "</button>" +
       '<button data-act="more" data-v="about">' + ic("info") + " " + esc(tr("about")) + "</button></div>"
   }
 
@@ -2079,7 +2093,7 @@
     }
     else if (act === "spoil") el.classList.toggle("show")
     else if (act === "rateApp") { S.rate = +v; save(); rateSync(true); render() }
-    else if (act === "remind") { S.remind = S.remind === false; save(); render() }
+    else if (act === "rmt") { if (v === "all") S.remind = S.remind === false; else { var rq = rmGet(); rq[v] = rq[v] ? 0 : 1; S.rm = rq } save(); render() }
     else if (act === "likeApp") { S.appLike = !S.appLike; save(); rateSync(true); render() }
     else if (act === "more") { U.more = v; if (v === "about") rateSync(false); if (v === "quote") U.quoteIdx = -1; render() }
     else if (act === "quoteNext") {
@@ -2264,6 +2278,14 @@
   render()
   window.__asmoReady = true
   var lastHit = 0
+  function rmGet() {
+    var o = S.rm || {}
+    return { d: o.d === 0 ? 0 : 1, dh: typeof o.dh === "number" ? o.dh : 9, s: o.s === 0 ? 0 : 1, sh: typeof o.sh === "number" ? o.sh : 20, o: o.o === 0 ? 0 : 1 }
+  }
+  document.addEventListener("change", function (ev) {
+    var t = ev.target
+    if (t && t.getAttribute && t.getAttribute("data-rm")) { var q = rmGet(); q[t.getAttribute("data-rm")] = parseInt(t.value, 10) || 0; S.rm = q; save() }
+  })
   var spT = 0, spLast = ""
   function syncPrefs() {
     var u = CFG.STATS_URL
@@ -2271,8 +2293,8 @@
     clearTimeout(spT)
     spT = setTimeout(function () {
       var ds = S.daily || {}
-      var p = { initData: tg.initData, lang: S.lang || "uz", tz: -new Date().getTimezoneOffset(), remind: S.remind === false ? 0 : 1, mode: ds.mode || "", done: ds.todayDone ? 1 : 0, owed: ds.owedDays || 0, date: ds.lastCheckedDate || "" }
-      var k = JSON.stringify([p.lang, p.tz, p.remind, p.mode, p.done, p.owed, p.date])
+      var p = { initData: tg.initData, lang: S.lang || "uz", tz: -new Date().getTimezoneOffset(), remind: S.remind === false ? 0 : 1, mode: ds.mode || "", done: ds.todayDone ? 1 : 0, owed: ds.owedDays || 0, date: ds.lastCheckedDate || "", rm: rmGet() }
+      var k = JSON.stringify([p.lang, p.tz, p.remind, p.mode, p.done, p.owed, p.date, p.rm])
       if (k === spLast) return
       spLast = k
       try { fetch(u.replace(/\/$/, "") + "/sync", { method: "POST", body: JSON.stringify(p), keepalive: true }).catch(function () { spLast = "" }) } catch (e) {}
