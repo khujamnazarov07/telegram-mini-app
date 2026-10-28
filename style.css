@@ -298,8 +298,8 @@ html::-webkit-scrollbar, body::-webkit-scrollbar { display: none; }
 #nsb { position: fixed; right: 0; width: 30px; z-index: 5; display: none; touch-action: none; }
 #nsb .th { position: absolute; right: 4px; width: 5px; border-radius: 6px; background: var(--accent); opacity: .4; transition: width .15s, opacity .15s, right .15s; }
 #nsb.on .th { opacity: .75; }
-#nsb.drag .th { width: 9px; right: 3px; opacity: 1; box-shadow: 0 0 10px rgba(47, 158, 119, .55); }
-#nsb .bub { position: absolute; right: 62px; width: 38px; height: 38px; border-radius: 50%; display: grid; place-items: center; background: var(--accent); color: #fff; font-weight: 800; font-size: 14px; box-shadow: 0 4px 14px rgba(47, 158, 119, .45); opacity: 0; transform: scale(.5); transform-origin: right center; transition: opacity .15s, transform .15s; pointer-events: none; }
+#nsb.drag .th { width: 9px; right: 3px; opacity: 1; box-shadow: 0 0 10px color-mix(in srgb, var(--accent) 55%, transparent); }
+#nsb .bub { position: absolute; right: 62px; width: 38px; height: 38px; border-radius: 50%; display: grid; place-items: center; background: var(--accent); color: #fff; font-weight: 800; font-size: 14px; box-shadow: 0 4px 14px color-mix(in srgb, var(--accent) 45%, transparent); opacity: 0; transform: scale(.5); transform-origin: right center; transition: opacity .15s, transform .15s; pointer-events: none; }
 #nsb.on .bub { opacity: 1; transform: scale(1); }
 body.indetail #app { min-height: calc(100vh - 60px); min-height: calc(100dvh - 60px); touch-action: pan-y; }
 /* ---- Kunlik maqsad: soat uslubidagi raqamlar ---- */
@@ -851,3 +851,12 @@ html[data-gender="male"] .mseg button span:not(.msi) { text-transform: uppercase
 .pcv #pcw { z-index: 3; filter: drop-shadow(0 0 5px color-mix(in srgb, var(--accent) 55%, transparent)); }
 .pdisc { z-index: 4; }
 .pwv { display: none; }
+
+/* oldingi sahifa kirib kelayotganda orqadagi eski sahifa shisha orqali ko'rinmasin */
+:root { --solidbg: var(--bg); }
+html[data-gender="female"][data-theme="light"] { --solidbg: var(--fb2, #f3d5dc); }
+html[data-gender="female"][data-theme="dark"] { --solidbg: var(--fd2, #2a1a22); }
+html[data-gender="male"][data-theme="light"] { --solidbg: #f2f2f3; }
+html[data-gender="male"][data-theme="dark"] { --solidbg: #0c0c0e; }
+.slide.in-back::before { content: ""; position: absolute; inset: -8px -6px; z-index: -1; border-radius: 26px; background: var(--solidbg); pointer-events: none; animation: backFill .46s linear forwards; }
+@keyframes backFill { 0%, 80% { opacity: 1; } 100% { opacity: 0; } }

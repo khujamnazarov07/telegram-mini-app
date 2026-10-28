@@ -554,7 +554,7 @@
   // keyingi (dir>0, chapga surish) / oldingi (dir<0, o'ngga surish) ism
   var navBusy = false
   function navDetail(dir) {
-    if (navBusy || !U.detail) return
+    if (!U.detail) return
     var el = document.getElementById("slide"), ghost = null
     if (el) {
       ghost = el.cloneNode(true)
@@ -564,8 +564,6 @@
       ghost.style.transform = el.style.transform || "none"
       ghost.style.opacity = el.style.opacity || "1"
     }
-    navBusy = true
-    setTimeout(function () { navBusy = false }, 320)
     U.detail = nextN(U.detail, dir); U.dir = dir > 0 ? "next" : "back"; U.dpanel = ""; U.mexp = false
     if (ghost && dir < 0) { ghost.className = "slide ghost under"; ghost.style.transform = "none"; ghost.style.opacity = "1" }
     render()
@@ -596,14 +594,14 @@
   var sw = null, swipedAt = 0, lastTap = 0
   document.addEventListener("pointerdown", function (e) {
     var el = U.detail && e.target.closest && e.target.closest("#app") && !e.target.closest("textarea, audio, input") ? document.getElementById("slide") : null
-    if (!el || navBusy) { sw = null; return }
+    if (!el) { sw = null; return }
     sw = { x: e.clientX, y: e.clientY, dx: 0, t: Date.now(), drag: false, el: el }
   })
   document.addEventListener("pointermove", function (e) {
     if (!sw) return
     var dx = e.clientX - sw.x, dy = e.clientY - sw.y
     if (!sw.drag) {
-      if (Math.abs(dx) > 10 && Math.abs(dx) > Math.abs(dy) * 1.2) { sw.drag = true; sw.el.style.transition = "none"; try { sw.el.setPointerCapture(e.pointerId) } catch (x) {} }
+      if (Math.abs(dx) > 10 && Math.abs(dx) > Math.abs(dy) * 1.2) { sw.drag = true; sw.el.style.transition = "none"; sw.el.style.animation = "none"; try { sw.el.setPointerCapture(e.pointerId) } catch (x) {} }
       else if (Math.abs(dy) > 12) { sw = null; return }
     }
     if (sw && sw.drag) {
@@ -2260,6 +2258,7 @@
   audInit()
   applyTheme()
   render()
+  window.__asmoReady = true
   var lastHit = 0
   function track() {
     var u = CFG.STATS_URL
