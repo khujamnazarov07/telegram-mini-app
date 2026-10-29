@@ -2286,15 +2286,22 @@
     var hs = document.querySelectorAll(".hw")
     for (var c = 0; c < hs.length; c++) {
       ;(function (col) {
-        var track = col.firstChild, key = col.getAttribute("data-rm"), IH = 36, N = 24, h = '<div class="dg-pad"></div>'
+        var track = col.firstChild, key = col.getAttribute("data-rm"), IH = 20, N = 24, h = '<div class="dg-pad"></div>'
         for (var k = 0; k < 3; k++) for (var d = 0; d < N; d++) h += '<div class="dg-i">' + ("0" + d).slice(-2) + ":00</div>"
         track.innerHTML = h + '<div class="dg-pad"></div>'
-        var timer = null, last = parseInt(col.getAttribute("data-h"), 10) || 0
+        var timer = null, user = false, want = parseInt(col.getAttribute("data-h"), 10) || 0, last = want
         function at() { return ((Math.round(track.scrollTop / IH) % N) + N) % N }
         function jump(d) { track.classList.add("jump"); track.scrollTop = (N + d) * IH; void track.offsetWidth; track.classList.remove("jump") }
-        jump(last)
+        function mark() { user = true }
+        track.addEventListener("touchstart", mark, { passive: true })
+        track.addEventListener("pointerdown", mark, { passive: true })
+        track.addEventListener("wheel", mark, { passive: true })
+        jump(want)
+        requestAnimationFrame(function () { if (!user) jump(want) })
+        setTimeout(function () { if (!user) jump(want) }, 250)
         track.addEventListener("scroll", function () {
           var d = at(), p = Math.round(track.scrollTop / IH)
+          if (!user) return
           if (d !== last) { last = d; haptic("light") }
           if (p < 6 || p > 2 * N - 6) jump(d)
           clearTimeout(timer)
