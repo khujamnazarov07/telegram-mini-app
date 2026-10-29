@@ -2301,11 +2301,11 @@
         setTimeout(function () { if (!user) jump(want) }, 250)
         track.addEventListener("scroll", function () {
           var d = at(), p = Math.round(track.scrollTop / IH)
-          if (!user) return
+          if (!user || !track.isConnected || !track.clientHeight) return
           if (d !== last) { last = d; haptic("light") }
           if (p < 6 || p > 2 * N - 6) jump(d)
           clearTimeout(timer)
-          timer = setTimeout(function () { jump(at()); var q = rmGet(); q[key] = at(); S.rm = q; save() }, 160)
+          timer = setTimeout(function () { if (!track.isConnected || !track.clientHeight) return; jump(at()); var q = rmGet(), v = at(); if (q[key] !== v) { q[key] = v; S.rm = q; save() } }, 160)
         })
       })(hs[c])
     }
