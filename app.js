@@ -2293,7 +2293,7 @@
         function at() { return ((Math.round(track.scrollTop / IH) % N) + N) % N }
         function jump(d) { track.classList.add("jump"); track.scrollTop = (N + d) * IH; void track.offsetWidth; track.classList.remove("jump") }
         var down = false, hideT = 0
-        function hideLater() { clearTimeout(hideT); hideT = setTimeout(function () { if (!down) col.classList.remove("act") }, 700) }
+        function hideLater() { clearTimeout(hideT); hideT = setTimeout(function () { if (!down) col.classList.remove("act") }, 220) }
         function mark() { user = true; down = true; clearTimeout(hideT); col.classList.add("act") }
         function up() { down = false; hideLater() }
         track.addEventListener("touchstart", mark, { passive: true })
@@ -2310,7 +2310,7 @@
           var d = at(), p = Math.round(track.scrollTop / IH)
           if (!user || !track.isConnected || !track.clientHeight) return
           if (!down) hideLater()
-          if (d !== last) { last = d; haptic("light") }
+          if (d !== last) { last = d; haptic("light"); var q0 = rmGet(); if (q0[key] !== d) { q0[key] = d; S.rm = q0; save() } }
           if (p < 6 || p > 2 * N - 6) jump(d)
           clearTimeout(timer)
           timer = setTimeout(function () { if (!track.isConnected || !track.clientHeight) return; jump(at()); var q = rmGet(), v = at(); if (q[key] !== v) { q[key] = v; S.rm = q; save() } }, 160)

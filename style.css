@@ -888,3 +888,9 @@ html[data-gender="male"][data-theme="dark"] { --solidbg: #0c0c0e; }
 .hw .dg-i { height: 17px; font-size: 13px; }
 .hw.act { background: var(--bg); border-color: var(--line); -webkit-mask-image: linear-gradient(#0005 0, #000 30%, #000 70%, #0005 100%); mask-image: linear-gradient(#0005 0, #000 30%, #000 70%, #0005 100%); }
 .hw.act::after { opacity: .6; }
+.hw, .hw.act { height: 30px; width: 66px; overflow: visible; background: none; border: 0; -webkit-mask-image: none; mask-image: none; position: relative; z-index: 2; }
+.hw::after, .hw.act::after { display: none; }
+.hw .dg-track { position: absolute; left: 0; right: 0; top: 50%; height: 51px; margin-top: -25.5px; -webkit-mask-image: linear-gradient(#0000 0 33.4%, #000 33.4% 66.6%, #0000 66.6%); mask-image: linear-gradient(#0000 0 33.4%, #000 33.4% 66.6%, #0000 66.6%); }
+.hw.act .dg-track { -webkit-mask-image: linear-gradient(#0004 0, #000 33.4%, #000 66.6%, #0004 100%); mask-image: linear-gradient(#0004 0, #000 33.4%, #000 66.6%, #0004 100%); }
+.hw .dg-i { color: var(--text); }
+.rmlist { gap: 10px; }
