@@ -1523,7 +1523,7 @@
     if (U.detail) { U.detail = 0; render(); return }
     if (U.tab === "more" && U.more !== "menu") {
       if (U.hikBack) { U.hikBack = false; U.tab = "names" }
-      U.more = (U.more === "lang" || U.more === "theme" || U.more === "mode") ? "settings" : "menu"; render(); return
+      U.more = (U.more === "lang" || U.more === "theme" || U.more === "mode" || U.more === "remind") ? "settings" : "menu"; render(); return
     }
     if (U.tab === "mood" && U.moodPick) { U.moodPick = ""; render() }
   }
