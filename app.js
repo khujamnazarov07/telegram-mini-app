@@ -1644,6 +1644,26 @@
         g.globalAlpha = 1; g.beginPath(); g.arc(p2[0], p2[1], on ? 4 : 3, 0, 6.2832); g.fill()
         if (on) { g.strokeStyle = fg; g.lineWidth = 1.5; g.beginPath(); g.arc(p2[0], p2[1], 6, 0, 6.2832); g.stroke() }
       }
+      if (sel) {
+        var sp = pr(sel[1], sel[2])
+        if (sp[2] > 0.05) {
+          var nm = cname(sel), fs = 11
+          g.font = "600 " + fs + "px system-ui, sans-serif"
+          var tw = g.measureText(nm).width, bw = tw + 12, bh = fs + 8, dx = 12, hl = 14
+          var dir = sp[0] >= W / 2 ? 1 : -1
+          if (dir > 0 && sp[0] + dx + hl + bw > W - 2) dir = -1
+          else if (dir < 0 && sp[0] - dx - hl - bw < 2) dir = 1
+          var x1 = sp[0] + dir * dx, y1 = sp[1] - dx, x2 = x1 + dir * hl, bx = dir > 0 ? x2 : x2 - bw
+          g.strokeStyle = fg; g.globalAlpha = 0.85; g.lineWidth = 1.2
+          g.beginPath(); g.moveTo(sp[0] + dir * 4, sp[1] - 4); g.lineTo(x1, y1); g.lineTo(x2, y1); g.stroke()
+          g.fillStyle = "rgba(120,150,140,.22)"; g.globalAlpha = 1
+          g.beginPath(); if (g.roundRect) g.roundRect(bx, y1 - bh / 2, bw, bh, 6); else g.rect(bx, y1 - bh / 2, bw, bh); g.fill()
+          g.strokeStyle = "rgba(128,150,145,.55)"; g.lineWidth = 1; g.stroke()
+          g.fillStyle = fg; g.textBaseline = "middle"; g.textAlign = "center"
+          g.fillText(nm, bx + bw / 2, y1 + 0.5)
+          g.textAlign = "start"; g.textBaseline = "alphabetic"
+        }
+      }
       g.fillStyle = fg
     }
     requestAnimationFrame(draw)
@@ -1688,6 +1708,58 @@
   function gOn() { return S.gender === "female" ? S.fgon !== false : S.gender === "male" ? S.mgon === true : false }
   // Erkak mavzusi: shisha ortidagi dumaloqlar (tasodifiy sekin harakat: jamlanish va tarqalish)
   var BG = { cv: null, on: false, b: [], t: 0, last: 0, mode: 0, col: [] }
+  // Ayollar mavzusi: sekin yog'ilib tushuvchi sakura barglari
+  var PT = { cv: null, on: false, p: [], last: 0, t: 0, w: 0, h: 0 }
+  function petalFx() {
+    var want = S.gender === "female" && !(window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches)
+    if (!want) { PT.on = false; if (PT.cv) PT.cv.style.display = "none"; return }
+    var cs = getComputedStyle(document.documentElement), c1 = cs.getPropertyValue("--fa2").trim() || "#ef8db0", c2 = cs.getPropertyValue("--fa").trim() || "#d9628c"
+    PT.col = [c1, "#ffffff", c1, c2]
+    if (!PT.cv) {
+      PT.cv = document.createElement("canvas"); PT.cv.id = "fpc"
+      PT.cv.style.cssText = "position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none"
+      document.body.insertBefore(PT.cv, document.body.firstChild)
+      for (var i = 0; i < 30; i++) PT.p[i] = pReset({}, true)
+    }
+    PT.cv.style.display = "block"
+    if (PT.on) return
+    PT.on = true
+    function pReset(o, init) {
+      var W = window.innerWidth, H = window.innerHeight
+      o.x = Math.random() * W; o.y = init ? Math.random() * H : -20 - Math.random() * 80
+      o.s = 4 + Math.random() * 7; o.vy = 20 + o.s * 3.2 + Math.random() * 14
+      o.amp = 14 + Math.random() * 34; o.fx = .4 + Math.random() * .7; o.ph = Math.random() * 6.28
+      o.r = Math.random() * 6.28; o.vr = (Math.random() - .5) * 1.6; o.fl = Math.random() * 6.28; o.vf = .8 + Math.random() * 1.6
+      o.a = .55 + Math.random() * .4; o.c = Math.floor(Math.random() * 4); o.x0 = o.x
+      return o
+    }
+    function loop(ts) {
+      if (!PT.on) return
+      requestAnimationFrame(loop)
+      if (document.hidden || ts - PT.last < 33) return
+      var dt = Math.min(.1, (ts - PT.last) / 1000); PT.last = ts; PT.t += dt
+      var cv = PT.cv, W = window.innerWidth, H = window.innerHeight
+      if (cv.width !== W || cv.height !== H) { cv.width = W; cv.height = H }
+      var g = cv.getContext("2d")
+      g.clearRect(0, 0, W, H)
+      var dark = document.documentElement.getAttribute("data-theme") === "dark" || (document.documentElement.getAttribute("data-theme") === "auto" && curEff === "dark")
+      for (var i = 0; i < PT.p.length; i++) {
+        var o = PT.p[i]
+        o.y += o.vy * dt; o.r += o.vr * dt; o.fl += o.vf * dt
+        o.x = o.x0 + Math.sin(PT.t * o.fx + o.ph) * o.amp + PT.t * 0
+        if (o.y > H + 24) { pReset(o, false) }
+        var sx = Math.cos(o.fl), s = o.s
+        g.save(); g.translate(o.x, o.y); g.rotate(o.r); g.scale(Math.max(.18, Math.abs(sx)), 1)
+        g.globalAlpha = o.a * (dark ? .6 : 1)
+        g.fillStyle = PT.col[o.c]
+        g.beginPath(); g.moveTo(0, -s); g.bezierCurveTo(s * .95, -s * .5, s * .8, s * .7, 0, s); g.bezierCurveTo(-s * .8, s * .7, -s * .95, -s * .5, 0, -s); g.fill()
+        g.globalAlpha = o.a * .5 * (dark ? .6 : 1); g.fillStyle = "#fff"
+        g.beginPath(); g.moveTo(0, -s * .6); g.quadraticCurveTo(s * .35, 0, 0, s * .6); g.quadraticCurveTo(-s * .35, 0, 0, -s * .6); g.fill()
+        g.restore()
+      }
+    }
+    requestAnimationFrame(loop)
+  }
   function bgFx() {
     var want = S.gender === "male" && gOn() && !(window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches)
     var cs = getComputedStyle(document.documentElement)
@@ -1736,7 +1808,7 @@
     root.setAttribute("data-gender", ng)
     var P = PINKS[S.fcolor | 0] || PINKS[0], M = MALES[S.mcolor | 0] || MALES[0]
     var fem = S.gender === "female"
-    var gl = fem ? (S.fgl == null ? 50 : S.fgl) : (S.mgl == null ? 50 : S.mgl), bl = fem ? (S.fbl == null ? 9 : S.fbl) : (S.mbl == null ? 9 : S.mbl)
+    var gl = fem ? (S.fgl == null ? 100 : S.fgl) : (S.mgl == null ? 100 : S.mgl), bl = fem ? (S.fbl == null ? 2 : S.fbl) : (S.mbl == null ? 2 : S.mbl)
     var SO = fem ? (SOLF[S.fsol | 0] || SOLF[0]) : (SOLM[S.msol | 0] || SOLM[0])
     root.setAttribute("data-glass", gOn() ? "on" : "off")
     st.setProperty("--sbl", SO[0]); st.setProperty("--scl", SO[1]); st.setProperty("--sbd", SO[2]); st.setProperty("--scd", SO[3])
@@ -1746,6 +1818,7 @@
     st.setProperty("--gk", (1.65 - gl / 100 * 1.3).toFixed(2)); st.setProperty("--bk", (bl / 9).toFixed(2))
     st.setProperty("--ma", M.a); st.setProperty("--ma2", M.a2); st.setProperty("--ma3", M.a3); st.setProperty("--mh", M.h + "deg"); st.setProperty("--mat", M.t)
     bgFx()
+    petalFx()
   }
   function themeOpts() {
     var h = "", i, fem = S.gender === "female", mal = S.gender === "male"
@@ -1756,7 +1829,7 @@
     var out = '<div class="topt"><div class="tl"><span>' + esc(tr("t_color")) + '</span></div><div class="swrow">' + h + "</div></div>" +
       '<div class="topt"><div class="tl"><span>' + esc(tr("t_gon")) + '</span><button class="tgl' + (on ? " on" : "") + '" data-act="gtoggle" aria-label="glass"><i></i></button></div></div>'
     if (on) {
-      var gl = fem ? (S.fgl == null ? 50 : S.fgl) : (S.mgl == null ? 50 : S.mgl), bl = fem ? (S.fbl == null ? 9 : S.fbl) : (S.mbl == null ? 9 : S.mbl)
+      var gl = fem ? (S.fgl == null ? 100 : S.fgl) : (S.mgl == null ? 100 : S.mgl), bl = fem ? (S.fbl == null ? 2 : S.fbl) : (S.mbl == null ? 2 : S.mbl)
       out += '<div class="topt"><div class="tl"><span>' + esc(tr("t_glass")) + '</span><span id="fglv">' + gl + '</span></div><input id="fglr" class="rng" type="range" min="0" max="100" value="' + gl + '"></div>' +
         '<div class="topt"><div class="tl"><span>' + esc(tr("t_blur")) + '</span><span id="fblv">' + bl + '</span></div><input id="fblr" class="rng" type="range" min="0" max="24" value="' + bl + '"></div>'
     } else {
@@ -1778,6 +1851,7 @@
     function jumpTo(i) { track.classList.add("jump"); track.scrollTop = (MID * N + i) * IH; void track.offsetWidth; track.classList.remove("jump") }
     jumpTo(cur)
     track.addEventListener("scroll", function () {
+      if (!track.isConnected || !track.clientHeight) return
       var p = Math.round(track.scrollTop / IH), i = ((p % N) + N) % N
       if (i !== last) {
         last = i; haptic("light")
@@ -1786,7 +1860,7 @@
       }
       if (p < N * 2 || p > N * (COP - 2)) jumpTo(i)
       clearTimeout(timer)
-      timer = setTimeout(function () { jumpTo(last); save() }, 160)
+      timer = setTimeout(function () { save(); if (track.isConnected && track.clientHeight) jumpTo(last) }, 160)
     })
     track.addEventListener("click", function (e) {
       var it = e.target.closest && e.target.closest(".vw-i"); if (!it) return
