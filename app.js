@@ -1458,18 +1458,17 @@
         '<button data-act="more" data-v="mode">' + ic("contrast") + " " + esc(tr("mode_t")) + " · " + esc(tr("th_" + S.theme)) + "</button>" +
         '<button data-act="more" data-v="theme">' + ic("palette") + " " + esc(tr("theme_t")) + " · " + esc(tr(cg)) + "</button>" +
         '<button data-act="more" data-v="lang">' + ic("translate") + " " + esc(tr("lang")) + " · " + LANG_NAMES[S.lang] + "</button>" +
-        '<button data-act="more" data-v="remind">' + ic(S.remind === false ? "notifications_off" : "notifications") + " " + esc(tr("remind")) + " · " + (S.remind === false ? "OFF" : "ON") + "</button></div>"
+        '<div class="rrow" data-act="more" data-v="remind">' + ic("notifications") + "<span>" + esc(tr("remind")) + '</span><button class="tgl' + (S.remind === false ? "" : " on") + '" data-act="rmt" data-v="all" aria-label="remind"><i></i></button></div></div>'
     }
     if (U.more === "remind") {
       var rp = rmGet(), on0 = S.remind !== false
       function rrow(lbl, key, hk) {
-        var sel = ""
-        if (hk) { sel = '<select class="rsel" data-rm="' + hk + '">'; for (var q = 0; q < 24; q++) sel += '<option value="' + q + '"' + (rp[hk] === q ? " selected" : "") + ">" + ("0" + q).slice(-2) + ":00</option>"; sel += "</select>" }
-        return '<div class="topt"><div class="tl"><span>' + esc(tr(lbl)) + "</span>" + sel + '<button class="tgl' + (rp[key] ? " on" : "") + '" data-act="rmt" data-v="' + key + '" aria-label="' + key + '"><i></i></button></div></div>'
+        var wh = hk ? '<div class="dg hw" data-rm="' + hk + '" data-h="' + rp[hk] + '"><div class="dg-track"></div></div>' : ""
+        return '<div class="topt rmrow"><div class="tl"><span>' + esc(tr(lbl)) + '</span><span class="rmr">' + wh + '<button class="tgl' + (rp[key] ? " on" : "") + '" data-act="rmt" data-v="' + key + '" aria-label="' + key + '"><i></i></button></span></div></div>'
       }
       return '<button class="btn small back" data-act="moreBack">' + ic("arrow_back") + " " + esc(tr("back")) + "</button><h1>" + ic("notifications") + " " + esc(tr("remind")) + '</h1><p class="sub">&nbsp;</p><div class="card stack">' +
         '<div class="topt"><div class="tl"><span><b>' + esc(tr("remind")) + '</b></span><button class="tgl' + (on0 ? " on" : "") + '" data-act="rmt" data-v="all" aria-label="all"><i></i></button></div></div>' +
-        (on0 ? rrow("rm_daily", "d", "dh") + rrow("rm_due", "s", "sh") + rrow("rm_owed", "o", "") : "") + "</div>"
+        '<div class="rmlist' + (on0 ? "" : " off") + '">' + rrow("rm_daily", "d", "dh") + rrow("rm_due", "s", "sh") + rrow("rm_owed", "o", "") + "</div></div>"
     }
     if (U.more === "lang") {
       var l = '<button class="btn small back" data-act="moreBack">' + ic("arrow_back") + " " + esc(tr("back")) + "</button><h1>" + ic("translate") + " " + esc(tr("lang")) + '</h1><div class="grid3" style="grid-template-columns:1fr 1fr">'
@@ -1505,6 +1504,7 @@
     app.innerHTML = h
     document.body.classList.toggle("indetail", !!U.detail)
     initDigits()
+    initHours()
     hgAttach()
     meanFit()
     phStart(); nhStart(); mediaInit(); themeInit()
@@ -2282,10 +2282,27 @@
     var o = S.rm || {}
     return { d: o.d === 0 ? 0 : 1, dh: typeof o.dh === "number" ? o.dh : 9, s: o.s === 0 ? 0 : 1, sh: typeof o.sh === "number" ? o.sh : 20, o: o.o === 0 ? 0 : 1 }
   }
-  document.addEventListener("change", function (ev) {
-    var t = ev.target
-    if (t && t.getAttribute && t.getAttribute("data-rm")) { var q = rmGet(); q[t.getAttribute("data-rm")] = parseInt(t.value, 10) || 0; S.rm = q; save() }
-  })
+  function initHours() {
+    var hs = document.querySelectorAll(".hw")
+    for (var c = 0; c < hs.length; c++) {
+      ;(function (col) {
+        var track = col.firstChild, key = col.getAttribute("data-rm"), IH = 36, N = 24, h = '<div class="dg-pad"></div>'
+        for (var k = 0; k < 3; k++) for (var d = 0; d < N; d++) h += '<div class="dg-i">' + ("0" + d).slice(-2) + ":00</div>"
+        track.innerHTML = h + '<div class="dg-pad"></div>'
+        var timer = null, last = parseInt(col.getAttribute("data-h"), 10) || 0
+        function at() { return ((Math.round(track.scrollTop / IH) % N) + N) % N }
+        function jump(d) { track.classList.add("jump"); track.scrollTop = (N + d) * IH; void track.offsetWidth; track.classList.remove("jump") }
+        jump(last)
+        track.addEventListener("scroll", function () {
+          var d = at(), p = Math.round(track.scrollTop / IH)
+          if (d !== last) { last = d; haptic("light") }
+          if (p < 6 || p > 2 * N - 6) jump(d)
+          clearTimeout(timer)
+          timer = setTimeout(function () { jump(at()); var q = rmGet(); q[key] = at(); S.rm = q; save() }, 160)
+        })
+      })(hs[c])
+    }
+  }
   var spT = 0, spLast = ""
   function syncPrefs() {
     var u = CFG.STATS_URL

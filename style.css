@@ -864,4 +864,11 @@ html[data-gender="male"][data-theme="dark"] { --solidbg: #0c0c0e; }
 .brand { -webkit-touch-callout: none; -webkit-user-select: none; user-select: none; cursor: pointer; }
 .msi.ab { font-size: 20px; margin-inline-end: 2px; }
 .btn .msi { font-size: 20px; }
-.rsel { margin-inline-start: auto; margin-inline-end: 12px; background: rgba(127,127,127,.18); color: var(--text); border: 0; border-radius: 10px; padding: 6px 8px; font: inherit; }
+.list > .rrow { display: flex; align-items: center; gap: 12px; width: 100%; background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 14px; margin-bottom: 10px; font-weight: 600; cursor: pointer; }
+.list > .rrow .msi:first-child { font-size: 24px; color: var(--accent); }
+.list > .rrow > span:nth-child(2) { flex: 1; }
+.rmrow .tl { text-transform: none; letter-spacing: 0; font-size: 15px; color: var(--text); gap: 12px; }
+.rmr { display: flex; align-items: center; gap: 12px; margin-inline-start: auto; }
+.hw { width: 84px; flex: none; }
+.rmlist { display: grid; gap: 14px; transition: opacity .25s, filter .25s; }
+.rmlist.off { opacity: .45; filter: grayscale(1); pointer-events: none; }
