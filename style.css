@@ -901,3 +901,4 @@ html[data-gender="male"][data-theme="dark"] { --solidbg: #0c0c0e; }
 .lchip .fl { font-size: 19px; line-height: 1; }
 .lchip.col { background: var(--c); border-color: var(--c); color: #fff; box-shadow: 0 6px 16px color-mix(in srgb, var(--c) 40%, transparent); }
 #lvar:empty { display: none; }
+#lgl { width: min(360px, 96vw) !important; height: min(230px, 62vw) !important; }

@@ -1657,9 +1657,9 @@
   function startLangGlobe() {
     var cv = document.getElementById("lgl")
     if (!cv || !cv.getContext) return
-    var W = cv.clientWidth || 260, dpr = Math.min(2, window.devicePixelRatio || 1)
-    cv.width = W * dpr; cv.height = W * dpr
-    var g = cv.getContext("2d"), R = W / 2 - 14, cs = ctys()
+    var W = cv.clientWidth || 340, H = cv.clientHeight || 230, dpr = Math.min(2, window.devicePixelRatio || 1)
+    cv.width = W * dpr; cv.height = H * dpr
+    var g = cv.getContext("2d"), CX = W / 2, CY = H / 2, R = Math.min(H / 2 - 8, W * 0.26), cs = ctys()
     var cur = ctyGet(U.lcty || ctyOf(S.lang))
     var lon0 = cur.lo, tilt = 0.38, drag = false, sx = 0, sl = 0, moved = 0, last = 0, ph = 0, hits = []
     var land = []
@@ -1668,7 +1668,7 @@
     function pr(lo, la) {
       var l = (lo - lon0) * Math.PI / 180, p = la * Math.PI / 180
       var x = Math.cos(p) * Math.sin(l), y = Math.cos(tilt) * Math.sin(p) - Math.sin(tilt) * Math.cos(p) * Math.cos(l), z = Math.sin(tilt) * Math.sin(p) + Math.cos(tilt) * Math.cos(p) * Math.cos(l)
-      return [W / 2 + x * R, W / 2 - y * R, z]
+      return [CX + x * R, CY - y * R, z]
     }
     function draw(ts) {
       if (document.getElementById("lgl") !== cv) return
@@ -1678,10 +1678,10 @@
       last = ts; ph += dt
       if (!drag) lon0 += 4 * dt
       g.setTransform(dpr, 0, 0, dpr, 0, 0)
-      g.clearRect(0, 0, W, W)
-      var grd = g.createRadialGradient(W * .4, W * .38, R * .1, W / 2, W / 2, R)
+      g.clearRect(0, 0, W, H); hits = []
+      var grd = g.createRadialGradient(CX - R * .2, CY - R * .24, R * .1, CX, CY, R)
       grd.addColorStop(0, "rgba(120,160,150,.16)"); grd.addColorStop(1, "rgba(120,160,150,.04)")
-      g.fillStyle = grd; g.beginPath(); g.arc(W / 2, W / 2, R, 0, 6.2832); g.fill()
+      g.fillStyle = grd; g.beginPath(); g.arc(CX, CY, R, 0, 6.2832); g.fill()
       g.strokeStyle = "rgba(128,150,145,.35)"; g.lineWidth = 1; g.stroke()
       g.fillStyle = fg
       for (var k = 0; k < land.length; k++) {
@@ -1692,38 +1692,33 @@
         g.fillRect(q[0] - r / 2, q[1] - r / 2, r, r)
       }
       g.globalAlpha = 1
-      var vis = []
-      for (var m = 0; m < cs.length; m++) { var p2 = pr(cs[m].lo, cs[m].la); if (p2[2] > 0.08) vis[vis.length] = { c: cs[m], x: p2[0], y: p2[1], z: p2[2] } }
-      vis.sort(function (a, b) { return a.y - b.y })
-      var placed = [], fs = 10.5
+      var fs = 10.5, bh = fs + 8, vis = []
       g.font = "700 " + fs + "px system-ui, sans-serif"; g.textBaseline = "middle"; g.textAlign = "center"
-      hits = []
-      for (var n = 0; n < vis.length; n++) {
-        var v = vis[n], on = v.c.k === (U.lcty || ""), pu = 0.5 + 0.5 * Math.sin(ph * 2.2 + n)
-        var nm = LANG_NAMES[v.c.L[0]], tw = g.measureText(nm).width + 12, bh = fs + 8
-        if (v.c.L.length > 1) tw += 0
-        var bx = v.x - tw / 2, by = v.y - 16
-        if (bx < 2) bx = 2
-        if (bx + tw > W - 2) bx = W - 2 - tw
-        for (var t = 0; t < 8; t++) {
-          var hit = false
-          for (var u = 0; u < placed.length; u++) { var o = placed[u]; if (bx < o[0] + o[2] + 2 && bx + tw + 2 > o[0] && by < o[1] + o[3] + 1 && by + bh + 1 > o[1]) { hit = true; break } }
-          if (!hit) break
-          by -= bh + 2
+      for (var m = 0; m < cs.length; m++) {
+        var p2 = pr(cs[m].lo, cs[m].la)
+        if (p2[2] > 0.08) vis[vis.length] = { c: cs[m], x: p2[0], y: p2[1], z: p2[2], nm: LANG_NAMES[cs[m].L[0]], d: p2[0] >= CX ? 1 : -1 }
+      }
+      for (var sd = -1; sd <= 1; sd += 2) {
+        var col = vis.filter(function (v) { return v.d === sd }).sort(function (a, b) { return a.y - b.y })
+        var lim = bh / 2 + 2, ly = []
+        for (var a = 0; a < col.length; a++) ly[a] = Math.max(col[a].y, a ? ly[a - 1] + bh + 3 : lim)
+        for (a = col.length - 1; a >= 0; a--) { var mx = a < col.length - 1 ? ly[a + 1] - bh - 3 : H - lim; if (ly[a] > mx) ly[a] = mx }
+        for (a = 0; a < col.length; a++) {
+          var v = col[a], tw = g.measureText(v.nm).width + 12, ax = sd > 0 ? Math.max(CX + R + 6, v.x + 4) : Math.min(CX - R - 6, v.x - 4)
+          var bx = sd > 0 ? ax : ax - tw, ty = ly[a], on = v.c.k === (U.lcty || ""), pu = 0.5 + 0.5 * Math.sin(ph * 2.2 + a + sd)
+          var al = 0.35 + 0.65 * Math.min(1, v.z * 1.6), dy = ty - v.y, ex = v.x + sd * Math.abs(dy)
+          if (sd > 0 ? ex > ax : ex < ax) ex = ax
+          g.globalAlpha = al; g.strokeStyle = v.c.c; g.lineWidth = 1.3
+          g.beginPath(); g.moveTo(v.x, v.y); g.lineTo(ex, ty); g.lineTo(ax, ty); g.stroke()
+          g.fillStyle = v.c.c
+          g.globalAlpha = al * (0.28 + 0.2 * pu); g.beginPath(); g.arc(v.x, v.y, (on ? 9 : 6) + 2 * pu, 0, 6.2832); g.fill()
+          g.globalAlpha = al; g.beginPath(); g.arc(v.x, v.y, on ? 4.2 : 3.2, 0, 6.2832); g.fill()
+          g.beginPath(); if (g.roundRect) g.roundRect(bx, ty - bh / 2, tw, bh, 7); else g.rect(bx, ty - bh / 2, tw, bh); g.fill()
+          if (on) { g.strokeStyle = "#fff"; g.lineWidth = 2; g.stroke() }
+          g.fillStyle = "#fff"; g.fillText(v.nm, bx + tw / 2, ty + 0.5)
+          g.globalAlpha = 1
+          hits[hits.length] = { k: v.c.k, x: v.x, y: v.y, r: [bx, ty - bh / 2, tw, bh] }
         }
-        placed[placed.length] = [bx, by, tw, bh]
-        g.globalAlpha = 0.3 + 0.7 * Math.min(1, v.z * 1.6)
-        g.strokeStyle = v.c.c; g.lineWidth = 1.2
-        g.beginPath(); g.moveTo(v.x, v.y); g.lineTo(Math.max(bx + 6, Math.min(bx + tw - 6, v.x)), by + bh); g.stroke()
-        g.fillStyle = v.c.c; g.globalAlpha *= 0.28 + 0.2 * pu
-        g.beginPath(); g.arc(v.x, v.y, (on ? 9 : 6) + 2 * pu, 0, 6.2832); g.fill()
-        g.globalAlpha = 0.3 + 0.7 * Math.min(1, v.z * 1.6)
-        g.beginPath(); g.arc(v.x, v.y, on ? 4.2 : 3.2, 0, 6.2832); g.fill()
-        g.beginPath(); if (g.roundRect) g.roundRect(bx, by, tw, bh, 7); else g.rect(bx, by, tw, bh); g.fill()
-        if (on) { g.strokeStyle = "#fff"; g.lineWidth = 2; g.stroke() }
-        g.fillStyle = "#fff"; g.fillText(nm, bx + tw / 2, by + bh / 2 + 0.5)
-        g.globalAlpha = 1
-        hits[hits.length] = { k: v.c.k, x: v.x, y: v.y, r: [bx, by, tw, bh] }
       }
       g.textAlign = "start"; g.textBaseline = "alphabetic"
     }
@@ -1734,7 +1729,7 @@
     cv.addEventListener("pointerup", function (e) {
       var was = drag; drag = false
       if (!was || moved > 6) return
-      var rc = cv.getBoundingClientRect(), x = (e.clientX - rc.left) * (W / rc.width), y = (e.clientY - rc.top) * (W / rc.height), best = null, bd = 1e9
+      var rc = cv.getBoundingClientRect(), x = (e.clientX - rc.left) * (W / rc.width), y = (e.clientY - rc.top) * (H / rc.height), best = null, bd = 1e9
       for (var m = hits.length - 1; m >= 0; m--) {
         var h = hits[m], r = h.r
         if (x >= r[0] - 4 && x <= r[0] + r[2] + 4 && y >= r[1] - 4 && y <= r[1] + r[3] + 4) { best = h; break }
