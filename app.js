@@ -1698,6 +1698,8 @@
         var p2 = pr(cs[m].lo, cs[m].la)
         if (p2[2] > 0.08) vis[vis.length] = { c: cs[m], x: p2[0], y: p2[1], z: p2[2], nm: LANG_NAMES[cs[m].L[0]], d: p2[0] >= CX ? 1 : -1 }
       }
+      vis.sort(function (a, b) { return a.x - b.x })
+      for (var vi = 0; vi < vis.length; vi++) vis[vi].d = vi < Math.floor(vis.length / 2) ? -1 : 1
       for (var sd = -1; sd <= 1; sd += 2) {
         var col = vis.filter(function (v) { return v.d === sd }).sort(function (a, b) { return a.y - b.y })
         var lim = bh / 2 + 2, ly = []
