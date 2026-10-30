@@ -4,8 +4,9 @@
   var CFG = window.CONFIG
   var D = window.DATA
   var tg = window.Telegram && window.Telegram.WebApp
-  var LANGS = ["uz", "uz_kr", "ru", "en", "ar", "tr", "id", "zh", "hi", "es"]
-  var LANG_NAMES = { uz: "O'zbekcha", uz_kr: "Ўзбекча", ru: "Русский", en: "English", ar: "العربية", tr: "Türkçe", id: "Indonesia", zh: "中文", hi: "हिन्दी", es: "Español" }
+  var LANGS = ["uz", "uz_kr", "uz_new", "ru", "en", "ar", "tr", "id", "zh", "hi", "es"]
+  var TXI = ["uz", "uz_kr", "ru", "en", "ar", "tr", "id", "zh", "hi", "es"]
+  var LANG_NAMES = { uz: "O'zbekcha", uz_kr: "Ўзбекча", uz_new: "Özbekça", ru: "Русский", en: "English", ar: "العربية", tr: "Türkçe", id: "Indonesia", zh: "中文", hi: "हिन्दी", es: "Español" }
 
   // ====================
   // TRANSLATIONS  (tartib: uz | uz_kr | ru | en | ar | tr | id | zh | hi | es)
@@ -97,12 +98,18 @@
     names_for: "Ismlar|Исмлар|Имена|Names|الأسماء|İsimler|Nama|名字|नाम|Nombres"
   }
   var TCACHE = {}
+  function UZN(s) {
+    if (typeof s !== "string") return s
+    return s.replace(/o[ʻ‘’'`ʼ]/g, "ö").replace(/O[ʻ‘’'`ʼ]/g, "Ö").replace(/g[ʻ‘’'`ʼ]/g, "ğ").replace(/G[ʻ‘’'`ʼ]/g, "Ğ")
+      .replace(/sh/g, "ş").replace(/Sh/g, "Ş").replace(/SH/g, "Ş").replace(/ch/g, "ç").replace(/Ch/g, "Ç").replace(/CH/g, "Ç")
+  }
   function tr(key) {
     if (!TCACHE[key]) TCACHE[key] = TXT[key].split("|")
-    var i = LANGS.indexOf(S.lang)
+    if (S.lang === "uz_new") { var nk = key + "#n"; if (!TCACHE[nk]) TCACHE[nk] = [UZN(TCACHE[key][0])]; return TCACHE[nk][0] }
+    var i = TXI.indexOf(S.lang)
     return TCACHE[key][i < 0 ? 3 : i] || TCACHE[key][3]
   }
-  function pick(o) { return o[S.lang] || o.en }
+  function pick(o) { return S.lang === "uz_new" ? UZN(o.uz || o.en) : (o[S.lang] || o.en) }
 
   // ====================
   // STATE + STORAGE
@@ -478,14 +485,14 @@
     return false
   }
   function meaningOf(n) {
-    var by = window.MEANINGS_BY || {}
-    if (by[S.lang]) return String(by[S.lang][n - 1] || "").trim()
+    var by = window.MEANINGS_BY || {}, L = S.lang === "uz_new" ? "uz" : S.lang, cv = S.lang === "uz_new" ? UZN : function (x) { return x }
+    if (by[L]) return cv(String(by[L][n - 1] || "").trim())
     var m = window.MEANINGS && window.MEANINGS[n - 1]
     if (m) {
-      var v = typeof m === "string" ? m : (m[S.lang] || m.en || m.uz || m.ru || "")
-      return String(v).trim()
+      var v = typeof m === "string" ? m : (m[L] || m.en || m.uz || m.ru || "")
+      return cv(String(v).trim())
     }
-    loadMean(S.lang); return ""
+    loadMean(L); return ""
   }
   // Xavfsiz oddiy HTML: faqat ruxsat etilgan teglar, qolgani matn
   function rich(s) {
@@ -908,7 +915,7 @@
     V.timer = setInterval(vAdapt, 4000)
     vqUi(); vUi()
   }
-  function vTitle(v, i) { var t = v.t; if (t && typeof t === "object") t = t[S.lang] || t.en || t.uz; return t || (tr("video") + " " + (i + 1)) }
+  function vTitle(v, i) { var t = v.t; if (t && typeof t === "object") t = S.lang === "uz_new" ? UZN(t.uz || t.en) : (t[S.lang] || t.en || t.uz); return t || (tr("video") + " " + (i + 1)) }
   function videoView() {
     var list = vList()
     if (!list.length) return '<p class="empty">' + ic("movie") + " " + esc(tr("no_video")) + "<br><small>config.js → VIDEOS</small></p>"
@@ -1471,9 +1478,8 @@
         '<div class="rmlist' + (on0 ? "" : " off") + '">' + rrow("rm_daily", "d", "dh") + rrow("rm_due", "s", "sh") + rrow("rm_owed", "o", "") + "</div></div>"
     }
     if (U.more === "lang") {
-      var l = '<button class="btn small back" data-act="moreBack">' + ic("arrow_back") + " " + esc(tr("back")) + "</button><h1>" + ic("translate") + " " + esc(tr("lang")) + '</h1><div class="grid3" style="grid-template-columns:1fr 1fr">'
-      for (var j = 0; j < LANGS.length; j++) l += '<button class="btn ' + (S.langSet !== false && S.lang === LANGS[j] ? "success" : "") + '" data-act="setLang" data-v="' + LANGS[j] + '">' + LANG_NAMES[LANGS[j]] + "</button>"
-      return l + "</div>"
+      if (!U.lcty) U.lcty = ctyOf(S.lang)
+      return '<button class="btn small back" data-act="moreBack">' + ic("arrow_back") + " " + esc(tr("back")) + "</button><h1>" + ic("translate") + " " + esc(tr("lang")) + '</h1><div class="globe"><canvas id="lgl"></canvas></div><div id="lvar" class="lrow">' + lvarHtml() + '</div><div id="lall" class="lrow">' + lallHtml() + "</div>"
     }
     if (U.more === "about") {
       return '<button class="btn small back" data-act="moreBack">' + ic("arrow_back") + " " + esc(tr("back")) + "</button><h1>" + ic("info") + " " + esc(tr("about")) + '</h1><div class="card stack"><p>' + ic("auto_awesome", "ab") + " " + esc(tr("about_text")) + '</p><p class="sub">' + ic("bookmark", "ab") + " Mini App " + CFG.VERSION + "</p>" + aboutRate() +
@@ -1511,6 +1517,7 @@
     nsUpdate()
     miniSync()
     if (U.tab === "more" && U.more === "mode") startGlobe()
+    if (U.tab === "more" && U.more === "lang") startLangGlobe()
     renderNav()
     if (wheels.theme) updateThemeLabels()
     if (tg && tg.BackButton) {
@@ -1574,7 +1581,7 @@
     "Mexiko": "Mexiko|Мексика|Мехико|Mexico City|مدينة مكسيكو|Meksiko|Kota Meksiko|墨西哥城|मेक्सिको सिटी|Ciudad de México",
     "San-Paulu": "San-Paulu|Сан-Паулу|Сан-Паулу|São Paulo|ساو باولو|São Paulo|São Paulo|圣保罗|साओ पाउलो|São Paulo"
   }
-  function cname(c) { var a = (CNAMES[c[0]] || c[0]).split("|"), i = LANGS.indexOf(S.lang); return a[i < 0 ? 3 : i] || a[3] || c[0] }
+  function cname(c) { var a = (CNAMES[c[0]] || c[0]).split("|"), i = TXI.indexOf(S.lang); if (S.lang === "uz_new") return UZN(a[0] || c[0]); return a[i < 0 ? 3 : i] || a[3] || c[0] }
   function cityByName(n) { for (var i = 0; i < CITIES.length; i++) if (CITIES[i][0] === n) return CITIES[i]; return null }
   function cityHour(c) {
     try {
@@ -1596,6 +1603,145 @@
     var c = cityByName(S.tz), t = cityHour(c), n = (t.h >= 20 || t.h < 8)
     var el = document.getElementById("gtxt")
     if (el) el.innerHTML = ic(n ? "dark_mode" : "light_mode") + " <b>" + esc(c ? cname(c) : tr("tz_dev")) + "</b> · " + ("0" + t.h).slice(-2) + ":" + ("0" + t.m).slice(-2)
+  }
+  // ====================
+  // TIL GLOBUSI
+  // ====================
+  var CTY = [
+    { k: "UZ", lo: 69.3, la: 41.3, f: "🇺🇿", c: "#1d9bf0", L: ["uz", "uz_kr", "uz_new"] },
+    { k: "RU", lo: 37.6, la: 55.8, f: "🇷🇺", c: "#e5484d", L: ["ru"] },
+    { k: "GB", lo: -0.1, la: 51.5, f: "🇬🇧", c: "#6e56cf", L: ["en"] },
+    { k: "SA", lo: 39.8, la: 21.4, f: "🇸🇦", c: "#12a594", L: ["ar"] },
+    { k: "TR", lo: 32.9, la: 39.9, f: "🇹🇷", c: "#e54666", L: ["tr"] },
+    { k: "ID", lo: 106.8, la: -6.2, f: "🇮🇩", c: "#f76b15", L: ["id"] },
+    { k: "CN", lo: 116.4, la: 39.9, f: "🇨🇳", c: "#d6409f", L: ["zh"] },
+    { k: "IN", lo: 77.2, la: 28.6, f: "🇮🇳", c: "#30a46c", L: ["hi"] },
+    { k: "ES", lo: -3.7, la: 40.4, f: "🇪🇸", c: "#ab6400", L: ["es"] },
+    { k: "PK", lo: 73.1, la: 33.7, f: "🇵🇰", c: "#0b7a5a", L: ["ur"] },
+    { k: "BD", lo: 90.4, la: 23.8, f: "🇧🇩", c: "#2f9e44", L: ["bn"] },
+    { k: "IR", lo: 51.4, la: 35.7, f: "🇮🇷", c: "#5b5bd6", L: ["fa"] },
+    { k: "FR", lo: 2.35, la: 48.9, f: "🇫🇷", c: "#3e63dd", L: ["fr"] },
+    { k: "BR", lo: -47.9, la: -15.8, f: "🇧🇷", c: "#c2910a", L: ["pt"] },
+    { k: "TJ", lo: 68.8, la: 38.6, f: "🇹🇯", c: "#c93a3a", L: ["tg"] }
+  ]
+  function ctys() {
+    var o = []
+    for (var i = 0; i < CTY.length; i++) {
+      var L = []
+      for (var j = 0; j < CTY[i].L.length; j++) if (LANGS.indexOf(CTY[i].L[j]) >= 0) L[L.length] = CTY[i].L[j]
+      if (L.length) o[o.length] = { k: CTY[i].k, lo: CTY[i].lo, la: CTY[i].la, f: CTY[i].f, c: CTY[i].c, L: L }
+    }
+    return o
+  }
+  function ctyOf(code) { var a = ctys(); for (var i = 0; i < a.length; i++) if (a[i].L.indexOf(code) >= 0) return a[i].k; return "GB" }
+  function ctyGet(k) { var a = ctys(); for (var i = 0; i < a.length; i++) if (a[i].k === k) return a[i]; return a[0] }
+  function lchip(code, c, on) {
+    var cc = ctyGet(ctyOf(code))
+    return '<button class="lchip' + (on ? " col" : "") + '" style="--c:' + c + '" data-act="setLang" data-v="' + code + '"><span class="fl">' + cc.f + "</span>" + esc(LANG_NAMES[code]) + "</button>"
+  }
+  function lvarHtml() {
+    var c = ctyGet(U.lcty || ctyOf(S.lang)), h = ""
+    for (var i = 0; i < c.L.length; i++) h += lchip(c.L[i], c.c, true)
+    return h
+  }
+  function lallHtml() {
+    var h = "", a = ctys()
+    for (var i = 0; i < LANGS.length; i++) { var c = ctyGet(ctyOf(LANGS[i])); h += lchip(LANGS[i], c.c, LANGS[i] === S.lang) }
+    return h
+  }
+  function langPick(k) {
+    U.lcty = k
+    var a = document.getElementById("lvar"); if (a) a.innerHTML = lvarHtml()
+  }
+  function startLangGlobe() {
+    var cv = document.getElementById("lgl")
+    if (!cv || !cv.getContext) return
+    var W = cv.clientWidth || 260, dpr = Math.min(2, window.devicePixelRatio || 1)
+    cv.width = W * dpr; cv.height = W * dpr
+    var g = cv.getContext("2d"), R = W / 2 - 14, cs = ctys()
+    var cur = ctyGet(U.lcty || ctyOf(S.lang))
+    var lon0 = cur.lo, tilt = 0.38, drag = false, sx = 0, sl = 0, moved = 0, last = 0, ph = 0, hits = []
+    var land = []
+    for (var i = 0; i < 16200; i++) if (parseInt(GMASK.charAt(i >> 2), 16) & (8 >> (i & 3))) land[land.length] = [-180 + (i % 180 + 0.5) * 2, 90 - (Math.floor(i / 180) + 0.5) * 2]
+    var fg = getComputedStyle(cv).color
+    function pr(lo, la) {
+      var l = (lo - lon0) * Math.PI / 180, p = la * Math.PI / 180
+      var x = Math.cos(p) * Math.sin(l), y = Math.cos(tilt) * Math.sin(p) - Math.sin(tilt) * Math.cos(p) * Math.cos(l), z = Math.sin(tilt) * Math.sin(p) + Math.cos(tilt) * Math.cos(p) * Math.cos(l)
+      return [W / 2 + x * R, W / 2 - y * R, z]
+    }
+    function draw(ts) {
+      if (document.getElementById("lgl") !== cv) return
+      requestAnimationFrame(draw)
+      if (document.hidden || ts - last < 33) return
+      var dt = last ? (ts - last) / 1000 : 0
+      last = ts; ph += dt
+      if (!drag) lon0 += 4 * dt
+      g.setTransform(dpr, 0, 0, dpr, 0, 0)
+      g.clearRect(0, 0, W, W)
+      var grd = g.createRadialGradient(W * .4, W * .38, R * .1, W / 2, W / 2, R)
+      grd.addColorStop(0, "rgba(120,160,150,.16)"); grd.addColorStop(1, "rgba(120,160,150,.04)")
+      g.fillStyle = grd; g.beginPath(); g.arc(W / 2, W / 2, R, 0, 6.2832); g.fill()
+      g.strokeStyle = "rgba(128,150,145,.35)"; g.lineWidth = 1; g.stroke()
+      g.fillStyle = fg
+      for (var k = 0; k < land.length; k++) {
+        var q = pr(land[k][0], land[k][1])
+        if (q[2] <= 0.02) continue
+        g.globalAlpha = 0.18 + 0.5 * q[2]
+        var r = 1 + 1 * q[2]
+        g.fillRect(q[0] - r / 2, q[1] - r / 2, r, r)
+      }
+      g.globalAlpha = 1
+      var vis = []
+      for (var m = 0; m < cs.length; m++) { var p2 = pr(cs[m].lo, cs[m].la); if (p2[2] > 0.08) vis[vis.length] = { c: cs[m], x: p2[0], y: p2[1], z: p2[2] } }
+      vis.sort(function (a, b) { return a.y - b.y })
+      var placed = [], fs = 10.5
+      g.font = "700 " + fs + "px system-ui, sans-serif"; g.textBaseline = "middle"; g.textAlign = "center"
+      hits = []
+      for (var n = 0; n < vis.length; n++) {
+        var v = vis[n], on = v.c.k === (U.lcty || ""), pu = 0.5 + 0.5 * Math.sin(ph * 2.2 + n)
+        var nm = LANG_NAMES[v.c.L[0]], tw = g.measureText(nm).width + 12, bh = fs + 8
+        if (v.c.L.length > 1) tw += 0
+        var bx = v.x - tw / 2, by = v.y - 16
+        if (bx < 2) bx = 2
+        if (bx + tw > W - 2) bx = W - 2 - tw
+        for (var t = 0; t < 8; t++) {
+          var hit = false
+          for (var u = 0; u < placed.length; u++) { var o = placed[u]; if (bx < o[0] + o[2] + 2 && bx + tw + 2 > o[0] && by < o[1] + o[3] + 1 && by + bh + 1 > o[1]) { hit = true; break } }
+          if (!hit) break
+          by -= bh + 2
+        }
+        placed[placed.length] = [bx, by, tw, bh]
+        g.globalAlpha = 0.3 + 0.7 * Math.min(1, v.z * 1.6)
+        g.strokeStyle = v.c.c; g.lineWidth = 1.2
+        g.beginPath(); g.moveTo(v.x, v.y); g.lineTo(Math.max(bx + 6, Math.min(bx + tw - 6, v.x)), by + bh); g.stroke()
+        g.fillStyle = v.c.c; g.globalAlpha *= 0.28 + 0.2 * pu
+        g.beginPath(); g.arc(v.x, v.y, (on ? 9 : 6) + 2 * pu, 0, 6.2832); g.fill()
+        g.globalAlpha = 0.3 + 0.7 * Math.min(1, v.z * 1.6)
+        g.beginPath(); g.arc(v.x, v.y, on ? 4.2 : 3.2, 0, 6.2832); g.fill()
+        g.beginPath(); if (g.roundRect) g.roundRect(bx, by, tw, bh, 7); else g.rect(bx, by, tw, bh); g.fill()
+        if (on) { g.strokeStyle = "#fff"; g.lineWidth = 2; g.stroke() }
+        g.fillStyle = "#fff"; g.fillText(nm, bx + tw / 2, by + bh / 2 + 0.5)
+        g.globalAlpha = 1
+        hits[hits.length] = { k: v.c.k, x: v.x, y: v.y, r: [bx, by, tw, bh] }
+      }
+      g.textAlign = "start"; g.textBaseline = "alphabetic"
+    }
+    requestAnimationFrame(draw)
+    cv.addEventListener("pointerdown", function (e) { drag = true; moved = 0; sx = e.clientX; sl = lon0 })
+    cv.addEventListener("pointermove", function (e) { if (!drag) return; moved = Math.max(moved, Math.abs(e.clientX - sx)); lon0 = sl - (e.clientX - sx) * 0.5 })
+    cv.addEventListener("pointercancel", function () { drag = false })
+    cv.addEventListener("pointerup", function (e) {
+      var was = drag; drag = false
+      if (!was || moved > 6) return
+      var rc = cv.getBoundingClientRect(), x = (e.clientX - rc.left) * (W / rc.width), y = (e.clientY - rc.top) * (W / rc.height), best = null, bd = 1e9
+      for (var m = hits.length - 1; m >= 0; m--) {
+        var h = hits[m], r = h.r
+        if (x >= r[0] - 4 && x <= r[0] + r[2] + 4 && y >= r[1] - 4 && y <= r[1] + r[3] + 4) { best = h; break }
+        var d = (h.x - x) * (h.x - x) + (h.y - y) * (h.y - y)
+        if (d < 22 * 22 && d < bd) { bd = d; best = h }
+      }
+      if (best) { haptic("light"); langPick(best.k) }
+    })
   }
   function startGlobe() {
     var cv = document.getElementById("gl")
@@ -2018,7 +2164,7 @@
 
   function initHeader() {
     var langLabels = []
-    var SHORT = { uz: "O'zbek", uz_kr: "Ўзбек", ru: "Русский", en: "English", ar: "العربية", tr: "Türkçe", id: "Indonesia", zh: "中文", hi: "हिन्दी", es: "Español" }
+    var SHORT = { uz: "O'zbek", uz_kr: "Ўзбек", uz_new: "Özbek", ru: "Русский", en: "English", ar: "العربية", tr: "Türkçe", id: "Indonesia", zh: "中文", hi: "हिन्दी", es: "Español" }
     for (var i = 0; i < LANGS.length; i++) langLabels[i] = SHORT[LANGS[i]]
     wheels.lang = makeWheel("wLang", langLabels, Math.max(0, LANGS.indexOf(S.lang)), function (i) {
       S.lang = LANGS[i]; TCACHE = {}; save(); render()
@@ -2193,7 +2339,7 @@
     else if (act === "fcolor") { S.fcolor = parseInt(v, 10); applyGender(); save(); var o1 = document.getElementById("themeOpts"); if (o1) o1.innerHTML = themeOpts() }
     else if (act === "mcolor") { S.mcolor = parseInt(v, 10); applyGender(); save(); var o2 = document.getElementById("themeOpts"); if (o2) o2.innerHTML = themeOpts() }
     else if (act === "nf") { U.nf = v; render() }
-    else if (act === "setLang") { S.langSet = true; S.lang = v; TCACHE = {}; save(); U.more = "settings"; render(); if (wheels.lang) wheels.lang.set(LANGS.indexOf(v), true) }
+    else if (act === "setLang") { S.langSet = true; S.lang = v; U.lcty = ""; TCACHE = {}; save(); U.more = "settings"; render(); if (wheels.lang) wheels.lang.set(LANGS.indexOf(v), true) }
     else if (act === "openBot") openTg("https://t.me/" + CFG.BOT)
     else if (act === "openChannel") openTg("https://t.me/" + CFG.CHANNEL)
   })
@@ -2354,7 +2500,7 @@
   var lastHit = 0
   function rmGet() {
     var o = S.rm || {}
-    return { d: o.d === 0 ? 0 : 1, dh: typeof o.dh === "number" ? o.dh : 9, s: o.s === 0 ? 0 : 1, sh: typeof o.sh === "number" ? o.sh : 20, o: o.o === 0 ? 0 : 1 }
+    return { d: o.d === 0 ? 0 : 1, dh: typeof o.dh === "number" ? o.dh : 7, s: o.s === 0 ? 0 : 1, sh: typeof o.sh === "number" ? o.sh : 20, o: o.o === 0 ? 0 : 1 }
   }
   function initHours() {
     var hs = document.querySelectorAll(".hw")
@@ -2399,7 +2545,7 @@
     clearTimeout(spT)
     spT = setTimeout(function () {
       var ds = S.daily || {}
-      var p = { initData: tg.initData, lang: S.lang || "uz", tz: -new Date().getTimezoneOffset(), remind: S.remind === false ? 0 : 1, mode: ds.mode || "", done: ds.todayDone ? 1 : 0, owed: ds.owedDays || 0, date: ds.lastCheckedDate || "", rm: rmGet() }
+      var p = { initData: tg.initData, lang: S.lang === "uz_new" ? "uz" : (S.lang || "uz"), tz: -new Date().getTimezoneOffset(), remind: S.remind === false ? 0 : 1, mode: ds.mode || "", done: ds.todayDone ? 1 : 0, owed: ds.owedDays || 0, date: ds.lastCheckedDate || "", rm: rmGet() }
       var k = JSON.stringify([p.lang, p.tz, p.remind, p.mode, p.done, p.owed, p.date, p.rm])
       if (k === spLast) return
       spLast = k
@@ -2418,7 +2564,7 @@
   initHeader()
   cloudRead()
   var idle = window.requestIdleCallback || function (f) { return setTimeout(f, 1200) }
-  idle(function () { loadMean(S.lang); loadJs("search.js?v=47") })
+  idle(function () { loadMean(S.lang === "uz_new" ? "uz" : S.lang); loadJs("search.js?v=47") })
   try { if ("serviceWorker" in navigator) navigator.serviceWorker.getRegistrations().then(function (rs) { rs.forEach(function (r) { r.unregister() }) }); if (window.caches) caches.keys().then(function (ks) { ks.forEach(function (k) { caches.delete(k) }) }) } catch (e) {}
   if (firstRun) {
     var frT = [], frOn = true
