@@ -1478,7 +1478,7 @@
         '<div class="rmlist' + (on0 ? "" : " off") + '">' + rrow("rm_daily", "d", "dh") + rrow("rm_due", "s", "sh") + rrow("rm_owed", "o", "") + "</div></div>"
     }
     if (U.more === "lang") {
-      if (!U.lcty) U.lcty = ctyOf(S.lang)
+      U.lcty = U.lcty || ""
       return '<button class="btn small back" data-act="moreBack">' + ic("arrow_back") + " " + esc(tr("back")) + "</button><h1>" + ic("translate") + " " + esc(tr("lang")) + '</h1><div class="globe"><canvas id="lgl"></canvas></div><div id="lvar" class="lrow">' + lvarHtml() + '</div><div id="lall" class="lrow">' + lallHtml() + "</div>"
     }
     if (U.more === "about") {
@@ -1640,7 +1640,8 @@
     return '<button class="lchip' + (on ? " col" : "") + '" style="--c:' + c + '" data-act="setLang" data-v="' + code + '"><span class="fl">' + cc.f + "</span>" + esc(LANG_NAMES[code]) + "</button>"
   }
   function lvarHtml() {
-    var c = ctyGet(U.lcty || ctyOf(S.lang)), h = ""
+    if (!U.lcty) return ""
+    var c = ctyGet(U.lcty), h = ""
     for (var i = 0; i < c.L.length; i++) h += lchip(c.L[i], c.c, true)
     return h
   }
@@ -1650,7 +1651,7 @@
     return h
   }
   function langPick(k) {
-    U.lcty = k
+    U.lcty = U.lcty === k ? "" : k
     var a = document.getElementById("lvar"); if (a) a.innerHTML = lvarHtml()
   }
   function startLangGlobe() {
