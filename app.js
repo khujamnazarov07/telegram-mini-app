@@ -1494,7 +1494,7 @@
     s += gem(305, 284, 5.5, 'cGm') + gem(232, 284, 4, 'cGy') + gem(378, 284, 4, 'cGr')
     // ichki (qopqoq ochilganda)
     s += '<polygon points="200,215 410,215 260,185 50,185" fill="#06102e"/><polygon points="206,214 404,214 256,189 62,189" fill="rgb(var(--ch))" class="chint"/>'
-    s += '<g class="chlidg">'
+    s += '</svg><svg class="chest chlids" viewBox="0 0 440 350" xmlns="http://www.w3.org/2000/svg" style="overflow:visible">'
     // qopqoq sirti
     s += '<path d="M200,215 L50,185 A105,105 0 0 1 155,80 L305,110 A105,105 0 0 0 200,215 Z" fill="url(#cL)"/>' +
       '<path d="M200,215 L50,185 A105,105 0 0 1 155,80 L305,110 A105,105 0 0 0 200,215 Z" fill="url(#cSd)" opacity=".45"/>'
@@ -1518,7 +1518,7 @@
     s += gem(305, 112, 8, 'cGy')
     var rv = [[212, 156], [398, 156], [236, 124], [374, 124]]
     for (var r = 0; r < rv.length; r++) s += '<circle cx="' + rv[r][0] + '" cy="' + rv[r][1] + '" r="5.5" fill="url(#cG)" stroke="#4e2a02" stroke-width="1.5"/>'
-    s += '</g>'
+    s += '</svg><svg class="chest" viewBox="0 0 440 350" xmlns="http://www.w3.org/2000/svg" style="overflow:visible">'
     // belbog'
     s += gpoly('188,203 418,203 424,209 424,229 188,229') +
       gpoly('188,203 38,172 46,188 188,229') +
