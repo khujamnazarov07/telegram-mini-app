@@ -1474,7 +1474,7 @@
       '<radialGradient id="cGp" cx=".35" cy=".3"><stop offset="0" stop-color="#fff"/><stop offset=".4" stop-color="#d9a8ff"/><stop offset="1" stop-color="#6a2bd0"/></radialGradient>' +
       '<radialGradient id="cGr" cx=".35" cy=".3"><stop offset="0" stop-color="#fff"/><stop offset=".4" stop-color="#ff8a96"/><stop offset="1" stop-color="#c0142a"/></radialGradient>' +
       '<radialGradient id="cGy" cx=".35" cy=".3"><stop offset="0" stop-color="#fff"/><stop offset=".4" stop-color="#ffe770"/><stop offset="1" stop-color="#d89a06"/></radialGradient>' +
-      '<radialGradient id="cSh"><stop offset="0" stop-color="#000" stop-opacity=".6"/><stop offset="1" stop-color="#000" stop-opacity="0"/></radialGradient>' +
+      '<linearGradient id="cGf" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff2a0"/><stop offset=".45" stop-color="#f4b624"/><stop offset="1" stop-color="#a8680a"/></linearGradient><radialGradient id="cSh"><stop offset="0" stop-color="#000" stop-opacity=".6"/><stop offset="1" stop-color="#000" stop-opacity="0"/></radialGradient>' +
       '<linearGradient id="cSd" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#000" stop-opacity=".4"/><stop offset="1" stop-color="#000" stop-opacity="0"/></linearGradient></defs>' +
       '<ellipse cx="235" cy="326" rx="215" ry="22" fill="url(#cSh)"/>'
     // chap yon (uzun) yuz
@@ -1482,6 +1482,7 @@
       '<polygon points="178,236 78,214 78,252 178,274" fill="url(#cBg)" stroke="#9db8ff" stroke-opacity=".8" stroke-width="1.8"/>' +
       '<path d="M126,232 l26,16 -26,16 -26,-16z" fill="#2a4fe0" stroke="#b6caff" stroke-width="1.4"/><path d="M126,238 l14,10 -14,10 -14,-10z" fill="#6f93ff"/>' +
       '<polygon points="200,215 50,185 50,270 200,300" fill="url(#cSd)"/>'
+    s += '<path d="M88,226 q12,-10 24,0 q8,8 -2,16 M168,262 q-12,10 -24,2 q-8,-8 2,-16 M92,250 q8,-6 16,0 M164,238 q-8,6 -16,0" fill="none" stroke="#9db8ff" stroke-opacity=".75" stroke-width="2" stroke-linecap="round"/>'
     s += gp('M200,215 L50,185 L50,270 L200,300 Z', 8)
     s += gp('M200,290 L50,260', 7)
     // old (tor) yuz tana
@@ -1489,6 +1490,8 @@
       '<rect x="224" y="234" width="162" height="54" rx="4" fill="url(#cBg)" stroke="#9db8ff" stroke-opacity=".85" stroke-width="1.8"/>' +
       emb(305, 261, 0.78) +
       '<path d="M232,282 q18,-12 36,0 M342,282 q18,-12 36,0 M232,240 q18,12 36,0 M342,240 q18,12 36,0" fill="none" stroke="#7a98ff" stroke-opacity=".7" stroke-width="2"/>'
+    s += '<path d="M236,262 q10,-18 26,-8 q6,8 -4,12 M374,262 q-10,-18 -26,-8 q-6,8 4,12 M236,254 q-6,-10 2,-16 M374,254 q6,-10 -2,-16" fill="none" stroke="#9db8ff" stroke-opacity=".75" stroke-width="2" stroke-linecap="round"/>'
+    s += gpoly('224,234 246,234 224,254', 1.8) + gpoly('386,234 364,234 386,254', 1.8) + gpoly('224,288 246,288 224,268', 1.8) + gpoly('386,288 364,288 386,268', 1.8)
     s += gp('M200,215 L410,215 L410,300 L200,300 Z', 9)
     s += gp('M196,284 L414,284', 8)
     s += gem(305, 284, 5.5, 'cGm') + gem(232, 284, 4, 'cGy') + gem(378, 284, 4, 'cGr')
@@ -1523,6 +1526,7 @@
     s += gpoly('188,203 418,203 424,209 424,229 188,229') +
       gpoly('188,203 38,172 46,188 188,229') +
       '<path d="M190,205 L422,205" stroke="#fffbe0" stroke-opacity=".9" stroke-width="2"/><path d="M188,227 L436,227" stroke="#7a4604" stroke-opacity=".5" stroke-width="2"/>'
+    s += '<path d="M230,205 L262,205 L250,227 L218,227Z M330,205 L362,205 L350,227 L318,227Z" fill="#fff" fill-opacity=".22"/><path d="M262,205 L294,205 L282,227 L250,227Z M362,205 L392,205 L384,227 L350,227Z" fill="#5a3202" fill-opacity=".14"/>'
     s += gem(250, 216, 4, 'cGm') + gem(305, 216, 4, 'cGp') + gem(360, 216, 4, 'cGr')
     // burchak ustunlari
     s += gpoly('190,203 214,203 214,300 190,300', 2.4) + gpoly('396,203 420,203 420,300 396,300', 2.4) +
@@ -1533,10 +1537,15 @@
       '<polygon points="120,190 134,208 120,234 106,208" fill="url(#cGm)" stroke="#fff" stroke-width="1.6"/>' +
       '<path d="M120,190 L134,208 L120,208Z" fill="#fff" fill-opacity=".6"/><path d="M120,234 L106,208 L120,208Z" fill="#000" fill-opacity=".25"/><circle cx="114" cy="200" r="3" fill="#fff"/>'
     // oyoqlar
-    function foot(d, gx, gy, gc) { return '<path d="' + d + '" fill="url(#cG)" stroke="#4e2a02" stroke-width="2.4" stroke-linejoin="round"/>' + gem(gx, gy, 4.5, gc) }
-    s += foot('M176,288 L224,288 Q226,308 214,320 Q198,334 170,332 Q160,324 174,318 Q186,312 184,300Z', 204, 306, 'cGy')
-    s += foot('M388,288 L436,288 Q434,308 444,322 Q426,336 402,330 Q392,318 392,300Z', 414, 308, 'cGm')
-    s += foot('M30,258 L72,266 Q70,288 56,300 Q40,312 18,308 Q16,300 30,294 Q40,284 38,272Z', 52, 284, 'cGr')
+    function foot(cx, dy, gc) {
+      var o = '<g transform="translate(' + cx + ',' + dy + ') scale(.78)">'
+      o += '<path d="M-17,0 Q-46,2 -52,28 Q-34,24 -20,16Z" fill="url(#cGf)" stroke="#4e2a02" stroke-width="2.4" stroke-linejoin="round"/>'
+      o += '<path d="M17,0 Q46,2 52,28 Q34,24 20,16Z" fill="url(#cGf)" stroke="#4e2a02" stroke-width="2.4" stroke-linejoin="round"/>'
+      o += '<path d="M-17,-4 L17,-4 Q22,18 0,40 Q-22,18 -17,-4Z" fill="url(#cGf)" stroke="#4e2a02" stroke-width="2.6" stroke-linejoin="round"/>'
+      o += '<path d="M-9,0 Q-12,16 0,30" fill="none" stroke="#fffbd8" stroke-opacity=".8" stroke-width="2.2" stroke-linecap="round"/>'
+      return o + gem(0, 14, 5, gc) + '</g>'
+    }
+    s += foot(202, 288, 'cGy') + foot(408, 288, 'cGm') + foot(52, 258, 'cGr')
     s += '<g fill="#fff"><path d="M330,92 l2,9 9,2 -9,2 -2,9 -2,-9 -9,-2 9,-2z"/><path d="M84,150 l1.6,6 6,1.6 -6,1.6 -1.6,6 -1.6,-6 -6,-1.6 6,-1.6z" opacity=".9"/><path d="M424,262 l1.4,5 5,1.4 -5,1.4 -1.4,5 -1.4,-5 -5,-1.4 5,-1.4z" opacity=".8"/></g>'
     return s + '</svg>'
   }
