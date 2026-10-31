@@ -64,6 +64,7 @@
     rm_daily: "Kunlik eslatma|Кунлик эслатма|Ежедневное напоминание|Daily reminder|تذكير يومي|Günlük hatırlatma|Pengingat harian|每日提醒|दैनिक रिमाइंडर|Recordatorio diario",
     rm_due: "Salavot eslatmasi|Салавот эслатмаси|Напоминание о салавате|Salawat reminder|تذكير الصلاة|Salavat hatırlatması|Pengingat salawat|赞圣提醒|सलावात रिमाइंडर|Recordatorio de salawat",
     rm_owed: "Qarz haqida ogohlantirish|Қарз ҳақида огоҳлантириш|Предупреждение о долге|Overdue warning|تنبيه التأخير|Borç uyarısı|Peringatan utang|欠款提醒|बकाया चेतावनी|Aviso de atraso",
+    ob_later: "(+ keyinroq sozlashingiz ham mumkin)|(+ кейинроқ созлашингиз ҳам мумкин)|(+ позже это можно изменить в настройках)|(+ you can also change this later in settings)|(+ يمكنك تغيير ذلك لاحقاً من الإعدادات)|(+ daha sonra ayarlardan da değiştirebilirsiniz)|(+ Anda juga dapat mengubahnya nanti di pengaturan)|（+ 稍后也可以在设置中更改）|(+ आप इसे बाद में सेटिंग्स में भी बदल सकते हैं)|(+ también puedes cambiarlo más tarde en ajustes)",
     about: "Haqida|Ҳақида|О приложении|About|حول|Hakkında|Tentang|关于|के बारे में|Acerca de",
     rate_all: "Umumiy reyting|Умумий рейтинг|Общий рейтинг|Overall rating|التقييم العام|Genel puan|Rating umum|总评分|कुल रेटिंग|Valoración general",
     rate_my: "Sizning bahoyingiz|Сизнинг баҳойингиз|Ваша оценка|Your rating|تقييمك|Puanınız|Penilaian Anda|您的评分|आपकी रेटिंग|Tu valoración",
@@ -1202,6 +1203,8 @@
     var defs = '<defs>' +
       '<linearGradient id="hgGlass" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".2"/><stop offset="1" stop-color="#fff" stop-opacity=".05"/></linearGradient>' +
       '<linearGradient id="hgSand" gradientUnits="userSpaceOnUse" x1="0" x2="0" y1="' + HT + '" y2="' + HB + '"><stop offset="0" style="stop-color:var(--s1)"/><stop offset=".5" style="stop-color:var(--s2)"/><stop offset="1" style="stop-color:var(--s1)"/></linearGradient>' +
+      '<linearGradient id="hgSandF" gradientUnits="userSpaceOnUse" x1="0" x2="0" y1="' + HT + '" y2="' + HB + '"><stop offset="0" style="stop-color:color-mix(in srgb,var(--s1) 52%,#000)"/><stop offset=".5" style="stop-color:color-mix(in srgb,var(--s2) 52%,#000)"/><stop offset="1" style="stop-color:color-mix(in srgb,var(--s1) 52%,#000)"/></linearGradient>' +
+      '<linearGradient id="hgSandN" gradientUnits="userSpaceOnUse" x1="0" x2="0" y1="' + HT + '" y2="' + HB + '"><stop offset="0" style="stop-color:color-mix(in srgb,var(--s1) 62%,#fff)"/><stop offset=".5" style="stop-color:color-mix(in srgb,var(--s2) 62%,#fff)"/><stop offset="1" style="stop-color:color-mix(in srgb,var(--s1) 62%,#fff)"/></linearGradient>' +
       '<linearGradient id="hgRim" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".95"/><stop offset=".5" stop-color="#fff" stop-opacity=".4"/><stop offset="1" stop-color="#fff" stop-opacity=".95"/></linearGradient>' +
       '<linearGradient id="hgCapFace" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="#9df0cd" stop-opacity=".92"/><stop offset="1" stop-color="#2fb487" stop-opacity=".92"/></linearGradient>' +
       '<linearGradient id="hgCapSide" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#1f8f6a" stop-opacity=".95"/><stop offset=".35" stop-color="#4fcfa1" stop-opacity=".95"/><stop offset="1" stop-color="#157a5b" stop-opacity=".95"/></linearGradient>' +
@@ -1291,9 +1294,20 @@
     if (!document.body.contains(s.els[0])) { s.els = null; return }
     for (var k = 0; k < 3; k++) simStep(s)
     var i
+    var FILLS = ["url(#hgSandF)", "url(#hgSand)", "url(#hgSandN)"]
     for (i = 0; i < 100; i++) {
-      s.els[i].setAttribute("cx", s.g[i].x.toFixed(2))
-      s.els[i].setAttribute("cy", s.g[i].y.toFixed(2))
+      var gp = s.g[i], el = s.els[i]
+      if (gp.z === undefined) { gp.z = Math.random(); gp.vz = 0; gp.zr = Math.random(); gp.fb = -1 }
+      var ddx = gp.x - gp.px, ddy = gp.y - gp.py
+      if (ddx * ddx + ddy * ddy > 0.02) {
+        gp.vz += (Math.random() - 0.5) * 0.1; gp.vz *= 0.93; gp.z += gp.vz
+        if (gp.z < 0) { gp.z = 0; gp.vz = Math.abs(gp.vz) } else if (gp.z > 1) { gp.z = 1; gp.vz = -Math.abs(gp.vz) }
+      } else gp.z += (gp.zr - gp.z) * 0.06
+      el.setAttribute("cx", gp.x.toFixed(2))
+      el.setAttribute("cy", gp.y.toFixed(2))
+      el.setAttribute("r", (R * 1.2 * (0.7 + 0.62 * gp.z)).toFixed(2))
+      var fb = gp.z < 0.34 ? 0 : gp.z < 0.67 ? 1 : 2
+      if (gp.fb !== fb) { gp.fb = fb; el.setAttribute("fill", FILLS[fb]) }
     }
     if (s.sps) for (i = 0; i < s.sps.length; i++) { var g = s.g[s.spi[i]]; s.sps[i].setAttribute("transform", "translate(" + g.x.toFixed(2) + " " + g.y.toFixed(2) + ")") }
     if (s.allow > 0 || s.maxv > 0.02) { s.rest = 0 } else { s.rest++ }
@@ -1741,6 +1755,60 @@
       if (best) { haptic("light"); langPick(best.k) }
     })
   }
+  // ====================
+  // YANGI FOYDALANUVCHI: BOSHLANG'ICH EKRAN (til -> shahar -> mavzu)
+  // ====================
+  function obDots() {
+    var h = '<div class="obdots">'
+    for (var i = 1; i <= 3; i++) h += "<i" + (i === U.ob ? ' class="on"' : "") + "></i>"
+    return h + "</div>"
+  }
+  function obBtn(last, on) {
+    return '<button id="obn" class="btn block obnext' + (on ? " success" : "") + '" data-act="obNext" aria-label="next">' + ic(last ? "check" : "chevron_right") + "</button>"
+  }
+  function obSync() {
+    var b = document.getElementById("obn"); if (b && U.ob === 2) { if (S.tz) b.classList.add("success"); else b.classList.remove("success") }
+    var t = document.getElementById("obtz"); if (t) { if (S.tz) t.classList.remove("success"); else t.classList.add("success") }
+  }
+  function obRender() {
+    var host = document.getElementById("onb"); if (!host) return
+    document.documentElement.lang = S.lang.slice(0, 2)
+    document.documentElement.dir = S.lang === "ar" ? "rtl" : "ltr"
+    var h = obDots()
+    if (U.ob === 1) {
+      var codes = ["uz", "uz_kr", "uz_new"], rest = [], i
+      for (i = 0; i < LANGS.length; i++) if (codes.indexOf(LANGS[i]) < 0) rest[rest.length] = LANGS[i]
+      function lb(c) { return '<button class="btn' + (S.langSet !== false && S.lang === c ? " success" : "") + '" data-act="obLang" data-v="' + c + '">' + esc(LANG_NAMES[c]) + "</button>" }
+      h += '<div class="obh">' + ic("translate") + " <span>" + esc(tr("lang")) + '</span></div><div class="obbody"><div class="obg"><div class="r3">'
+      for (i = 0; i < codes.length; i++) h += lb(codes[i])
+      h += "</div>"
+      for (i = 0; i < rest.length; i++) h += lb(rest[i])
+      h += "</div></div>" + obBtn(false, S.langSet !== false)
+    } else if (U.ob === 2) {
+      h += '<div class="obbody"><p class="obtxt">' + esc(tr("tz_hint")) + '</p><p class="obsub">' + esc(tr("ob_later")) + '</p><div class="globe"><canvas id="gl"></canvas><div id="gtxt" class="gtxt"></div><button id="obtz" class="btn small' + (S.tz ? "" : " success") + '" data-act="obTz">' + esc(tr("tz_dev")) + "</button></div></div>" + obBtn(false, !!S.tz)
+    } else {
+      h += '<div class="obh">' + ic("palette") + " <span>" + esc(tr("theme_t")) + '</span></div><div class="obbody"><div id="vwTheme" class="vw"><div class="vw-track"></div></div><div id="themeOpts" class="topts">' + themeOpts() + '</div><p class="ginfo">' + ic("info") + " <span>" + esc(tr("gender_info")) + "</span></p></div>" + obBtn(true, true)
+    }
+    host.innerHTML = h
+    if (U.ob === 2) startGlobe()
+    if (U.ob === 3) themeInit()
+  }
+  function obNext() {
+    if (U.ob === 1) { S.langSet = true; save(); U.ob = 2; obRender(); return }
+    if (U.ob === 2) { U.ob = 3; obRender(); return }
+    S.ob = 0; S.langSet = true; save()
+    U.ob = 0
+    document.body.classList.remove("onb")
+    var host = document.getElementById("onb"); if (host && host.parentNode) host.parentNode.removeChild(host)
+    TCACHE = {}; applyTheme(); render()
+    if (wheels.lang) wheels.lang.set(Math.max(0, LANGS.indexOf(S.lang)), false)
+  }
+  function obStart() {
+    if (!document.getElementById("onb")) { var d = document.createElement("div"); d.id = "onb"; document.body.appendChild(d) }
+    document.body.classList.add("onb")
+    U.ob = 1; obRender()
+  }
+
   function startGlobe() {
     var cv = document.getElementById("gl")
     if (!cv || !cv.getContext) return
@@ -1824,7 +1892,7 @@
         var d = (p3[0] - x) * (p3[0] - x) + (p3[1] - y) * (p3[1] - y)
         if (d < bd) { bd = d; best = CITIES[m] }
       }
-      if (best) { S.tz = best[0]; sel = best; save(); applyTheme(); gText() }
+      if (best) { S.tz = best[0]; sel = best; save(); applyTheme(); gText(); if (U.ob) obSync() }
     })
     gText()
   }
@@ -2329,6 +2397,9 @@
       openTg("https://t.me/share/url?url=" + encodeURIComponent("https://t.me/" + CFG.BOT) + "&text=" + encodeURIComponent("✨ " + sn + ". " + nd.a + " — " + nd.t + "\n🤖 @" + CFG.BOT))
     }
     else if (act === "setGender") { S.gender = v; save(); applyGender(); render() }
+    else if (act === "obLang") { S.lang = v; S.langSet = true; TCACHE = {}; save(); obRender() }
+    else if (act === "obTz") { S.tz = ""; save(); applyTheme(); obRender() }
+    else if (act === "obNext") { obNext() }
     else if (act === "tzDev") { S.tz = ""; save(); applyTheme(); render() }
     else if (act === "setMode") { S.theme = v; save(); applyTheme(); if (wheels.theme) wheels.theme.set(THEMES.indexOf(v), true); render() }
     else if (act === "sgo") { var qq = document.getElementById("q"); if (qq) { qq.focus(); if (qq.value) qq.select() } }
@@ -2564,14 +2635,6 @@
   var idle = window.requestIdleCallback || function (f) { return setTimeout(f, 1200) }
   idle(function () { loadMean(S.lang === "uz_new" ? "uz" : S.lang); loadJs("search.js?v=47") })
   try { if ("serviceWorker" in navigator) navigator.serviceWorker.getRegistrations().then(function (rs) { rs.forEach(function (r) { r.unregister() }) }); if (window.caches) caches.keys().then(function (ks) { ks.forEach(function (k) { caches.delete(k) }) }) } catch (e) {}
-  if (firstRun) {
-    var frT = [], frOn = true
-    function frStop() { frOn = false; for (var i = 0; i < frT.length; i++) clearTimeout(frT[i]); if (S.langSet === false) { S.langSet = true; save(); render() } }
-    function frAt(ms, fn) { frT.push(setTimeout(function () { if (frOn) fn() }, ms)) }
-    document.addEventListener("pointerdown", function () { if (frOn) frStop() }, true)
-    frAt(1600, function () { U.tab = "more"; U.more = "menu"; render() })
-    frAt(2700, function () { U.more = "settings"; render() })
-    frAt(3800, function () { U.more = "lang"; render() })
-    frAt(5000, function () { frOn = false; S.langSet = true; save(); render() })
-  }
+  if (firstRun) { S.ob = 1; save() }
+  if (S.ob === 1) obStart()
 })()
