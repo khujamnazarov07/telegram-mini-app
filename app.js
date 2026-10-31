@@ -1759,9 +1759,7 @@
   // YANGI FOYDALANUVCHI: BOSHLANG'ICH EKRAN (til -> shahar -> mavzu)
   // ====================
   function obDots() {
-    var h = '<div class="obdots">'
-    for (var i = 1; i <= 3; i++) h += "<i" + (i === U.ob ? ' class="on"' : "") + "></i>"
-    return h + "</div>"
+    return '<div class="obbar"><i style="width:' + (U.ob * 100 / 3).toFixed(1) + '%"></i></div>'
   }
   function obBtn(last, on) {
     return '<button id="obn" class="btn block obnext' + (on ? " success" : "") + '" data-act="obNext" aria-label="next">' + ic(last ? "check" : "chevron_right") + "</button>"
@@ -1779,7 +1777,7 @@
       var codes = ["uz", "uz_kr", "uz_new"], rest = [], i
       for (i = 0; i < LANGS.length; i++) if (codes.indexOf(LANGS[i]) < 0) rest[rest.length] = LANGS[i]
       function lb(c) { return '<button class="btn' + (S.langSet !== false && S.lang === c ? " success" : "") + '" data-act="obLang" data-v="' + c + '">' + esc(LANG_NAMES[c]) + "</button>" }
-      h += '<div class="obh">' + ic("translate") + " <span>" + esc(tr("lang")) + '</span></div><div class="obbody"><div class="obg"><div class="r3">'
+      h += '<div class="obbody mid"><div class="obh big">' + ic("translate") + " <span>" + (S.langSet === false ? "Language / Til" : esc(tr("lang"))) + '</span></div><div class="obg"><div class="r3">'
       for (i = 0; i < codes.length; i++) h += lb(codes[i])
       h += "</div>"
       for (i = 0; i < rest.length; i++) h += lb(rest[i])
