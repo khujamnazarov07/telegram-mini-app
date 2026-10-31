@@ -65,6 +65,8 @@
     rm_due: "Salavot eslatmasi|Салавот эслатмаси|Напоминание о салавате|Salawat reminder|تذكير الصلاة|Salavat hatırlatması|Pengingat salawat|赞圣提醒|सलावात रिमाइंडर|Recordatorio de salawat",
     rm_owed: "Qarz haqida ogohlantirish|Қарз ҳақида огоҳлантириш|Предупреждение о долге|Overdue warning|تنبيه التأخير|Borç uyarısı|Peringatan utang|欠款提醒|बकाया चेतावनी|Aviso de atraso",
     ob_later: "(+ keyinroq sozlashingiz ham mumkin)|(+ кейинроқ созлашингиз ҳам мумкин)|(+ позже это можно изменить в настройках)|(+ you can also change this later in settings)|(+ يمكنك تغيير ذلك لاحقاً من الإعدادات)|(+ daha sonra ayarlardan da değiştirebilirsiniz)|(+ Anda juga dapat mengubahnya nanti di pengaturan)|（+ 稍后也可以在设置中更改）|(+ आप इसे बाद में सेटिंग्स में भी बदल सकते हैं)|(+ también puedes cambiarlo más tarde en ajustes)",
+    ob_skip: "Keyinroq|Кейинроқ|Позже|Later|لاحقاً|Sonra|Nanti|稍后|बाद में|Más tarde",
+    ob_or: "yoki|ёки|или|or|أو|veya|atau|或|या|o",
     about: "Haqida|Ҳақида|О приложении|About|حول|Hakkında|Tentang|关于|के बारे में|Acerca de",
     rate_all: "Umumiy reyting|Умумий рейтинг|Общий рейтинг|Overall rating|التقييم العام|Genel puan|Rating umum|总评分|कुल रेटिंग|Valoración general",
     rate_my: "Sizning bahoyingiz|Сизнинг баҳойингиз|Ваша оценка|Your rating|تقييمك|Puanınız|Penilaian Anda|您的评分|आपकी रेटिंग|Tu valoración",
@@ -1762,10 +1764,14 @@
     return '<div class="obbar"><i style="width:' + (U.ob * 100 / 3).toFixed(1) + '%"></i></div>'
   }
   function obBtn(last, on) {
-    return '<button id="obn" class="btn block obnext' + (on ? " success" : "") + '" data-act="obNext" aria-label="next">' + ic(last ? "check" : "chevron_right") + "</button>"
+    return '<button id="obn" class="btn block obnext' + (on ? " success" : "") + (!on && U.ob === 2 ? " dim" : "") + '" data-act="' + (!on && U.ob === 2 ? "obNone" : "obNext") + '" aria-label="next">' + ic(last ? "check" : "chevron_right") + "</button>"
+  }
+  function obChip() {
+    var cs = document.querySelectorAll(".mqc")
+    for (var i = 0; i < cs.length; i++) { if (cs[i].getAttribute("data-v") === S.tz) cs[i].classList.add("success"); else cs[i].classList.remove("success") }
   }
   function obSync() {
-    var b = document.getElementById("obn"); if (b && U.ob === 2) { if (S.tz) b.classList.add("success"); else b.classList.remove("success") }
+    var b = document.getElementById("obn"); if (b && U.ob === 2) { if (S.tz) { b.classList.add("success"); b.classList.remove("dim"); b.setAttribute("data-act", "obNext") } else { b.classList.remove("success"); b.classList.add("dim"); b.setAttribute("data-act", "obNone") } }
     var t = document.getElementById("obtz"); if (t) { if (S.tz) t.classList.remove("success"); else t.classList.add("success") }
   }
   function obRender() {
@@ -1783,7 +1789,15 @@
       for (i = 0; i < rest.length; i++) h += lb(rest[i])
       h += "</div></div>" + obBtn(false, S.langSet !== false)
     } else if (U.ob === 2) {
-      h += '<div class="obbody"><p class="obtxt">' + esc(tr("tz_hint")) + '</p><p class="obsub">' + esc(tr("ob_later")) + '</p><div class="globe"><canvas id="gl"></canvas><div id="gtxt" class="gtxt"></div><button id="obtz" class="btn small' + (S.tz ? "" : " success") + '" data-act="obTz">' + esc(tr("tz_dev")) + "</button></div></div>" + obBtn(false, !!S.tz)
+      var mq = "", rows = [[], [], []], ci
+      for (ci = 0; ci < CITIES.length; ci++) rows[ci % 3][rows[ci % 3].length] = CITIES[ci]
+      for (var rr = 0; rr < 3; rr++) {
+        var chips = ""
+        for (var cj = 0; cj < rows[rr].length; cj++) chips += '<button class="mqc' + (S.tz === rows[rr][cj][0] ? " success" : "") + '" data-act="obCity" data-v="' + rows[rr][cj][0] + '">' + esc(cname(rows[rr][cj])) + "</button>"
+        mq += '<div class="mqrow"><div class="mqin" style="--d:' + (52 + rr * 9) + 's">' + chips + chips + chips + chips + "</div></div>"
+      }
+      h += '<div class="obbody mid"><p class="obtxt c">' + esc(tr("tz_hint")) + '</p><div class="globe"><canvas id="gl"></canvas><div id="gtxt" class="gtxt"></div></div><div class="obor"><i></i><span>' + esc(tr("ob_or")) + '</span><i></i></div><button id="obtz" class="btn small' + (S.tz ? "" : " success") + '" data-act="obTz" style="align-self:center">' + esc(tr("tz_dev")) + "</button></div>" +
+        '<div class="obmq">' + mq + '</div><button class="btn block obskip" data-act="obSkip">' + esc(tr("ob_skip")) + " " + ic("chevron_right") + "</button>" + obBtn(false, !!S.tz)
     } else {
       h += '<div class="obh">' + ic("palette") + " <span>" + esc(tr("theme_t")) + '</span></div><div class="obbody"><div id="vwTheme" class="vw"><div class="vw-track"></div></div><div id="themeOpts" class="topts">' + themeOpts() + '</div><p class="ginfo">' + ic("info") + " <span>" + esc(tr("gender_info")) + "</span></p></div>" + obBtn(true, true)
     }
@@ -1807,21 +1821,23 @@
     U.ob = 1; obRender()
   }
 
+  var GGO = null
   function startGlobe() {
     var cv = document.getElementById("gl")
     if (!cv || !cv.getContext) return
-    var W = cv.clientWidth || 240, dpr = Math.min(2, window.devicePixelRatio || 1)
-    cv.width = W * dpr; cv.height = W * dpr
-    var g = cv.getContext("2d"), R = W / 2 - 6
-    var sel = cityByName(S.tz)
-    var lon0 = sel ? sel[1] : -new Date().getTimezoneOffset() / 4, tilt = 0.38, drag = false, sx = 0, sl = 0, moved = 0, last = 0, ph = 0
+    var W = cv.clientWidth || 340, H = cv.clientHeight || 230, dpr = Math.min(2, window.devicePixelRatio || 1)
+    cv.width = W * dpr; cv.height = H * dpr
+    var g = cv.getContext("2d"), CX = W / 2, CY = H / 2, R = Math.min(H / 2 - 8, W * 0.26)
+    var sel0 = cityByName(S.tz)
+    var lon0 = sel0 ? sel0[1] : -new Date().getTimezoneOffset() / 4, tilt = 0.38, drag = false, sx = 0, sl = 0, moved = 0, last = 0, ph = 0, goal = null, hits = []
+    GGO = function (lo) { goal = lo }
     var land = []
     for (var i = 0; i < 16200; i++) if (parseInt(GMASK.charAt(i >> 2), 16) & (8 >> (i & 3))) land[land.length] = [-180 + (i % 180 + 0.5) * 2, 90 - (Math.floor(i / 180) + 0.5) * 2]
-    var cs = getComputedStyle(cv), fg = cs.color
+    var fg = getComputedStyle(cv).color
     function pr(lo, la) {
       var l = (lo - lon0) * Math.PI / 180, p = la * Math.PI / 180
       var x = Math.cos(p) * Math.sin(l), y = Math.cos(tilt) * Math.sin(p) - Math.sin(tilt) * Math.cos(p) * Math.cos(l), z = Math.sin(tilt) * Math.sin(p) + Math.cos(tilt) * Math.cos(p) * Math.cos(l)
-      return [W / 2 + x * R, W / 2 - y * R, z]
+      return [CX + x * R, CY - y * R, z]
     }
     function draw(ts) {
       if (document.getElementById("gl") !== cv) return
@@ -1829,12 +1845,16 @@
       if (document.hidden || ts - last < 33) return
       var dt = last ? (ts - last) / 1000 : 0
       last = ts; ph += dt
-      if (!drag) lon0 += 5 * dt
+      if (goal !== null && !drag) {
+        var df = ((goal - lon0 + 540) % 360) - 180
+        if (Math.abs(df) < 0.3) { lon0 = goal; goal = null } else lon0 += df * Math.min(1, dt * 4)
+      } else if (!drag) lon0 += 5 * dt
+      var sel = cityByName(S.tz)
       g.setTransform(dpr, 0, 0, dpr, 0, 0)
-      g.clearRect(0, 0, W, W)
-      var grd = g.createRadialGradient(W * .4, W * .38, R * .1, W / 2, W / 2, R)
+      g.clearRect(0, 0, W, H); hits = []
+      var grd = g.createRadialGradient(CX - R * .2, CY - R * .24, R * .1, CX, CY, R)
       grd.addColorStop(0, "rgba(120,160,150,.16)"); grd.addColorStop(1, "rgba(120,160,150,.04)")
-      g.fillStyle = grd; g.beginPath(); g.arc(W / 2, W / 2, R, 0, 6.2832); g.fill()
+      g.fillStyle = grd; g.beginPath(); g.arc(CX, CY, R, 0, 6.2832); g.fill()
       g.strokeStyle = "rgba(128,150,145,.35)"; g.lineWidth = 1; g.stroke()
       g.fillStyle = fg
       for (var k = 0; k < land.length; k++) {
@@ -1845,52 +1865,54 @@
         g.fillRect(q[0] - r / 2, q[1] - r / 2, r, r)
       }
       g.globalAlpha = 1
+      var fs = 10, bh = fs + 7, vis = []
+      g.font = "700 " + fs + "px system-ui, sans-serif"; g.textBaseline = "middle"; g.textAlign = "center"
       for (var m = 0; m < CITIES.length; m++) {
         var c = CITIES[m], p2 = pr(c[1], c[2])
-        if (p2[2] <= 0.05) continue
-        var on = sel && sel[0] === c[0], col = CCOL[m % CCOL.length], pu = 0.5 + 0.5 * Math.sin(ph * 2.2 + m)
-        g.globalAlpha = 0.25 + 0.3 * pu; g.fillStyle = col
-        g.beginPath(); g.arc(p2[0], p2[1], (on ? 8 : 5.5) + 2 * pu, 0, 6.2832); g.fill()
-        g.globalAlpha = 1; g.beginPath(); g.arc(p2[0], p2[1], on ? 4 : 3, 0, 6.2832); g.fill()
-        if (on) { g.strokeStyle = fg; g.lineWidth = 1.5; g.beginPath(); g.arc(p2[0], p2[1], 6, 0, 6.2832); g.stroke() }
+        if (p2[2] > 0.08) vis[vis.length] = { c: c, m: m, x: p2[0], y: p2[1], z: p2[2], nm: cname(c) }
       }
-      if (sel) {
-        var sp = pr(sel[1], sel[2])
-        if (sp[2] > 0.05) {
-          var nm = cname(sel), fs = 11
-          g.font = "600 " + fs + "px system-ui, sans-serif"
-          var tw = g.measureText(nm).width, bw = tw + 12, bh = fs + 8, dx = 12, hl = 14
-          var dir = sp[0] >= W / 2 ? 1 : -1
-          if (dir > 0 && sp[0] + dx + hl + bw > W - 2) dir = -1
-          else if (dir < 0 && sp[0] - dx - hl - bw < 2) dir = 1
-          var x1 = sp[0] + dir * dx, y1 = sp[1] - dx, x2 = x1 + dir * hl, bx = dir > 0 ? x2 : x2 - bw
-          g.strokeStyle = fg; g.globalAlpha = 0.85; g.lineWidth = 1.2
-          g.beginPath(); g.moveTo(sp[0] + dir * 4, sp[1] - 4); g.lineTo(x1, y1); g.lineTo(x2, y1); g.stroke()
-          g.fillStyle = "rgba(120,150,140,.22)"; g.globalAlpha = 1
-          g.beginPath(); if (g.roundRect) g.roundRect(bx, y1 - bh / 2, bw, bh, 6); else g.rect(bx, y1 - bh / 2, bw, bh); g.fill()
-          g.strokeStyle = "rgba(128,150,145,.55)"; g.lineWidth = 1; g.stroke()
-          g.fillStyle = fg; g.textBaseline = "middle"; g.textAlign = "center"
-          g.fillText(nm, bx + bw / 2, y1 + 0.5)
-          g.textAlign = "start"; g.textBaseline = "alphabetic"
+      vis.sort(function (a, b) { return a.x - b.x })
+      for (var vi = 0; vi < vis.length; vi++) vis[vi].d = vi < Math.floor(vis.length / 2) ? -1 : 1
+      for (var sd = -1; sd <= 1; sd += 2) {
+        var col = vis.filter(function (v) { return v.d === sd }).sort(function (a, b) { return a.y - b.y })
+        var lim = bh / 2 + 2, ly = []
+        for (var a = 0; a < col.length; a++) ly[a] = Math.max(col[a].y, a ? ly[a - 1] + bh + 2 : lim)
+        for (a = col.length - 1; a >= 0; a--) { var mx = a < col.length - 1 ? ly[a + 1] - bh - 2 : H - lim; if (ly[a] > mx) ly[a] = mx }
+        for (a = 0; a < col.length; a++) {
+          var v = col[a], tw = g.measureText(v.nm).width + 10, ax = sd > 0 ? Math.max(CX + R + 6, v.x + 4) : Math.min(CX - R - 6, v.x - 4)
+          var bx = sd > 0 ? ax : ax - tw, ty = ly[a], on = sel && sel[0] === v.c[0], cl = CCOL[v.m % CCOL.length], pu = 0.5 + 0.5 * Math.sin(ph * 2.2 + v.m)
+          var al = 0.4 + 0.6 * Math.min(1, v.z * 1.6), dy = ty - v.y, ex = v.x + sd * Math.abs(dy)
+          if (sd > 0 ? ex > ax : ex < ax) ex = ax
+          g.globalAlpha = al * 0.8; g.strokeStyle = cl; g.lineWidth = 1.1
+          g.beginPath(); g.moveTo(v.x, v.y); g.lineTo(ex, ty); g.lineTo(ax, ty); g.stroke()
+          g.fillStyle = cl
+          g.globalAlpha = al * (0.25 + 0.25 * pu); g.beginPath(); g.arc(v.x, v.y, (on ? 8 : 5.5) + 2 * pu, 0, 6.2832); g.fill()
+          g.globalAlpha = al; g.beginPath(); g.arc(v.x, v.y, on ? 4 : 3, 0, 6.2832); g.fill()
+          if (on) { g.strokeStyle = fg; g.lineWidth = 1.5; g.beginPath(); g.arc(v.x, v.y, 6.5, 0, 6.2832); g.stroke() }
+          g.beginPath(); if (g.roundRect) g.roundRect(bx, ty - bh / 2, tw, bh, 6); else g.rect(bx, ty - bh / 2, tw, bh); g.fill()
+          if (on) { g.strokeStyle = fg; g.lineWidth = 2; g.stroke() }
+          g.fillStyle = "#fff"; g.fillText(v.nm, bx + tw / 2, ty + 0.5)
+          g.globalAlpha = 1
+          hits[hits.length] = { c: v.c, x: v.x, y: v.y, r: [bx, ty - bh / 2, tw, bh] }
         }
       }
-      g.fillStyle = fg
+      g.textAlign = "start"; g.textBaseline = "alphabetic"; g.fillStyle = fg
     }
     requestAnimationFrame(draw)
-    cv.addEventListener("pointerdown", function (e) { drag = true; moved = 0; sx = e.clientX; sl = lon0 })
+    cv.addEventListener("pointerdown", function (e) { drag = true; goal = null; moved = 0; sx = e.clientX; sl = lon0 })
     cv.addEventListener("pointermove", function (e) { if (!drag) return; moved = Math.max(moved, Math.abs(e.clientX - sx)); lon0 = sl - (e.clientX - sx) * 0.5 })
     cv.addEventListener("pointercancel", function () { drag = false })
     cv.addEventListener("pointerup", function (e) {
       var was = drag; drag = false
       if (!was || moved > 6) return
-      var rc = cv.getBoundingClientRect(), x = e.clientX - rc.left, y = e.clientY - rc.top, best = null, bd = 22 * 22
-      for (var m = 0; m < CITIES.length; m++) {
-        var p3 = pr(CITIES[m][1], CITIES[m][2])
-        if (p3[2] <= 0.05) continue
-        var d = (p3[0] - x) * (p3[0] - x) + (p3[1] - y) * (p3[1] - y)
-        if (d < bd) { bd = d; best = CITIES[m] }
+      var rc = cv.getBoundingClientRect(), x = (e.clientX - rc.left) * (W / rc.width), y = (e.clientY - rc.top) * (H / rc.height), best = null, bd = 22 * 22
+      for (var m = hits.length - 1; m >= 0; m--) {
+        var h = hits[m], r = h.r
+        if (x >= r[0] - 3 && x <= r[0] + r[2] + 3 && y >= r[1] - 3 && y <= r[1] + r[3] + 3) { best = h; break }
+        var d = (h.x - x) * (h.x - x) + (h.y - y) * (h.y - y)
+        if (d < bd) { bd = d; best = h }
       }
-      if (best) { S.tz = best[0]; sel = best; save(); applyTheme(); gText(); if (U.ob) obSync() }
+      if (best) { S.tz = best.c[0]; save(); applyTheme(); gText(); obChip(); if (U.ob) obSync() }
     })
     gText()
   }
@@ -2396,7 +2418,10 @@
     }
     else if (act === "setGender") { S.gender = v; save(); applyGender(); render() }
     else if (act === "obLang") { S.lang = v; S.langSet = true; TCACHE = {}; save(); obRender() }
-    else if (act === "obTz") { S.tz = ""; save(); applyTheme(); obRender() }
+    else if (act === "obTz") { S.tz = ""; save(); applyTheme(); gText(); obChip(); obSync() }
+    else if (act === "obCity") { S.tz = v; save(); applyTheme(); gText(); obChip(); obSync(); var cc = cityByName(v); if (cc && GGO) GGO(cc[1]) }
+    else if (act === "obSkip") { U.ob = 3; obRender() }
+    else if (act === "obNone") { haptic("light") }
     else if (act === "obNext") { obNext() }
     else if (act === "tzDev") { S.tz = ""; save(); applyTheme(); render() }
     else if (act === "setMode") { S.theme = v; save(); applyTheme(); if (wheels.theme) wheels.theme.set(THEMES.indexOf(v), true); render() }
