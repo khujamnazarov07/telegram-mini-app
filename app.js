@@ -1256,7 +1256,7 @@
       '<g clip-path="url(#hgClip)"><g filter="url(#hgGoo)">', i, p
     for (i = 0; i < 100; i++) {
       p = SIM.g[i]
-      h += '<circle class="sg" cx="' + f2(p.x) + '" cy="' + f2(p.y) + '" r="' + f2(R * 1.2) + '" fill="url(#hgSand)"/>'
+      h += '<circle class="sg" cx="' + f2(p.x) + '" cy="' + f2(p.y) + '" r="' + f2(R * 2.6) + '" fill="url(#hgSand)"/>'
     }
     h += '</g><g>'
     for (i = 0; i < SIM.spi.length; i++) {
@@ -1307,7 +1307,7 @@
       } else gp.z += (gp.zr - gp.z) * 0.06
       el.setAttribute("cx", gp.x.toFixed(2))
       el.setAttribute("cy", gp.y.toFixed(2))
-      el.setAttribute("r", (R * 1.2 * (0.7 + 0.62 * gp.z)).toFixed(2))
+      el.setAttribute("r", (R * 2.6 * (0.7 + 0.62 * gp.z)).toFixed(2))
       var fb = gp.z < 0.34 ? 0 : gp.z < 0.67 ? 1 : 2
       if (gp.fb !== fb) { gp.fb = fb; el.setAttribute("fill", FILLS[fb]) }
     }
