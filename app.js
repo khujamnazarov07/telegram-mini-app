@@ -1439,54 +1439,92 @@
   // SANDIQ (kun hikmati)
   // ====================
   function chestSVG() {
-    var G = 'url(#cG)', Gd = 'url(#cGd)'
-    return '<svg class="chest" viewBox="0 0 420 340" xmlns="http://www.w3.org/2000/svg"><defs>' +
-      '<linearGradient id="cG" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff6b0"/><stop offset=".35" stop-color="#ffd34a"/><stop offset=".7" stop-color="#e6a216"/><stop offset="1" stop-color="#a86a08"/></linearGradient>' +
-      '<linearGradient id="cGd" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#c98a10"/><stop offset=".5" stop-color="#f5c43a"/><stop offset="1" stop-color="#9a5f06"/></linearGradient>' +
-      '<linearGradient id="cB" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2d52d6"/><stop offset="1" stop-color="#0a1a6a"/></linearGradient>' +
-      '<linearGradient id="cBs" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#1b3cb8"/><stop offset="1" stop-color="#0c2080"/></linearGradient>' +
-      '<linearGradient id="cL" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#e4e0ff"/><stop offset=".5" stop-color="#a9a8f2"/><stop offset="1" stop-color="#6f78dc"/></linearGradient>' +
-      '<radialGradient id="cGem" cx=".35" cy=".3"><stop offset="0" stop-color="#fff"/><stop offset=".4" stop-color="#7ff3ee"/><stop offset="1" stop-color="#1aa7c4"/></radialGradient>' +
-      '<radialGradient id="cSh"><stop offset="0" stop-color="#000" stop-opacity=".5"/><stop offset="1" stop-color="#000" stop-opacity="0"/></radialGradient></defs>' +
-      '<ellipse cx="215" cy="300" rx="190" ry="26" fill="url(#cSh)"/>' +
-      // yon (chap) yuz
-      '<polygon points="170,192 62,172 62,256 170,278" fill="url(#cBs)"/>' +
-      '<polygon points="170,192 62,172 62,256 170,278" fill="none" stroke="' + Gd + '" stroke-width="7" stroke-linejoin="round"/>' +
-      '<polygon points="150,212 82,200 82,238 150,252" fill="none" stroke="#6c8cff" stroke-opacity=".5" stroke-width="2"/>' +
-      '<path d="M96,222 l24,4 -8,14 -16,-4z M128,228 l16,3 -6,10 -10,-3z" fill="#5b7bff" fill-opacity=".55"/>' +
-      // qopqoq: yon sirt
-      '<path d="M170,192 L62,172 A92,92 0 0 1 160,82 L262,100 A92,92 0 0 0 170,192 Z" fill="url(#cL)"/>' +
-      '<path d="M110,150 C130,110 150,100 170,98 M96,168 C122,128 146,116 188,112 M140,170 C156,140 176,128 214,122 M180,140 C190,128 200,122 226,118" fill="none" stroke="#fff" stroke-opacity=".7" stroke-width="3" stroke-linecap="round"/>' +
-      '<path d="M96,100 L116,92 L132,104 L112,112Z M142,88 L164,86 L172,98 L148,100Z M200,96 L222,96 L226,108 L206,110Z" fill="#35c0ff" stroke="#fff" stroke-opacity=".8" stroke-width="1.5"/>' +
-      '<path d="M160,82 L262,100" stroke="' + G + '" stroke-width="7" stroke-linecap="round"/>' +
-      '<path d="M62,172 A92,92 0 0 1 160,82" fill="none" stroke="' + Gd + '" stroke-width="8" stroke-linecap="round"/>' +
-      // old yuz: tana
-      '<rect x="170" y="192" width="182" height="86" fill="url(#cB)"/>' +
-      '<rect x="190" y="208" width="142" height="56" rx="3" fill="#0d2290" stroke="#7da0ff" stroke-opacity=".6" stroke-width="2"/>' +
-      '<path d="M261,214 l30,24 -30,24 -30,-24z" fill="#1d3fd0" stroke="#9db8ff" stroke-width="2"/><path d="M261,224 l16,14 -16,14 -16,-14z" fill="#3f6bff"/>' +
-      '<path d="M200,258 q20,-14 40,0 M282,258 q20,-14 40,0 M200,214 q20,12 40,0 M282,214 q20,12 40,0" fill="none" stroke="#5578ff" stroke-opacity=".6" stroke-width="2"/>' +
-      '<rect x="170" y="192" width="182" height="86" fill="none" stroke="' + G + '" stroke-width="8" stroke-linejoin="round"/>' +
-      '<rect x="162" y="244" width="198" height="12" rx="2" fill="' + G + '"/>' +
-      // old yoy (arka)
-      '<path d="M170,192 L352,192 A91,91 0 0 0 170,192 Z" fill="url(#cB)"/>' +
-      '<path d="M170,192 A91,91 0 0 1 352,192" fill="none" stroke="' + G + '" stroke-width="16" stroke-linecap="butt"/>' +
-      '<path d="M182,192 A79,79 0 0 1 340,192 Z" fill="#0f2496"/>' +
-      '<path d="M261,126 l34,30 -34,30 -34,-30z" fill="#1d3fd0" stroke="#9db8ff" stroke-width="2"/><path d="M261,138 l18,18 -18,18 -18,-18z" fill="#3f6bff"/>' +
-      '<path d="M170,192 A91,91 0 0 1 352,192" fill="none" stroke="#fff6c0" stroke-opacity=".8" stroke-width="2" transform="translate(0,-5)"/>' +
-      '<circle cx="177" cy="150" r="6" fill="' + G + '"/><circle cx="345" cy="150" r="6" fill="' + G + '"/><circle cx="261" cy="101" r="6" fill="' + G + '"/>' +
-      // belbog'
-      '<polygon points="160,184 360,184 372,196 372,206 160,206" fill="' + G + '"/><polygon points="160,184 54,164 62,176 160,206" fill="url(#cGd)"/>' +
-      '<path d="M160,184 L360,184" stroke="#fff" stroke-opacity=".8" stroke-width="2"/>' +
-      // qulf
-      '<polygon points="116,160 146,200 116,246 86,200" fill="' + G + '" stroke="#8a5606" stroke-width="2"/>' +
-      '<polygon points="116,174 134,200 116,228 98,200" fill="#e9b72a"/>' +
-      '<polygon points="116,180 128,200 116,220 104,200" fill="url(#cGem)" stroke="#fff" stroke-width="1.5"/>' +
-      // oyoqlar
-      '<path d="M158,272 L190,272 L186,296 Q176,320 148,322 Q164,306 158,288Z" fill="' + G + '"/>' +
-      '<path d="M336,272 L366,272 Q372,296 396,308 Q380,322 358,312 Q342,300 336,284Z" fill="' + G + '"/>' +
-      '<path d="M50,250 L76,254 Q74,276 56,288 Q40,298 24,294 Q48,284 50,268Z" fill="' + G + '"/>' +
-      '<circle cx="170" cy="298" r="5" fill="#ffd94a" stroke="#fff" stroke-width="1.2"/><circle cx="378" cy="304" r="5" fill="#2fd0e0" stroke="#fff" stroke-width="1.2"/><circle cx="58" cy="274" r="4" fill="#ff5a6a" stroke="#fff" stroke-width="1.2"/>' +
-      '</svg>'
+    function gp(d, w) {
+      return '<path d="' + d + '" fill="none" stroke="#5a3202" stroke-width="' + (w + 3) + '" stroke-linecap="round" stroke-linejoin="round"/>' +
+        '<path d="' + d + '" fill="none" stroke="url(#cG)" stroke-width="' + w + '" stroke-linecap="round" stroke-linejoin="round"/>' +
+        '<path d="' + d + '" fill="none" stroke="#fff9d0" stroke-opacity=".8" stroke-width="' + Math.max(1, w * 0.2).toFixed(1) + '" stroke-linecap="round" stroke-linejoin="round" transform="translate(-.7,-1.1)"/>'
+    }
+    function gem(x, y, r, c1, c2) {
+      return '<g><polygon points="' + x + ',' + (y - r * 1.25) + ' ' + (x + r) + ',' + y + ' ' + x + ',' + (y + r * 1.25) + ' ' + (x - r) + ',' + y + '" fill="url(#' + c1 + ')" stroke="#4a2a02" stroke-width="1.4"/>' +
+        '<polygon points="' + x + ',' + (y - r * 1.25) + ' ' + (x + r) + ',' + y + ' ' + x + ',' + y + '" fill="#fff" fill-opacity=".55"/>' +
+        '<polygon points="' + x + ',' + (y + r * 1.25) + ' ' + (x - r) + ',' + y + ' ' + x + ',' + y + '" fill="#000" fill-opacity=".28"/>' +
+        '<circle cx="' + (x - r * .3) + '" cy="' + (y - r * .45) + '" r="' + (r * .22) + '" fill="#fff"/></g>'
+    }
+    function rib(t, w) {
+      var bx = 170 - 108 * t, by = 192 - 20 * t, tx = 262 - 102 * t, ty = 100 - 18 * t
+      return gp('M' + bx.toFixed(1) + ',' + by.toFixed(1) + ' A92,92 0 0 1 ' + tx.toFixed(1) + ',' + ty.toFixed(1), w)
+    }
+    var s = '<svg class="chest" viewBox="0 0 420 340" xmlns="http://www.w3.org/2000/svg"><defs>' +
+      '<linearGradient id="cG" gradientUnits="userSpaceOnUse" x1="40" y1="70" x2="380" y2="320"><stop offset="0" stop-color="#fffbd2"/><stop offset=".22" stop-color="#ffe16a"/><stop offset=".5" stop-color="#f2b320"/><stop offset=".78" stop-color="#c88410"/><stop offset="1" stop-color="#8a5206"/></linearGradient>' +
+      '<linearGradient id="cB" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#3a62ee"/><stop offset=".55" stop-color="#162f9c"/><stop offset="1" stop-color="#091660"/></linearGradient>' +
+      '<linearGradient id="cBs" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#0a1a70"/><stop offset=".6" stop-color="#1a38b4"/><stop offset="1" stop-color="#2a4cd0"/></linearGradient>' +
+      '<radialGradient id="cBg" cx=".5" cy=".45" r=".6"><stop offset="0" stop-color="#6f93ff"/><stop offset=".5" stop-color="#2447d0"/><stop offset="1" stop-color="#0b1a78"/></radialGradient>' +
+      '<linearGradient id="cL" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#8d8ff0"/><stop offset=".45" stop-color="#d6d4ff"/><stop offset="1" stop-color="#f4f2ff"/></linearGradient>' +
+      '<radialGradient id="cGm" cx=".35" cy=".3"><stop offset="0" stop-color="#fff"/><stop offset=".35" stop-color="#8ff6f0"/><stop offset="1" stop-color="#0f9ec2"/></radialGradient>' +
+      '<radialGradient id="cGp" cx=".35" cy=".3"><stop offset="0" stop-color="#fff"/><stop offset=".4" stop-color="#d9a8ff"/><stop offset="1" stop-color="#6a2bd0"/></radialGradient>' +
+      '<radialGradient id="cGr" cx=".35" cy=".3"><stop offset="0" stop-color="#fff"/><stop offset=".4" stop-color="#ff8a96"/><stop offset="1" stop-color="#c0142a"/></radialGradient>' +
+      '<radialGradient id="cGy" cx=".35" cy=".3"><stop offset="0" stop-color="#fff"/><stop offset=".4" stop-color="#ffe770"/><stop offset="1" stop-color="#d89a06"/></radialGradient>' +
+      '<radialGradient id="cSh"><stop offset="0" stop-color="#000" stop-opacity=".6"/><stop offset="1" stop-color="#000" stop-opacity="0"/></radialGradient>' +
+      '<linearGradient id="cSd" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#000" stop-opacity=".35"/><stop offset="1" stop-color="#000" stop-opacity="0"/></linearGradient>' +
+      '<linearGradient id="cGl" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".55"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient></defs>' +
+      '<ellipse cx="215" cy="304" rx="195" ry="24" fill="url(#cSh)"/>'
+    // chap yon yuz
+    s += '<polygon points="170,192 62,172 62,256 170,278" fill="url(#cBs)"/>' +
+      '<polygon points="150,210 82,198 82,236 150,252" fill="url(#cBg)" stroke="#8fb0ff" stroke-opacity=".7" stroke-width="1.5"/>' +
+      '<path d="M116,206 l22,16 -22,16 -22,-16z" fill="#2a4fe0" stroke="#a9c2ff" stroke-width="1.2"/><path d="M116,212 l12,10 -12,10 -12,-10z" fill="#6f93ff"/>' +
+      '<polygon points="170,192 62,172 62,256 170,278" fill="url(#cSd)"/>'
+    // qopqoq sirti
+    s += '<path d="M170,192 L62,172 A92,92 0 0 1 160,82 L262,100 A92,92 0 0 0 170,192 Z" fill="url(#cL)"/>'
+    s += '<path d="M170,192 L62,172 A92,92 0 0 1 160,82 L262,100 A92,92 0 0 0 170,192 Z" fill="url(#cSd)" opacity=".5"/>'
+    for (var q = 0; q < 3; q++) {
+      var t0 = 0.12 + q * 0.34, t1 = t0 + 0.18, ax = 170 - 108 * t0, ay = 192 - 20 * t0, bx2 = 262 - 102 * t0, by2 = 100 - 18 * t0
+      var cx2 = 170 - 108 * t1, cy2 = 192 - 20 * t1, dx = 262 - 102 * t1, dy = 100 - 18 * t1
+      s += '<path d="M' + ax.toFixed(1) + ',' + ay.toFixed(1) + ' A92,92 0 0 1 ' + bx2.toFixed(1) + ',' + by2.toFixed(1) + ' L' + dx.toFixed(1) + ',' + dy.toFixed(1) + ' A92,92 0 0 0 ' + cx2.toFixed(1) + ',' + cy2.toFixed(1) + ' Z" fill="#7b7fe8" fill-opacity=".28" stroke="#fff" stroke-opacity=".85" stroke-width="1.4"/>'
+      var mx = (bx2 + dx) / 2 - 8, my = (by2 + dy) / 2 + 4
+      s += '<path d="M' + (mx - 10).toFixed(1) + ',' + (my + 22).toFixed(1) + ' q10,-26 22,-8 q-12,2 -10,16 M' + (mx - 4).toFixed(1) + ',' + (my + 40).toFixed(1) + ' q12,-14 24,-2" fill="none" stroke="#fff" stroke-opacity=".9" stroke-width="2" stroke-linecap="round"/>'
+    }
+    s += rib(0.0, 9) + rib(0.33, 8) + rib(0.66, 8) + rib(1.0, 9)
+    s += gp('M160,82 L262,100', 8)
+    s += gem(236, 100, 6, 'cGm') + gem(197, 92, 5, 'cGp') + gem(178, 99, 4, 'cGy')
+    // old yuz tana
+    s += '<rect x="170" y="192" width="182" height="86" fill="url(#cB)"/>' +
+      '<rect x="190" y="206" width="142" height="58" rx="4" fill="url(#cBg)" stroke="#9db8ff" stroke-opacity=".8" stroke-width="1.6"/>' +
+      '<path d="M261,212 l32,26 -32,26 -32,-26z" fill="#1f44d8" stroke="#b6caff" stroke-width="1.6"/><path d="M261,222 l18,16 -18,16 -18,-16z" fill="#4f78ff"/><path d="M261,222 l18,16 -18,0z" fill="#fff" fill-opacity=".35"/>' +
+      '<path d="M198,256 q16,-12 32,0 M292,256 q16,-12 32,0 M198,214 q16,12 32,0 M292,214 q16,12 32,0" fill="none" stroke="#7a98ff" stroke-opacity=".7" stroke-width="2"/>'
+    s += gp('M170,192 L352,192 L352,278 L170,278 Z', 8)
+    s += gp('M166,250 L356,250', 9)
+    s += gem(261, 238, 5, 'cGm')
+    // old yoy (yoy tagligi)
+    s += '<path d="M170,192 L352,192 A91,91 0 0 0 170,192 Z" fill="url(#cBg)"/>' +
+      '<path d="M170,192 A91,91 0 0 1 352,192 Z" fill="url(#cBg)"/>' +
+      '<path d="M182,192 A79,79 0 0 1 340,192 Z" fill="#102a9c"/>' +
+      '<path d="M261,122 l36,32 -36,32 -36,-32z" fill="#1f44d8" stroke="#b6caff" stroke-width="1.8"/><path d="M261,134 l20,20 -20,20 -20,-20z" fill="#4f78ff"/><path d="M261,134 l20,20 -20,0z" fill="#fff" fill-opacity=".4"/>' +
+      '<path d="M196,176 q14,-30 40,-40 M326,176 q-14,-30 -40,-40" fill="none" stroke="#7a98ff" stroke-opacity=".6" stroke-width="2"/>' +
+      '<path d="M182,192 A79,79 0 0 1 340,192" fill="none" stroke="#a9c2ff" stroke-opacity=".6" stroke-width="1.5"/>'
+    s += gp('M170,192 A91,91 0 0 1 352,192', 15)
+    s += gp('M182,190 A79,79 0 0 1 340,190', 4)
+    s += gem(261, 104, 7, 'cGy')
+    s += '<circle cx="178" cy="150" r="5.5" fill="url(#cG)" stroke="#5a3202" stroke-width="1.5"/><circle cx="344" cy="150" r="5.5" fill="url(#cG)" stroke="#5a3202" stroke-width="1.5"/>'
+    // belbog'
+    s += '<polygon points="160,182 362,182 374,194 374,206 160,206" fill="url(#cG)" stroke="#5a3202" stroke-width="2" stroke-linejoin="round"/>' +
+      '<polygon points="160,182 54,162 62,176 160,206" fill="url(#cG)" stroke="#5a3202" stroke-width="2" stroke-linejoin="round"/>' +
+      '<path d="M162,184 L360,184" stroke="#fffbe0" stroke-opacity=".9" stroke-width="2"/><path d="M160,204 L374,204" stroke="#7a4604" stroke-opacity=".5" stroke-width="2"/>'
+    s += gem(200, 194, 3.5, 'cGm') + gem(261, 194, 3.5, 'cGp') + gem(322, 194, 3.5, 'cGr')
+    // qulf
+    s += '<polygon points="116,150 150,198 116,252 82,198" fill="url(#cG)" stroke="#5a3202" stroke-width="2.4" stroke-linejoin="round"/>' +
+      '<polygon points="116,162 138,198 116,238 94,198" fill="#e0a41c" stroke="#fff3b0" stroke-width="1.2"/>' +
+      '<polygon points="116,170 130,198 116,230 102,198" fill="url(#cGm)" stroke="#fff" stroke-width="1.6"/>' +
+      '<path d="M116,170 L130,198 L116,198Z" fill="#fff" fill-opacity=".6"/><path d="M116,230 L102,198 L116,198Z" fill="#000" fill-opacity=".25"/>' +
+      '<circle cx="110" cy="184" r="3" fill="#fff"/>'
+    // oyoqlar
+    function foot(d, gx, gy, gc) { return '<path d="' + d + '" fill="url(#cG)" stroke="#5a3202" stroke-width="2.2" stroke-linejoin="round"/>' + gem(gx, gy, 4.5, gc) }
+    s += foot('M154,258 L196,258 Q196,282 188,298 Q178,316 150,318 Q144,312 154,306 Q166,298 164,282Z', 178, 282, 'cGy')
+    s += foot('M328,258 L370,258 Q372,282 382,296 Q392,308 394,316 Q372,322 358,312 Q342,300 336,284Z', 354, 280, 'cGm')
+    s += foot('M52,238 L82,244 Q80,268 64,282 Q50,294 30,292 Q26,286 38,280 Q52,270 52,256Z', 66, 262, 'cGr')
+    // yaltiroq
+    s += '<path d="M180,184 L350,184" stroke="url(#cGl)" stroke-width="3" opacity=".8"/>' +
+      '<g fill="#fff"><path d="M300,96 l2,8 8,2 -8,2 -2,8 -2,-8 -8,-2 8,-2z"/><path d="M92,150 l1.6,6 6,1.6 -6,1.6 -1.6,6 -1.6,-6 -6,-1.6 6,-1.6z" opacity=".9"/><path d="M356,250 l1.4,5 5,1.4 -5,1.4 -1.4,5 -1.4,-5 -5,-1.4 5,-1.4z" opacity=".8"/></g>'
+    return s + '</svg>'
   }
   function chestShow() {
     var o = document.getElementById("chestov"); if (o) o.remove()
