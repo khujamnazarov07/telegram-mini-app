@@ -1436,6 +1436,84 @@
   }
 
   // ====================
+  // SANDIQ (kun hikmati)
+  // ====================
+  function chestSVG() {
+    var G = 'url(#cG)', Gd = 'url(#cGd)'
+    return '<svg class="chest" viewBox="0 0 420 340" xmlns="http://www.w3.org/2000/svg"><defs>' +
+      '<linearGradient id="cG" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff6b0"/><stop offset=".35" stop-color="#ffd34a"/><stop offset=".7" stop-color="#e6a216"/><stop offset="1" stop-color="#a86a08"/></linearGradient>' +
+      '<linearGradient id="cGd" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#c98a10"/><stop offset=".5" stop-color="#f5c43a"/><stop offset="1" stop-color="#9a5f06"/></linearGradient>' +
+      '<linearGradient id="cB" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2d52d6"/><stop offset="1" stop-color="#0a1a6a"/></linearGradient>' +
+      '<linearGradient id="cBs" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#1b3cb8"/><stop offset="1" stop-color="#0c2080"/></linearGradient>' +
+      '<linearGradient id="cL" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#e4e0ff"/><stop offset=".5" stop-color="#a9a8f2"/><stop offset="1" stop-color="#6f78dc"/></linearGradient>' +
+      '<radialGradient id="cGem" cx=".35" cy=".3"><stop offset="0" stop-color="#fff"/><stop offset=".4" stop-color="#7ff3ee"/><stop offset="1" stop-color="#1aa7c4"/></radialGradient>' +
+      '<radialGradient id="cSh"><stop offset="0" stop-color="#000" stop-opacity=".5"/><stop offset="1" stop-color="#000" stop-opacity="0"/></radialGradient></defs>' +
+      '<ellipse cx="215" cy="300" rx="190" ry="26" fill="url(#cSh)"/>' +
+      // yon (chap) yuz
+      '<polygon points="170,192 62,172 62,256 170,278" fill="url(#cBs)"/>' +
+      '<polygon points="170,192 62,172 62,256 170,278" fill="none" stroke="' + Gd + '" stroke-width="7" stroke-linejoin="round"/>' +
+      '<polygon points="150,212 82,200 82,238 150,252" fill="none" stroke="#6c8cff" stroke-opacity=".5" stroke-width="2"/>' +
+      '<path d="M96,222 l24,4 -8,14 -16,-4z M128,228 l16,3 -6,10 -10,-3z" fill="#5b7bff" fill-opacity=".55"/>' +
+      // qopqoq: yon sirt
+      '<path d="M170,192 L62,172 A92,92 0 0 1 160,82 L262,100 A92,92 0 0 0 170,192 Z" fill="url(#cL)"/>' +
+      '<path d="M110,150 C130,110 150,100 170,98 M96,168 C122,128 146,116 188,112 M140,170 C156,140 176,128 214,122 M180,140 C190,128 200,122 226,118" fill="none" stroke="#fff" stroke-opacity=".7" stroke-width="3" stroke-linecap="round"/>' +
+      '<path d="M96,100 L116,92 L132,104 L112,112Z M142,88 L164,86 L172,98 L148,100Z M200,96 L222,96 L226,108 L206,110Z" fill="#35c0ff" stroke="#fff" stroke-opacity=".8" stroke-width="1.5"/>' +
+      '<path d="M160,82 L262,100" stroke="' + G + '" stroke-width="7" stroke-linecap="round"/>' +
+      '<path d="M62,172 A92,92 0 0 1 160,82" fill="none" stroke="' + Gd + '" stroke-width="8" stroke-linecap="round"/>' +
+      // old yuz: tana
+      '<rect x="170" y="192" width="182" height="86" fill="url(#cB)"/>' +
+      '<rect x="190" y="208" width="142" height="56" rx="3" fill="#0d2290" stroke="#7da0ff" stroke-opacity=".6" stroke-width="2"/>' +
+      '<path d="M261,214 l30,24 -30,24 -30,-24z" fill="#1d3fd0" stroke="#9db8ff" stroke-width="2"/><path d="M261,224 l16,14 -16,14 -16,-14z" fill="#3f6bff"/>' +
+      '<path d="M200,258 q20,-14 40,0 M282,258 q20,-14 40,0 M200,214 q20,12 40,0 M282,214 q20,12 40,0" fill="none" stroke="#5578ff" stroke-opacity=".6" stroke-width="2"/>' +
+      '<rect x="170" y="192" width="182" height="86" fill="none" stroke="' + G + '" stroke-width="8" stroke-linejoin="round"/>' +
+      '<rect x="162" y="244" width="198" height="12" rx="2" fill="' + G + '"/>' +
+      // old yoy (arka)
+      '<path d="M170,192 L352,192 A91,91 0 0 0 170,192 Z" fill="url(#cB)"/>' +
+      '<path d="M170,192 A91,91 0 0 1 352,192" fill="none" stroke="' + G + '" stroke-width="16" stroke-linecap="butt"/>' +
+      '<path d="M182,192 A79,79 0 0 1 340,192 Z" fill="#0f2496"/>' +
+      '<path d="M261,126 l34,30 -34,30 -34,-30z" fill="#1d3fd0" stroke="#9db8ff" stroke-width="2"/><path d="M261,138 l18,18 -18,18 -18,-18z" fill="#3f6bff"/>' +
+      '<path d="M170,192 A91,91 0 0 1 352,192" fill="none" stroke="#fff6c0" stroke-opacity=".8" stroke-width="2" transform="translate(0,-5)"/>' +
+      '<circle cx="177" cy="150" r="6" fill="' + G + '"/><circle cx="345" cy="150" r="6" fill="' + G + '"/><circle cx="261" cy="101" r="6" fill="' + G + '"/>' +
+      // belbog'
+      '<polygon points="160,184 360,184 372,196 372,206 160,206" fill="' + G + '"/><polygon points="160,184 54,164 62,176 160,206" fill="url(#cGd)"/>' +
+      '<path d="M160,184 L360,184" stroke="#fff" stroke-opacity=".8" stroke-width="2"/>' +
+      // qulf
+      '<polygon points="116,160 146,200 116,246 86,200" fill="' + G + '" stroke="#8a5606" stroke-width="2"/>' +
+      '<polygon points="116,174 134,200 116,228 98,200" fill="#e9b72a"/>' +
+      '<polygon points="116,180 128,200 116,220 104,200" fill="url(#cGem)" stroke="#fff" stroke-width="1.5"/>' +
+      // oyoqlar
+      '<path d="M158,272 L190,272 L186,296 Q176,320 148,322 Q164,306 158,288Z" fill="' + G + '"/>' +
+      '<path d="M336,272 L366,272 Q372,296 396,308 Q380,322 358,312 Q342,300 336,284Z" fill="' + G + '"/>' +
+      '<path d="M50,250 L76,254 Q74,276 56,288 Q40,298 24,294 Q48,284 50,268Z" fill="' + G + '"/>' +
+      '<circle cx="170" cy="298" r="5" fill="#ffd94a" stroke="#fff" stroke-width="1.2"/><circle cx="378" cy="304" r="5" fill="#2fd0e0" stroke="#fff" stroke-width="1.2"/><circle cx="58" cy="274" r="4" fill="#ff5a6a" stroke="#fff" stroke-width="1.2"/>' +
+      '</svg>'
+  }
+  function chestShow() {
+    var o = document.getElementById("chestov"); if (o) o.remove()
+    o = document.createElement("div"); o.id = "chestov"; o.className = "chestov"
+    o.innerHTML = '<div class="chwrap">' + chestSVG() + '</div><div class="chbar"><i></i><i></i><i></i></div>'
+    document.body.appendChild(o)
+    var n = 0, busy = false, w = o.querySelector(".chwrap"), bars = o.querySelectorAll(".chbar i")
+    o.addEventListener("click", function () {
+      if (busy) return
+      n++
+      for (var i = 0; i < bars.length; i++) bars[i].className = i < n ? "on" : ""
+      w.classList.remove("shake"); void w.offsetWidth; w.classList.add("shake")
+      haptic("light")
+      if (n >= 3) {
+        busy = true
+        setTimeout(function () {
+          o.classList.add("open")
+          var i2 = Math.floor(Math.random() * D.quotes.length)
+          if (i2 === U.quoteIdx) i2 = (i2 + 1) % D.quotes.length
+          U.quoteIdx = i2; render()
+          setTimeout(function () { o.classList.add("gone"); setTimeout(function () { o.remove() }, 600) }, 700)
+        }, 350)
+      }
+    })
+  }
+
+  // ====================
   // MORE: quote / favs / lang / about
   // ====================
   function quoteData(i) {
@@ -1448,8 +1526,8 @@
       if (U.quoteIdx < 0) U.quoteIdx = Math.floor(Math.random() * D.quotes.length)
       var d = quoteData(U.quoteIdx)
       return '<button class="btn small back" data-act="moreBack">‹ ' + esc(tr("back")) + "</button>" +
-        '<div class="card quote"><div class="em">' + d.q.e + "</div><strong>" + esc(d.title) + '</strong><div class="qt">' + esc(d.body) + '</div><div class="ref">📖 ' + esc(d.src) + '</div><div class="ref">🤖 @' + CFG.BOT + "</div></div>" +
-        '<div class="row wrap" style="margin-top:12px"><button class="btn success grow" data-act="share">📲 ' + esc(tr("share")) + '</button><button class="btn grow" data-act="open" data-v="' + d.q.n + '">✨ ' + esc(D.names[d.q.n - 1].t) + '</button><button class="btn grow" data-act="quoteNext">🔄</button></div>'
+        '<div class="card quote"><div class="qin"><strong>' + esc(d.title) + '</strong><div class="qt">' + esc(d.body) + '</div></div><div class="qrefs"><span class="ref">' + ic("verified") + " " + esc(d.src) + '</span><span class="ref">' + ic("smart_toy") + " @" + CFG.BOT + "</span></div></div>" +
+        '<div class="qbtns"><button class="btn" data-act="share">' + ic("share") + "<span>" + esc(tr("share")) + '</span></button><button class="btn" data-act="open" data-v="' + d.q.n + '">' + ic("auto_awesome") + "<span>" + esc(D.names[d.q.n - 1].t) + '</span></button><button class="btn" data-act="quoteNext">' + ic("restart_alt") + "</button></div>"
     }
     if (U.more === "favs") {
       var ids = []
@@ -2403,9 +2481,7 @@
     else if (act === "likeApp") { S.appLike = !S.appLike; save(); rateSync(true); render() }
     else if (act === "more") { U.more = v; if (v === "about") rateSync(false); if (v === "quote") U.quoteIdx = -1; render() }
     else if (act === "quoteNext") {
-      var i = Math.floor(Math.random() * D.quotes.length)
-      if (i === U.quoteIdx) i = (i + 1) % D.quotes.length
-      U.quoteIdx = i; render()
+      chestShow()
     }
     else if (act === "share") {
       var d = quoteData(U.quoteIdx)
