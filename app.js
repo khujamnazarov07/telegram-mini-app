@@ -1522,23 +1522,29 @@
     function cstr(c, a) { return "rgba(" + (c[0] | 0) + "," + (c[1] | 0) + "," + (c[2] | 0) + "," + a + ")" }
     var rad = parseFloat(cs.borderTopLeftRadius) || 12
     U.quoteIdx = i; render()
+    var ROWS = 30, jit = []
+    for (var jr = 0; jr < ROWS; jr++) jit[jr] = (Math.random() - .5) * 40
     function frame(ts) {
       if (!t0) t0 = ts
-      var k = Math.min(1, (ts - t0) / DUR), e = k * k * (3 - 2 * k) * .35 + k * .65, p = 1 - e
-      var cut = (1 - p) * 100
-      cl.style.clipPath = "inset(0 " + cut + "% 0 0 round " + rad + "px)"; cl.style.webkitClipPath = cl.style.clipPath
+      var k = Math.min(1, (ts - t0) / DUR), e = k * k * (3 - 2 * k) * .3 + k * .7, base = (W + 26) * (1 - e) - 10
       g.setTransform(dpr, 0, 0, dpr, 0, 0); g.clearRect(0, 0, W + pad * 2, H)
-      var lx = pad + W * p
-      if (k < 1) for (var n = 0; n < 46; n++) {
-        var rr = Math.random(), c = rr < .5 ? bg : rr < .88 ? tx : ac
-        pts[pts.length] = { x: lx + Math.random() * 4, y: Math.random() * H, vx: .4 + Math.random() * 1.8, vy: (Math.random() - .5) * 1.4, l: .55 + Math.random() * .45, s: .8 + Math.random() * 2, c: c }
+      var poly = "0px 0px", rh = H / ROWS
+      for (var i = 0; i < ROWS; i++) {
+        jit[i] += (Math.random() - .5) * 8; if (jit[i] > 24) jit[i] = 24; if (jit[i] < -24) jit[i] = -24
+        var x = Math.max(0, Math.min(W, base + jit[i])), y0 = i * rh, y1 = (i + 1) * rh
+        poly += "," + x.toFixed(1) + "px " + y0.toFixed(1) + "px," + x.toFixed(1) + "px " + y1.toFixed(1) + "px"
+        if (k < 1 && x < W - 1 && x > 1) for (var n = 0; n < 4; n++) {
+          var rr = Math.random(), c = rr < .5 ? bg : rr < .88 ? tx : ac
+          pts[pts.length] = { x: pad + x + Math.random() * 6, y: y0 + Math.random() * rh, vx: .3 + Math.random() * 1.8, vy: (Math.random() - .5) * 1.6, l: .5 + Math.random() * .5, s: .8 + Math.random() * 2.2, c: c }
+        }
       }
+      poly += ",0px " + H + "px"
+      cl.style.clipPath = "polygon(" + poly + ")"; cl.style.webkitClipPath = cl.style.clipPath
       for (var q = pts.length - 1; q >= 0; q--) {
         var o = pts[q]; o.x += o.vx; o.y += o.vy; o.vx *= .96; o.l -= .07
         if (o.l <= 0) { pts.splice(q, 1); continue }
         g.fillStyle = cstr(o.c, Math.min(1, o.l * 1.4)); g.fillRect(o.x, o.y, o.s, o.s)
       }
-      if (k > .02 && k < .98) { g.fillStyle = "rgba(255,255,255,.16)"; g.fillRect(lx - .5, 0, 1, H) }
       if (k < 1 || pts.length) requestAnimationFrame(frame)
       else { cl.remove(); cv.remove() }
     }
