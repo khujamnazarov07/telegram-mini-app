@@ -1113,3 +1113,13 @@ html .nav:not(.hidden) { width: min(318px, calc(100% - 36px)) !important; }
 .ngrid:not(.open)::before { height: 54px; -webkit-backdrop-filter: blur(2.5px); backdrop-filter: blur(2.5px); -webkit-mask-image: linear-gradient(180deg, transparent, #000 70%) !important; mask-image: linear-gradient(180deg, transparent, #000 70%) !important; }
 .ngrid:not(.open)::after { height: 40px; background: none !important; -webkit-backdrop-filter: blur(9px); backdrop-filter: blur(9px); -webkit-mask-image: linear-gradient(180deg, transparent, #000 85%) !important; mask-image: linear-gradient(180deg, transparent, #000 85%) !important; }
 .ngrid:not(.open) + .moodtog { margin-top: -26px !important; }
+
+.trashw .hr { display: none !important; }
+.nbox .trashw { right: 8px; top: 50%; margin-top: -22px; width: 44px; height: 44px; }
+.nbox .trashw .trash { width: 38px; height: 38px; margin: 3px; position: relative; z-index: 2; }
+.nbox .nta::before { display: none !important; content: none !important; }
+.nbox .nta { min-height: 56px; padding: 17px 12px; }
+.nbox:has(.trashw:not(.none)) .nta { padding-right: 58px; }
+.tring { position: absolute; inset: 0; width: 44px; height: 44px; transform: rotate(-90deg); z-index: 3; pointer-events: none; overflow: visible; }
+.tring circle { fill: none; stroke: #e5484d; stroke-width: 1.6; stroke-linecap: round; stroke-dasharray: 100; stroke-dashoffset: 100; transition: stroke-dashoffset .18s ease-out; }
+.trashw.hold .tring circle { stroke-dashoffset: 0; transition: stroke-dashoffset 1s linear; }
