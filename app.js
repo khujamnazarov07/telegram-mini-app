@@ -1514,29 +1514,31 @@
     cv.width = (r.width + pad * 2) * dpr; cv.height = r.height * dpr
     cv.style.cssText = "position:fixed;z-index:9999;pointer-events:none;left:" + (r.left - pad) + "px;top:" + r.top + "px;width:" + (r.width + pad * 2) + "px;height:" + r.height + "px"
     document.body.appendChild(cl); document.body.appendChild(cv)
-    var g = cv.getContext("2d"), col = getComputedStyle(document.body).color || "#fff", pts = [], t0 = 0, DUR = 1150, W = r.width, H = r.height
+    var g = cv.getContext("2d"), pts = [], t0 = 0, DUR = 1000, W = r.width, H = r.height
+    function rgbOf(c) { var m = String(c).match(/[\d.]+/g); return m ? [+m[0], +m[1], +m[2], m.length > 3 ? +m[3] : 1] : [30, 30, 30, 1] }
+    var cs = getComputedStyle(card), bg = rgbOf(cs.backgroundColor)
+    if (bg[3] < .6) bg = rgbOf(getComputedStyle(document.body).backgroundColor)
+    var tx = rgbOf(cs.color), ac = rgbOf(cs.borderLeftColor)
+    function cstr(c, a) { return "rgba(" + (c[0] | 0) + "," + (c[1] | 0) + "," + (c[2] | 0) + "," + a + ")" }
+    var rad = parseFloat(cs.borderTopLeftRadius) || 12
     U.quoteIdx = i; render()
     function frame(ts) {
       if (!t0) t0 = ts
-      var k = Math.min(1, (ts - t0) / DUR), e = k < .5 ? 2 * k * k : 1 - Math.pow(-2 * k + 2, 2) / 2, p = 1 - e
+      var k = Math.min(1, (ts - t0) / DUR), e = k * k * (3 - 2 * k) * .35 + k * .65, p = 1 - e
       var cut = (1 - p) * 100
-      cl.style.clipPath = "inset(0 " + cut + "% 0 0)"; cl.style.webkitClipPath = cl.style.clipPath
+      cl.style.clipPath = "inset(0 " + cut + "% 0 0 round " + rad + "px)"; cl.style.webkitClipPath = cl.style.clipPath
       g.setTransform(dpr, 0, 0, dpr, 0, 0); g.clearRect(0, 0, W + pad * 2, H)
       var lx = pad + W * p
-      for (var n = 0; n < 14 && k < 1; n++) pts[pts.length] = { x: lx + (Math.random() - .5) * 3, y: Math.random() * H, vx: .6 + Math.random() * 2.2, vy: (Math.random() - .5) * 1.1, l: 1, s: .8 + Math.random() * 1.6 }
-      g.fillStyle = col
+      if (k < 1) for (var n = 0; n < 46; n++) {
+        var rr = Math.random(), c = rr < .5 ? bg : rr < .88 ? tx : ac
+        pts[pts.length] = { x: lx + Math.random() * 4, y: Math.random() * H, vx: .4 + Math.random() * 1.8, vy: (Math.random() - .5) * 1.4, l: .55 + Math.random() * .45, s: .8 + Math.random() * 2, c: c }
+      }
       for (var q = pts.length - 1; q >= 0; q--) {
-        var o = pts[q]; o.x += o.vx; o.y += o.vy; o.vx *= .985; o.l -= .022
+        var o = pts[q]; o.x += o.vx; o.y += o.vy; o.vx *= .96; o.l -= .07
         if (o.l <= 0) { pts.splice(q, 1); continue }
-        g.globalAlpha = o.l * .85; g.fillRect(o.x, o.y, o.s, o.s)
+        g.fillStyle = cstr(o.c, Math.min(1, o.l * 1.4)); g.fillRect(o.x, o.y, o.s, o.s)
       }
-      g.globalAlpha = 1
-      if (k < 1) {
-        var gr = g.createLinearGradient(lx - 8, 0, lx + 8, 0)
-        gr.addColorStop(0, "rgba(255,255,255,0)"); gr.addColorStop(.5, "rgba(255,255,255,.95)"); gr.addColorStop(1, "rgba(255,255,255,0)")
-        g.fillStyle = gr; g.fillRect(lx - 8, 0, 16, H)
-        g.fillStyle = "#fff"; g.fillRect(lx - 1, 0, 2, H)
-      }
+      if (k > .02 && k < .98) { g.fillStyle = "rgba(255,255,255,.16)"; g.fillRect(lx - .5, 0, 1, H) }
       if (k < 1 || pts.length) requestAnimationFrame(frame)
       else { cl.remove(); cv.remove() }
     }
