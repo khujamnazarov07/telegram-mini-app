@@ -1064,3 +1064,10 @@ html[data-gender="female"] .ngrid::after { display: none; }
 .ngrid:not(.open) { max-height: 380px; }
 .ngrid, .ngrid:not(.open), .ngrid.open { -webkit-mask-image: none !important; mask-image: none !important; }
 .ngrid:not(.open) { max-height: 404px !important; }
+.ngrid:not(.open) { max-height: 362px !important; }
+.ngrid:not(.open)::after { content: "" !important; display: block !important; position: absolute; left: 0; right: 0; bottom: 0; height: 80px; opacity: 1 !important; pointer-events: none; background: linear-gradient(180deg, transparent, color-mix(in srgb, var(--bg) 78%, transparent)) !important; -webkit-backdrop-filter: blur(7px); backdrop-filter: blur(7px); -webkit-mask-image: linear-gradient(180deg, transparent, #000 75%) !important; mask-image: linear-gradient(180deg, transparent, #000 75%) !important; }
+.ngrid:not(.open) + .moodtog { margin-top: -34px !important; position: relative; z-index: 2; }
+html[data-theme="dark"] #mbg img { filter: brightness(.4) saturate(.9) blur(3px); }
+html[data-theme="light"] #mbg img { filter: brightness(1.04) blur(3px); }
+#mbg img, #mbg svg { transform: scale(1.06); }
+#mbg svg { filter: blur(2px); }
