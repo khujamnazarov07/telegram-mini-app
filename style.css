@@ -975,3 +975,5 @@ html[data-gender="female"] .ngrid { -webkit-mask-image: none; mask-image: none; 
 html[data-gender="female"] .ngrid::after { height: 46%; background: linear-gradient(180deg, rgba(243, 213, 220, 0), rgba(243, 213, 220, .98) 70%); }
 html[data-gender="female"][data-theme="dark"] .ngrid::after { background: linear-gradient(180deg, rgba(42, 26, 34, 0), rgba(42, 26, 34, .98) 70%); }
 html[data-gender="female"] .ngrid.open::after { opacity: 0; }
+.ngrid.open { overflow: visible; max-height: none; background: none; }
+.ngrid.open #grid { background: none; }
