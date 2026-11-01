@@ -1062,3 +1062,5 @@ html[data-theme="light"] #mbg img { filter: brightness(1.04); }
 .ngrid:not(.open) + .moodtog { margin-top: 8px !important; }
 html[data-gender="female"] .ngrid::after { display: none; }
 .ngrid:not(.open) { max-height: 380px; }
+.ngrid, .ngrid:not(.open), .ngrid.open { -webkit-mask-image: none !important; mask-image: none !important; }
+.ngrid:not(.open) { max-height: 404px !important; }
