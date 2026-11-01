@@ -1504,162 +1504,43 @@
     return h + "</div>"
   }
 
-  // ====================
-  // SANDIQ (kun hikmati)
-  // ====================
-  function chestSVG() {
-    function gp(d, w) {
-      return '<path d="' + d + '" fill="none" stroke="#4e2a02" stroke-width="' + (w + 1.8) + '" stroke-linecap="round" stroke-linejoin="round"/>' +
-        '<path d="' + d + '" fill="none" stroke="url(#cG)" stroke-width="' + w + '" stroke-linecap="round" stroke-linejoin="round"/>' +
-        '<path d="' + d + '" fill="none" stroke="#fffbd8" stroke-opacity=".85" stroke-width="' + Math.max(1, w * 0.2).toFixed(1) + '" stroke-linecap="round" stroke-linejoin="round" transform="translate(-.7,-1.2)"/>'
-    }
-    function gpoly(p, sw) {
-      return '<polygon points="' + p + '" fill="url(#cG)" stroke="#4e2a02" stroke-width="' + (sw || 1.4) + '" stroke-linejoin="round"/>'
-    }
-    function gem(x, y, r, c) {
-      return '<g class="cgem" style="animation-delay:-' + (((x * 7 + y * 3) % 30) / 10).toFixed(1) + 's"><polygon points="' + x + ',' + (y - r * 1.25) + ' ' + (x + r) + ',' + y + ' ' + x + ',' + (y + r * 1.25) + ' ' + (x - r) + ',' + y + '" fill="url(#' + c + ')" stroke="#3e2202" stroke-width="1.4"/>' +
-        '<polygon points="' + x + ',' + (y - r * 1.25) + ' ' + (x + r) + ',' + y + ' ' + x + ',' + y + '" fill="#fff" fill-opacity=".55"/>' +
-        '<polygon points="' + x + ',' + (y + r * 1.25) + ' ' + (x - r) + ',' + y + ' ' + x + ',' + y + '" fill="#000" fill-opacity=".28"/>' +
-        '<circle cx="' + (x - r * .3) + '" cy="' + (y - r * .45) + '" r="' + (r * .22) + '" fill="#fff"/></g>'
-    }
-    function bp(t) { return [200 - 150 * t, 215 - 30 * t] }
-    function tp(t) { return [305 - 150 * t, 110 - 30 * t] }
-    function rib(t, w) {
-      var b = bp(t), p = tp(t)
-      return gp('M' + b[0].toFixed(1) + ',' + b[1].toFixed(1) + ' A105,105 0 0 1 ' + p[0].toFixed(1) + ',' + p[1].toFixed(1), w)
-    }
-    function emb(cx, cy, k) { // ko'k olmos naqsh (old yuz)
-      return '<path d="M' + cx + ',' + (cy - 30 * k) + ' l' + 38 * k + ',' + 30 * k + ' l' + (-38 * k) + ',' + 30 * k + ' l' + (-38 * k) + ',' + (-30 * k) + 'z" fill="#1d42d6" stroke="#b9ccff" stroke-width="1.8"/>' +
-        '<path d="M' + cx + ',' + (cy - 17 * k) + ' l' + 21 * k + ',' + 17 * k + ' l' + (-21 * k) + ',' + 17 * k + ' l' + (-21 * k) + ',' + (-17 * k) + 'z" fill="#5a82ff"/>' +
-        '<path d="M' + cx + ',' + (cy - 17 * k) + ' l' + 21 * k + ',' + 17 * k + ' l' + (-21 * k) + ',0z" fill="#fff" fill-opacity=".4"/>'
-    }
-    var s = '<svg class="chest" viewBox="0 -20 440 370" xmlns="http://www.w3.org/2000/svg" style="overflow:visible"><defs>' +
-      '<linearGradient id="cG" gradientUnits="userSpaceOnUse" x1="0" y1="60" x2="420" y2="330" spreadMethod="repeat"><stop offset="0" stop-color="#8a5206"/><stop offset=".1" stop-color="#f7c63a"/><stop offset=".2" stop-color="#fffbd2"/><stop offset=".3" stop-color="#ffe56e"/><stop offset=".5" stop-color="#d89a14"/><stop offset=".62" stop-color="#9a5c06"/><stop offset=".78" stop-color="#f4b624"/><stop offset=".88" stop-color="#fff3a0"/><stop offset="1" stop-color="#8a5206"/><animateTransform attributeName="gradientTransform" type="translate" from="0 0" to="420 270" dur="7s" repeatCount="indefinite"/></linearGradient>' +
-      '<linearGradient id="cGl" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".6"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>' +
-      '<linearGradient id="cSw" gradientUnits="userSpaceOnUse" x1="-120" y1="0" x2="0" y2="-40" spreadMethod="repeat"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset=".5" stop-color="#fff" stop-opacity=".55"/><stop offset="1" stop-color="#fff" stop-opacity="0"/><animateTransform attributeName="gradientTransform" type="translate" from="0 0" to="360 0" dur="4.5s" repeatCount="indefinite"/></linearGradient>' +
-      '<linearGradient id="cB" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#3a62ee"/><stop offset=".55" stop-color="#162f9c"/><stop offset="1" stop-color="#091660"/></linearGradient>' +
-      '<linearGradient id="cBs" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#0a1a70"/><stop offset=".6" stop-color="#1a38b4"/><stop offset="1" stop-color="#2a4cd0"/></linearGradient>' +
-      '<radialGradient id="cBg" cx=".5" cy=".45" r=".65"><stop offset="0" stop-color="#7a9bff"/><stop offset=".5" stop-color="#2447d0"/><stop offset="1" stop-color="#0b1a78"/></radialGradient>' +
-      '<linearGradient id="cL" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#8d8ff0"/><stop offset=".45" stop-color="#d6d4ff"/><stop offset="1" stop-color="#f6f4ff"/></linearGradient>' +
-      '<radialGradient id="cGm" cx=".35" cy=".3"><stop offset="0" stop-color="#fff"/><stop offset=".35" stop-color="#8ff6f0"/><stop offset="1" stop-color="#0f9ec2"/></radialGradient>' +
-      '<radialGradient id="cGp" cx=".35" cy=".3"><stop offset="0" stop-color="#fff"/><stop offset=".4" stop-color="#d9a8ff"/><stop offset="1" stop-color="#6a2bd0"/></radialGradient>' +
-      '<radialGradient id="cGr" cx=".35" cy=".3"><stop offset="0" stop-color="#fff"/><stop offset=".4" stop-color="#ff8a96"/><stop offset="1" stop-color="#c0142a"/></radialGradient>' +
-      '<radialGradient id="cGy" cx=".35" cy=".3"><stop offset="0" stop-color="#fff"/><stop offset=".4" stop-color="#ffe770"/><stop offset="1" stop-color="#d89a06"/></radialGradient>' +
-      '<linearGradient id="cGf" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff2a0"/><stop offset=".45" stop-color="#f4b624"/><stop offset="1" stop-color="#a8680a"/></linearGradient><radialGradient id="cSh"><stop offset="0" stop-color="#000" stop-opacity=".6"/><stop offset="1" stop-color="#000" stop-opacity="0"/></radialGradient>' +
-      '<linearGradient id="cSd" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#000" stop-opacity=".4"/><stop offset="1" stop-color="#000" stop-opacity="0"/></linearGradient></defs>' +
-      '<ellipse cx="235" cy="326" rx="215" ry="22" fill="url(#cSh)"/>'
-    // chap yon (uzun) yuz
-    s += '<polygon points="200,170 50,140 50,270 200,300" fill="url(#cBs)"/>' +
-      '<polygon points="178,188 78,168 78,258 178,278" fill="url(#cBg)" stroke="#9db8ff" stroke-opacity=".8" stroke-width="1.8"/>' +
-      '<path d="M126,206 l30,22 -30,22 -30,-22z" fill="#2a4fe0" stroke="#b6caff" stroke-width="1.4"/><path d="M126,214 l16,14 -16,14 -16,-14z" fill="#6f93ff"/>' +
-      '<polygon points="200,170 50,140 50,270 200,300" fill="url(#cSd)"/>'
-    s += '<path d="M88,196 q12,-10 24,0 q8,8 -2,16 M168,250 q-12,10 -24,2 q-8,-8 2,-16 M92,248 q8,-6 16,0 M164,214 q-8,6 -16,0" fill="none" stroke="#9db8ff" stroke-opacity=".75" stroke-width="2" stroke-linecap="round"/>'
-    s += gp('M200,170 L50,140 L50,270 L200,300 Z', 8)
-    s += gp('M200,290 L50,260', 7)
-    // old (tor) yuz tana
-    s += '<rect x="200" y="170" width="210" height="130" fill="url(#cB)"/>' +
-      '<rect x="224" y="188" width="162" height="94" rx="4" fill="url(#cBg)" stroke="#9db8ff" stroke-opacity=".85" stroke-width="1.8"/>' +
-      emb(305, 236, 1.05) +
-      '<rect x="224" y="188" width="162" height="38" rx="4" fill="url(#cGl)" opacity=".4"/>' +
-      '<path d="M232,274 q18,-12 36,0 M342,274 q18,-12 36,0 M232,196 q18,12 36,0 M342,196 q18,12 36,0" fill="none" stroke="#7a98ff" stroke-opacity=".7" stroke-width="2"/>'
-    s += '<path d="M236,246 q10,-18 26,-8 q6,8 -4,12 M374,246 q-10,-18 -26,-8 q-6,8 4,12 M236,238 q-6,-10 2,-16 M374,238 q6,-10 -2,-16" fill="none" stroke="#9db8ff" stroke-opacity=".75" stroke-width="2" stroke-linecap="round"/>'
-    s += gpoly('224,188 246,188 224,208', 1.8) + gpoly('386,188 364,188 386,208', 1.8) + gpoly('224,282 246,282 224,262', 1.8) + gpoly('386,282 364,282 386,262', 1.8)
-    s += gp('M200,170 L410,170 L410,300 L200,300 Z', 9)
-    s += gp('M196,284 L414,284', 8)
-    s += gem(305, 284, 5.5, 'cGm') + gem(232, 284, 4, 'cGy') + gem(378, 284, 4, 'cGr')
-    // ichki (qopqoq ochilganda)
-    s += '<polygon points="200,170 410,170 260,140 50,140" fill="#06102e"/><polygon points="206,169 404,169 256,144 62,144" fill="rgb(var(--ch))" class="chint"/>'
-    s += '</svg><svg class="chest chlids" viewBox="0 -20 440 370" xmlns="http://www.w3.org/2000/svg" style="overflow:visible">'
-    s += '<g transform="translate(0,-45)">'
-    // qopqoq sirti
-    s += '<path d="M200,215 L50,185 A105,105 0 0 1 155,80 L305,110 A105,105 0 0 0 200,215 Z" fill="url(#cL)"/>' +
-      '<path d="M200,215 L50,185 A105,105 0 0 1 155,80 L305,110 A105,105 0 0 0 200,215 Z" fill="url(#cSd)" opacity=".45"/>' +
-      '<path d="M200,215 L50,185 A105,105 0 0 1 155,80 L305,110 A105,105 0 0 0 200,215 Z" fill="url(#cSw)"/>'
-    for (var q = 0; q < 3; q++) {
-      var t0 = 0.1 + q * 0.31, t1 = t0 + 0.2, a0 = bp(t0), b0 = tp(t0), a1 = bp(t1), b1 = tp(t1)
-      s += '<path d="M' + a0[0].toFixed(1) + ',' + a0[1].toFixed(1) + ' A105,105 0 0 1 ' + b0[0].toFixed(1) + ',' + b0[1].toFixed(1) + ' L' + b1[0].toFixed(1) + ',' + b1[1].toFixed(1) + ' A105,105 0 0 0 ' + a1[0].toFixed(1) + ',' + a1[1].toFixed(1) + ' Z" fill="#7b7fe8" fill-opacity=".3" stroke="#fff" stroke-opacity=".85" stroke-width="1.4"/>'
-      var mx = (b0[0] + b1[0]) / 2 - 10, my = (b0[1] + b1[1]) / 2 + 14
-      s += '<path d="M' + (mx - 12).toFixed(1) + ',' + (my + 26).toFixed(1) + ' q12,-30 26,-10 q-14,2 -12,18 M' + (mx - 6).toFixed(1) + ',' + (my + 48).toFixed(1) + ' q14,-16 28,-2 M' + (mx - 14).toFixed(1) + ',' + (my + 66).toFixed(1) + ' q16,-12 30,0" fill="none" stroke="#fff" stroke-opacity=".9" stroke-width="2" stroke-linecap="round"/>'
-    }
-    s += rib(0, 10) + rib(0.33, 8) + rib(0.66, 8) + rib(1, 10)
-    s += gp('M155,80 L305,110', 9)
-    s += gem(250, 102, 7, 'cGm') + gem(205, 93, 5.5, 'cGp') + gem(180, 86, 4.5, 'cGy')
-    // old yoy (cap)
-    s += '<path d="M200,215 A105,105 0 0 1 410,215 Z" fill="url(#cBg)"/>' +
-      '<path d="M215,215 A90,90 0 0 1 395,215 Z" fill="#102a9c"/><path d="M222,200 A83,83 0 0 1 388,200 L388,170 A83,83 0 0 0 222,170Z" fill="url(#cGl)" opacity=".28"/>' +
-      emb(305, 168, 1.05) +
-      '<path d="M228,196 q16,-34 46,-46 M382,196 q-16,-34 -46,-46" fill="none" stroke="#7a98ff" stroke-opacity=".65" stroke-width="2"/>' +
-      '<path d="M215,215 A90,90 0 0 1 395,215" fill="none" stroke="#a9c2ff" stroke-opacity=".6" stroke-width="1.5"/>'
-    s += gp('M200,215 A105,105 0 0 1 410,215', 17)
-    s += gp('M215,213 A90,90 0 0 1 395,213', 4)
-    s += gem(305, 112, 8, 'cGy')
-    var rv = [[212, 156], [398, 156], [236, 124], [374, 124]]
-    for (var r = 0; r < rv.length; r++) s += '<circle cx="' + rv[r][0] + '" cy="' + rv[r][1] + '" r="5.5" fill="url(#cG)" stroke="#4e2a02" stroke-width="1.5"/>'
-    s += '</g>'
-    s += '</svg><svg class="chest" viewBox="0 -20 440 370" xmlns="http://www.w3.org/2000/svg" style="overflow:visible">'
-    // belbog'
-    s += '<g transform="translate(0,-45)">'
-    s += gpoly('188,203 418,203 424,209 424,229 188,229') +
-      gpoly('188,203 38,172 46,188 188,229') +
-      '<path d="M190,205 L422,205" stroke="#fffbe0" stroke-opacity=".9" stroke-width="2"/><path d="M188,227 L436,227" stroke="#7a4604" stroke-opacity=".5" stroke-width="2"/>'
-    s += '<path d="M230,205 L262,205 L250,227 L218,227Z M330,205 L362,205 L350,227 L318,227Z" fill="#fff" fill-opacity=".22"/><path d="M262,205 L294,205 L282,227 L250,227Z M362,205 L392,205 L384,227 L350,227Z" fill="#5a3202" fill-opacity=".14"/>'
-    s += gem(250, 216, 4, 'cGm') + gem(305, 216, 4, 'cGp') + gem(360, 216, 4, 'cGr')
-    s += '</g>'
-    // burchak ustunlari
-    s += gpoly('190,158 214,158 214,300 190,300', 1.6) + gpoly('396,158 420,158 420,300 396,300', 1.6) +
-      '<path d="M194,166 L194,296 M400,166 L400,296" stroke="#fffbd8" stroke-opacity=".8" stroke-width="2"/>'
-    // qulf
-    s += '<g transform="translate(0,-45)">'
-    s += gpoly('120,172 150,208 120,252 90,208', 2.6) +
-      '<polygon points="120,182 142,208 120,242 98,208" fill="#e0a41c" stroke="#fff3b0" stroke-width="1.2"/>' +
-      '<polygon points="120,190 134,208 120,234 106,208" fill="url(#cGm)" stroke="#fff" stroke-width="1.6"/>' +
-      '<path d="M120,190 L134,208 L120,208Z" fill="#fff" fill-opacity=".6"/><path d="M120,234 L106,208 L120,208Z" fill="#000" fill-opacity=".25"/><circle cx="114" cy="200" r="3" fill="#fff"/>'
-    s += '</g>'
-    // oyoqlar
-    function foot(cx, dy, gc) {
-      var o = '<g transform="translate(' + cx + ',' + dy + ') scale(.78)">'
-      o += '<path d="M-17,0 Q-46,2 -52,28 Q-34,24 -20,16Z" fill="url(#cGf)" stroke="#4e2a02" stroke-width="1.5" stroke-linejoin="round"/>'
-      o += '<path d="M17,0 Q46,2 52,28 Q34,24 20,16Z" fill="url(#cGf)" stroke="#4e2a02" stroke-width="1.5" stroke-linejoin="round"/>'
-      o += '<path d="M-17,-4 L17,-4 Q22,18 0,40 Q-22,18 -17,-4Z" fill="url(#cGf)" stroke="#4e2a02" stroke-width="1.6" stroke-linejoin="round"/>'
-      o += '<path d="M-9,0 Q-12,16 0,30" fill="none" stroke="#fffbd8" stroke-opacity=".8" stroke-width="2.2" stroke-linecap="round"/>'
-      return o + gem(0, 14, 5, gc) + '</g>'
-    }
-    s += foot(202, 288, 'cGy') + foot(408, 288, 'cGm') + foot(52, 258, 'cGr')
-    s += '<g fill="#fff"><path d="M330,92 l2,9 9,2 -9,2 -2,9 -2,-9 -9,-2 9,-2z"/><path d="M84,150 l1.6,6 6,1.6 -6,1.6 -1.6,6 -1.6,-6 -6,-1.6 6,-1.6z" opacity=".9"/><path d="M424,262 l1.4,5 5,1.4 -5,1.4 -1.4,5 -1.4,-5 -5,-1.4 5,-1.4z" opacity=".8"/></g>'
-    return s + '</svg>'
-  }
-
-  function chestSp() {
-    var h = ""
-    for (var i = 0; i < 14; i++) h += '<i class="chsp" style="left:' + (8 + Math.random() * 84).toFixed(0) + '%;top:' + (20 + Math.random() * 60).toFixed(0) + '%;animation-delay:-' + (Math.random() * 5).toFixed(1) + 's;--sz:' + (3 + Math.random() * 5).toFixed(1) + 'px"></i>'
-    return h
-  }
-  function chestShow() {
-    var o = document.getElementById("chestov"); if (o) o.remove()
-    var gd = document.documentElement.getAttribute("data-gender"), col = gd === "female" ? "255,122,184" : gd === "male" ? "74,163,255" : "62,224,160"
-    o = document.createElement("div"); o.id = "chestov"; o.className = "chestov " + (gd === "female" ? "tf" : gd === "male" ? "tm" : "tn"); o.style.setProperty("--ch", col)
-    o.innerHTML = '<div class="chwrap"><div class="chfloor"></div><div class="chglow"></div>' + chestSp() + '<div class="chbeam"></div>'+chestSVG()+'</div><div class="chbar"><i></i><i></i><i></i></div>'
-    document.body.appendChild(o)
-    var n = 0, busy = false, w = o.querySelector(".chwrap"), bars = o.querySelectorAll(".chbar i")
-    o.addEventListener("click", function () {
-      if (busy) return
-      n++; o.style.setProperty("--lv", n)
-      for (var i = 0; i < bars.length; i++) bars[i].className = i < n ? "on" : ""
-      w.classList.remove("shake"); void w.offsetWidth; w.classList.add("shake")
-      haptic("light")
-      if (n >= 3) {
-        busy = true
-        setTimeout(function () {
-          o.classList.add("open")
-          setTimeout(function () {
-            var i2 = Math.floor(Math.random() * D.quotes.length)
-            if (i2 === U.quoteIdx) i2 = (i2 + 1) % D.quotes.length
-            U.quoteIdx = i2; render()
-            o.classList.add("gone"); setTimeout(function () { o.remove() }, 700)
-          }, 1100)
-        }, 400)
+  function quoteSwap(i) {
+    var card = document.querySelector(".card.quote")
+    if (!card || !card.animate || (window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches)) { U.quoteIdx = i; render(); return }
+    var r = card.getBoundingClientRect(), dpr = Math.min(2, window.devicePixelRatio || 1)
+    var cl = card.cloneNode(true)
+    cl.style.cssText = "position:fixed;margin:0;z-index:9998;pointer-events:none;left:" + r.left + "px;top:" + r.top + "px;width:" + r.width + "px;height:" + r.height + "px;clip-path:inset(0 0 0 0);-webkit-clip-path:inset(0 0 0 0)"
+    var cv = document.createElement("canvas"), pad = 40
+    cv.width = (r.width + pad * 2) * dpr; cv.height = r.height * dpr
+    cv.style.cssText = "position:fixed;z-index:9999;pointer-events:none;left:" + (r.left - pad) + "px;top:" + r.top + "px;width:" + (r.width + pad * 2) + "px;height:" + r.height + "px"
+    document.body.appendChild(cl); document.body.appendChild(cv)
+    var g = cv.getContext("2d"), col = getComputedStyle(document.body).color || "#fff", pts = [], t0 = 0, DUR = 1150, W = r.width, H = r.height
+    U.quoteIdx = i; render()
+    function frame(ts) {
+      if (!t0) t0 = ts
+      var k = Math.min(1, (ts - t0) / DUR), e = k < .5 ? 2 * k * k : 1 - Math.pow(-2 * k + 2, 2) / 2, p = 1 - e
+      var cut = (1 - p) * 100
+      cl.style.clipPath = "inset(0 " + cut + "% 0 0)"; cl.style.webkitClipPath = cl.style.clipPath
+      g.setTransform(dpr, 0, 0, dpr, 0, 0); g.clearRect(0, 0, W + pad * 2, H)
+      var lx = pad + W * p
+      for (var n = 0; n < 14 && k < 1; n++) pts[pts.length] = { x: lx + (Math.random() - .5) * 3, y: Math.random() * H, vx: .6 + Math.random() * 2.2, vy: (Math.random() - .5) * 1.1, l: 1, s: .8 + Math.random() * 1.6 }
+      g.fillStyle = col
+      for (var q = pts.length - 1; q >= 0; q--) {
+        var o = pts[q]; o.x += o.vx; o.y += o.vy; o.vx *= .985; o.l -= .022
+        if (o.l <= 0) { pts.splice(q, 1); continue }
+        g.globalAlpha = o.l * .85; g.fillRect(o.x, o.y, o.s, o.s)
       }
-    })
+      g.globalAlpha = 1
+      if (k < 1) {
+        var gr = g.createLinearGradient(lx - 8, 0, lx + 8, 0)
+        gr.addColorStop(0, "rgba(255,255,255,0)"); gr.addColorStop(.5, "rgba(255,255,255,.95)"); gr.addColorStop(1, "rgba(255,255,255,0)")
+        g.fillStyle = gr; g.fillRect(lx - 8, 0, 16, H)
+        g.fillStyle = "#fff"; g.fillRect(lx - 1, 0, 2, H)
+      }
+      if (k < 1 || pts.length) requestAnimationFrame(frame)
+      else { cl.remove(); cv.remove() }
+    }
+    requestAnimationFrame(frame)
   }
 
   // ====================
@@ -2733,7 +2614,9 @@
     else if (act === "likeApp") { S.appLike = !S.appLike; save(); rateSync(true); render() }
     else if (act === "more") { U.more = v; if (v === "about") rateSync(false); if (v === "quote") U.quoteIdx = -1; render() }
     else if (act === "quoteNext") {
-      chestShow()
+      var i = Math.floor(Math.random() * D.quotes.length)
+      if (i === U.quoteIdx) i = (i + 1) % D.quotes.length
+      quoteSwap(i)
     }
     else if (act === "share") {
       var d = quoteData(U.quoteIdx)
