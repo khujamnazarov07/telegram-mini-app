@@ -295,7 +295,8 @@
       if (!navDrag.moved && Math.abs(dx) < 6) return
       if (!navDrag.moved) { navDrag.moved = 1; try { navEl.setPointerCapture(e.pointerId) } catch (er) {} navInd.style.transition = "none"; navEl.classList.add("dragging") }
       var x = Math.max(navDrag.min, Math.min(navDrag.max, navDrag.start + dx))
-      navInd.style.transform = "translateX(" + x + "px)"
+      navDrag.tx = x; if (navDrag.cx == null) navDrag.cx = navDrag.start
+      if (!navDrag.raf) { var dd = navDrag; var lp = function () { if (navDrag !== dd) return; dd.cx += (dd.tx - dd.cx) * 0.3; navInd.style.transform = "translateX(" + dd.cx.toFixed(1) + "px)"; dd.raf = requestAnimationFrame(lp) }; dd.raf = requestAnimationFrame(lp) }
       var bs = navEl.querySelectorAll("button"), best = 0, bd = 1e9
       for (var i = 0; i < bs.length; i++) { var d = Math.abs(bs[i].offsetLeft - x); if (d < bd) { bd = d; best = i } }
       for (i = 0; i < bs.length; i++) bs[i].classList.toggle("pv", i === best)
@@ -585,7 +586,7 @@
     var liked = !!S.favs[n], dirCls = U.dir ? " in-" + U.dir : ""
     U.dir = ""
     var mean = meaningOf(n)
-    return '<button class="btn small back" data-act="closeDetail">' + ic("chevron_left") + esc(tr("back")) + "</button>" +
+    return '<button class="btn small back circ" data-act="closeDetail" aria-label="back">' + ic("arrow_back") + "</button>" +
       '<div class="slidewrap"><div id="slide" class="slide' + dirCls + '" data-n="' + n + '">' +
       '<div class="card hero"><div class="hnav" dir="ltr"><button class="rb" data-act="step" data-v="-1" aria-label="Previous">' + ic("chevron_left") + '</button><div class="no">' + n + ' / 99</div><button class="rb" data-act="step" data-v="1" aria-label="Next">' + ic("chevron_right") + "</button></div>" +
       '<div class="ar">' + d.a + '</div><div class="tr">' + esc(d.t) + "</div></div>" +
@@ -1673,7 +1674,7 @@
     if (U.more === "quote") {
       if (U.quoteIdx < 0) U.quoteIdx = Math.floor(Math.random() * D.quotes.length)
       var d = quoteData(U.quoteIdx)
-      return '<button class="btn small back" data-act="moreBack">‹ ' + esc(tr("back")) + "</button>" +
+      return '<button class="btn small back circ" data-act="moreBack" aria-label="back">' + ic("arrow_back") + "</button>" +
         '<div class="card quote"><div class="qin"><strong>' + esc(d.title) + '</strong><div class="qt">' + esc(d.body) + '</div></div><div class="qrefs"><span class="ref">' + ic("verified") + " " + esc(d.src) + '</span><span class="ref">' + ic("smart_toy") + " @" + CFG.BOT + "</span></div></div>" +
         '<div class="qbtns"><button class="btn" data-act="share">' + ic("share") + "<span>" + esc(tr("share")) + '</span></button><button class="btn" data-act="open" data-v="' + d.q.n + '">' + ic("auto_awesome") + "<span>" + esc(D.names[d.q.n - 1].t) + '</span></button><button class="btn" data-act="quoteNext">' + ic("restart_alt") + "</button></div>"
     }
@@ -1681,7 +1682,7 @@
       var ids = []
       for (var k in S.favs) if (S.favs[k]) ids[ids.length] = parseInt(k, 10)
       ids.sort(function (a, b) { return a - b })
-      var h = '<button class="btn small back" data-act="moreBack">‹ ' + esc(tr("back")) + "</button><h1>❣️ " + esc(tr("favs")) + "</h1>"
+      var h = '<button class="btn small back circ" data-act="moreBack" aria-label="back">' + ic("arrow_back") + "</button><h1>❣️ " + esc(tr("favs")) + "</h1>"
       if (!ids.length) return h + '<p class="empty">' + esc(tr("favs_empty")) + "</p>"
       h += nameCards(ids)
       for (var i = 0; i < ids.length; i++) {
@@ -1690,20 +1691,16 @@
       return h
     }
     if (U.more === "theme") {
-      return '<button class="btn small back" data-act="moreBack">' + ic("arrow_back") + " " + esc(tr("back")) + "</button><h1>" + ic("palette") + " " + esc(tr("theme_t")) + '</h1><p class="sub">&nbsp;</p>' + hswHtml("g") +
+      return '<div class="shead"><button class="btn small back circ" data-act="moreBack" aria-label="back">' + ic("arrow_back") + '</button><h1>' + ic("palette") + " " + esc(tr("theme_t")) + '</h1><span></span></div><p class="sub">&nbsp;</p>' + hswHtml("g") +
         '<div id="themeOpts" class="topts">' + themeOpts() + '</div><p class="ginfo">' + ic("info") + " <span>" + esc(tr("gender_info")) + "</span></p>"
     }
     if (U.more === "mode") {
-      var mm = '<button class="btn small back" data-act="moreBack">' + ic("arrow_back") + " " + esc(tr("back")) + "</button><h1>" + ic("contrast") + " " + esc(tr("mode_t")) + '</h1><div class="list">'
-      var MD = ["auto", "light", "dark"]
-      for (var mi = 0; mi < MD.length; mi++) mm += '<button class="' + (S.theme === MD[mi] ? "sel" : "") + '" data-act="setMode" data-v="' + MD[mi] + '">' + ic(THEME_ICONS[MD[mi]]) + " " + esc(tr("th_" + MD[mi])) + (S.theme === MD[mi] ? ic("check", "chk") : "") + "</button>"
-      mm += "</div>"
-      if (S.theme === "auto") mm += '<div class="globe"><canvas id="gl"></canvas><div id="gtxt" class="gtxt"></div><button class="btn small' + (S.tz ? "" : " success") + '" data-act="tzDev">' + esc(tr("tz_dev")) + '</button><p class="ginfo">' + ic("info") + " <span>" + esc(tr("tz_hint")) + "</span></p></div>"
+      var mm = '<div class="shead"><button class="btn small back circ" data-act="moreBack" aria-label="back">' + ic("arrow_back") + '</button><h1>' + ic("contrast") + " " + esc(tr("mode_t")) + '</h1><span></span></div><div id="mdw" class="hsl"></div><div id="mglobe">' + modeGlobeHtml() + "</div>"
       return mm
     }
     if (U.more === "settings") {
       var cg = S.gender === "female" ? "th_female" : S.gender === "male" ? "th_male" : "th_auto"
-      return '<button class="btn small back" data-act="moreBack">' + ic("arrow_back") + " " + esc(tr("back")) + "</button><h1>" + ic("settings") + " " + esc(tr("settings")) + '</h1><p class="sub">&nbsp;</p><div class="list">' +
+      return '<div class="shead"><button class="btn small back circ" data-act="moreBack" aria-label="back">' + ic("arrow_back") + '</button><h1>' + ic("settings") + " " + esc(tr("settings")) + '</h1><span></span></div><p class="sub">&nbsp;</p><div class="list">' +
         '<button data-act="more" data-v="mode">' + ic("contrast") + " " + esc(tr("mode_t")) + " · " + esc(tr("th_" + S.theme)) + "</button>" +
         '<button data-act="more" data-v="theme">' + ic("palette") + " " + esc(tr("theme_t")) + " · " + esc(tr(cg)) + "</button>" +
         '<button data-act="more" data-v="lang">' + ic("translate") + " " + esc(tr("lang")) + " · " + LANG_NAMES[S.lang] + "</button>" +
@@ -1715,16 +1712,16 @@
         var wh = hk ? '<div class="dg hw" data-rm="' + hk + '" data-h="' + rp[hk] + '"><div class="dg-track"></div></div>' : ""
         return '<div class="topt rmrow"><div class="tl"><span>' + esc(tr(lbl)) + '</span><span class="rmr">' + wh + '<button class="tgl' + (rp[key] ? " on" : "") + '" data-act="rmt" data-v="' + key + '" aria-label="' + key + '"><i></i></button></span></div></div>'
       }
-      return '<button class="btn small back" data-act="moreBack">' + ic("arrow_back") + " " + esc(tr("back")) + "</button><h1>" + ic("notifications") + " " + esc(tr("remind")) + '</h1><p class="sub">&nbsp;</p><div class="card stack">' +
+      return '<div class="shead"><button class="btn small back circ" data-act="moreBack" aria-label="back">' + ic("arrow_back") + '</button><h1>' + ic("notifications") + " " + esc(tr("remind")) + '</h1><span></span></div><p class="sub">&nbsp;</p><div class="card stack">' +
         '<div class="topt"><div class="tl"><span><b>' + esc(tr("remind")) + '</b></span><button class="tgl' + (on0 ? " on" : "") + '" data-act="rmt" data-v="all" aria-label="all"><i></i></button></div></div>' +
         '<div class="rmlist' + (on0 ? "" : " off") + '">' + rrow("rm_daily", "d", "dh") + rrow("rm_due", "s", "sh") + rrow("rm_owed", "o", "") + "</div></div>"
     }
     if (U.more === "lang") {
       U.lcty = U.lcty || ""
-      return '<button class="btn small back" data-act="moreBack">' + ic("arrow_back") + " " + esc(tr("back")) + "</button><h1>" + ic("translate") + " " + esc(tr("lang")) + '</h1><div class="globe"><canvas id="lgl"></canvas></div><div id="lvar" class="lrow">' + lvarHtml() + '</div><div id="lall" class="lrow">' + lallHtml() + "</div>"
+      return '<div class="shead"><button class="btn small back circ" data-act="moreBack" aria-label="back">' + ic("arrow_back") + '</button><h1>' + ic("translate") + " " + esc(tr("lang")) + '</h1><span></span></div><div class="globe"><canvas id="lgl"></canvas></div><div id="lvar" class="lrow">' + lvarHtml() + '</div><div id="lall" class="lrow">' + lallHtml() + "</div>"
     }
     if (U.more === "about") {
-      return '<button class="btn small back" data-act="moreBack">' + ic("arrow_back") + " " + esc(tr("back")) + "</button><h1>" + ic("info") + " " + esc(tr("about")) + '</h1><div class="card stack"><p>' + ic("auto_awesome", "ab") + " " + esc(tr("about_text")) + '</p><p class="sub">' + ic("bookmark", "ab") + " Mini App " + CFG.VERSION + "</p>" + aboutRate() +
+      return '<div class="shead"><button class="btn small back circ" data-act="moreBack" aria-label="back">' + ic("arrow_back") + '</button><h1>' + ic("info") + " " + esc(tr("about")) + '</h1><span></span></div><div class="card stack"><p>' + ic("auto_awesome", "ab") + " " + esc(tr("about_text")) + '</p><p class="sub">' + ic("bookmark", "ab") + " Mini App " + CFG.VERSION + "</p>" + aboutRate() +
         '<button class="btn primary block" data-act="openBot">' + ic("smart_toy") + " " + esc(tr("open_bot")) + '</button><button class="btn block" data-act="openChannel">' + ic("campaign") + " " + esc(tr("open_channel")) + "</button></div>"
     }
     return '<h1>' + ic("auto_awesome") + " " + esc(tr("nav_more")) + '</h1><p class="sub">&nbsp;</p><div class="list">' +
@@ -1755,7 +1752,7 @@
     initHours()
     hgAttach()
     meanFit()
-    phStart(); nhStart(); mediaInit(); themeInit(); hswInit()
+    phStart(); nhStart(); mediaInit(); themeInit(); hswInit(); mdInit()
     nsUpdate()
     miniSync()
     if (U.tab === "more" && U.more === "mode") startGlobe()
@@ -2297,6 +2294,43 @@
     petalFx()
   }
   var BGK = ["", "mosque", "gold", "cream"], BGL = [["t_bg0", "d"], ["t_bg1", "m"], ["t_bg2", "g"], ["t_bg3", "c"]]
+  var MDK = ["auto", "light", "dark"]
+  function modeGlobeHtml() {
+    if (S.theme !== "auto") return ""
+    return '<div class="globe"><canvas id="gl"></canvas><div id="gtxt" class="gtxt"></div><button class="btn small' + (S.tz ? "" : " success") + '" data-act="tzDev">' + esc(tr("tz_dev")) + '</button><p class="ginfo">' + ic("info") + " <span>" + esc(tr("tz_hint")) + "</span></p></div>"
+  }
+  function mdInit() {
+    var el = document.getElementById("mdw"); if (!el || el._in) return
+    el._in = 1
+    var N = 3, COP = 9, MID = 4, h = ""
+    for (var c = 0; c < COP; c++) for (var j = 0; j < N; j++) h += '<button class="hsw-i" data-i="' + j + '">' + ic(THEME_ICONS[MDK[j]]) + "<span>" + esc(tr("th_" + MDK[j])) + "</span></button>"
+    el.innerHTML = h
+    var items = el.children, timer = 0, ready = false, last = MDK.indexOf(S.theme)
+    function step() { return items[1].offsetLeft - items[0].offsetLeft }
+    function jump(i) { el.style.scrollSnapType = "none"; el.scrollLeft = (MID * N + i) * step(); void el.offsetWidth; el.style.scrollSnapType = "" }
+    function mark(i) { for (var k = 0; k < items.length; k++) items[k].classList.toggle("on", k % N === i) }
+    function place() { if (!el.isConnected || !el.clientWidth) return requestAnimationFrame(place); jump(last); mark(last); setTimeout(function () { ready = true }, 150) }
+    requestAnimationFrame(place)
+    el.addEventListener("scroll", function () {
+      if (!ready || !el.isConnected || !el.clientWidth) return
+      var p = Math.round(el.scrollLeft / step()), i = ((p % N) + N) % N
+      mark(i)
+      clearTimeout(timer)
+      timer = setTimeout(function () {
+        if (i !== last) {
+          last = i; haptic("light"); S.theme = MDK[i]; save(); applyTheme()
+          if (wheels.theme) wheels.theme.set(THEMES.indexOf(S.theme), true)
+          var g = document.getElementById("mglobe"); if (g) { g.innerHTML = modeGlobeHtml(); if (S.theme === "auto") startGlobe() }
+        }
+        if (p < N * 2 || p > N * (COP - 2)) jump(i)
+      }, 130)
+    })
+    el.addEventListener("click", function (e) {
+      var it = e.target.closest && e.target.closest(".hsw-i"); if (!it) return
+      var idx = Array.prototype.indexOf.call(items, it)
+      el.scrollTo({ left: idx * step(), behavior: "smooth" })
+    })
+  }
   function hswHtml(kind) {
     var h = '<div class="hsw" data-k="' + kind + '">', i, cur
     if (kind === "g") {
@@ -2653,12 +2687,13 @@
       var t = goalNum(), st = 1
       var old = S.daily || {}
       if ((U.dmode || old.mode || "goal") === "free") {
-        S.daily = { mode: "free", target: 100, step: 1, owedDays: 0, draft: old.mode === "free" ? (old.draft || 0) : 0, count: old.count || 0, lastCheckedDate: todayStr(), todayDone: false }
+        S.daily = { mode: "free", target: 100, step: 1, owedDays: 0, draft: old.mode === "free" ? (old.draft || 0) : 0, count: old.count || 0, lastCheckedDate: todayStr(), todayDone: false, gdDate: old.mode === "free" ? (old.gdDate || "") : (old.todayDone ? (old.lastCheckedDate || todayStr()) : ""), gdOwed: old.mode === "free" ? (old.gdOwed || 0) : (old.owedDays || 0), gdDraft: old.mode === "free" ? (old.gdDraft || 0) : (old.draft || 0), gdTarget: old.mode === "free" ? (old.gdTarget || 0) : (old.target || 0) }
         U.dmode = ""; U.dailyMenu = false; save(); render(); return
       }
       if (!t || t < 1) { toast("⚠️"); return }
       U.dmode = ""
-      S.daily = { mode: "goal", target: Math.min(t, 999999), step: st, owedDays: old.owedDays || 0, draft: old.draft || 0, lastCheckedDate: old.lastCheckedDate || todayStr(), todayDone: !!old.todayDone }
+      var fr = old.mode === "free"
+      S.daily = { mode: "goal", target: Math.min(t, 999999), step: st, owedDays: fr ? (old.gdOwed || 0) : (old.owedDays || 0), draft: fr ? (old.gdDraft || 0) : (old.draft || 0), lastCheckedDate: todayStr(), todayDone: fr ? old.gdDate === todayStr() : !!old.todayDone }
       U.dailyMenu = false; save(); render()
     }
     else if (act === "dailyMenu") { U.dailyMenu = !U.dailyMenu; U.dmode = ""; render() }
