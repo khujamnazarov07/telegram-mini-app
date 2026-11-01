@@ -1686,18 +1686,19 @@
     renderNav()
     if (wheels.theme) updateThemeLabels()
     if (tg && tg.BackButton) {
-      if (U.detail || (U.tab === "more" && U.more !== "menu") || (U.tab === "mood" && U.moodPick)) tg.BackButton.show()
+      if (U.detail || U.tab !== "names") tg.BackButton.show()
       else tg.BackButton.hide()
     }
     window.scrollTo(0, 0)
   }
   function goBack() {
-    if (U.detail) { U.detail = 0; render(); return }
+    if (U.detail) { U.detail = 0; render(); window.scrollTo(0, 0); return }
     if (U.tab === "more" && U.more !== "menu") {
       if (U.hikBack) { U.hikBack = false; U.tab = "names" }
-      U.more = (U.more === "lang" || U.more === "theme" || U.more === "mode" || U.more === "remind") ? "settings" : "menu"; render(); return
+      U.more = (U.more === "lang" || U.more === "theme" || U.more === "mode" || U.more === "remind") ? "settings" : "menu"; render(); window.scrollTo(0, 0); return
     }
-    if (U.tab === "mood" && U.moodPick) { U.moodPick = ""; render() }
+    if (U.tab === "mood" && U.moodPick) { U.moodPick = ""; render(); window.scrollTo(0, 0); return }
+    if (U.tab !== "names") { U.tab = "names"; U.more = "menu"; U.moodPick = ""; U.hikBack = false; render(); window.scrollTo(0, 0); requestAnimationFrame(function () { window.scrollTo(0, 0) }) }
   }
 
 
