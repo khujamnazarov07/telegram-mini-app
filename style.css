@@ -1021,6 +1021,9 @@ body { padding-bottom: calc(var(--nav-h) + env(safe-area-inset-bottom)) !importa
 #mbg .tw { animation: mtw 3s ease-in-out infinite; }
 @keyframes mtw { 50% { opacity: .15; } }
 html[data-bg="mosque"] #app { position: relative; z-index: 1; }
-html[data-bg="mosque"] body { background: #050d24 !important; }
+html[data-bg="mosque"] body { background: #0c2350 !important; }
+html[data-bg="mosque"][data-theme="light"] body { background: #a9d6f2 !important; }
 html[data-bg="mosque"] body::before, html[data-bg="mosque"] body::after, html[data-bg="mosque"]::after { display: none !important; }
-html[data-bg="mosque"][data-theme] { color-scheme: dark; --bg: #07142c; --card: rgba(18, 34, 62, .6); --text: #e8efeb; --hint: #a9bcb4; --line: rgba(255,255,255,.16); }
+html[data-bg="mosque"][data-theme="dark"] { --bg: #07142c; --card: rgba(14, 28, 54, .66); --text: #f2f6f4; --hint: #b9cbc4; --line: rgba(255,255,255,.18); }
+html[data-bg="mosque"][data-theme="light"] { --bg: #cfe8f5; --card: rgba(255, 255, 255, .66); --text: #10303d; --hint: #36596a; --line: rgba(16,48,61,.18); }
+html[data-bg="mosque"] h1, html[data-bg="mosque"] .sub { text-shadow: 0 1px 6px rgba(0,0,0,.25); }
