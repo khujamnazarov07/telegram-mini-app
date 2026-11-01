@@ -256,6 +256,66 @@
     fetch(u, o).then(function (r) { return r.json() }).then(function (j) { U.rg = j; if (U.more === "about") render() }).catch(function () {})
   }
   function ic(name, cls) { return '<span class="msi' + (cls ? " " + cls : "") + '" aria-hidden="true">' + name + "</span>" }
+  var navInd = null, navDrag = null, navDone = 0
+  function navIdx() { for (var i = 0; i < NAVS.length; i++) if (NAVS[i][0] === U.tab) return i; return 0 }
+  function navPlace(first) {
+    var b = navEl.querySelectorAll("button")[navIdx()]; if (!b || !navInd || !navEl.clientWidth) return
+    navInd.style.transition = first ? "transform .35s cubic-bezier(.3,1.3,.4,1)" : "none"
+    navInd.style.transform = "translateX(" + b.offsetLeft + "px)"
+  }
+  function goTab(v) {
+    if (v === U.tab && !U.detail && U.more === "menu") return
+    var from = navIdx(), to = 0
+    for (var i = 0; i < NAVS.length; i++) if (NAVS[i][0] === v) to = i
+    var go = function () { U.tab = v; U.hikBack = false; U.detail = 0; U.more = "menu"; U.moodPick = ""; render() }
+    if (from === to) return go()
+    slidePage(to > from ? 1 : -1, go)
+  }
+  function slidePage(dir, fn) {
+    var app = document.getElementById("app")
+    if (!app || !app.animate || (window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches)) return fn()
+    var r = app.getBoundingClientRect(), cl = app.cloneNode(true), wrap = document.createElement("div"), W = window.innerWidth, ease = "cubic-bezier(.22,.8,.25,1)"
+    cl.removeAttribute("id"); cl.style.cssText = "position:absolute;margin:0;left:" + r.left + "px;top:" + r.top + "px;width:" + r.width + "px"
+    wrap.className = "pgx"; wrap.appendChild(cl); document.body.appendChild(wrap)
+    document.documentElement.classList.add("sliding")
+    fn()
+    var a = document.getElementById("app")
+    a.animate([{ transform: "translateX(" + dir * W + "px)" }, { transform: "none" }], { duration: 340, easing: ease })
+    var o = cl.animate([{ transform: "none" }, { transform: "translateX(" + -dir * W + "px)" }], { duration: 340, easing: ease, fill: "forwards" })
+    o.onfinish = function () { wrap.remove(); document.documentElement.classList.remove("sliding") }
+  }
+  function navDragInit() {
+    navEl.addEventListener("pointerdown", function (e) {
+      var bs = navEl.querySelectorAll("button"); if (!bs.length || U.detail) return
+      navDrag = { x: e.clientX, moved: 0, w: bs[0].offsetWidth, min: bs[0].offsetLeft, max: bs[bs.length - 1].offsetLeft, rect: navEl.getBoundingClientRect(), start: bs[navIdx()].offsetLeft }
+    })
+    navEl.addEventListener("pointermove", function (e) {
+      if (!navDrag) return
+      var dx = e.clientX - navDrag.x
+      if (!navDrag.moved && Math.abs(dx) < 6) return
+      if (!navDrag.moved) { navDrag.moved = 1; try { navEl.setPointerCapture(e.pointerId) } catch (er) {} navInd.style.transition = "none"; navEl.classList.add("dragging") }
+      var x = Math.max(navDrag.min, Math.min(navDrag.max, navDrag.start + dx))
+      navInd.style.transform = "translateX(" + x + "px)"
+      var bs = navEl.querySelectorAll("button"), best = 0, bd = 1e9
+      for (var i = 0; i < bs.length; i++) { var d = Math.abs(bs[i].offsetLeft - x); if (d < bd) { bd = d; best = i } }
+      for (i = 0; i < bs.length; i++) bs[i].classList.toggle("pv", i === best)
+      navDrag.best = best
+    })
+    function end() {
+      if (!navDrag) return
+      var d = navDrag; navDrag = null
+      navEl.classList.remove("dragging")
+      var bs = navEl.querySelectorAll("button"); for (var i = 0; i < bs.length; i++) bs[i].classList.remove("pv")
+      if (!d.moved) return
+      navDone = Date.now()
+      navInd.style.transition = "transform .3s cubic-bezier(.3,1.3,.4,1)"
+      goTab(NAVS[d.best == null ? navIdx() : d.best][0])
+      navPlace(true)
+    }
+    navEl.addEventListener("pointerup", end); navEl.addEventListener("pointercancel", end)
+    navEl.addEventListener("click", function (e) { if (Date.now() - navDone < 400) { e.stopPropagation(); e.preventDefault() } }, true)
+  }
+  setTimeout(function () { navDragInit() }, 0)
   function renderNav() {
     var h = ""
     for (var i = 0; i < NAVS.length; i++) {
@@ -263,6 +323,9 @@
     }
     navEl.innerHTML = h
     navEl.className = "nav" + (U.detail ? " hidden" : "")
+    if (!navInd) { navInd = document.createElement("i"); navInd.className = "navind" }
+    navEl.appendChild(navInd)
+    navPlace(true)
   }
 
   // ====================
@@ -1627,7 +1690,7 @@
       return h
     }
     if (U.more === "theme") {
-      return '<button class="btn small back" data-act="moreBack">' + ic("arrow_back") + " " + esc(tr("back")) + "</button><h1>" + ic("palette") + " " + esc(tr("theme_t")) + '</h1><p class="sub">&nbsp;</p><div id="vwTheme" class="vw"><div class="vw-track"></div></div>' +
+      return '<button class="btn small back" data-act="moreBack">' + ic("arrow_back") + " " + esc(tr("back")) + "</button><h1>" + ic("palette") + " " + esc(tr("theme_t")) + '</h1><p class="sub">&nbsp;</p>' + hswHtml("g") +
         '<div id="themeOpts" class="topts">' + themeOpts() + '</div><p class="ginfo">' + ic("info") + " <span>" + esc(tr("gender_info")) + "</span></p>"
     }
     if (U.more === "mode") {
@@ -1692,7 +1755,7 @@
     initHours()
     hgAttach()
     meanFit()
-    phStart(); nhStart(); mediaInit(); themeInit()
+    phStart(); nhStart(); mediaInit(); themeInit(); hswInit()
     nsUpdate()
     miniSync()
     if (U.tab === "more" && U.more === "mode") startGlobe()
@@ -2233,16 +2296,64 @@
     bgFx()
     petalFx()
   }
+  var BGK = ["", "mosque", "gold", "cream"], BGL = [["t_bg0", "d"], ["t_bg1", "m"], ["t_bg2", "g"], ["t_bg3", "c"]]
+  function hswHtml(kind) {
+    var h = '<div class="hsw" data-k="' + kind + '">', i, cur
+    if (kind === "g") {
+      cur = S.gender === "female" ? 2 : S.gender === "male" ? 1 : 0
+      for (i = 0; i < 3; i++) h += '<button class="hsw-i' + (i === cur ? " on" : "") + '" data-i="' + i + '">' + ic(TICONS[i]) + "<span>" + esc(tr(TLAB[i])) + "</span></button>"
+    } else {
+      var bgc = (S.gender === "female" ? S.fbg : S.mbg) || ""
+      cur = Math.max(0, BGK.indexOf(bgc))
+      for (i = 0; i < BGK.length; i++) h += '<button class="hsw-i' + (i === cur ? " on" : "") + '" data-i="' + i + '"><i class="bgp ' + BGL[i][1] + '"></i><span>' + esc(tr(BGL[i][0])) + "</span></button>"
+    }
+    return h + "</div>"
+  }
+  function hswCur(kind) {
+    if (kind === "g") return S.gender === "female" ? 2 : S.gender === "male" ? 1 : 0
+    return Math.max(0, BGK.indexOf((S.gender === "female" ? S.fbg : S.mbg) || ""))
+  }
+  function hswInit() {
+    var els = document.querySelectorAll(".hsw")
+    for (var q = 0; q < els.length; q++) (function (el) {
+      if (el._in) return
+      el._in = 1
+      var kind = el.getAttribute("data-k"), items = el.children, timer = 0, ready = false
+      function step() { return items.length > 1 ? items[1].offsetLeft - items[0].offsetLeft : 120 }
+      function setScroll(smooth) { el.scrollTo({ left: hswCur(kind) * step(), behavior: smooth ? "smooth" : "auto" }) }
+      function place() { if (!el.isConnected || !el.clientWidth) return requestAnimationFrame(place); setScroll(false); setTimeout(function () { ready = true }, 120) }
+      requestAnimationFrame(place)
+      el.addEventListener("scroll", function () {
+        if (!ready || !el.isConnected || !el.clientWidth) return
+        var idx = Math.max(0, Math.min(items.length - 1, Math.round(el.scrollLeft / step())))
+        for (var i = 0; i < items.length; i++) items[i].classList.toggle("on", i === idx)
+        clearTimeout(timer)
+        timer = setTimeout(function () {
+          if (idx === hswCur(kind)) return
+          haptic("light")
+          if (kind === "g") { S.gender = TKEYS[idx]; applyGender(); save(); tOptsRefresh() }
+          else { if (S.gender === "female") S.fbg = BGK[idx]; else S.mbg = BGK[idx]; save(); applyGender() }
+        }, 130)
+      })
+      el.addEventListener("click", function (e) {
+        var it = e.target.closest && e.target.closest(".hsw-i"); if (!it) return
+        el.scrollTo({ left: parseInt(it.getAttribute("data-i"), 10) * step(), behavior: "smooth" })
+      })
+    })(els[q])
+  }
+  function tOptsRefresh() {
+    var o = document.getElementById("themeOpts"); if (!o) return
+    o.innerHTML = themeOpts(); hswInit()
+  }
   function themeOpts() {
     var h = "", i, fem = S.gender === "female", mal = S.gender === "male"
     if (!fem && !mal) return ""
     var arr = fem ? PINKS : MALES, cur = (fem ? S.fcolor : S.mcolor) | 0, act = fem ? "fcolor" : "mcolor"
     for (i = 0; i < arr.length; i++) h += '<button class="sws' + (i === cur ? " on" : "") + '" data-act="' + act + '" data-v="' + i + '" style="--c:' + arr[i].a + '" aria-label="color"></button>'
     var on = gOn(), dk = effTheme() === "dark"
-    var bgc = (fem ? S.fbg : S.mbg) || ""
-    var out = '<div class="topt"><div class="tl"><span>' + esc(tr("t_bg")) + '</span></div><div class="bgrow">' + [["", "t_bg0", "d"], ["mosque", "t_bg1", "m"], ["gold", "t_bg2", "g"], ["cream", "t_bg3", "c"]].map(function (o) { return '<button class="bgc' + (bgc === o[0] ? " on" : "") + '" data-act="bgpick" data-v="' + o[0] + '"><i class="bgp ' + o[2] + '"></i><span>' + esc(tr(o[1])) + "</span></button>" }).join("") + '</div></div>' +
-      '<div class="topt"><div class="tl"><span>' + esc(tr("t_color")) + '</span></div><div class="swrow">' + h + "</div></div>" +
-      '<div class="topt"><div class="tl"><span>' + esc(tr("t_gon")) + '</span><button class="tgl' + (on ? " on" : "") + '" data-act="gtoggle" aria-label="glass"><i></i></button></div></div>'
+    var out = hswHtml("b") +
+      '<div class="card tpill"><span class="tp-l">' + esc(tr("t_color")) + '</span><div class="swrow">' + h + "</div></div>" +
+      '<div class="card tpill col"><div class="tl"><span>' + esc(tr("t_gon")) + '</span><button class="tgl' + (on ? " on" : "") + '" data-act="gtoggle" aria-label="glass"><i></i></button></div>'
     if (on) {
       var gl = fem ? (S.fgl == null ? 100 : S.fgl) : (S.mgl == null ? 100 : S.mgl), bl = fem ? (S.fbl == null ? 2 : S.fbl) : (S.mbl == null ? 2 : S.mbl)
       out += '<div class="topt"><div class="tl"><span>' + esc(tr("t_glass")) + '</span><span id="fglv">' + gl + '</span></div><input id="fglr" class="rng" type="range" min="0" max="100" value="' + gl + '"></div>' +
@@ -2252,7 +2363,7 @@
       for (i = 0; i < SL.length; i++) sh += '<button class="sws' + (i === sc ? " on" : "") + '" data-act="gsol" data-v="' + i + '" style="--c:' + (dk ? SL[i][3] : SL[i][0]) + '" aria-label="color"></button>'
       out += '<div class="topt"><div class="tl"><span>' + esc(tr("t_solid")) + '</span></div><div class="swrow">' + sh + "</div></div>"
     }
-    return out
+    return out + "</div>"
   }
   var TKEYS = ["auto", "male", "female"], TICONS = ["brightness_auto", "man", "woman"], TLAB = ["th_auto", "th_male", "th_female"]
   function themeInit() {
@@ -2271,7 +2382,7 @@
       if (i !== last) {
         last = i; haptic("light")
         S.gender = TKEYS[i]; applyGender()
-        var o = document.getElementById("themeOpts"); if (o) o.innerHTML = themeOpts()
+        tOptsRefresh()
       }
       if (p < N * 2 || p > N * (COP - 2)) jumpTo(i)
       clearTimeout(timer)
@@ -2472,7 +2583,7 @@
     if (Date.now() - swipedAt < 350) return
     haptic("light")
 
-    if (act === "tab") { U.tab = v; U.hikBack = false; U.detail = 0; U.more = "menu"; U.moodPick = ""; render() }
+    if (act === "tab") goTab(v)
     else if (act === "open") { U.detail = parseInt(v, 10); U.dpanel = ""; U.dir = ""; U.mexp = false; render() }
     else if (act === "closeDetail" || act === "moreBack") goBack()
     else if (act === "fav") { var n = parseInt(v, 10); setLike(n, !S.favs[n]) }
@@ -2608,11 +2719,11 @@
     else if (act === "tzDev") { S.tz = ""; save(); applyTheme(); render() }
     else if (act === "setMode") { S.theme = v; save(); applyTheme(); if (wheels.theme) wheels.theme.set(THEMES.indexOf(v), true); render() }
     else if (act === "sgo") { var qq = document.getElementById("q"); if (qq) { qq.focus(); if (qq.value) qq.select() } }
-    else if (act === "gtoggle") { if (S.gender === "female") S.fgon = !gOn(); else S.mgon = !gOn(); applyGender(); save(); var o3 = document.getElementById("themeOpts"); if (o3) o3.innerHTML = themeOpts() }
-    else if (act === "gsol") { if (S.gender === "female") S.fsol = parseInt(v, 10); else S.msol = parseInt(v, 10); applyGender(); save(); var o4 = document.getElementById("themeOpts"); if (o4) o4.innerHTML = themeOpts() }
-    else if (act === "fcolor") { S.fcolor = parseInt(v, 10); applyGender(); save(); var o1 = document.getElementById("themeOpts"); if (o1) o1.innerHTML = themeOpts() }
-    else if (act === "mcolor") { S.mcolor = parseInt(v, 10); applyGender(); save(); var o2 = document.getElementById("themeOpts"); if (o2) o2.innerHTML = themeOpts() }
-    else if (act === "bgpick") { if (S.gender === "female") S.fbg = v; else S.mbg = v; save(); applyGender(); var to = document.getElementById("themeOpts"); if (to) to.innerHTML = themeOpts() }
+    else if (act === "gtoggle") { if (S.gender === "female") S.fgon = !gOn(); else S.mgon = !gOn(); applyGender(); save(); tOptsRefresh() }
+    else if (act === "gsol") { if (S.gender === "female") S.fsol = parseInt(v, 10); else S.msol = parseInt(v, 10); applyGender(); save(); tOptsRefresh() }
+    else if (act === "fcolor") { S.fcolor = parseInt(v, 10); applyGender(); save(); tOptsRefresh() }
+    else if (act === "mcolor") { S.mcolor = parseInt(v, 10); applyGender(); save(); tOptsRefresh() }
+    else if (act === "bgpick") { if (S.gender === "female") S.fbg = v; else S.mbg = v; save(); applyGender();  }
     else if (act === "nf") { U.nf = v; render() }
     else if (act === "setLang") { S.langSet = true; S.lang = v; U.lcty = ""; TCACHE = {}; save(); U.more = "settings"; render(); if (wheels.lang) wheels.lang.set(LANGS.indexOf(v), true) }
     else if (act === "openBot") openTg("https://t.me/" + CFG.BOT)
