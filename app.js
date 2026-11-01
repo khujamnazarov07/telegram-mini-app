@@ -67,6 +67,9 @@
     ob_later: "(+ keyinroq sozlashingiz ham mumkin)|(+ кейинроқ созлашингиз ҳам мумкин)|(+ позже это можно изменить в настройках)|(+ you can also change this later in settings)|(+ يمكنك تغيير ذلك لاحقاً من الإعدادات)|(+ daha sonra ayarlardan da değiştirebilirsiniz)|(+ Anda juga dapat mengubahnya nanti di pengaturan)|（+ 稍后也可以在设置中更改）|(+ आप इसे बाद में सेटिंग्स में भी बदल सकते हैं)|(+ también puedes cambiarlo más tarde en ajustes)",
     ob_skip: "Keyinroq|Кейинроқ|Позже|Later|لاحقاً|Sonra|Nanti|稍后|बाद में|Más tarde",
     ob_or: "yoki|ёки|или|or|أو|veya|atau|或|या|o",
+    t_bg: "Orqa fon|Орқа фон|Фон|Background|الخلفية|Arka plan|Latar|背景|पृष्ठभूमि|Fondo",
+    t_bg0: "Standart|Стандарт|Стандарт|Default|افتراضي|Varsayılan|Bawaan|默认|डिफ़ॉल्ट|Predeterminado",
+    t_bg1: "Masjid|Масжид|Мечеть|Mosque|مسجد|Cami|Masjid|清真寺|मस्जिद|Mezquita",
     about: "Haqida|Ҳақида|О приложении|About|حول|Hakkında|Tentang|关于|के बारे में|Acerca de",
     rate_all: "Umumiy reyting|Умумий рейтинг|Общий рейтинг|Overall rating|التقييم العام|Genel puan|Rating umum|总评分|कुल रेटिंग|Valoración general",
     rate_my: "Sizning bahoyingiz|Сизнинг баҳойингиз|Ваша оценка|Your rating|تقييمك|Puanınız|Penilaian Anda|您的评分|आपकी रेटिंग|Tu valoración",
@@ -254,7 +257,7 @@
   function renderNav() {
     var h = ""
     for (var i = 0; i < NAVS.length; i++) {
-      h += '<button data-act="tab" data-v="' + NAVS[i][0] + '" class="' + (U.tab === NAVS[i][0] && !U.detail ? "on" : "") + '">' + ic(NAVS[i][1], "ic") + '<span>' + esc(tr(NAVS[i][2])) + "</span></button>"
+      h += '<button data-act="tab" data-v="' + NAVS[i][0] + '" aria-label="' + esc(tr(NAVS[i][2])) + '" class="' + (U.tab === NAVS[i][0] && !U.detail ? "on" : "") + '">' + ic(NAVS[i][1], "ic") + '<span>' + esc(tr(NAVS[i][2])) + "</span></button>"
     }
     navEl.innerHTML = h
     navEl.className = "nav" + (U.detail ? " hidden" : "")
@@ -1448,7 +1451,7 @@
       return '<polygon points="' + p + '" fill="url(#cG)" stroke="#4e2a02" stroke-width="' + (sw || 1.4) + '" stroke-linejoin="round"/>'
     }
     function gem(x, y, r, c) {
-      return '<g><polygon points="' + x + ',' + (y - r * 1.25) + ' ' + (x + r) + ',' + y + ' ' + x + ',' + (y + r * 1.25) + ' ' + (x - r) + ',' + y + '" fill="url(#' + c + ')" stroke="#3e2202" stroke-width="1.4"/>' +
+      return '<g class="cgem" style="animation-delay:-' + (((x * 7 + y * 3) % 30) / 10).toFixed(1) + 's"><polygon points="' + x + ',' + (y - r * 1.25) + ' ' + (x + r) + ',' + y + ' ' + x + ',' + (y + r * 1.25) + ' ' + (x - r) + ',' + y + '" fill="url(#' + c + ')" stroke="#3e2202" stroke-width="1.4"/>' +
         '<polygon points="' + x + ',' + (y - r * 1.25) + ' ' + (x + r) + ',' + y + ' ' + x + ',' + y + '" fill="#fff" fill-opacity=".55"/>' +
         '<polygon points="' + x + ',' + (y + r * 1.25) + ' ' + (x - r) + ',' + y + ' ' + x + ',' + y + '" fill="#000" fill-opacity=".28"/>' +
         '<circle cx="' + (x - r * .3) + '" cy="' + (y - r * .45) + '" r="' + (r * .22) + '" fill="#fff"/></g>'
@@ -1465,7 +1468,9 @@
         '<path d="M' + cx + ',' + (cy - 17 * k) + ' l' + 21 * k + ',' + 17 * k + ' l' + (-21 * k) + ',0z" fill="#fff" fill-opacity=".4"/>'
     }
     var s = '<svg class="chest" viewBox="0 -20 440 370" xmlns="http://www.w3.org/2000/svg" style="overflow:visible"><defs>' +
-      '<linearGradient id="cG" gradientUnits="userSpaceOnUse" x1="30" y1="70" x2="420" y2="330"><stop offset="0" stop-color="#fffbd2"/><stop offset=".2" stop-color="#ffe56e"/><stop offset=".5" stop-color="#f4b624"/><stop offset=".78" stop-color="#cf8a12"/><stop offset="1" stop-color="#8a5206"/></linearGradient>' +
+      '<linearGradient id="cG" gradientUnits="userSpaceOnUse" x1="0" y1="60" x2="420" y2="330" spreadMethod="repeat"><stop offset="0" stop-color="#8a5206"/><stop offset=".1" stop-color="#f7c63a"/><stop offset=".2" stop-color="#fffbd2"/><stop offset=".3" stop-color="#ffe56e"/><stop offset=".5" stop-color="#d89a14"/><stop offset=".62" stop-color="#9a5c06"/><stop offset=".78" stop-color="#f4b624"/><stop offset=".88" stop-color="#fff3a0"/><stop offset="1" stop-color="#8a5206"/><animateTransform attributeName="gradientTransform" type="translate" from="0 0" to="420 270" dur="7s" repeatCount="indefinite"/></linearGradient>' +
+      '<linearGradient id="cGl" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".6"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>' +
+      '<linearGradient id="cSw" gradientUnits="userSpaceOnUse" x1="-120" y1="0" x2="0" y2="-40" spreadMethod="repeat"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset=".5" stop-color="#fff" stop-opacity=".55"/><stop offset="1" stop-color="#fff" stop-opacity="0"/><animateTransform attributeName="gradientTransform" type="translate" from="0 0" to="360 0" dur="4.5s" repeatCount="indefinite"/></linearGradient>' +
       '<linearGradient id="cB" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#3a62ee"/><stop offset=".55" stop-color="#162f9c"/><stop offset="1" stop-color="#091660"/></linearGradient>' +
       '<linearGradient id="cBs" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#0a1a70"/><stop offset=".6" stop-color="#1a38b4"/><stop offset="1" stop-color="#2a4cd0"/></linearGradient>' +
       '<radialGradient id="cBg" cx=".5" cy=".45" r=".65"><stop offset="0" stop-color="#7a9bff"/><stop offset=".5" stop-color="#2447d0"/><stop offset="1" stop-color="#0b1a78"/></radialGradient>' +
@@ -1489,6 +1494,7 @@
     s += '<rect x="200" y="170" width="210" height="130" fill="url(#cB)"/>' +
       '<rect x="224" y="188" width="162" height="94" rx="4" fill="url(#cBg)" stroke="#9db8ff" stroke-opacity=".85" stroke-width="1.8"/>' +
       emb(305, 236, 1.05) +
+      '<rect x="224" y="188" width="162" height="38" rx="4" fill="url(#cGl)" opacity=".4"/>' +
       '<path d="M232,274 q18,-12 36,0 M342,274 q18,-12 36,0 M232,196 q18,12 36,0 M342,196 q18,12 36,0" fill="none" stroke="#7a98ff" stroke-opacity=".7" stroke-width="2"/>'
     s += '<path d="M236,246 q10,-18 26,-8 q6,8 -4,12 M374,246 q-10,-18 -26,-8 q-6,8 4,12 M236,238 q-6,-10 2,-16 M374,238 q6,-10 -2,-16" fill="none" stroke="#9db8ff" stroke-opacity=".75" stroke-width="2" stroke-linecap="round"/>'
     s += gpoly('224,188 246,188 224,208', 1.8) + gpoly('386,188 364,188 386,208', 1.8) + gpoly('224,282 246,282 224,262', 1.8) + gpoly('386,282 364,282 386,262', 1.8)
@@ -1501,7 +1507,8 @@
     s += '<g transform="translate(0,-45)">'
     // qopqoq sirti
     s += '<path d="M200,215 L50,185 A105,105 0 0 1 155,80 L305,110 A105,105 0 0 0 200,215 Z" fill="url(#cL)"/>' +
-      '<path d="M200,215 L50,185 A105,105 0 0 1 155,80 L305,110 A105,105 0 0 0 200,215 Z" fill="url(#cSd)" opacity=".45"/>'
+      '<path d="M200,215 L50,185 A105,105 0 0 1 155,80 L305,110 A105,105 0 0 0 200,215 Z" fill="url(#cSd)" opacity=".45"/>' +
+      '<path d="M200,215 L50,185 A105,105 0 0 1 155,80 L305,110 A105,105 0 0 0 200,215 Z" fill="url(#cSw)"/>'
     for (var q = 0; q < 3; q++) {
       var t0 = 0.1 + q * 0.31, t1 = t0 + 0.2, a0 = bp(t0), b0 = tp(t0), a1 = bp(t1), b1 = tp(t1)
       s += '<path d="M' + a0[0].toFixed(1) + ',' + a0[1].toFixed(1) + ' A105,105 0 0 1 ' + b0[0].toFixed(1) + ',' + b0[1].toFixed(1) + ' L' + b1[0].toFixed(1) + ',' + b1[1].toFixed(1) + ' A105,105 0 0 0 ' + a1[0].toFixed(1) + ',' + a1[1].toFixed(1) + ' Z" fill="#7b7fe8" fill-opacity=".3" stroke="#fff" stroke-opacity=".85" stroke-width="1.4"/>'
@@ -1513,7 +1520,7 @@
     s += gem(250, 102, 7, 'cGm') + gem(205, 93, 5.5, 'cGp') + gem(180, 86, 4.5, 'cGy')
     // old yoy (cap)
     s += '<path d="M200,215 A105,105 0 0 1 410,215 Z" fill="url(#cBg)"/>' +
-      '<path d="M215,215 A90,90 0 0 1 395,215 Z" fill="#102a9c"/>' +
+      '<path d="M215,215 A90,90 0 0 1 395,215 Z" fill="#102a9c"/><path d="M222,200 A83,83 0 0 1 388,200 L388,170 A83,83 0 0 0 222,170Z" fill="url(#cGl)" opacity=".28"/>' +
       emb(305, 168, 1.05) +
       '<path d="M228,196 q16,-34 46,-46 M382,196 q-16,-34 -46,-46" fill="none" stroke="#7a98ff" stroke-opacity=".65" stroke-width="2"/>' +
       '<path d="M215,215 A90,90 0 0 1 395,215" fill="none" stroke="#a9c2ff" stroke-opacity=".6" stroke-width="1.5"/>'
@@ -1556,16 +1563,21 @@
     return s + '</svg>'
   }
 
+  function chestSp() {
+    var h = ""
+    for (var i = 0; i < 14; i++) h += '<i class="chsp" style="left:' + (8 + Math.random() * 84).toFixed(0) + '%;top:' + (20 + Math.random() * 60).toFixed(0) + '%;animation-delay:-' + (Math.random() * 5).toFixed(1) + 's;--sz:' + (3 + Math.random() * 5).toFixed(1) + 'px"></i>'
+    return h
+  }
   function chestShow() {
     var o = document.getElementById("chestov"); if (o) o.remove()
     var gd = document.documentElement.getAttribute("data-gender"), col = gd === "female" ? "255,122,184" : gd === "male" ? "74,163,255" : "62,224,160"
-    o = document.createElement("div"); o.id = "chestov"; o.className = "chestov"; o.style.setProperty("--ch", col)
-    o.innerHTML = '<div class="chwrap"><div class="chglow"></div><div class="chbeam"></div>'+chestSVG()+'</div><div class="chbar"><i></i><i></i><i></i></div>'
+    o = document.createElement("div"); o.id = "chestov"; o.className = "chestov " + (gd === "female" ? "tf" : gd === "male" ? "tm" : "tn"); o.style.setProperty("--ch", col)
+    o.innerHTML = '<div class="chwrap"><div class="chfloor"></div><div class="chglow"></div>' + chestSp() + '<div class="chbeam"></div>'+chestSVG()+'</div><div class="chbar"><i></i><i></i><i></i></div>'
     document.body.appendChild(o)
     var n = 0, busy = false, w = o.querySelector(".chwrap"), bars = o.querySelectorAll(".chbar i")
     o.addEventListener("click", function () {
       if (busy) return
-      n++
+      n++; o.style.setProperty("--lv", n)
       for (var i = 0; i < bars.length; i++) bars[i].className = i < n ? "on" : ""
       w.classList.remove("shake"); void w.offsetWidth; w.classList.add("shake")
       haptic("light")
@@ -2181,6 +2193,15 @@
     }
     requestAnimationFrame(loop)
   }
+  var MOSQUE_SVG = '<svg viewBox="0 0 400 800" preserveAspectRatio="xMidYMax slice" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="mbS" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#050d24"/><stop offset=".55" stop-color="#0b2748"/><stop offset="1" stop-color="#14566a"/></linearGradient><radialGradient id="mbL"><stop offset="0" stop-color="#ffd98a" stop-opacity=".9"/><stop offset="1" stop-color="#ffb24a" stop-opacity="0"/></radialGradient><linearGradient id="mbG" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff0b0"/><stop offset=".5" stop-color="#e0a83a"/><stop offset="1" stop-color="#8a5a12"/></linearGradient></defs><rect width="400" height="800" fill="url(#mbS)"/><circle cx="170" cy="82" r="1.3" fill="#fff" opacity="0.90" class="tw"/><circle cx="279" cy="53" r="1.0" fill="#fff" opacity="0.90" class="tw"/><circle cx="264" cy="114" r="0.6" fill="#fff" opacity="0.40"/><circle cx="40" cy="128" r="0.6" fill="#fff" opacity="0.90"/><circle cx="294" cy="68" r="0.8" fill="#fff" opacity="0.90"/><circle cx="36" cy="300" r="1.3" fill="#fff" opacity="0.40"/><circle cx="28" cy="290" r="0.8" fill="#fff" opacity="0.60"/><circle cx="281" cy="65" r="1.0" fill="#fff" opacity="0.90"/><circle cx="97" cy="57" r="0.8" fill="#fff" opacity="0.60" class="tw"/><circle cx="369" cy="37" r="0.6" fill="#fff" opacity="0.90" class="tw"/><circle cx="353" cy="277" r="1.3" fill="#fff" opacity="0.60"/><circle cx="237" cy="190" r="1.0" fill="#fff" opacity="0.40"/><circle cx="362" cy="129" r="0.6" fill="#fff" opacity="0.90"/><circle cx="258" cy="180" r="1.3" fill="#fff" opacity="0.60"/><circle cx="42" cy="65" r="1.3" fill="#fff" opacity="0.40"/><circle cx="82" cy="255" r="1.3" fill="#fff" opacity="0.40"/><circle cx="44" cy="290" r="1.0" fill="#fff" opacity="0.60"/><circle cx="309" cy="259" r="1.3" fill="#fff" opacity="0.40"/><circle cx="143" cy="247" r="0.6" fill="#fff" opacity="0.40"/><circle cx="163" cy="300" r="1.3" fill="#fff" opacity="0.60"/><circle cx="347" cy="182" r="0.6" fill="#fff" opacity="0.60"/><circle cx="317" cy="64" r="1.3" fill="#fff" opacity="0.40" class="tw"/><circle cx="152" cy="71" r="0.8" fill="#fff" opacity="0.60"/><circle cx="259" cy="46" r="0.8" fill="#fff" opacity="0.60"/><circle cx="147" cy="75" r="1.3" fill="#fff" opacity="0.90" class="tw"/><circle cx="217" cy="188" r="1.3" fill="#fff" opacity="0.40" class="tw"/><circle cx="95" cy="82" r="0.8" fill="#fff" opacity="0.90" class="tw"/><circle cx="253" cy="306" r="0.8" fill="#fff" opacity="0.60" class="tw"/><circle cx="79" cy="219" r="1.0" fill="#fff" opacity="0.90"/><circle cx="69" cy="268" r="0.6" fill="#fff" opacity="0.60"/><circle cx="353" cy="291" r="1.3" fill="#fff" opacity="0.60"/><circle cx="58" cy="251" r="1.3" fill="#fff" opacity="0.40" class="tw"/><circle cx="111" cy="230" r="0.8" fill="#fff" opacity="0.40"/><circle cx="31" cy="57" r="0.6" fill="#fff" opacity="0.90" class="tw"/><circle cx="56" cy="191" r="0.6" fill="#fff" opacity="0.40"/><circle cx="319" cy="197" r="0.8" fill="#fff" opacity="0.90" class="tw"/><circle cx="182" cy="313" r="1.0" fill="#fff" opacity="0.60" class="tw"/><circle cx="254" cy="243" r="1.3" fill="#fff" opacity="0.60"/><circle cx="78" cy="57" r="1.0" fill="#fff" opacity="0.90" class="tw"/><circle cx="359" cy="87" r="0.6" fill="#fff" opacity="0.40"/><circle cx="275" cy="190" r="0.8" fill="#fff" opacity="0.90"/><circle cx="18" cy="275" r="1.0" fill="#fff" opacity="0.90"/><circle cx="361" cy="138" r="1.0" fill="#fff" opacity="0.40"/><circle cx="119" cy="277" r="1.0" fill="#fff" opacity="0.90" class="tw"/><circle cx="393" cy="104" r="0.8" fill="#fff" opacity="0.60"/><circle cx="121" cy="107" r="1.3" fill="#fff" opacity="0.60"/><circle cx="19" cy="148" r="1.3" fill="#fff" opacity="0.60" class="tw"/><circle cx="314" cy="181" r="1.3" fill="#fff" opacity="0.90"/><circle cx="191" cy="46" r="0.8" fill="#fff" opacity="0.40" class="tw"/><circle cx="105" cy="177" r="0.8" fill="#fff" opacity="0.60"/><circle cx="317" cy="5" r="1.3" fill="#fff" opacity="0.90"/><circle cx="334" cy="48" r="0.6" fill="#fff" opacity="0.60"/><circle cx="389" cy="107" r="1.3" fill="#fff" opacity="0.40"/><circle cx="330" cy="175" r="0.6" fill="#fff" opacity="0.90"/><circle cx="210" cy="48" r="0.8" fill="#fff" opacity="0.40"/><circle cx="19" cy="82" r="1.3" fill="#fff" opacity="0.90" class="tw"/><circle cx="310" cy="247" r="1.0" fill="#fff" opacity="0.40"/><circle cx="72" cy="15" r="0.6" fill="#fff" opacity="0.90"/><circle cx="274" cy="76" r="1.3" fill="#fff" opacity="0.40"/><circle cx="113" cy="19" r="1.0" fill="#fff" opacity="0.40" class="tw"/><circle cx="128" cy="305" r="1.0" fill="#fff" opacity="0.60"/><circle cx="72" cy="36" r="1.0" fill="#fff" opacity="0.60"/><circle cx="269" cy="220" r="0.8" fill="#fff" opacity="0.90" class="tw"/><circle cx="266" cy="14" r="1.3" fill="#fff" opacity="0.40"/><circle cx="81" cy="93" r="0.8" fill="#fff" opacity="0.60"/><circle cx="66" cy="289" r="0.6" fill="#fff" opacity="0.60"/><circle cx="276" cy="289" r="1.3" fill="#fff" opacity="0.40"/><circle cx="34" cy="132" r="0.8" fill="#fff" opacity="0.60" class="tw"/><circle cx="55" cy="264" r="1.3" fill="#fff" opacity="0.90" class="tw"/><circle cx="37" cy="231" r="1.0" fill="#fff" opacity="0.90"/><g transform="translate(110,120)"><circle r="62" fill="none" stroke="#c89a46" stroke-width="3" opacity=".8"/><circle r="52" fill="none" stroke="#c89a46" stroke-width="1" stroke-dasharray="2 4" opacity=".7"/><path d="M12,-46 A46,46 0 1 0 12,46 A36,36 0 1 1 12,-46Z" fill="url(#mbG)"/></g><g stroke="#c89a46" stroke-width="1.5"><path d="M255,0 V70M330,0 V40"/></g><g transform="translate(255,70)"><circle cy="46" r="42" fill="url(#mbL)"/><path d="M-12,0 h24 l8,12 h-40z M-22,12 h44 v52 q-22,14 -44,0z M-12,64 h24 l-6,14 h-12z" fill="url(#mbG)" stroke="#6a430a" stroke-width="1"/><rect x="-14" y="20" width="28" height="36" rx="10" fill="#ffe9a8" opacity=".9"/></g><g transform="translate(330,40)"><circle cy="40" r="34" fill="url(#mbL)"/><path d="M-9,0 h18 l7,10 h-32z M-18,10 h36 v44 q-18,12 -36,0z" fill="url(#mbG)" stroke="#6a430a" stroke-width="1"/><rect x="-11" y="18" width="22" height="30" rx="8" fill="#ffe9a8" opacity=".9"/></g><g fill="#050f20"><rect x="0" y="650" width="400" height="150"/><path d="M110,650 V560 Q200,440 290,560 V650Z"/><path d="M199,448 V424 M195,430 h8" stroke="#050f20" stroke-width="3" fill="none"/><path d="M60,650 V470 l10,-26 l10,26 V650Z"/><path d="M320,650 V470 l10,-26 l10,26 V650Z"/><rect x="55" y="500" width="30" height="5"/><rect x="315" y="500" width="30" height="5"/><path d="M0,650 V600 Q40,560 80,600 V650Z"/><path d="M320,650 V610 Q360,570 400,610 V650Z"/></g><g fill="#ffcf6a" opacity=".85"><rect x="196" y="580" width="8" height="18" rx="4"/><rect x="156" y="600" width="6" height="14" rx="3"/><rect x="238" y="600" width="6" height="14" rx="3"/><rect x="66" y="520" width="4" height="9" rx="2"/><rect x="326" y="520" width="4" height="9" rx="2"/></g><ellipse cx="200" cy="690" rx="220" ry="40" fill="#2a8ca0" opacity=".12"/></svg>'
+  function applyBg() {
+    var root = document.documentElement, g = S.gender
+    var on = (g === "female" ? S.fbg : g === "male" ? S.mbg : "") === "mosque"
+    root.setAttribute("data-bg", on ? "mosque" : "")
+    var el = document.getElementById("mbg")
+    if (on && !el) { el = document.createElement("div"); el.id = "mbg"; el.innerHTML = MOSQUE_SVG; document.body.insertBefore(el, document.body.firstChild) }
+    if (!on && el) el.remove()
+  }
   function applyGender() {
     var root = document.documentElement, st = root.style
     var ng = S.gender === "female" ? "female" : S.gender === "male" ? "male" : "auto"
@@ -2193,6 +2214,7 @@
     var gl = fem ? (S.fgl == null ? 100 : S.fgl) : (S.mgl == null ? 100 : S.mgl), bl = fem ? (S.fbl == null ? 2 : S.fbl) : (S.mbl == null ? 2 : S.mbl)
     var SO = fem ? (SOLF[S.fsol | 0] || SOLF[0]) : (SOLM[S.msol | 0] || SOLM[0])
     root.setAttribute("data-glass", gOn() ? "on" : "off")
+    applyBg()
     st.setProperty("--sbl", SO[0]); st.setProperty("--scl", SO[1]); st.setProperty("--sbd", SO[2]); st.setProperty("--scd", SO[3])
     st.setProperty("--fa", P.a); st.setProperty("--fa2", P.a2)
     for (var i = 0; i < 3; i++) { st.setProperty("--fb" + (i + 1), P.b[i]); st.setProperty("--fd" + (i + 1), P.d[i]) }
@@ -2208,7 +2230,9 @@
     var arr = fem ? PINKS : MALES, cur = (fem ? S.fcolor : S.mcolor) | 0, act = fem ? "fcolor" : "mcolor"
     for (i = 0; i < arr.length; i++) h += '<button class="sws' + (i === cur ? " on" : "") + '" data-act="' + act + '" data-v="' + i + '" style="--c:' + arr[i].a + '" aria-label="color"></button>'
     var on = gOn(), dk = effTheme() === "dark"
-    var out = '<div class="topt"><div class="tl"><span>' + esc(tr("t_color")) + '</span></div><div class="swrow">' + h + "</div></div>" +
+    var bgc = (fem ? S.fbg : S.mbg) || ""
+    var out = '<div class="topt"><div class="tl"><span>' + esc(tr("t_bg")) + '</span></div><div class="bgrow"><button class="bgc' + (bgc ? "" : " on") + '" data-act="bgpick" data-v=""><i class="bgp d"></i><span>' + esc(tr("t_bg0")) + '</span></button><button class="bgc' + (bgc === "mosque" ? " on" : "") + '" data-act="bgpick" data-v="mosque"><i class="bgp m"></i><span>' + esc(tr("t_bg1")) + '</span></button></div></div>' +
+      '<div class="topt"><div class="tl"><span>' + esc(tr("t_color")) + '</span></div><div class="swrow">' + h + "</div></div>" +
       '<div class="topt"><div class="tl"><span>' + esc(tr("t_gon")) + '</span><button class="tgl' + (on ? " on" : "") + '" data-act="gtoggle" aria-label="glass"><i></i></button></div></div>'
     if (on) {
       var gl = fem ? (S.fgl == null ? 100 : S.fgl) : (S.mgl == null ? 100 : S.mgl), bl = fem ? (S.fbl == null ? 2 : S.fbl) : (S.mbl == null ? 2 : S.mbl)
@@ -2578,6 +2602,7 @@
     else if (act === "gsol") { if (S.gender === "female") S.fsol = parseInt(v, 10); else S.msol = parseInt(v, 10); applyGender(); save(); var o4 = document.getElementById("themeOpts"); if (o4) o4.innerHTML = themeOpts() }
     else if (act === "fcolor") { S.fcolor = parseInt(v, 10); applyGender(); save(); var o1 = document.getElementById("themeOpts"); if (o1) o1.innerHTML = themeOpts() }
     else if (act === "mcolor") { S.mcolor = parseInt(v, 10); applyGender(); save(); var o2 = document.getElementById("themeOpts"); if (o2) o2.innerHTML = themeOpts() }
+    else if (act === "bgpick") { if (S.gender === "female") S.fbg = v; else S.mbg = v; save(); applyGender(); var to = document.getElementById("themeOpts"); if (to) to.innerHTML = themeOpts() }
     else if (act === "nf") { U.nf = v; render() }
     else if (act === "setLang") { S.langSet = true; S.lang = v; U.lcty = ""; TCACHE = {}; save(); U.more = "settings"; render(); if (wheels.lang) wheels.lang.set(LANGS.indexOf(v), true) }
     else if (act === "openBot") openTg("https://t.me/" + CFG.BOT)

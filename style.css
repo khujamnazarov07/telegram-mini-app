@@ -977,3 +977,50 @@ html[data-gender="female"][data-theme="dark"] .ngrid::after { background: linear
 html[data-gender="female"] .ngrid.open::after { opacity: 0; }
 .ngrid.open { overflow: visible; max-height: none; background: none; }
 .ngrid.open #grid { background: none; }
+
+.chestov { --e0:#7a9bff; --e1:#2a4fe0; --e2:#162f9c; --e3:#091660; --el:#b9ccff; --l1:#8d8ff0; --l2:#d6d4ff; --l3:#f6f4ff; --lv:0; }
+.chestov.tf { --e0:#ffb0cf; --e1:#e0508a; --e2:#a82360; --e3:#5e0e35; --el:#ffd3e5; --l1:#f08dbc; --l2:#ffd6e8; --l3:#fff4fa; }
+.chestov.tn { --e0:#7fe8c0; --e1:#1fae80; --e2:#0f7a5a; --e3:#05382c; --el:#c8fff0; --l1:#8fd8c0; --l2:#d8fff2; --l3:#f2fffb; }
+.chest stop[stop-color="#3a62ee"], .chest stop[stop-color="#2a4cd0"], .chest stop[stop-color="#2447d0"] { stop-color: var(--e1); }
+.chest stop[stop-color="#162f9c"], .chest stop[stop-color="#1a38b4"] { stop-color: var(--e2); }
+.chest stop[stop-color="#091660"], .chest stop[stop-color="#0a1a70"], .chest stop[stop-color="#0b1a78"] { stop-color: var(--e3); }
+.chest stop[stop-color="#7a9bff"] { stop-color: var(--e0); }
+.chest stop[stop-color="#8d8ff0"] { stop-color: var(--l1); }
+.chest stop[stop-color="#d6d4ff"] { stop-color: var(--l2); }
+.chest stop[stop-color="#f6f4ff"] { stop-color: var(--l3); }
+.chest [fill="#1d42d6"], .chest [fill="#2a4fe0"], .chest [fill="#1f44d8"] { fill: var(--e1); }
+.chest [fill="#5a82ff"], .chest [fill="#6f93ff"], .chest [fill="#4f78ff"] { fill: var(--e0); }
+.chest [fill="#102a9c"] { fill: var(--e2); }
+.chest [fill="#7b7fe8"] { fill: var(--l1); }
+.chest [stroke="#b9ccff"], .chest [stroke="#b6caff"], .chest [stroke="#9db8ff"], .chest [stroke="#a9c2ff"], .chest [stroke="#7a98ff"], .chest [stroke="#8fb0ff"] { stroke: var(--el); }
+.cgem { animation: gemp 2.6s ease-in-out infinite; filter: drop-shadow(0 0 calc(2px + var(--lv) * 2px) rgb(var(--ch))); }
+@keyframes gemp { 0%,100% { opacity: .85; } 50% { opacity: 1; filter: drop-shadow(0 0 calc(5px + var(--lv) * 3px) rgb(var(--ch))) brightness(1.35); } }
+.chfloor { position: absolute; left: 4%; right: 4%; bottom: 8%; height: 16%; border-radius: 50%; background: radial-gradient(ellipse, rgba(var(--ch), calc(.3 + var(--lv) * .15)), transparent 70%); filter: blur(8px); }
+.chsp { position: absolute; width: var(--sz); height: var(--sz); border-radius: 50%; background: radial-gradient(circle, #fff, rgba(var(--ch), .9) 60%, transparent 70%); opacity: 0; animation: chrise 5s linear infinite; pointer-events: none; }
+@keyframes chrise { 0% { transform: translateY(20px) scale(.4); opacity: 0; } 20% { opacity: 1; } 100% { transform: translateY(-90px) scale(1); opacity: 0; } }
+.chestov.open .chsp { animation-duration: 1.6s; }
+.chglow { opacity: calc(.4 + var(--lv) * .15); }
+
+:root { --nav-h: 84px; }
+html .nav:not(.hidden) { position: fixed !important; left: 0 !important; right: 0 !important; inset-inline: 0 !important; margin-inline: auto !important; width: min(300px, calc(100% - 44px)) !important; bottom: calc(14px + env(safe-area-inset-bottom)) !important; height: 60px !important; padding: 0 7px !important; border-radius: 999px !important; display: flex !important; justify-content: space-between; align-items: center; background: color-mix(in srgb, var(--card) min(90%, calc(52% * var(--gk, 1.2))), transparent) !important; -webkit-backdrop-filter: blur(calc(16px * var(--bk, 1))) saturate(1.6) !important; backdrop-filter: blur(calc(16px * var(--bk, 1))) saturate(1.6) !important; border: 1px solid rgba(255,255,255,.28) !important; box-shadow: 0 10px 30px rgba(0,0,0,.28), inset 0 1px 0 rgba(255,255,255,.35) !important; z-index: 20; }
+html .nav button { width: 46px; height: 46px; padding: 0; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex: none; transition: background .25s, color .25s, transform .2s; }
+html .nav button span:not(.ic):not(.msi) { display: none; }
+html .nav button .ic { font-size: 24px; }
+html .nav button.on { background: var(--accent); color: var(--accent-text, #fff); }
+html .nav button.on::after { display: none !important; }
+html .hdr { position: sticky; top: 8px; margin: 8px 12px 0 !important; height: 56px !important; border-radius: 28px !important; border: 1px solid rgba(255,255,255,.28) !important; background: color-mix(in srgb, var(--card) min(90%, calc(52% * var(--gk, 1.2))), transparent) !important; -webkit-backdrop-filter: blur(calc(16px * var(--bk, 1))) saturate(1.6) !important; backdrop-filter: blur(calc(16px * var(--bk, 1))) saturate(1.6) !important; box-shadow: 0 8px 24px rgba(0,0,0,.2), inset 0 1px 0 rgba(255,255,255,.3); z-index: 20; }
+body { padding-bottom: calc(var(--nav-h) + env(safe-area-inset-bottom)) !important; }
+.bgrow { display: flex; gap: 10px; }
+.bgc { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 8px; border-radius: 16px; border: 2px solid var(--line); background: var(--card); font-size: 13px; font-weight: 600; }
+.bgc.on { border-color: var(--accent); }
+.bgp { display: block; width: 100%; height: 64px; border-radius: 10px; background: linear-gradient(135deg, var(--accent), color-mix(in srgb, var(--accent) 30%, #888)); }
+.bgp.m { background: linear-gradient(180deg, #050d24, #0b2748 60%, #14566a); position: relative; overflow: hidden; }
+.bgp.m::after { content: ""; position: absolute; left: 22%; right: 22%; bottom: 0; height: 40%; background: #050f20; border-radius: 40px 40px 0 0; }
+#mbg { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
+#mbg svg { width: 100%; height: 100%; display: block; }
+#mbg .tw { animation: mtw 3s ease-in-out infinite; }
+@keyframes mtw { 50% { opacity: .15; } }
+html[data-bg="mosque"] #app { position: relative; z-index: 1; }
+html[data-bg="mosque"] body { background: #050d24 !important; }
+html[data-bg="mosque"] body::before, html[data-bg="mosque"] body::after, html[data-bg="mosque"]::after { display: none !important; }
+html[data-bg="mosque"][data-theme] { color-scheme: dark; --bg: #07142c; --card: rgba(18, 34, 62, .6); --text: #e8efeb; --hint: #a9bcb4; --line: rgba(255,255,255,.16); }
