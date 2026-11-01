@@ -927,7 +927,23 @@
   }
   // ---------- VIDEO (YouTube kabi: avto sifat, sahifa ichida)
   var V = { i: -1, q: "auto", cur: 0, t: 0, stalls: [], timer: 0 }
-  function vList() { return CFG.VIDEOS || [] }
+  var VR = []
+  function vUrl(u) { u = String(u || ""); return /^(https?:)?\/\//.test(u) || u.indexOf("video/") === 0 ? u : (CFG.VIDEO_BASE || "").replace(/\/$/, "") + "/" + u.replace(/^\//, "") }
+  function vList() { return (CFG.VIDEOS || []).concat(VR) }
+  function vLoad() {
+    var base = (CFG.VIDEO_BASE || "").replace(/\/$/, ""); if (!base || !window.fetch) return
+    fetch(base + "/videos.json?_=" + Math.floor(Date.now() / 60000), { cache: "no-cache" }).then(function (r) { return r.json() }).then(function (arr) {
+      var out = []
+      for (var i = 0; i < (arr || []).length; i++) {
+        var o = arr[i]; if (!o || !o.src) continue
+        var src = {}
+        if (typeof o.src === "string") src[720] = vUrl(o.src); else for (var k in o.src) src[k] = vUrl(o.src[k])
+        out[out.length] = { t: o.t || o.title || "", poster: o.poster ? vUrl(o.poster) : "", src: src }
+      }
+      VR = out
+      if (U.tab === "media" && U.mode === "video" && V.i < 0) render()
+    }).catch(function () {})
+  }
   function vQs(v) { var k = Object.keys(v.src || {}).map(Number).sort(function (a, b) { return b - a }); return k }
   function vSpeed() {
     var c = navigator.connection || navigator.mozConnection || {}
@@ -973,12 +989,13 @@
     if (V.stalls.length >= 2 && k < qs.length - 1) { V.stalls = []; V.last = now; vSet(qs[k + 1], true); return }
     if (k > 0 && vAhead(vid) > 25 && !V.stalls.length && now - (V.last || 0) > 45000 && vSpeed() >= vNeed(qs[k - 1]) * 1.3) { V.last = now; vSet(qs[k - 1], true) }
   }
+  setTimeout(vLoad, 600)
   function mediaInit() {
     var vid = document.getElementById("vid")
     if (!vid) { if (V.timer) { clearInterval(V.timer); V.timer = 0 } audUi(); pvStart(); return }
     var v = vList()[V.i]; if (!v) return
     V.cur = V.q === "auto" ? vAuto(v) : (v.src[V.q] ? +V.q : vAuto(v))
-    vid.preload = "auto"; vid.src = v.src[V.cur]; if (v.poster) vid.poster = v.poster
+    vid.preload = "metadata"; vid.src = v.src[V.cur]; if (v.poster) vid.poster = v.poster
     vid.addEventListener("loadedmetadata", function () { if (V.t) try { vid.currentTime = V.t } catch (e) {}; vUi() }, { once: true })
     ;["timeupdate", "play", "pause", "progress", "durationchange", "canplay", "playing"].forEach(function (e) { vid.addEventListener(e, vUi) })
     vid.addEventListener("waiting", function () { if (!vid.seeking) V.stalls.push(Date.now()); vUi() })
@@ -992,19 +1009,21 @@
     var list = vList()
     if (!list.length) return '<p class="empty">' + ic("movie") + " " + esc(tr("no_video")) + "<br><small>config.js → VIDEOS</small></p>"
     var h = ""
-    if (V.i >= 0 && list[V.i] && list[V.i].tg) {
+    if (V.i >= 0 && list[V.i] && list[V.i].yt) {
+      h += '<div class="vp"><iframe src="https://www.youtube-nocookie.com/embed/' + esc(list[V.i].yt) + '?playsinline=1&rel=0&modestbranding=1" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen style="width:100%;height:100%;border:0"></iframe></div><div class="vtitle">' + esc(vTitle(list[V.i], V.i)) + "</div>"
+    } else if (V.i >= 0 && list[V.i] && list[V.i].tg) {
       var tgp = String(list[V.i].tg).replace(/^https?:\/\/t\.me\//, "").replace(/^\//, "")
       h += '<div class="vp vtgp"><iframe src="https://t.me/' + esc(tgp) + '?embed=1&mode=tme&dark=' + (effTheme() === "dark" ? 1 : 0) + '" allowfullscreen loading="lazy"></iframe></div><div class="vtitle">' + esc(vTitle(list[V.i], V.i)) + "</div>"
     } else if (V.i >= 0 && list[V.i]) {
       var v = list[V.i], qs = vQs(v), menu = '<button data-act="vqset" data-v="auto"' + (V.q === "auto" ? ' class="on"' : "") + ">Auto</button>"
       for (var k = 0; k < qs.length; k++) menu += '<button data-act="vqset" data-v="' + qs[k] + '"' + (String(V.q) === String(qs[k]) ? ' class="on"' : "") + ">" + qs[k] + "p</button>"
-      h += '<div class="vp" id="vp"><video id="vid" playsinline webkit-playsinline preload="auto"></video><div id="vbig" class="vbig" data-act="vplay">' + ic("play_arrow") + '</div><div id="vsp" class="vspin"></div>' +
+      h += '<div class="vp" id="vp"><video id="vid" playsinline webkit-playsinline preload="metadata"></video><div id="vbig" class="vbig" data-act="vplay">' + ic("play_arrow") + '</div><div id="vsp" class="vspin"></div>' +
         '<div class="vctl"><button id="vpb" data-act="vplay">' + ic("play_arrow") + '</button><div id="vseek" class="vseek"><i id="vbuf"></i><i id="vpos"></i></div><span id="vtc" class="vtc">0:00 / 0:00</span>' + (qs.length > 1 ? '<button id="vqb" class="vqb" data-act="vq"></button>' : "") + '<button data-act="vfs">' + ic("fullscreen") + '</button></div>' +
         '<div id="vmenu" class="vmenu" hidden><div class="vmt">' + esc(tr("quality")) + "</div>" + menu + "</div></div>" +
         '<div class="vtitle">' + esc(vTitle(v, V.i)) + "</div>"
     }
     h += '<div class="vlist">'
-    for (var i = 0; i < list.length; i++) h += '<button class="vcard' + (i === V.i ? " cur" : "") + '" data-act="vsel" data-v="' + i + '"><span class="vth"' + (list[i].poster ? ' style="background-image:url(' + esc(list[i].poster) + ')"' : "") + ">" + ic("play_arrow") + '</span><span class="vtt">' + esc(vTitle(list[i], i)) + "</span></button>"
+    for (var i = 0; i < list.length; i++) h += '<button class="vcard' + (i === V.i ? " cur" : "") + '" data-act="vsel" data-v="' + i + '"><span class="vth"' + (list[i].poster || list[i].yt ? ' style="background-image:url(' + esc(list[i].poster || "https://i.ytimg.com/vi/" + list[i].yt + "/hqdefault.jpg") + ')"' : "") + ">" + (!list[i].poster && list[i].src ? '<video class="vthv" muted playsinline preload="metadata" src="' + esc(list[i].src[vQs(list[i])[vQs(list[i]).length - 1]]) + '#t=1.5"></video>' : "") + ic("play_arrow") + '</span><span class="vtt">' + esc(vTitle(list[i], i)) + "</span></button>"
     return h + "</div>"
   }
   function viewMedia() {
