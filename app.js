@@ -1640,6 +1640,71 @@
   // ====================
   // RENDER
   // ====================
+  var HL = { raf: 0, tm: 0 }
+  function hlStart() {
+    cancelAnimationFrame(HL.raf); clearTimeout(HL.tm)
+    var el = app.querySelector(".quote .qt")
+    if (!el || !el.firstChild || el.firstChild.nodeType !== 3) return
+    HL.tm = setTimeout(function () { hlRun(el) }, 900)
+  }
+  function hlRun(el) {
+    if (!el.isConnected) return
+    var node = el.firstChild, txt = node.data, re = /\S+/g, m, words = [], base = el.getBoundingClientRect(), PADX = 10
+    while ((m = re.exec(txt))) {
+      var rg = document.createRange(); rg.setStart(node, m.index); rg.setEnd(node, m.index + m[0].length)
+      var r = rg.getClientRects()[0]; if (!r) continue
+      words[words.length] = { l: r.left - base.left, r: r.right - base.left, t: r.top - base.top, b: r.bottom - base.top }
+    }
+    if (!words.length) return
+    var lines = [], i, j
+    for (i = 0; i < words.length; i++) {
+      var w = words[i], ln = lines[lines.length - 1]
+      if (!ln || Math.abs(w.t - ln.t) > 4) { ln = { t: w.t, b: w.b, l: w.l, r: w.r, i0: i, i1: i, ps: [] }; lines[lines.length] = ln }
+      ln.r = Math.max(ln.r, w.r); ln.l = Math.min(ln.l, w.l); ln.i1 = i
+    }
+    function walk(n, a) { var o = [], v = 0; for (var k = 0; k < n; k++) { v = v * .6 + (Math.random() - .5) * a; o[k] = v } return o }
+    for (i = 0; i < lines.length; i++) {
+      var L = lines[i], n = Math.ceil((L.r - L.l) / 5) + 3
+      for (j = 0; j < 2; j++) L.ps[j] = { tn: walk(n, 4.2), bn: walk(n, 4.2), dy: (Math.random() - .5) * 3, sl: (Math.random() - .5) * 2.4, pt: 2.5 + Math.random() * 2.5, pb: 2.5 + Math.random() * 2.5, sl0: -4 + Math.random() * 3, sl1: 1 + Math.random() * 4, e0: Math.random() * 4 - 1, e1: Math.random() * 4 - 1 }
+    }
+    var cv = document.createElement("canvas"), dpr = Math.min(2, window.devicePixelRatio || 1), CW = base.width + PADX * 2, CH = base.height + PADX * 2
+    cv.className = "hlcv"; cv.width = CW * dpr; cv.height = CH * dpr
+    cv.style.cssText = "left:" + (-PADX) + "px;top:" + (-PADX) + "px;width:" + CW + "px;height:" + CH + "px"
+    el.insertBefore(cv, el.firstChild)
+    var g = cv.getContext("2d"), t0 = 0, PER = 60000 / 167
+    function seg(L, p, xr) {
+      var step = 5, x0 = L.l + p.sl0, k, y
+      g.beginPath()
+      var yt0 = L.t - p.pt + p.dy + p.tn[0], yb0 = L.b + p.pb + p.dy + p.bn[0]
+      g.moveTo(PADX + x0 + p.e0, PADX + yt0)
+      for (k = 1, y = x0 + step; y < xr; y += step, k++) g.lineTo(PADX + y, PADX + L.t - p.pt + p.dy + p.sl * (y - L.l) / 100 + p.tn[Math.min(k, p.tn.length - 1)])
+      var yte = L.t - p.pt + p.dy + p.sl * (xr - L.l) / 100 + p.tn[Math.min(k, p.tn.length - 1)], ybe = L.b + p.pb + p.dy + p.sl * (xr - L.l) / 100 + p.bn[Math.min(k, p.bn.length - 1)]
+      var xe = xr + p.sl1
+      g.lineTo(PADX + xe - p.e1, PADX + yte)
+      g.quadraticCurveTo(PADX + xe + 3, PADX + (yte + ybe) / 2, PADX + xe + p.e1 - 2, PADX + ybe)
+      for (k = Math.floor((xr - x0) / step), y = x0 + k * step; y > x0; y -= step, k--) g.lineTo(PADX + y, PADX + L.b + p.pb + p.dy + p.sl * (y - L.l) / 100 + p.bn[Math.min(Math.max(k, 0), p.bn.length - 1)])
+      g.lineTo(PADX + x0 + p.e0 + 2, PADX + yb0)
+      g.quadraticCurveTo(PADX + x0 - 3, PADX + (yt0 + yb0) / 2, PADX + x0 + p.e0, PADX + yt0)
+      g.closePath(); g.fill()
+    }
+    function frame(ts) {
+      if (!el.isConnected) return
+      if (!t0) t0 = ts
+      var wi = (ts - t0) / PER, done = wi >= words.length
+      g.setTransform(dpr, 0, 0, dpr, 0, 0); g.clearRect(0, 0, CW, CH)
+      g.fillStyle = "rgba(235,40,40,.24)"
+      for (var a = 0; a < lines.length; a++) {
+        var L = lines[a], xr
+        if (done || wi >= L.i1 + 1) xr = L.r
+        else if (wi >= L.i0) { var wd = words[Math.floor(wi)], f = wi - Math.floor(wi); xr = wd.l + (wd.r - wd.l) * f }
+        else continue
+        if (xr - L.l < 3) continue
+        seg(L, L.ps[0], xr); seg(L, L.ps[1], xr)
+      }
+      if (!done) HL.raf = requestAnimationFrame(frame)
+    }
+    HL.raf = requestAnimationFrame(frame)
+  }
   function render() {
     document.documentElement.lang = S.lang.slice(0, 2)
     document.documentElement.dir = S.lang === "ar" ? "rtl" : "ltr"
@@ -1660,7 +1725,7 @@
     initHours()
     hgAttach()
     meanFit()
-    phStart(); nhStart(); mediaInit(); themeInit(); hswInit(); mdInit()
+    phStart(); nhStart(); mediaInit(); themeInit(); hswInit(); mdInit(); hlStart()
     nsUpdate()
     miniSync()
     if (U.tab === "more" && U.more === "mode") startGlobe()
