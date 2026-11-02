@@ -1129,5 +1129,5 @@ html .nav:not(.hidden) { width: min(318px, calc(100% - 36px)) !important; }
 .vth .msi { position: relative; z-index: 1; filter: drop-shadow(0 1px 4px rgba(0,0,0,.6)); }
 html .mini, html[data-gender="female"] .mini, html[data-gender="male"] .mini { bottom: calc(86px + env(safe-area-inset-bottom)); }
 
-.quote .qt { position: relative; isolation: isolate; }
+.quote .qt, .quote .qin strong { position: relative; isolation: isolate; }
 .hlcv { position: absolute; z-index: -1; pointer-events: none; }

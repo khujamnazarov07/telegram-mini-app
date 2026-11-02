@@ -1643,65 +1643,83 @@
   var HL = { raf: 0, tm: 0 }
   function hlStart() {
     cancelAnimationFrame(HL.raf); clearTimeout(HL.tm)
-    var el = app.querySelector(".quote .qt")
-    if (!el || !el.firstChild || el.firstChild.nodeType !== 3) return
-    HL.tm = setTimeout(function () { hlRun(el) }, 900)
+    var body = app.querySelector(".quote .qt"), title = app.querySelector(".quote .qin strong")
+    if (!body || !body.firstChild || body.firstChild.nodeType !== 3) return
+    HL.tm = setTimeout(function () { hlRun(title, body) }, 900)
   }
-  function hlRun(el) {
-    if (!el.isConnected) return
-    var node = el.firstChild, txt = node.data, re = /\S+/g, m, words = [], base = el.getBoundingClientRect(), PADX = 10
+  function hlCtx(el) {
+    if (!el || !el.isConnected || !el.firstChild || el.firstChild.nodeType !== 3) return null
+    var node = el.firstChild, txt = node.data, re = /\S+/g, m, words = [], base = el.getBoundingClientRect(), sid = 0, PADX = 10
     while ((m = re.exec(txt))) {
-      var rg = document.createRange(); rg.setStart(node, m.index); rg.setEnd(node, m.index + m[0].length)
+      var tk = m[0]
+      if (/^[\u2014\u2013\-:;|]+$/.test(tk)) { if (words.length) words[words.length - 1].pause = Math.max(words[words.length - 1].pause, 650); sid++; continue }
+      var rg = document.createRange(); rg.setStart(node, m.index); rg.setEnd(node, m.index + tk.length)
       var r = rg.getClientRects()[0]; if (!r) continue
-      words[words.length] = { l: r.left - base.left, r: r.right - base.left, t: r.top - base.top, b: r.bottom - base.top }
+      words[words.length] = { l: r.left - base.left, r: r.right - base.left, t: r.top - base.top, b: r.bottom - base.top, sid: sid, pause: /[.!?\u2026]["\u00bb\u201d')]*$/.test(tk) ? 650 : /[,;:]["\u00bb\u201d')]*$/.test(tk) ? 350 : 0, dur: 359 * Math.min(1.8, Math.max(.55, .55 + .09 * tk.length)) }
     }
-    if (!words.length) return
-    var lines = [], i, j
+    if (!words.length) return null
+    var pieces = [], lt = -1, ln = -1, last = null, i
     for (i = 0; i < words.length; i++) {
-      var w = words[i], ln = lines[lines.length - 1]
-      if (!ln || Math.abs(w.t - ln.t) > 4) { ln = { t: w.t, b: w.b, l: w.l, r: w.r, i0: i, i1: i, ps: [] }; lines[lines.length] = ln }
-      ln.r = Math.max(ln.r, w.r); ln.l = Math.min(ln.l, w.l); ln.i1 = i
+      var w = words[i]
+      if (lt < 0 || Math.abs(w.t - lt) > 4) { ln++; lt = w.t }
+      if (!last || last.ln !== ln || last.sid !== w.sid) { last = { ln: ln, sid: w.sid, t: w.t, b: w.b, l: w.l, r: w.r, i0: i, i1: i }; pieces[pieces.length] = last }
+      last.r = Math.max(last.r, w.r); last.t = Math.min(last.t, w.t); last.b = Math.max(last.b, w.b); last.i1 = i
     }
-    function walk(n, a) { var o = [], v = 0; for (var k = 0; k < n; k++) { v = v * .6 + (Math.random() - .5) * a; o[k] = v } return o }
-    for (i = 0; i < lines.length; i++) {
-      var L = lines[i], n = Math.ceil((L.r - L.l) / 5) + 3
-      for (j = 0; j < 2; j++) L.ps[j] = { tn: walk(n, 4.2), bn: walk(n, 4.2), dy: (Math.random() - .5) * 3, sl: (Math.random() - .5) * 2.4, pt: 2.5 + Math.random() * 2.5, pb: 2.5 + Math.random() * 2.5, sl0: -4 + Math.random() * 3, sl1: 1 + Math.random() * 4, e0: Math.random() * 4 - 1, e1: Math.random() * 4 - 1 }
+    function walk(n, a) { var o = [], v = 0; for (var k = 0; k < n; k++) { v = v * .7 + (Math.random() - .5) * a; o[k] = v } return o }
+    for (i = 0; i < pieces.length; i++) {
+      var P = pieces[i], n = Math.ceil((P.r - P.l) / 5) + 4
+      P.p = { tn: walk(n, 2.6), bn: walk(n, 2.6), dy: (Math.random() - .5) * 2, sl: (Math.random() - .5) * 1.6, pt: 1.5 + Math.random() * 1.5, pb: 2.5 + Math.random() * 1.5, a: 2 + Math.random() * 2.5, bb: 1.5 + Math.random() * 2, c: 1.5 + Math.random() * 2.5, d: 1.5 + Math.random() * 2 }
     }
     var cv = document.createElement("canvas"), dpr = Math.min(2, window.devicePixelRatio || 1), CW = base.width + PADX * 2, CH = base.height + PADX * 2
     cv.className = "hlcv"; cv.width = CW * dpr; cv.height = CH * dpr
     cv.style.cssText = "left:" + (-PADX) + "px;top:" + (-PADX) + "px;width:" + CW + "px;height:" + CH + "px"
     el.insertBefore(cv, el.firstChild)
-    var g = cv.getContext("2d"), t0 = 0, PER = 60000 / 167
-    function seg(L, p, xr) {
-      var step = 5, x0 = L.l + p.sl0, k, y
-      g.beginPath()
-      var yt0 = L.t - p.pt + p.dy + p.tn[0], yb0 = L.b + p.pb + p.dy + p.bn[0]
-      g.moveTo(PADX + x0 + p.e0, PADX + yt0)
-      for (k = 1, y = x0 + step; y < xr; y += step, k++) g.lineTo(PADX + y, PADX + L.t - p.pt + p.dy + p.sl * (y - L.l) / 100 + p.tn[Math.min(k, p.tn.length - 1)])
-      var yte = L.t - p.pt + p.dy + p.sl * (xr - L.l) / 100 + p.tn[Math.min(k, p.tn.length - 1)], ybe = L.b + p.pb + p.dy + p.sl * (xr - L.l) / 100 + p.bn[Math.min(k, p.bn.length - 1)]
-      var xe = xr + p.sl1
-      g.lineTo(PADX + xe - p.e1, PADX + yte)
-      g.quadraticCurveTo(PADX + xe + 3, PADX + (yte + ybe) / 2, PADX + xe + p.e1 - 2, PADX + ybe)
-      for (k = Math.floor((xr - x0) / step), y = x0 + k * step; y > x0; y -= step, k--) g.lineTo(PADX + y, PADX + L.b + p.pb + p.dy + p.sl * (y - L.l) / 100 + p.bn[Math.min(Math.max(k, 0), p.bn.length - 1)])
-      g.lineTo(PADX + x0 + p.e0 + 2, PADX + yb0)
-      g.quadraticCurveTo(PADX + x0 - 3, PADX + (yt0 + yb0) / 2, PADX + x0 + p.e0, PADX + yt0)
-      g.closePath(); g.fill()
+    return { el: el, words: words, pieces: pieces, cv: cv, g: cv.getContext("2d"), dpr: dpr, CW: CW, CH: CH, PADX: PADX, ent: [] }
+  }
+  function hlSeg(c, P, xr) {
+    var g = c.g, X = c.PADX, p = P.p, step = 5, x0 = P.l, k, x
+    function yt(x, k) { return X + P.t - p.pt + p.dy + p.sl * (x - P.l) / 100 + p.tn[Math.min(k, p.tn.length - 1)] }
+    function yb(x, k) { return X + P.b + p.pb + p.dy + p.sl * (x - P.l) / 100 + p.bn[Math.min(k, p.bn.length - 1)] }
+    var kk = []
+    g.beginPath()
+    g.moveTo(X + x0 - p.bb, yb(x0, 0))
+    g.lineTo(X + x0 + p.a, yt(x0, 0))
+    for (k = 1, x = x0 + step; x < xr; x += step, k++) { g.lineTo(X + x, yt(x, k)); kk[kk.length] = [x, k] }
+    var ke = k
+    g.lineTo(X + xr + p.c, yt(xr, ke))
+    g.quadraticCurveTo(X + xr + p.c + 1.5, (yt(xr, ke) + yb(xr, ke)) / 2, X + xr - p.d, yb(xr, ke))
+    for (var q = kk.length - 1; q >= 0; q--) g.lineTo(X + kk[q][0], yb(kk[q][0], kk[q][1]))
+    g.closePath(); g.fill(); g.stroke()
+  }
+  function hlRun(title, body) {
+    var cs = [hlCtx(title), hlCtx(body)], list = [], T = 0, i, j
+    for (i = 0; i < cs.length; i++) {
+      var c = cs[i]; if (!c) continue
+      for (j = 0; j < c.words.length; j++) { var w = c.words[j]; c.ent[j] = { s: T, e: T + w.dur }; T += w.dur + w.pause }
+      list[list.length] = c
+      if (i === 0) T += 800
     }
+    if (!list.length) return
+    var END = T, t0 = 0
     function frame(ts) {
-      if (!el.isConnected) return
+      if (!list[0].el.isConnected) return
       if (!t0) t0 = ts
-      var wi = (ts - t0) / PER, done = wi >= words.length
-      g.setTransform(dpr, 0, 0, dpr, 0, 0); g.clearRect(0, 0, CW, CH)
-      g.fillStyle = "rgba(235,40,40,.24)"
-      for (var a = 0; a < lines.length; a++) {
-        var L = lines[a], xr
-        if (done || wi >= L.i1 + 1) xr = L.r
-        else if (wi >= L.i0) { var wd = words[Math.floor(wi)], f = wi - Math.floor(wi); xr = wd.l + (wd.r - wd.l) * f }
-        else continue
-        if (xr - L.l < 3) continue
-        seg(L, L.ps[0], xr); seg(L, L.ps[1], xr)
+      var now = ts - t0
+      for (var a = 0; a < list.length; a++) {
+        var c = list[a], g = c.g, k = -1, f = 0
+        for (var e = 0; e < c.ent.length; e++) if (now >= c.ent[e].s) { k = e; f = Math.min(1, (now - c.ent[e].s) / (c.ent[e].e - c.ent[e].s)) } else break
+        g.setTransform(c.dpr, 0, 0, c.dpr, 0, 0); g.clearRect(0, 0, c.CW, c.CH)
+        g.fillStyle = "rgba(235,40,40,.4)"; g.strokeStyle = "rgba(200,20,20,.22)"; g.lineWidth = 1; g.lineJoin = "round"
+        for (var b = 0; b < c.pieces.length; b++) {
+          var P = c.pieces[b], xr
+          if (k < P.i0) continue
+          if (k > P.i1 || (k === P.i1 && f >= 1)) xr = P.r
+          else { var wd = c.words[k]; xr = wd.l + (wd.r - wd.l) * f }
+          if (xr - P.l < 3) continue
+          hlSeg(c, P, xr)
+        }
       }
-      if (!done) HL.raf = requestAnimationFrame(frame)
+      if (now < END) HL.raf = requestAnimationFrame(frame)
     }
     HL.raf = requestAnimationFrame(frame)
   }
