@@ -1123,3 +1123,8 @@ html .nav:not(.hidden) { width: min(318px, calc(100% - 36px)) !important; }
 .tring { position: absolute; inset: 0; width: 44px; height: 44px; transform: rotate(-90deg); z-index: 3; pointer-events: none; overflow: visible; }
 .tring circle { fill: none; stroke: #e5484d; stroke-width: 1.6; stroke-linecap: round; stroke-dasharray: 100; stroke-dashoffset: 100; transition: stroke-dashoffset .18s ease-out; }
 .trashw.hold .tring circle { stroke-dashoffset: 0; transition: stroke-dashoffset 1s linear; }
+
+.vth { position: relative; overflow: hidden; }
+.vth .vthv { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; pointer-events: none; }
+.vth .msi { position: relative; z-index: 1; filter: drop-shadow(0 1px 4px rgba(0,0,0,.6)); }
+html .mini, html[data-gender="female"] .mini, html[data-gender="male"] .mini { bottom: calc(86px + env(safe-area-inset-bottom)); }

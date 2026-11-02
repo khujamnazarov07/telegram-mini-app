@@ -1554,15 +1554,15 @@
         poly += "," + x.toFixed(1) + "px " + y0.toFixed(1) + "px," + x.toFixed(1) + "px " + y1.toFixed(1) + "px"
         if (k < 1 && x < W - 1 && x > 1) for (var n = 0; n < 4; n++) {
           var rr = Math.random(), c = rr < .5 ? bg : rr < .88 ? tx : ac
-          pts[pts.length] = { x: pad + x + Math.random() * 6, y: y0 + Math.random() * rh, vx: .3 + Math.random() * 1.8, vy: (Math.random() - .5) * 1.6, l: .5 + Math.random() * .5, s: .8 + Math.random() * 2.2, c: c }
+          pts[pts.length] = { x: pad + x + Math.random() * 6, y: y0 + Math.random() * rh, vx: .15 + Math.random() * .9, vy: (Math.random() - .5) * .9, l: 1, s: .7 + Math.random() * 1.3, c: c }
         }
       }
       poly += ",0px " + H + "px"
       cl.style.clipPath = "polygon(" + poly + ")"; cl.style.webkitClipPath = cl.style.clipPath
       for (var q = pts.length - 1; q >= 0; q--) {
-        var o = pts[q]; o.x += o.vx; o.y += o.vy; o.vx *= .96; o.l -= .07
+        var o = pts[q]; o.x += o.vx; o.y += o.vy; o.vx *= .93; o.vy *= .93; o.l -= .045
         if (o.l <= 0) { pts.splice(q, 1); continue }
-        g.fillStyle = cstr(o.c, Math.min(1, o.l * 1.4)); g.fillRect(o.x, o.y, o.s, o.s)
+        g.fillStyle = cstr(o.c, o.l); g.beginPath(); g.arc(o.x, o.y, o.s, 0, 6.2832); g.fill()
       }
       if (k < 1 || pts.length) requestAnimationFrame(frame)
       else { cl.remove(); cv.remove() }
