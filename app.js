@@ -1654,10 +1654,11 @@
     while ((m = re.exec(txt))) {
       var tk = m[0]
       if (/^[\u2014\u2013\-:;|]+$/.test(tk)) { if (words.length) words[words.length - 1].pause = Math.max(words[words.length - 1].pause, 650); sid++; continue }
-      if (/^[(\[]/.test(tk) && words.length) words[words.length - 1].pause = Math.max(words[words.length - 1].pause, 400)
+      if (/^[(\[]/.test(tk) && words.length) { words[words.length - 1].pause = Math.max(words[words.length - 1].pause, 400); sid++ }
       var rg = document.createRange(); rg.setStart(node, m.index); rg.setEnd(node, m.index + tk.length)
       var r = rg.getClientRects()[0]; if (!r) continue
       words[words.length] = { l: r.left - base.left, r: r.right - base.left, t: r.top - base.top, b: r.bottom - base.top, sid: sid, pause: /[)\]]["\u00bb\u201d']*[.!?\u2026]+$/.test(tk) ? 650 : /[)\]]["\u00bb\u201d']*[,;:]?$/.test(tk) ? 400 : /[.!?\u2026]["\u00bb\u201d')]*$/.test(tk) ? 650 : /[,;:]["\u00bb\u201d')]*$/.test(tk) ? 350 : 0, dur: 359 * Math.min(1.8, Math.max(.55, .55 + .09 * tk.length)) }
+      if (words[words.length - 1].pause) sid++
     }
     if (!words.length) return null
     var pieces = [], lt = -1, ln = -1, last = null, i
