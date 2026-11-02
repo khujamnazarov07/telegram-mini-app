@@ -1575,10 +1575,23 @@
   // MORE: quote / favs / lang / about
   // ====================
   var HEM = ["🙃", "🫠", "🥰", "😍", "🥺", "🥹", "❤️‍🔥", "💫", "🫀", "🫴", "🌸", "🌺", "🌙", "⚡️", "✨️", "🫧", "✅️"]
-  function emImg(ch) {
+  function emSrc(ch, k) {
     var cp = Array.from(ch).map(function (c) { return c.codePointAt(0).toString(16) })
     if (ch.indexOf("\u200d") < 0) cp = cp.filter(function (x) { return x !== "fe0f" })
-    return '<img class="em" alt="' + ch + '" draggable="false" src="https://cdn.jsdelivr.net/npm/emoji-datasource-apple@15.1.2/img/apple/64/' + cp.join("-") + '.png" onerror="this.replaceWith(document.createTextNode(this.alt))">'
+    var f = cp.join("-") + ".png"
+    return [
+      "https://cdn.jsdelivr.net/npm/emoji-datasource-apple@15.1.2/img/apple/64/" + f,
+      "https://unpkg.com/emoji-datasource-apple@15.1.2/img/apple/64/" + f,
+      "https://emojicdn.elk.sh/" + encodeURIComponent(ch) + "?style=apple"
+    ][k] || ""
+  }
+  window.emErr = function (im) {
+    var k = (parseInt(im.getAttribute("data-k"), 10) || 0) + 1, u = emSrc(im.alt, k)
+    if (!u) { im.replaceWith(document.createTextNode(im.alt)); return }
+    im.setAttribute("data-k", k); im.src = u
+  }
+  function emImg(ch) {
+    return '<img class="em" alt="' + ch + '" draggable="false" data-k="0" src="' + emSrc(ch, 0) + '" onerror="emErr(this)">'
   }
   function quoteData(i) {
     var q = D.quotes[i]
