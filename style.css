@@ -1139,3 +1139,9 @@ html .mini, html[data-gender="female"] .mini, html[data-gender="male"] .mini { b
 .ngrid:not(.open) .name-card:nth-child(n+10) { -webkit-mask-image: linear-gradient(180deg, #000 8%, transparent 64%); mask-image: linear-gradient(180deg, #000 8%, transparent 64%); filter: blur(1.4px); }
 .ngrid:not(.open) .name-card:nth-child(n+7):nth-child(-n+9) { filter: blur(.35px); }
 .list > .rrow { gap: 10px; padding-top: 10.5px; padding-bottom: 10.5px; }
+
+.quote .qe { font-size: 28px; line-height: 1; margin: 0 0 8px; text-align: center; }
+html .hdr { height: 58px !important; border-radius: 29px !important; }
+html .nav:not(.hidden) { height: 58px !important; padding: 0 5px !important; border-radius: 29px !important; }
+html .nav button { width: 46px; height: 46px; }
+.navind { width: 46px; height: 46px; top: 5px; }

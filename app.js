@@ -1574,17 +1574,19 @@
   // ====================
   // MORE: quote / favs / lang / about
   // ====================
+  var HEM = ["🙃", "🫠", "🥰", "😍", "🥺", "🥹", "❤️‍🔥", "💫", "🫀", "🫴", "🌸", "🌺", "🌙", "⚡️", "✨️", "🫧", "✅️"]
   function quoteData(i) {
     var q = D.quotes[i]
     var title = pick(q.h), body = pick(q.q), src = pick(D.quran) + " " + q.ref
-    return { q: q, title: title, body: body, src: src, share: q.e + " " + title + "\n\n" + body + "\n\n📖 " + src }
+    var em = HEM[i % HEM.length]
+    return { q: q, title: title, body: body, em: em, src: src, share: q.e + " " + title + "\n\n" + body + "\n\n" + em + "\n\n📖 " + src }
   }
   function viewMore() {
     if (U.more === "quote") {
       if (U.quoteIdx < 0) U.quoteIdx = Math.floor(Math.random() * D.quotes.length)
       var d = quoteData(U.quoteIdx)
       return '<button class="btn small back circ" data-act="moreBack" aria-label="back">' + ic("arrow_back") + "</button>" +
-        '<div class="card quote"><div class="qin"><strong>' + esc(d.title) + '</strong><div class="qt">' + esc(d.body) + '</div></div><div class="qrefs"><span class="ref">' + ic("verified") + " " + esc(d.src) + '</span><span class="ref">' + ic("smart_toy") + " @" + CFG.BOT + "</span></div></div>" +
+        '<div class="card quote"><div class="qin"><strong>' + esc(d.title) + '</strong><div class="qt">' + esc(d.body) + '</div><div class="qe">' + d.em + '</div></div><div class="qrefs"><span class="ref">' + ic("verified") + " " + esc(d.src) + '</span><span class="ref">' + ic("smart_toy") + " @" + CFG.BOT + "</span></div></div>" +
         '<div class="qbtns"><button class="btn" data-act="share">' + ic("share") + "<span>" + esc(tr("share")) + '</span></button><button class="btn" data-act="open" data-v="' + d.q.n + '">' + ic("auto_awesome") + "<span>" + esc(D.names[d.q.n - 1].t) + '</span></button><button class="btn" data-act="quoteNext">' + ic("restart_alt") + "</button></div>"
     }
     if (U.more === "favs") {
