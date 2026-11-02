@@ -89,6 +89,7 @@
     flt_note: "Qaydli|Қайдли|С заметками|With notes|مع ملاحظات|Notlu|Dengan catatan|有笔记|नोट वाले|Con notas",
     mode_t: "Rejim|Режим|Режим|Mode|الوضع|Mod|Mode|模式|मोड|Modo",
     quality: "Sifat|Сифат|Качество|Quality|الجودة|Kalite|Kualitas|画质|गुणवत्ता|Calidad",
+    t_hl: "Marker|Маркер|Маркер|Highlighter|قلم التمييز|Fosforlu kalem|Stabilo|荧光笔|हाइलाइटर|Marcador",
     t_color: "Rang|Ранг|Цвет|Color|اللون|Renk|Warna|颜色|रंग|Color",
     t_glass: "Shisha|Шиша|Стекло|Glass|الزجاج|Cam|Kaca|玻璃|काँच|Cristal",
     t_gon: "Shisha effekti|Шиша эффекти|Эффект стекла|Glass effect|تأثير الزجاج|Cam efekti|Efek kaca|玻璃效果|काँच प्रभाव|Efecto cristal",
@@ -1653,9 +1654,10 @@
     while ((m = re.exec(txt))) {
       var tk = m[0]
       if (/^[\u2014\u2013\-:;|]+$/.test(tk)) { if (words.length) words[words.length - 1].pause = Math.max(words[words.length - 1].pause, 650); sid++; continue }
+      if (/^[(\[]/.test(tk) && words.length) words[words.length - 1].pause = Math.max(words[words.length - 1].pause, 400)
       var rg = document.createRange(); rg.setStart(node, m.index); rg.setEnd(node, m.index + tk.length)
       var r = rg.getClientRects()[0]; if (!r) continue
-      words[words.length] = { l: r.left - base.left, r: r.right - base.left, t: r.top - base.top, b: r.bottom - base.top, sid: sid, pause: /[.!?\u2026]["\u00bb\u201d')]*$/.test(tk) ? 650 : /[,;:]["\u00bb\u201d')]*$/.test(tk) ? 350 : 0, dur: 359 * Math.min(1.8, Math.max(.55, .55 + .09 * tk.length)) }
+      words[words.length] = { l: r.left - base.left, r: r.right - base.left, t: r.top - base.top, b: r.bottom - base.top, sid: sid, pause: /[)\]]["\u00bb\u201d']*[.!?\u2026]+$/.test(tk) ? 650 : /[)\]]["\u00bb\u201d']*[,;:]?$/.test(tk) ? 400 : /[.!?\u2026]["\u00bb\u201d')]*$/.test(tk) ? 650 : /[,;:]["\u00bb\u201d')]*$/.test(tk) ? 350 : 0, dur: 359 * Math.min(1.8, Math.max(.55, .55 + .09 * tk.length)) }
     }
     if (!words.length) return null
     var pieces = [], lt = -1, ln = -1, last = null, i
@@ -1668,7 +1670,7 @@
     function walk(n, a) { var o = [], v = 0; for (var k = 0; k < n; k++) { v = v * .7 + (Math.random() - .5) * a; o[k] = v } return o }
     for (i = 0; i < pieces.length; i++) {
       var P = pieces[i], n = Math.ceil((P.r - P.l) / 5) + 4
-      P.p = { tn: walk(n, 2.6), bn: walk(n, 2.6), dy: (Math.random() - .5) * 2, sl: (Math.random() - .5) * 1.6, pt: 1.5 + Math.random() * 1.5, pb: 2.5 + Math.random() * 1.5, a: 2 + Math.random() * 2.5, bb: 1.5 + Math.random() * 2, c: 1.5 + Math.random() * 2.5, d: 1.5 + Math.random() * 2 }
+      P.p = { tn: walk(n, 1.4), bn: walk(n, 1.4), dy: (Math.random() - .5) * 2, sl: (Math.random() - .5) * 1.2, pt: 2 + Math.random(), pb: 2.5 + Math.random(), a: 2 + Math.random() * 2.5, bb: 1.5 + Math.random() * 2, c: 1.5 + Math.random() * 2.5, d: 1.5 + Math.random() * 2 }
     }
     var cv = document.createElement("canvas"), dpr = Math.min(2, window.devicePixelRatio || 1), CW = base.width + PADX * 2, CH = base.height + PADX * 2
     cv.className = "hlcv"; cv.width = CW * dpr; cv.height = CH * dpr
@@ -1709,7 +1711,10 @@
         var c = list[a], g = c.g, k = -1, f = 0
         for (var e = 0; e < c.ent.length; e++) if (now >= c.ent[e].s) { k = e; f = Math.min(1, (now - c.ent[e].s) / (c.ent[e].e - c.ent[e].s)) } else break
         g.setTransform(c.dpr, 0, 0, c.dpr, 0, 0); g.clearRect(0, 0, c.CW, c.CH)
-        g.fillStyle = "rgba(235,40,40,.4)"; g.strokeStyle = "rgba(200,20,20,.22)"; g.lineWidth = 1; g.lineJoin = "round"
+        var hc = HLC[S.hlc | 0] || HLC[0], dkm = effTheme() === "dark", wh = (S.hlc | 0) === 4
+        g.fillStyle = "rgba(" + hc[0] + "," + hc[1] + "," + hc[2] + "," + (wh ? (dkm ? .34 : .9) : hc[3]) + ")"
+        g.strokeStyle = wh ? (dkm ? "rgba(255,255,255,.4)" : "rgba(0,0,0,.22)") : "rgba(" + (hc[0] * .75 | 0) + "," + (hc[1] * .75 | 0) + "," + (hc[2] * .75 | 0) + ",.4)"
+        g.lineWidth = 1; g.lineJoin = "round"
         for (var b = 0; b < c.pieces.length; b++) {
           var P = c.pieces[b], xr
           if (k < P.i0) continue
@@ -2148,7 +2153,8 @@
     { a: "#e5202f", a2: "#a30f1b", a3: "#ff4b58", h: 210, t: "#fff" },
     { a: "#0f9f6e", a2: "#06694a", a3: "#34d399", h: 0, t: "#fff" },
     { a: "#3b7bff", a2: "#1f4fc4", a3: "#7aa6ff", h: 70, t: "#fff" },
-    { a: "#f26a1b", a2: "#b8430a", a3: "#ff9a52", h: 225, t: "#fff" }
+    { a: "#f26a1b", a2: "#b8430a", a3: "#ff9a52", h: 225, t: "#fff" },
+    { a: "#f4f4f6", a2: "#c4c4cc", a3: "#ffffff", h: 0, t: "#111", w: 1 }
   ]
   var SOLF = [["#fbeef1", "#ffffff", "#2a1a22", "#38262f"], ["#fdf1e8", "#fffaf5", "#2b1d17", "#3a2a22"], ["#f2eefa", "#fbf9ff", "#241d33", "#30284a"], ["#eaf5ef", "#f8fffb", "#16251f", "#21332b"], ["#f6efe4", "#fffdf8", "#27221a", "#362f24"], ["#eaf1f8", "#f9fcff", "#18222d", "#233241"]]
   var SOLM = [["#f2f2f3", "#ffffff", "#0c0c0e", "#151518"], ["#eef2f8", "#ffffff", "#0a1020", "#121a2e"], ["#eef4ef", "#ffffff", "#0a140f", "#122019"], ["#f6eef0", "#ffffff", "#150a0d", "#21121a"], ["#eef0f3", "#ffffff", "#101317", "#1a1f26"], ["#f4efe9", "#ffffff", "#14100c", "#201a14"], ["#f2eff8", "#ffffff", "#110d1c", "#1b1530"]]
@@ -2271,6 +2277,7 @@
     root.setAttribute("data-gender", ng)
     var P = PINKS[S.fcolor | 0] || PINKS[0], M = MALES[S.mcolor | 0] || MALES[0]
     var fem = S.gender === "female"
+    root.setAttribute("data-w", !fem && M.w ? "1" : "0")
     var gl = fem ? (S.fgl == null ? 100 : S.fgl) : (S.mgl == null ? 100 : S.mgl), bl = fem ? (S.fbl == null ? 2 : S.fbl) : (S.mbl == null ? 2 : S.mbl)
     var SO = fem ? (SOLF[S.fsol | 0] || SOLF[0]) : (SOLM[S.msol | 0] || SOLM[0])
     root.setAttribute("data-glass", gOn() ? "on" : "off")
@@ -2283,6 +2290,12 @@
     st.setProperty("--ma", M.a); st.setProperty("--ma2", M.a2); st.setProperty("--ma3", M.a3); st.setProperty("--mh", M.h + "deg"); st.setProperty("--mat", M.t)
     bgFx()
     petalFx()
+  }
+  var HLC = [[235, 40, 40, .7], [255, 226, 0, .72], [20, 205, 90, .7], [30, 170, 255, .7], [255, 255, 255, .5]]
+  function hlPill() {
+    var h = "", cur = S.hlc | 0
+    for (var i = 0; i < HLC.length; i++) h += '<button class="sws' + (i === 4 ? " wh" : "") + (i === cur ? " on" : "") + '" data-act="hlc" data-v="' + i + '" style="--c:rgb(' + HLC[i][0] + "," + HLC[i][1] + "," + HLC[i][2] + ')" aria-label="color"></button>'
+    return '<div class="card tpill"><span class="tp-l">' + esc(tr("t_hl")) + '</span><div class="swrow">' + h + "</div></div>"
   }
   var BGK = ["", "mosque", "gold", "cream"], BGL = [["t_bg0", "d"], ["t_bg1", "m"], ["t_bg2", "g"], ["t_bg3", "c"]]
   var MDK = ["auto", "light", "dark"]
@@ -2374,10 +2387,10 @@
     var h = "", i, fem = S.gender === "female", mal = S.gender === "male"
     if (!fem && !mal) return ""
     var arr = fem ? PINKS : MALES, cur = (fem ? S.fcolor : S.mcolor) | 0, act = fem ? "fcolor" : "mcolor"
-    for (i = 0; i < arr.length; i++) h += '<button class="sws' + (i === cur ? " on" : "") + '" data-act="' + act + '" data-v="' + i + '" style="--c:' + arr[i].a + '" aria-label="color"></button>'
+    for (i = 0; i < arr.length; i++) h += '<button class="sws' + (arr[i].w ? " wh" : "") + (i === cur ? " on" : "") + '" data-act="' + act + '" data-v="' + i + '" style="--c:' + arr[i].a + '" aria-label="color"></button>'
     var on = gOn(), dk = effTheme() === "dark"
     var out = hswHtml("b") +
-      '<div class="card tpill"><span class="tp-l">' + esc(tr("t_color")) + '</span><div class="swrow">' + h + "</div></div>" +
+      '<div class="card tpill"><span class="tp-l">' + esc(tr("t_color")) + '</span><div class="swrow">' + h + "</div></div>" + hlPill() +
       '<div class="card tpill col"><div class="tl"><span>' + esc(tr("t_gon")) + '</span><button class="tgl' + (on ? " on" : "") + '" data-act="gtoggle" aria-label="glass"><i></i></button></div>'
     if (on) {
       var gl = fem ? (S.fgl == null ? 100 : S.fgl) : (S.mgl == null ? 100 : S.mgl), bl = fem ? (S.fbl == null ? 2 : S.fbl) : (S.mbl == null ? 2 : S.mbl)
@@ -2748,6 +2761,7 @@
     else if (act === "setMode") { S.theme = v; save(); applyTheme(); if (wheels.theme) wheels.theme.set(THEMES.indexOf(v), true); render() }
     else if (act === "sgo") { var qq = document.getElementById("q"); if (qq) { qq.focus(); if (qq.value) qq.select() } }
     else if (act === "gtoggle") { if (S.gender === "female") S.fgon = !gOn(); else S.mgon = !gOn(); applyGender(); save(); tOptsRefresh() }
+    else if (act === "hlc") { S.hlc = parseInt(v, 10); save(); tOptsRefresh() }
     else if (act === "gsol") { if (S.gender === "female") S.fsol = parseInt(v, 10); else S.msol = parseInt(v, 10); applyGender(); save(); tOptsRefresh() }
     else if (act === "fcolor") { S.fcolor = parseInt(v, 10); applyGender(); save(); tOptsRefresh() }
     else if (act === "mcolor") { S.mcolor = parseInt(v, 10); applyGender(); save(); tOptsRefresh() }
