@@ -1575,6 +1575,11 @@
   // MORE: quote / favs / lang / about
   // ====================
   var HEM = ["🙃", "🫠", "🥰", "😍", "🥺", "🥹", "❤️‍🔥", "💫", "🫀", "🫴", "🌸", "🌺", "🌙", "⚡️", "✨️", "🫧", "✅️"]
+  function emImg(ch) {
+    var cp = Array.from(ch).map(function (c) { return c.codePointAt(0).toString(16) })
+    if (ch.indexOf("\u200d") < 0) cp = cp.filter(function (x) { return x !== "fe0f" })
+    return '<img class="em" alt="' + ch + '" draggable="false" src="https://cdn.jsdelivr.net/npm/emoji-datasource-apple@15.1.2/img/apple/64/' + cp.join("-") + '.png" onerror="this.replaceWith(document.createTextNode(this.alt))">'
+  }
   function quoteData(i) {
     var q = D.quotes[i]
     var title = pick(q.h), body = pick(q.q), src = pick(D.quran) + " " + q.ref
@@ -1586,7 +1591,7 @@
       if (U.quoteIdx < 0) U.quoteIdx = Math.floor(Math.random() * D.quotes.length)
       var d = quoteData(U.quoteIdx)
       return '<button class="btn small back circ" data-act="moreBack" aria-label="back">' + ic("arrow_back") + "</button>" +
-        '<div class="card quote"><div class="qin"><strong>' + esc(d.title) + '</strong><div class="qt">' + esc(d.body) + '</div><div class="qe">' + d.em + '</div></div><div class="qrefs"><span class="ref">' + ic("verified") + " " + esc(d.src) + '</span><span class="ref">' + ic("smart_toy") + " @" + CFG.BOT + "</span></div></div>" +
+        '<div class="card quote"><div class="qin"><strong>' + esc(d.title) + '</strong><div class="qt">' + esc(d.body) + " " + emImg(d.em) + '</div></div><div class="qrefs"><span class="ref">' + ic("verified") + " " + esc(d.src) + '</span><span class="ref">' + ic("smart_toy") + " @" + CFG.BOT + "</span></div></div>" +
         '<div class="qbtns"><button class="btn" data-act="share">' + ic("share") + "<span>" + esc(tr("share")) + '</span></button><button class="btn" data-act="open" data-v="' + d.q.n + '">' + ic("auto_awesome") + "<span>" + esc(D.names[d.q.n - 1].t) + '</span></button><button class="btn" data-act="quoteNext">' + ic("restart_alt") + "</button></div>"
     }
     if (U.more === "favs") {
@@ -1658,8 +1663,15 @@
       if (/^[\u2014\u2013\-:;|]+$/.test(tk)) { if (words.length) words[words.length - 1].pause = Math.max(words[words.length - 1].pause, 650); sid++; continue }
       if (/^[(\[]/.test(tk) && words.length) { words[words.length - 1].pause = Math.max(words[words.length - 1].pause, 400); sid++ }
       var rg = document.createRange(); rg.setStart(node, m.index); rg.setEnd(node, m.index + tk.length)
-      var r = rg.getClientRects()[0]; if (!r) continue
-      words[words.length] = { l: r.left - base.left, r: r.right - base.left, t: r.top - base.top, b: r.bottom - base.top, sid: sid, pause: /[)\]]["\u00bb\u201d']*[.!?\u2026]+$/.test(tk) ? 650 : /[)\]]["\u00bb\u201d']*[,;:]?$/.test(tk) ? 400 : /[.!?\u2026]["\u00bb\u201d')]*$/.test(tk) ? 650 : /[,;:]["\u00bb\u201d')]*$/.test(tk) ? 350 : 0, dur: 359 * Math.min(1.8, Math.max(.55, .55 + .09 * tk.length)) }
+      var all = rg.getClientRects(), rs = [], tw = 0, ri
+      for (ri = 0; ri < all.length; ri++) if (all[ri].width > 1) { rs[rs.length] = all[ri]; tw += all[ri].width }
+      if (!rs.length) continue
+      var pz = /[)\]]["\u00bb\u201d']*[.!?\u2026]+$/.test(tk) ? 650 : /[)\]]["\u00bb\u201d']*[,;:]?$/.test(tk) ? 400 : /[.!?\u2026]["\u00bb\u201d')]*$/.test(tk) ? 650 : /[,;:]["\u00bb\u201d')]*$/.test(tk) ? 350 : 0
+      var dr = 359 * Math.min(1.8, Math.max(.55, .55 + .09 * tk.length))
+      for (ri = 0; ri < rs.length; ri++) {
+        var r = rs[ri]
+        words[words.length] = { l: r.left - base.left, r: r.right - base.left, t: r.top - base.top, b: r.bottom - base.top, sid: sid, pause: ri === rs.length - 1 ? pz : 0, dur: dr * r.width / tw }
+      }
       if (words[words.length - 1].pause) sid++
     }
     if (!words.length) return null
