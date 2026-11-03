@@ -1227,3 +1227,27 @@ html[data-theme="dark"] .tzpill { background: rgba(255,255,255,.1); border-color
 .stlk .msi { font-size: 26px; color: var(--accent); }
 .stlk b { font-size: 15px; }
 .stlk span:last-child { font-size: 12.5px; color: var(--hint); max-width: 240px; }
+
+.pmc { display: flex; gap: 12px; align-items: flex-start; padding: 14px; margin-bottom: 12px; border-radius: 18px; background: color-mix(in srgb, var(--card) 70%, transparent); border: 1px solid var(--line); -webkit-backdrop-filter: blur(calc(14px * var(--bk, 1))); backdrop-filter: blur(calc(14px * var(--bk, 1))); }
+.pmc > .msi { font-size: 28px; color: var(--accent); flex: none; }
+.pmc.on { border-color: color-mix(in srgb, var(--accent) 55%, transparent); }
+.pmc.warn { border-color: rgba(245, 179, 1, .6); }
+.pmc.warn > .msi { color: #f5b301; }
+.pmb { display: grid; gap: 4px; min-width: 0; flex: 1; }
+.pmb b { font-size: 16px; }
+.pmb span { color: var(--hint); font-size: 13px; line-height: 1.35; }
+.pmb em { font-style: normal; font-weight: 800; color: var(--text); font-variant-numeric: tabular-nums; }
+.pmdots { display: flex; gap: 6px; margin: 6px 0 4px; }
+.pmdots i { flex: 1; height: 8px; border-radius: 4px; background: rgba(128, 128, 128, .28); }
+.pmdots i.on { background: var(--accent); }
+.pmbtn { align-self: flex-start; margin-top: 4px; display: inline-flex; align-items: center; gap: 6px; background: var(--accent) !important; color: var(--accent-text, #fff) !important; border: 0 !important; }
+.pmbtn.off { opacity: .45; }
+.pmbtn .msi { font-size: 18px; }
+.pmb .pml { font-size: 12px; }
+
+.tgl.pr i { display: flex; align-items: center; justify-content: center; color: #8a8a8a; }
+.tgl.pr i .msi { font-size: 15px; }
+.tgl.pr.pm.on i { color: var(--accent); }
+.daily.dglass .hgstage { background: rgb(255 255 255 / calc(.2 * var(--gk, 1))); -webkit-backdrop-filter: blur(calc(16px * var(--bk, 1))) saturate(1.5); backdrop-filter: blur(calc(16px * var(--bk, 1))) saturate(1.5); border: 1px solid rgba(255, 255, 255, .45); box-shadow: inset 0 1px 0 rgba(255, 255, 255, .6), 0 8px 24px rgba(0, 0, 0, .12); }
+html[data-theme="dark"] .daily.dglass .hgstage { background: rgb(255 255 255 / calc(.08 * var(--gk, 1))); border-color: rgba(255, 255, 255, .18); }
+html .daily.dglass .tap-round:not(.off) { background: rgb(255 255 255 / calc(.28 * var(--gk, 1))); -webkit-backdrop-filter: blur(calc(14px * var(--bk, 1))) saturate(1.6); backdrop-filter: blur(calc(14px * var(--bk, 1))) saturate(1.6); border: 1px solid rgba(255, 255, 255, .6); box-shadow: inset 0 2px 0 rgba(255, 255, 255, .7), 0 10px 24px rgba(0, 0, 0, .18); }

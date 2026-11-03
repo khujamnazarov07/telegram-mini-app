@@ -79,6 +79,18 @@
     st_lock: "7 kunlik tarix Premium bilan ochiladi|7 кунлик тарих Премиум билан очилади|История за 7 дней доступна в Премиум|7-day history is available with Premium|سجل 7 أيام متاح مع بريميوم|7 günlük geçmiş Premium ile açılır|Riwayat 7 hari tersedia dengan Premium|高级版可查看7天历史|7 दिन का इतिहास प्रीमियम के साथ|El historial de 7 días está disponible con Premium",
     st_empty: "Hozircha ma'lumot yo'q|Ҳозирча маълумот йўқ|Пока нет данных|No data yet|لا توجد بيانات بعد|Henüz veri yok|Belum ada data|暂无数据|अभी कोई डेटा नहीं|Aún no hay datos",
     st_of99: "99 tadan|99 тадан|из 99|of 99|من 99|99 içinden|dari 99|共99|99 में से|de 99",
+    pm_active: "Premium faol|Премиум фаол|Премиум активен|Premium active|بريميوم مفعل|Premium aktif|Premium aktif|高级版已开启|प्रीमियम सक्रिय|Premium activo",
+    pm_goal: "7 kun ketma-ket kunlik salavotni bajaring, Premium bepul ochiladi|7 кун кетма-кет кунлик салавотни бажаринг, Премиум бепул очилади|Выполняйте салават 7 дней подряд, и Премиум откроется бесплатно|Complete your daily salawat 7 days in a row to unlock Premium for free|أكمل صلاتك اليومية 7 أيام متتالية لفتح بريميوم مجانًا|7 gün üst üste günlük salavatı tamamlayın, Premium ücretsiz açılsın|Selesaikan selawat harian 7 hari berturut-turut untuk membuka Premium gratis|连续7天完成每日赞圣，免费解锁高级版|लगातार 7 दिन दैनिक सलावत पूरी करें, प्रीमियम मुफ़्त खुलेगा|Completa tu salawat diario 7 días seguidos y desbloquea Premium gratis",
+    pm_days: "kun ketma-ket|кун кетма-кет|дн. подряд|days in a row|أيام متتالية|gün üst üste|hari berturut|天连续|दिन लगातार|días seguidos",
+    pm_grace: "Bugun kunlik salavotni bajaring, aks holda Premium tugaydi|Бугун кунлик салавотни бажаринг, акс ҳолда Премиум тугайди|Выполните сегодня салават, иначе Премиум закончится|Complete today's salawat or Premium ends|أكمل صلاة اليوم وإلا ينتهي بريميوم|Bugün salavatı tamamlayın, yoksa Premium biter|Selesaikan selawat hari ini atau Premium berakhir|今天完成赞圣，否则高级版将结束|आज सलावत पूरी करें, वरना प्रीमियम समाप्त हो जाएगा|Completa hoy el salawat o Premium termina",
+    pm_left: "Qolgan vaqt|Қолган вақт|Осталось|Time left|الوقت المتبقي|Kalan süre|Sisa waktu|剩余时间|शेष समय|Tiempo restante",
+    pm_trial: "5 daqiqa sinab ko'rish|5 дақиқа синаб кўриш|Попробовать 5 минут|Try for 5 minutes|جرّب 5 دقائق|5 dakika dene|Coba 5 menit|试用5分钟|5 मिनट आज़माएँ|Probar 5 minutos",
+    pm_trial_on: "Sinov faol|Синов фаол|Пробный режим|Trial active|التجربة مفعّلة|Deneme aktif|Uji coba aktif|试用中|ट्रायल सक्रिय|Prueba activa",
+    pm_limit: "Bugun {a}/3 · Hafta {b}/7|Бугун {a}/3 · Ҳафта {b}/7|Сегодня {a}/3 · Неделя {b}/7|Today {a}/3 · Week {b}/7|اليوم {a}/3 · الأسبوع {b}/7|Bugün {a}/3 · Hafta {b}/7|Hari ini {a}/3 · Minggu {b}/7|今天 {a}/3 · 本周 {b}/7|आज {a}/3 · सप्ताह {b}/7|Hoy {a}/3 · Semana {b}/7",
+    pm_nolimit: "Sinov limiti tugadi|Синов лимити тугади|Лимит пробных исчерпан|Trial limit reached|انتهى حد التجارب|Deneme limiti doldu|Batas uji coba habis|试用次数已用完|ट्रायल सीमा समाप्त|Límite de pruebas alcanzado",
+    pm_got: "Premium ochildi! 🎉|Премиум очилди! 🎉|Премиум открыт! 🎉|Premium unlocked! 🎉|تم فتح بريميوم! 🎉|Premium açıldı! 🎉|Premium terbuka! 🎉|高级版已解锁！🎉|प्रीमियम खुल गया! 🎉|¡Premium desbloqueado! 🎉",
+    pm_end: "Premium tugadi|Премиум тугади|Премиум закончился|Premium ended|انتهى بريميوم|Premium sona erdi|Premium berakhir|高级版已结束|प्रीमियम समाप्त|Premium terminó",
+    pm_trial_end: "Sinov tugadi|Синов тугади|Пробный режим завершён|Trial ended|انتهت التجربة|Deneme bitti|Uji coba selesai|试用结束|ट्रायल समाप्त|Prueba terminada",
     remind: "Bildirishnomalar|Билдиришномалар|Уведомления|Notifications|الإشعارات|Bildirimler|Notifikasi|通知|सूचनाएँ|Notificaciones",
     rm_daily: "Kunlik eslatma|Кунлик эслатма|Ежедневное напоминание|Daily reminder|تذكير يومي|Günlük hatırlatma|Pengingat harian|每日提醒|दैनिक रिमाइंडर|Recordatorio diario",
     rm_due: "Salavot eslatmasi|Салавот эслатмаси|Напоминание о салавате|Salawat reminder|تذكير الصلاة|Salavat hatırlatması|Pengingat salawat|赞圣提醒|सलावात रिमाइंडर|Recordatorio de salawat",
@@ -111,6 +123,8 @@
     t_hl: "Marker|Маркер|Маркер|Highlighter|قلم التمييز|Fosforlu kalem|Stabilo|荧光笔|हाइलाइटर|Marcador",
     t_color: "Rang|Ранг|Цвет|Color|اللون|Renk|Warna|颜色|रंग|Color",
     t_glass: "Shisha|Шиша|Стекло|Glass|الزجاج|Cam|Kaca|玻璃|काँच|Cristal",
+    dglass: "Shisha effekti|Шиша эффекти|Эффект стекла|Glass effect|تأثير الزجاج|Cam efekti|Efek kaca|玻璃效果|काँच प्रभाव|Efecto cristal",
+    pm_need: "Bu funksiya Premium bilan ochiladi|Бу функция Премиум билан очилади|Доступно с Премиум|Available with Premium|متاح مع بريميوم|Premium ile açılır|Tersedia dengan Premium|需要高级版|प्रीमियम के साथ उपलब्ध|Disponible con Premium",
     t_gon: "Shisha effekti|Шиша эффекти|Эффект стекла|Glass effect|تأثير الزجاج|Cam efekti|Efek kaca|玻璃效果|काँच प्रभाव|Efecto cristal",
     t_solid: "Fon rangi|Фон ранги|Цвет фона|Background color|لون الخلفية|Arka plan rengi|Warna latar|背景颜色|पृष्ठभूमि का रंग|Color de fondo",
     t_blur: "Xiralik|Хиралик|Размытие|Blur|التمويه|Bulanıklık|Buram|模糊|धुंधलापन|Desenfoque",
@@ -1510,6 +1524,7 @@
   }
   function viewDaily() {
     var ds = S.daily
+    var dgRow = '<div class="topt"><div class="tl"><span>' + esc(tr("dglass")) + '</span><button class="tgl pr' + (isPrem() ? " pm" : "") + (S.dglass && isPrem() ? " on" : "") + '" data-act="dglass" aria-label="glass"><i>' + ic(isPrem() ? "lock_open" : "lock") + "</i></button></div></div>"
     var formHtml = function () {
       var gv = ds && ds.target ? Math.min(ds.target, 999999) : 0, cols = ""
       var pad = ("000000" + gv).slice(-6)
@@ -1519,11 +1534,11 @@
       }
       var dm = U.dmode || (ds && ds.mode) || "goal"
       var seg = '<div class="seg"><button data-act="dmode" data-v="goal" class="' + (dm === "goal" ? "on" : "") + '">' + esc(tr("mode_goal")) + '</button><button data-act="dmode" data-v="free" class="' + (dm === "free" ? "on" : "") + '">' + esc(tr("mode_free")) + "</button></div>"
-      if (dm === "free") return '<div class="card stack goalbox">' + seg + '<p class="sub center" style="margin:4px 0">' + esc(tr("free_hint")) + '</p><button class="btn success block" data-act="saveDaily">' + esc(tr("save")) + "</button></div>"
+      if (dm === "free") return '<div class="card stack goalbox">' + seg + '<p class="sub center" style="margin:4px 0">' + esc(tr("free_hint")) + '</p>' + dgRow + '<button class="btn success block" data-act="saveDaily">' + esc(tr("save")) + "</button></div>"
       return '<div class="card stack goalbox">' + seg + '<div class="goalhead"><span>' + esc(tr("target_lbl")) + '</span><b id="goalVal">' + fmtNum(gv) + "</b></div>" +
         '<div class="digits" id="digits" dir="ltr">' + cols + "</div>" +
         '<div class="chips">' + [33, 100, 300, 1000].map(function (x) { return '<button class="chip" data-act="preset" data-v="' + x + '">' + fmtNum(x) + "</button>" }).join("") + "</div>" +
-        '<button class="btn success block" data-act="saveDaily">' + esc(tr("save")) + "</button></div>"
+        dgRow + '<button class="btn success block" data-act="saveDaily">' + esc(tr("save")) + "</button></div>"
     }
     if (!ds || !ds.target) {
       if (U.dmode === "free") return '<h1>📿 ' + esc(tr("daily")) + '</h1>' + formHtml()
@@ -1532,7 +1547,7 @@
     dailyTick()
     var target = ds.target, step = ds.step || 1, draft = ds.draft || 0, owed = ds.owedDays || 0
     hgShown = hgFallen(ds)
-    var h = '<div class="daily"><div class="dhead"><h1>📿 ' + esc(tr("daily")) + '</h1><button class="gear' + (U.dailyMenu ? " on" : "") + '" data-act="dailyMenu" aria-label="Settings">' + ic("settings") + '</button></div>'
+    var h = '<div class="daily' + (S.dglass && isPrem() ? " dglass" : "") + '"><div class="dhead"><h1>📿 ' + esc(tr("daily")) + '</h1><button class="gear' + (U.dailyMenu ? " on" : "") + '" data-act="dailyMenu" aria-label="Settings">' + ic("settings") + '</button></div>'
     if (U.dailyMenu) h += '<div style="margin-bottom:10px">' + formHtml() + "</div>"
     if (owed > 0) h += '<p class="owed center">⊘ ' + esc(tr("owed").replace("{n}", owed)) + "</p>"
     h += '<div id="hgwrap" class="hgwrap"><div id="hgstage" class="hgstage">' + hgBg() + '<div id="hgbox" class="hgbox' + (ds.mode === "free" ? " free" : "") + '">' + hgSvg(hgShown) + "</div>"
@@ -1687,7 +1702,65 @@
   // ====================
   // STATISTIKA
   // ====================
-  function isPrem() { return !!S.premium }
+  function isPrem() { return !!S.premium || pmObj().on || trLeft() > 0 }
+  var PM_N = 7, PM_TRIAL = 5 * 60000, PM_DAY = 3, PM_WEEK = 7
+  function pmObj() { return S.pm || (S.pm = { on: false, n: 0, last: "" }) }
+  function dayAdd(k, n) { var p = k.split("-"), x = new Date(+p[0], +p[1] - 1, +p[2] + n); return x.getFullYear() + "-" + ("0" + (x.getMonth() + 1)).slice(-2) + "-" + ("0" + x.getDate()).slice(-2) }
+  function dayStart(k) { var p = k.split("-"); return new Date(+p[0], +p[1] - 1, +p[2]).getTime() }
+  function pmGrace() {
+    var p = pmObj(); if (!p.on || !p.last) return 0
+    var t = todayStr(); if (p.last === t || p.last === dayAdd(t, -1)) return 0
+    return dayStart(dayAdd(p.last, 3))
+  }
+  function pmCheck() {
+    var p = pmObj(), t = todayStr()
+    if (!p.last || p.last === t || p.last === dayAdd(t, -1)) return
+    if (p.on) { if (Date.now() >= dayStart(dayAdd(p.last, 3))) { p.on = false; p.n = 0; p.last = ""; save(); toast(tr("pm_end")) } }
+    else { p.n = 0; p.last = ""; save() }
+  }
+  function pmDone() {
+    pmCheck()
+    var p = pmObj(), t = todayStr(); stDay().dn = 1
+    if (p.last === t) { save(); return }
+    if (!p.last) p.n = 1; else if (p.last === dayAdd(t, -1) || p.on) p.n++; else p.n = 1
+    p.last = t
+    if (!p.on && p.n >= PM_N) { p.on = true; toast(tr("pm_got")) }
+    save()
+  }
+  function trLeft() { var t = S.trial; return t && t.until > Date.now() ? t.until - Date.now() : 0 }
+  function trUsed() {
+    var l = (S.trial && S.trial.log) || [], now = Date.now(), d0 = dayStart(todayStr()), a = 0, b = 0
+    l.forEach(function (x) { if (x >= d0) a++; if (x >= now - 7 * 86400000) b++ })
+    return [a, b]
+  }
+  function trCan() { var u = trUsed(); return u[0] < PM_DAY && u[1] < PM_WEEK && !trLeft() }
+  function pmClock(ms) {
+    var s = Math.max(0, Math.ceil(ms / 1000)), h = Math.floor(s / 3600), m = Math.floor(s % 3600 / 60), x = s % 60
+    return (h ? h + ":" + ("0" + m).slice(-2) : ("0" + m).slice(-2)) + ":" + ("0" + x).slice(-2)
+  }
+  function pmUi() {
+    ST.n = (ST.n || 0) + 1
+    var inSt = U.tab === "more" && U.more === "stats"
+    if (ST.n % 30 === 0) { var was = pmObj().on; pmCheck(); if (was && !pmObj().on && inSt) stPaint() }
+    var tl = trLeft()
+    if (ST.trOn && !tl) { toast(tr("pm_trial_end")); if (inSt) stPaint() }
+    ST.trOn = tl > 0
+    var el = document.getElementById("pmt")
+    if (el) { var ms = +el.getAttribute("data-u") - Date.now(); if (ms <= 0) { if (inSt) stPaint() } else el.textContent = pmClock(ms) }
+  }
+  function pmHtml() {
+    var p = pmObj(), tl = trLeft(), gr = pmGrace(), h = "", i
+    if (S.premium || p.on) {
+      h = '<div class="pmc on">' + ic("workspace_premium") + '<div class="pmb"><b>' + esc(tr("pm_active")) + "</b>" + (p.on ? "<span>" + p.n + " " + esc(tr("pm_days")) + "</span>" : "") + "</div></div>"
+      if (gr) h += '<div class="pmc warn">' + ic("timer") + '<div class="pmb"><b>' + esc(tr("pm_grace")) + '</b><span>' + esc(tr("pm_left")) + ' · <em id="pmt" data-u="' + gr + '">' + pmClock(gr - Date.now()) + "</em></span></div></div>"
+      return h
+    }
+    if (tl > 0) return '<div class="pmc on">' + ic("timer") + '<div class="pmb"><b>' + esc(tr("pm_trial_on")) + '</b><span>' + esc(tr("pm_left")) + ' · <em id="pmt" data-u="' + (Date.now() + tl) + '">' + pmClock(tl) + "</em></span></div></div>"
+    var u = trUsed(), can = trCan(), dots = ""
+    for (i = 0; i < PM_N; i++) dots += "<i" + (i < p.n ? ' class="on"' : "") + "></i>"
+    return '<div class="pmc">' + ic("workspace_premium") + '<div class="pmb"><b>' + esc(tr("st_prem")) + " · " + Math.min(p.n, PM_N) + "/" + PM_N + '</b><span>' + esc(tr("pm_goal")) + '</span><div class="pmdots">' + dots + '</div>' +
+      '<button class="btn small pmbtn' + (can ? "" : " off") + '" data-act="pmTrial">' + ic("timer") + " " + esc(can ? tr("pm_trial") : tr("pm_nolimit")) + '</button><span class="pml">' + esc(tr("pm_limit").replace("{a}", u[0]).replace("{b}", u[1])) + "</span></div></div>"
+  }
   function stEmpty() { return { s: 0, h: [], sal: 0, nm: [], no: 0, md: {}, q: 0 } }
   function stDay(k) {
     S.stat = S.stat || {}; k = k || todayStr()
@@ -1715,6 +1788,7 @@
   }
   var ST = { last: 0, acc: 0, dev: 0, devT: 0 }
   setInterval(function () {
+    pmUi()
     if (document.hidden) { ST.last = 0; return }
     var now = Date.now()
     if (!ST.last) { ST.last = now; return }
@@ -1767,7 +1841,7 @@
       for (var m in (d.md || {})) md[m] = (md[m] || 0) + d.md[m]
     })
     var nN = Object.keys(nm).length, seen = Object.keys(S.nseen || {}).length
-    var h = '<div class="stchips"><button data-act="stR" data-v="1"' + (R === 1 ? ' class="on"' : "") + ">" + esc(tr("st_today")) + '</button><button data-act="stR" data-v="7"' + (R === 7 ? ' class="on"' : "") + ">" + (prem ? "" : ic("lock")) + esc(tr("st_7")) + "</button></div>"
+    var h = pmHtml() + '<div class="stchips"><button data-act="stR" data-v="1"' + (R === 1 ? ' class="on"' : "") + ">" + esc(tr("st_today")) + '</button><button data-act="stR" data-v="7"' + (R === 7 ? ' class="on"' : "") + ">" + (prem ? "" : ic("lock")) + esc(tr("st_7")) + "</button></div>"
     function kp(icon, v, l) { return '<div class="stkp">' + ic(icon) + "<b>" + v + "</b><span>" + esc(l) + "</span></div>" }
     h += '<div class="stk">' + kp("schedule", stDur(tot), tr("st_time")) + kp("self_improvement", fmtNum(sal), tr("st_sal")) + kp("menu_book", nN, tr("st_names")) + kp("auto_awesome", q, tr("st_quotes")) + "</div>"
     var hv = hrs.map(function (x) { return x / 60 }), hl = []
@@ -2864,7 +2938,14 @@
       U.dailyMenu = false; save(); render()
     }
     else if (act === "stR") { if (v === "7" && !isPrem()) toast(tr("st_lock")); else { U.stR = parseInt(v, 10); stPaint() } }
+    else if (act === "pmTrial") {
+      if (!trCan()) { toast(tr("pm_nolimit")); return }
+      var tn = Date.now(), tr0 = (S.trial && S.trial.log) || []
+      S.trial = { until: tn + PM_TRIAL, log: tr0.filter(function (x) { return x >= tn - 7 * 86400000 }).concat([tn]) }
+      save(); toast(tr("pm_trial_on")); stPaint()
+    }
     else if (act === "stDev") { clearTimeout(ST.devT); ST.dev++; ST.devT = setTimeout(function () { ST.dev = 0 }, 1500); if (ST.dev >= 5) { ST.dev = 0; S.premium = !S.premium; save(); toast(S.premium ? "Premium ON" : "Premium OFF"); render() } }
+    else if (act === "dglass") { if (!isPrem()) toast(tr("pm_need")); else { S.dglass = !S.dglass; save(); render() } }
     else if (act === "dailyMenu") { U.dailyMenu = !U.dailyMenu; U.dmode = ""; render() }
     else if (act === "dmode") { U.dmode = v; render() }
     else if (act === "tap") {
@@ -2881,6 +2962,7 @@
         if (ds.mode === "free") continue
         if (ds.owedDays > 0) ds.owedDays--; else ds.todayDone = true
       }
+      if (cycles > 0) pmDone()
       save()
       var to = cycles > 0 ? 100 : Math.min(100, Math.floor(ds.draft * 100 / ds.target))
       var from = hgShown
