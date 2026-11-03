@@ -1591,7 +1591,7 @@
     im.setAttribute("data-k", k); im.src = u
   }
   function emImg(ch) {
-    return '<img class="em" style="display:inline-block;width:1.05em;height:1.05em;max-width:1.05em;vertical-align:-.16em;margin:0 0 0 .1em;pointer-events:none" alt="' + ch + '" draggable="false" data-k="0" src="' + emSrc(ch, 0) + '" onerror="emErr(this)">'
+    return '<img class="qem" style="display:inline-block;width:1.05em;height:1.05em;max-width:1.05em;vertical-align:-.16em;margin:0 0 0 .1em;pointer-events:none" alt="' + ch + '" draggable="false" data-k="0" src="' + emSrc(ch, 0) + '" onerror="emErr(this)">'
   }
   function quoteData(i) {
     var q = D.quotes[i]
