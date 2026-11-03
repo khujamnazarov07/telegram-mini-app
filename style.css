@@ -1136,8 +1136,6 @@ html .mini, html[data-gender="female"] .mini, html[data-gender="male"] .mini { b
 .sws.wh.on { box-shadow: 0 0 0 3px var(--accent), 0 4px 10px rgba(0, 0, 0, .18); }
 :root[data-gender="male"][data-w="1"][data-theme="light"] { --accent: #26262b; --accent-text: #fff; --mat: #fff !important; }
 
-.ngrid:not(.open) .name-card:nth-child(n+10) { -webkit-mask-image: linear-gradient(180deg, #000 8%, transparent 64%); mask-image: linear-gradient(180deg, #000 8%, transparent 64%); filter: blur(1.4px); }
-.ngrid:not(.open) .name-card:nth-child(n+7):nth-child(-n+9) { filter: blur(.35px); }
 .list > .rrow { gap: 10px; padding-top: 10.5px; padding-bottom: 10.5px; }
 
 .quote .qe { font-size: 28px; line-height: 1; margin: 0 0 8px; text-align: center; }
@@ -1171,3 +1169,13 @@ html .nav button { width: 46px; height: 46px; }
 .itab .rs img { width: 20px !important; height: 20px !important; }
 .itab .ir > span:first-child { font-size: 13.5px; }
 .itab .ir + .ir::before { left: 28px; right: 28px; }
+
+.itab .ir > span:first-child { color: var(--text); }
+.shead h1 { justify-self: center; max-width: 100%; min-width: 0; height: 44px; padding: 0 20px; border-radius: 22px; white-space: nowrap; overflow: hidden; font-size: clamp(14px, 4.4vw, 19px); line-height: 1; background: rgba(255,255,255,.2); -webkit-backdrop-filter: blur(16px) saturate(1.8); backdrop-filter: blur(16px) saturate(1.8); border: 1px solid rgba(255,255,255,.55); box-shadow: 0 4px 14px rgba(0,0,0,.14), inset 0 1px 0 rgba(255,255,255,.6); }
+html[data-theme="dark"] .shead h1 { background: rgba(255,255,255,.1); border-color: rgba(255,255,255,.28); }
+.shead h1 .msi { font-size: 22px; flex: none; }
+
+.ngrid:not(.open) { max-height: 366px !important; overflow: hidden !important; -webkit-mask-image: linear-gradient(#000 74%, transparent) !important; mask-image: linear-gradient(#000 74%, transparent) !important; }
+.ngrid.open { max-height: none !important; -webkit-mask-image: none !important; mask-image: none !important; }
+.ngrid:not(.open)::before, .ngrid:not(.open)::after { display: none !important; content: none !important; }
+.ngrid:not(.open) + .moodtog { margin-top: 12px !important; position: static !important; }
