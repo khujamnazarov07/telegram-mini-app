@@ -1175,7 +1175,13 @@ html .nav button { width: 46px; height: 46px; }
 html[data-theme="dark"] .shead h1 { background: rgba(255,255,255,.1); border-color: rgba(255,255,255,.28); }
 .shead h1 .msi { font-size: 22px; flex: none; }
 
-.ngrid:not(.open) { max-height: 366px !important; overflow: hidden !important; -webkit-mask-image: linear-gradient(#000 74%, transparent) !important; mask-image: linear-gradient(#000 74%, transparent) !important; }
+.ngrid:not(.open) { max-height: 366px !important; overflow: hidden !important; -webkit-mask-image: none !important; mask-image: none !important; }
+.ngrid:not(.open) .name-card:nth-child(n+7):nth-child(-n+9) { -webkit-mask-image: linear-gradient(#000 73%, rgba(0,0,0,.74)); mask-image: linear-gradient(#000 73%, rgba(0,0,0,.74)); }
+.ngrid:not(.open) .name-card:nth-child(n+10) { -webkit-mask-image: linear-gradient(rgba(0,0,0,.63), transparent 65%); mask-image: linear-gradient(rgba(0,0,0,.63), transparent 65%); }
 .ngrid.open { max-height: none !important; -webkit-mask-image: none !important; mask-image: none !important; }
 .ngrid:not(.open)::before, .ngrid:not(.open)::after { display: none !important; content: none !important; }
 .ngrid:not(.open) + .moodtog { margin-top: 12px !important; position: static !important; }
+.moodgrid:not(.open) { -webkit-mask-image: none !important; mask-image: none !important; }
+.moodgrid:not(.open) .mood-card:nth-child(n+7):nth-child(-n+9) { -webkit-mask-image: linear-gradient(#000 61%, rgba(0,0,0,.61)); mask-image: linear-gradient(#000 61%, rgba(0,0,0,.61)); }
+.moodgrid:not(.open) .mood-card:nth-child(n+10) { -webkit-mask-image: linear-gradient(rgba(0,0,0,.5), transparent 50%); mask-image: linear-gradient(rgba(0,0,0,.5), transparent 50%); }
+.moodgrid .grid3, .ngrid .grid3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
