@@ -1148,3 +1148,4 @@ html .nav button { width: 46px; height: 46px; }
 
 .quote .qe { display: none; }
 .quote .qt .em { display: inline-block; width: 1.3em; height: 1.3em; vertical-align: -.28em; margin-inline-start: .15em; pointer-events: none; -webkit-user-select: none; user-select: none; }
+.quote .qt .em { width: 1.05em; height: 1.05em; vertical-align: -.16em; margin-inline-start: .1em; }
