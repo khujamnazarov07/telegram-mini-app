@@ -60,6 +60,25 @@
     share: "Ulashish|Улашиш|Поделиться|Share|مشاركة|Paylaş|Bagikan|分享|शेयर करें|Compartir",
     another: "Yana|Яна|Ещё|Another|آخر|Başka|Lainnya|换一条|और|Otra",
     lang: "Til|Тил|Язык|Language|اللغة|Dil|Bahasa|语言|भाषा|Idioma",
+    st_t: "Statistika|Статистика|Статистика|Statistics|الإحصائيات|İstatistikler|Statistik|统计|आँकड़े|Estadísticas",
+    st_today: "Bugun|Бугун|Сегодня|Today|اليوم|Bugün|Hari ini|今天|आज|Hoy",
+    st_7: "7 kun|7 кун|7 дней|7 days|7 أيام|7 gün|7 hari|7天|7 दिन|7 días",
+    st_time: "Ilovada o'tkazilgan vaqt|Иловада ўтказилган вақт|Время в приложении|Time in app|الوقت في التطبيق|Uygulamada geçen süre|Waktu di aplikasi|应用使用时间|ऐप में समय|Tiempo en la app",
+    st_sal: "Salavot|Салавот|Салават|Salawat|الصلاة على النبي|Salavat|Selawat|赞圣|सलावत|Salawat",
+    st_names: "Ismlar|Исмлар|Имена|Names|الأسماء|İsimler|Nama|名称|नाम|Nombres",
+    st_quotes: "Hikmatlar|Ҳикматлар|Мудрости|Wisdom|الحكم|Hikmetler|Hikmah|箴言|हिकमत|Sabiduría",
+    st_hours: "Soatlar bo'yicha faollik|Соатлар бўйича фаоллик|Активность по часам|Activity by hour|النشاط حسب الساعة|Saate göre aktivite|Aktivitas per jam|按小时活动|घंटे के अनुसार गतिविधि|Actividad por hora",
+    st_days: "Kunlar bo'yicha vaqt (daqiqa)|Кунлар бўйича вақт (дақиқа)|Время по дням (мин)|Time by day (min)|الوقت حسب اليوم (د)|Güne göre süre (dk)|Waktu per hari (mnt)|按天时长(分钟)|दिन के अनुसार समय (मिनट)|Tiempo por día (min)",
+    st_saldays: "Salavot · kunlar bo'yicha|Салавот · кунлар бўйича|Салават · по дням|Salawat · by day|الصلاة · حسب اليوم|Salavat · günlere göre|Selawat · per hari|赞圣 · 按天|सलावत · दिन के अनुसार|Salawat · por día",
+    st_namesopen: "Ochilgan ismlar · kunlar bo'yicha|Очилган исмлар · кунлар бўйича|Открытые имена · по дням|Opened names · by day|الأسماء المفتوحة · حسب اليوم|Açılan isimler · günlere göre|Nama dibuka · per hari|已打开名称 · 按天|खोले गए नाम · दिन के अनुसार|Nombres abiertos · por día",
+    st_seen: "O'rganilgan ismlar|Ўрганилган исмлар|Изученные имена|Names explored|الأسماء المستكشفة|Keşfedilen isimler|Nama dipelajari|已浏览名称|देखे गए नाम|Nombres explorados",
+    st_mood: "Kayfiyat|Кайфият|Настроение|Mood|المزاج|Ruh hali|Suasana hati|心情|मनोदशा|Estado de ánimo",
+    st_h: "soat|соат|ч|h|س|sa|j|时|घं|h",
+    st_m: "daq|дақ|мин|m|د|dk|m|分|मि|min",
+    st_prem: "Premium|Премиум|Премиум|Premium|بريميوم|Premium|Premium|高级版|प्रीमियम|Premium",
+    st_lock: "7 kunlik tarix Premium bilan ochiladi|7 кунлик тарих Премиум билан очилади|История за 7 дней доступна в Премиум|7-day history is available with Premium|سجل 7 أيام متاح مع بريميوم|7 günlük geçmiş Premium ile açılır|Riwayat 7 hari tersedia dengan Premium|高级版可查看7天历史|7 दिन का इतिहास प्रीमियम के साथ|El historial de 7 días está disponible con Premium",
+    st_empty: "Hozircha ma'lumot yo'q|Ҳозирча маълумот йўқ|Пока нет данных|No data yet|لا توجد بيانات بعد|Henüz veri yok|Belum ada data|暂无数据|अभी कोई डेटा नहीं|Aún no hay datos",
+    st_of99: "99 tadan|99 тадан|из 99|of 99|من 99|99 içinden|dari 99|共99|99 में से|de 99",
     remind: "Bildirishnomalar|Билдиришномалар|Уведомления|Notifications|الإشعارات|Bildirimler|Notifikasi|通知|सूचनाएँ|Notificaciones",
     rm_daily: "Kunlik eslatma|Кунлик эслатма|Ежедневное напоминание|Daily reminder|تذكير يومي|Günlük hatırlatma|Pengingat harian|每日提醒|दैनिक रिमाइंडर|Recordatorio diario",
     rm_due: "Salavot eslatmasi|Салавот эслатмаси|Напоминание о салавате|Salawat reminder|تذكير الصلاة|Salavat hatırlatması|Pengingat salawat|赞圣提醒|सलावात रिमाइंडर|Recordatorio de salawat",
@@ -1629,7 +1648,7 @@
     }
     if (U.more === "settings") {
       var cg = S.gender === "female" ? "th_female" : S.gender === "male" ? "th_male" : "th_auto"
-      return '<div class="shead"><button class="btn small back circ" data-act="moreBack" aria-label="back">' + ic("arrow_back") + '</button><h1>' + ic("settings") + " " + esc(tr("settings")) + '</h1><span></span></div><p class="sub">&nbsp;</p><div class="list">' +
+      return '<div class="shead"><button class="btn small back circ" data-act="moreBack" aria-label="back">' + ic("arrow_back") + '</button><h1>' + ic("settings") + " " + esc(tr("settings")) + '</h1><span></span></div><div class="tzpill" id="tzpill"></div><div class="list">' +
         '<button data-act="more" data-v="mode">' + ic("contrast") + " " + esc(tr("mode_t")) + " · " + esc(tr("th_" + S.theme)) + "</button>" +
         '<button data-act="more" data-v="theme">' + ic("palette") + " " + esc(tr("theme_t")) + " · " + esc(tr(cg)) + "</button>" +
         '<button data-act="more" data-v="lang">' + ic("translate") + " " + esc(tr("lang")) + " · " + LANG_NAMES[S.lang] + "</button>" +
@@ -1653,14 +1672,123 @@
       return '<div class="shead"><button class="btn small back circ" data-act="moreBack" aria-label="back">' + ic("arrow_back") + '</button><h1>' + ic("info") + " " + esc(tr("about")) + '</h1><span></span></div><div class="card stack"><p>' + ic("auto_awesome", "ab") + " " + esc(tr("about_text")) + '</p>' + aboutRate() +
         '<button class="btn primary block" data-act="openBot">' + ic("smart_toy") + " " + esc(tr("open_bot")) + '</button><button class="btn block" data-act="openChannel">' + ic("campaign") + " " + esc(tr("open_channel")) + "</button></div>"
     }
+    if (U.more === "stats") {
+      return '<div class="shead"><button class="btn small back circ" data-act="moreBack" aria-label="back">' + ic("arrow_back") + '</button><h1 data-act="stDev">' + ic("bar_chart") + " " + esc(tr("st_t")) + '</h1><span></span></div><div id="stbody">' + statsHtml() + "</div>"
+    }
     return '<h1>' + ic("auto_awesome") + " " + esc(tr("nav_more")) + '</h1><p class="sub">&nbsp;</p><div class="list">' +
       '<button data-act="more" data-v="settings">' + ic("settings") + " " + esc(tr("settings")) + "</button>" +
+      '<button data-act="more" data-v="stats">' + ic("bar_chart") + " " + esc(tr("st_t")) + "</button>" +
       '<button data-act="more" data-v="about">' + ic("info") + " " + esc(tr("about")) + "</button></div>"
   }
 
   // ====================
   // RENDER
   // ====================
+  // ====================
+  // STATISTIKA
+  // ====================
+  function isPrem() { return !!S.premium }
+  function stEmpty() { return { s: 0, h: [], sal: 0, nm: [], no: 0, md: {}, q: 0 } }
+  function stDay(k) {
+    S.stat = S.stat || {}; k = k || todayStr()
+    var d = S.stat[k]; if (!d) d = S.stat[k] = stEmpty()
+    if (!d.h) d.h = []; if (!d.nm) d.nm = []; if (!d.md) d.md = {}
+    for (var i = 0; i < 24; i++) if (!d.h[i]) d.h[i] = 0
+    return d
+  }
+  function stGet(k) { return (S.stat && S.stat[k]) || stEmpty() }
+  function stTrim() { var ks = Object.keys(S.stat || {}).sort(); while (ks.length > 14) delete S.stat[ks.shift()] }
+  function stKeys(n) {
+    var o = [], d = new Date()
+    for (var i = n - 1; i >= 0; i--) { var x = new Date(d.getFullYear(), d.getMonth(), d.getDate() - i); o[o.length] = x.getFullYear() + "-" + ("0" + (x.getMonth() + 1)).slice(-2) + "-" + ("0" + x.getDate()).slice(-2) }
+    return o
+  }
+  function stWd(k) {
+    var p = k.split("-"), x = new Date(+p[0], +p[1] - 1, +p[2]), loc = S.lang === "uz_kr" ? "uz-Cyrl" : (S.lang === "uz_new" ? "uz" : S.lang)
+    try { return x.toLocaleDateString(loc, { weekday: "short" }) } catch (e) { return p[2] }
+  }
+  function stDur(sec) {
+    sec = Math.round(sec); var h = Math.floor(sec / 3600), m = Math.floor(sec % 3600 / 60)
+    if (h) return h + " " + tr("st_h") + " " + m + " " + tr("st_m")
+    if (m) return m + " " + tr("st_m")
+    return (sec > 0 ? "<1 " : "0 ") + tr("st_m")
+  }
+  var ST = { last: 0, acc: 0, dev: 0, devT: 0 }
+  setInterval(function () {
+    if (document.hidden) { ST.last = 0; return }
+    var now = Date.now()
+    if (!ST.last) { ST.last = now; return }
+    var dt = Math.min(5, (now - ST.last) / 1000); ST.last = now
+    var d = stDay(); d.s += dt; d.h[new Date().getHours()] += dt
+    ST.acc += dt
+    if (ST.acc >= 10) { ST.acc = 0; stTrim(); save(); if (U.tab === "more" && U.more === "stats") stPaint() }
+  }, 1000)
+  document.addEventListener("visibilitychange", function () { ST.last = 0; if (document.hidden) { try { save() } catch (e) {} } })
+  function stBars(vals, labels, hi, fmt, every) {
+    var mx = 0, i, h = ""
+    for (i = 0; i < vals.length; i++) if (vals[i] > mx) mx = vals[i]
+    for (i = 0; i < vals.length; i++) {
+      var p = mx ? Math.round(vals[i] / mx * 100) : 0
+      h += '<div class="stb' + (i === hi ? " hi" : "") + '"><span class="sv">' + (fmt && vals[i] ? fmt(vals[i]) : "") + '</span><i style="height:' + Math.max(vals[i] ? 6 : 3, p) + '%"></i><span class="sl">' + ((!every || i % every === 0 || i === vals.length - 1) ? labels[i] : "") + "</span></div>"
+    }
+    return '<div class="stbars">' + h + "</div>"
+  }
+  function stLine(vals, labels, hi) {
+    var W = 300, H = 120, pd = 16, n = vals.length, mx = Math.max.apply(null, vals.concat([1])), pts = [], i
+    for (i = 0; i < n; i++) pts[i] = [pd + (W - pd * 2) * (n === 1 ? .5 : i / (n - 1)), H - pd - (H - pd * 2) * vals[i] / mx]
+    var line = pts.map(function (p, j) { return (j ? "L" : "M") + p[0].toFixed(1) + " " + p[1].toFixed(1) }).join(" ")
+    var area = line + " L" + pts[n - 1][0].toFixed(1) + " " + (H - pd) + " L" + pts[0][0].toFixed(1) + " " + (H - pd) + " Z"
+    var dots = pts.map(function (p, j) { return '<circle cx="' + p[0].toFixed(1) + '" cy="' + p[1].toFixed(1) + '" r="' + (j === hi ? 5 : 3.5) + '"/>' + (vals[j] ? '<text x="' + p[0].toFixed(1) + '" y="' + (p[1] - 9).toFixed(1) + '" text-anchor="middle">' + fmtNum(vals[j]) + "</text>" : "") }).join("")
+    var lb = labels.map(function (l) { return "<span>" + l + "</span>" }).join("")
+    return '<svg class="stline" viewBox="0 0 ' + W + " " + H + '"><defs><linearGradient id="stg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="var(--accent)" stop-opacity=".4"/><stop offset="1" stop-color="var(--accent)" stop-opacity="0"/></linearGradient></defs><path d="' + area + '" fill="url(#stg)"/><path d="' + line + '" fill="none" stroke="var(--accent)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>' + dots + '</svg><div class="stll">' + lb + "</div>"
+  }
+  function stDonut(parts, center, sub) {
+    var tot = 0, i, R = 42, C = 2 * Math.PI * R, off = 0, s = ""
+    for (i = 0; i < parts.length; i++) tot += parts[i].v
+    for (i = 0; i < parts.length; i++) {
+      var l = tot ? parts[i].v / tot * C : 0
+      if (l > 0) s += '<circle cx="60" cy="60" r="42" fill="none" stroke="' + parts[i].c + '" stroke-width="14" stroke-dasharray="' + l.toFixed(2) + " " + (C - l).toFixed(2) + '" stroke-dashoffset="' + (-off).toFixed(2) + '" transform="rotate(-90 60 60)"/>'
+      off += l
+    }
+    return '<div class="stdn"><svg viewBox="0 0 120 120"><circle cx="60" cy="60" r="42" fill="none" stroke="rgba(128,128,128,.2)" stroke-width="14"/>' + s + '</svg><div class="stdc"><b>' + center + "</b><span>" + sub + "</span></div></div>"
+  }
+  function stCard(title, icon, body, lock) {
+    return '<div class="card stc' + (lock ? " locked" : "") + '"><div class="stct">' + ic(icon) + "<span>" + esc(title) + '</span></div><div class="stcb">' + body + "</div>" +
+      (lock ? '<div class="stlk">' + ic("lock") + "<b>" + esc(tr("st_prem")) + "</b><span>" + esc(tr("st_lock")) + "</span></div>" : "") + "</div>"
+  }
+  function statsHtml() {
+    var prem = isPrem(), R = (U.stR === 7 && prem) ? 7 : 1, keys = stKeys(R), wk = stKeys(7), i, j
+    var tot = 0, sal = 0, q = 0, nm = {}, hrs = [], md = {}
+    for (i = 0; i < 24; i++) hrs[i] = 0
+    keys.forEach(function (k) {
+      var d = stGet(k); tot += d.s || 0; sal += d.sal || 0; q += d.q || 0
+      ;(d.nm || []).forEach(function (n) { nm[n] = 1 })
+      for (j = 0; j < 24; j++) hrs[j] += (d.h && d.h[j]) || 0
+      for (var m in (d.md || {})) md[m] = (md[m] || 0) + d.md[m]
+    })
+    var nN = Object.keys(nm).length, seen = Object.keys(S.nseen || {}).length
+    var h = '<div class="stchips"><button data-act="stR" data-v="1"' + (R === 1 ? ' class="on"' : "") + ">" + esc(tr("st_today")) + '</button><button data-act="stR" data-v="7"' + (R === 7 ? ' class="on"' : "") + ">" + (prem ? "" : ic("lock")) + esc(tr("st_7")) + "</button></div>"
+    function kp(icon, v, l) { return '<div class="stkp">' + ic(icon) + "<b>" + v + "</b><span>" + esc(l) + "</span></div>" }
+    h += '<div class="stk">' + kp("schedule", stDur(tot), tr("st_time")) + kp("self_improvement", fmtNum(sal), tr("st_sal")) + kp("menu_book", nN, tr("st_names")) + kp("auto_awesome", q, tr("st_quotes")) + "</div>"
+    var hv = hrs.map(function (x) { return x / 60 }), hl = []
+    for (i = 0; i < 24; i++) hl[i] = i
+    h += stCard(tr("st_hours"), "bar_chart", tot > 0 ? stBars(hv, hl, R === 1 ? new Date().getHours() : -1, null, 6) : '<p class="stem">' + esc(tr("st_empty")) + "</p>", false)
+    var wl = wk.map(stWd), tv = wk.map(function (k) { return Math.round(stGet(k).s / 60) }), sv = wk.map(function (k) { return stGet(k).sal || 0 }), nv = wk.map(function (k) { return (stGet(k).nm || []).length })
+    h += stCard(tr("st_days"), "schedule", stBars(tv, wl, 6, function (x) { return x }), !prem)
+    h += stCard(tr("st_saldays"), "self_improvement", stLine(sv, wl, 6), !prem)
+    h += stCard(tr("st_seen"), "menu_book", '<div class="stdw">' + stDonut([{ v: seen, c: "var(--accent)" }, { v: Math.max(0, 99 - seen), c: "rgba(128,128,128,.25)" }], seen, tr("st_of99")) + "</div>", false)
+    h += stCard(tr("st_namesopen"), "menu_book", stBars(nv, wl, 6, function (x) { return x }), !prem)
+    var pal = ["#60a5fa", "#34d399", "#fbbf24", "#f472b6", "#a78bfa", "#fb7185", "#2dd4bf", "#fb923c", "#94a3b8"], parts = [], lg = "", mt = 0, ids = Object.keys(md).sort(function (a, b) { return md[b] - md[a] })
+    ids.forEach(function (id, k) {
+      var mo = null; for (var z = 0; z < D.moods.length; z++) if (String(D.moods[z].id) === id) mo = D.moods[z]
+      var c = pal[Math.min(k, pal.length - 1)]; mt += md[id]
+      parts[parts.length] = { v: md[id], c: c }
+      lg += '<li><i style="background:' + c + '"></i><span>' + esc(mo ? pick(mo.l) : id) + "</span><b>" + md[id] + "</b></li>"
+    })
+    h += stCard(tr("st_mood"), "mood", mt ? '<div class="stdw">' + stDonut(parts, mt, "") + '</div><ul class="stlg">' + lg + "</ul>" : '<p class="stem">' + esc(tr("st_empty")) + "</p>", false)
+    return h
+  }
+  function stPaint() { var el = document.getElementById("stbody"); if (el) el.innerHTML = statsHtml() }
   var HL = { raf: 0, tm: 0 }
   function hlStart() {
     cancelAnimationFrame(HL.raf); clearTimeout(HL.tm)
@@ -1771,6 +1899,9 @@
       h = '<div class="card"><strong>⚠️ Error</strong><p>' + esc(String(err && err.message || err)) + "</p></div>"
     }
     app.innerHTML = h
+    if (U.detail && U.detail !== U.lastDet) { var sdn = stDay(); sdn.no++; if (sdn.nm.indexOf(U.detail) < 0) sdn.nm.push(U.detail); S.nseen = S.nseen || {}; S.nseen[U.detail] = 1; save() }
+    U.lastDet = U.detail
+    if (U.tab === "more" && U.more === "quote") { if (U.quoteIdx !== U.lastQ) { stDay().q++; U.lastQ = U.quoteIdx; save() } } else U.lastQ = -1
     document.body.classList.toggle("indetail", !!U.detail)
     initDigits()
     initHours()
@@ -1779,6 +1910,7 @@
     phStart(); nhStart(); mediaInit(); themeInit(); hswInit(); mdInit(); hlStart()
     nsUpdate()
     miniSync()
+    if (U.tab === "more" && U.more === "settings") gText()
     if (U.tab === "more" && U.more === "mode") startGlobe()
     if (U.tab === "more" && U.more === "lang") startLangGlobe()
     renderNav()
@@ -1865,8 +1997,10 @@
   var curEff = ""
   function gText() {
     var c = cityByName(S.tz), t = cityHour(c), n = (t.h >= 20 || t.h < 8)
-    var el = document.getElementById("gtxt")
-    if (el) el.innerHTML = ic(n ? "dark_mode" : "light_mode") + " <b>" + esc(c ? cname(c) : tr("tz_dev")) + "</b> · " + ("0" + t.h).slice(-2) + ":" + ("0" + t.m).slice(-2)
+    var el = document.getElementById("gtxt"), tp = document.getElementById("tzpill")
+    var gh = ic(n ? "dark_mode" : "light_mode") + " <b>" + esc(c ? cname(c) : tr("tz_dev")) + "</b> · " + ("0" + t.h).slice(-2) + ":" + ("0" + t.m).slice(-2)
+    if (el) el.innerHTML = gh
+    if (tp) tp.innerHTML = gh
   }
   // ====================
   // TIL GLOBUSI
@@ -2687,6 +2821,7 @@
     else if (act === "mood") {
       var h = S.moodHist[v] || { count: 0 }
       h.count++; h.lastAt = Date.now(); S.moodHist[v] = h
+      var sd0 = stDay(); sd0.md[v] = (sd0.md[v] || 0) + 1
       U.moodPick = v; save(); render()
     }
     else if (act === "moodAgain") { U.moodPick = ""; render() }
@@ -2728,6 +2863,8 @@
       S.daily = { mode: "goal", target: Math.min(t, 999999), step: st, owedDays: fr ? (old.gdOwed || 0) : (old.owedDays || 0), draft: fr ? (old.gdDraft || 0) : (old.draft || 0), lastCheckedDate: todayStr(), todayDone: fr ? old.gdDate === todayStr() : !!old.todayDone }
       U.dailyMenu = false; save(); render()
     }
+    else if (act === "stR") { if (v === "7" && !isPrem()) toast(tr("st_lock")); else { U.stR = parseInt(v, 10); stPaint() } }
+    else if (act === "stDev") { clearTimeout(ST.devT); ST.dev++; ST.devT = setTimeout(function () { ST.dev = 0 }, 1500); if (ST.dev >= 5) { ST.dev = 0; S.premium = !S.premium; save(); toast(S.premium ? "Premium ON" : "Premium OFF"); render() } }
     else if (act === "dailyMenu") { U.dailyMenu = !U.dailyMenu; U.dmode = ""; render() }
     else if (act === "dmode") { U.dmode = v; render() }
     else if (act === "tap") {
@@ -2735,6 +2872,7 @@
       var ds = S.daily
       if (ds.todayDone) return
       var cycles = 0
+      stDay().sal += ds.step || 1
       ds.draft = (ds.draft || 0) + (ds.step || 1)
       if (ds.mode === "free") ds.count = (ds.count || 0) + (ds.step || 1)
       while (ds.draft >= ds.target) {
