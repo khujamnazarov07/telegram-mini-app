@@ -1149,3 +1149,25 @@ html .nav button { width: 46px; height: 46px; }
 .quote .qe { display: none; }
 .quote .qt .qem { display: inline-block; font-size: inherit; width: 1.3em; height: 1.3em; vertical-align: -.28em; margin-inline-start: .15em; pointer-events: none; -webkit-user-select: none; user-select: none; }
 .quote .qt .qem { width: 1.05em; height: 1.05em; vertical-align: -.16em; margin-inline-start: .1em; }
+
+.itab { margin: 14px 0; border: 1px solid var(--line); border-radius: 16px; background: color-mix(in srgb, var(--card) 70%, transparent); -webkit-backdrop-filter: blur(calc(14px * var(--bk, 1))); backdrop-filter: blur(calc(14px * var(--bk, 1))); overflow: hidden; }
+.itab .ir { position: relative; display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 14px 18px; min-height: 52px; }
+.itab .ir + .ir::before { content: ""; position: absolute; top: 0; left: 18px; right: 18px; height: 1px; background: rgba(128, 128, 128, .28); }
+.itab .ir > span:first-child { color: var(--hint); font-size: 15px; }
+.itab .ir b { font-weight: 700; text-align: end; }
+.itab .stars { display: inline-flex; gap: 4px; }
+.itab .rs { background: none; border: 0; padding: 2px; line-height: 0; cursor: pointer; transition: transform .15s, filter .2s, opacity .2s; }
+.itab .rs:not(.on) { filter: grayscale(1); opacity: .3; }
+.itab .rs:active { transform: scale(.85); }
+
+.itab .ir + .ir::before { left: 30px; right: 30px; background: rgba(128, 128, 128, .3); }
+.itab .ir > span:first-child { flex: 1; min-width: 0; }
+.itab .stars { flex: none; }
+.itab .rs img { width: 22px !important; height: 22px !important; }
+.itab .stars { gap: 1px; }
+.itab .ir > span:first-child { font-size: 14px; line-height: 1.3; }
+.itab .ir { padding-inline: 15px; gap: 8px; }
+.itab .rs { padding: 1px; }
+.itab .rs img { width: 20px !important; height: 20px !important; }
+.itab .ir > span:first-child { font-size: 13.5px; }
+.itab .ir + .ir::before { left: 28px; right: 28px; }

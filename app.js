@@ -73,8 +73,9 @@
     t_bg2: "Oltin|Олтин|Золото|Gold|ذهبي|Altın|Emas|金色|सुनहरा|Dorado",
     t_bg3: "Krem|Крем|Крем|Cream|كريمي|Krem|Krem|奶油|क्रीम|Crema",
     about: "Haqida|Ҳақида|О приложении|About|حول|Hakkında|Tentang|关于|के बारे में|Acerca de",
+    ver: "Versiya|Версия|Версия|Version|الإصدار|Sürüm|Versi|版本|संस्करण|Versión",
     rate_all: "Umumiy reyting|Умумий рейтинг|Общий рейтинг|Overall rating|التقييم العام|Genel puan|Rating umum|总评分|कुल रेटिंग|Valoración general",
-    rate_my: "Sizning bahoyingiz|Сизнинг баҳойингиз|Ваша оценка|Your rating|تقييمك|Puanınız|Penilaian Anda|您的评分|आपकी रेटिंग|Tu valoración",
+    rate_my: "Sizning mahsulotimizga bahoyingiz|Сизнинг маҳсулотимизга баҳойингиз|Ваша оценка нашего продукта|Your rating of our product|تقييمك لمنتجنا|Ürünümüze puanınız|Penilaian Anda untuk produk kami|您对我们产品的评分|हमारे उत्पाद को आपकी रेटिंग|Tu valoración de nuestro producto",
     like_app: "Ilova yoqdi|Илова ёқди|Нравится|Like|أعجبني|Beğen|Suka|喜欢|पसंद|Me gusta",
     settings: "Sozlamalar|Созламалар|Настройки|Settings|الإعدادات|Ayarlar|Pengaturan|设置|सेटिंग्स|Ajustes",
     tz_dev: "Qurilma vaqti|Қурилма вақти|Время устройства|Device time|وقت الجهاز|Cihaz saati|Waktu perangkat|设备时间|डिवाइस समय|Hora del dispositivo",
@@ -241,11 +242,11 @@
   ]
 
   function aboutRate() {
-    var g = U.rg, my = S.rate || 0, st = "", mine = ""
-    for (var i = 1; i <= 5; i++) mine += '<button class="star' + (i <= my ? " on" : "") + '" data-act="rateApp" data-v="' + i + '">' + ic("star") + "</button>"
-    return '<div class="rate"><div class="rrow"><span>' + esc(tr("rate_all")) + '</span><b>' + (g && g.count ? "★ " + (+g.avg).toFixed(1) + " · " + g.count : "—") + '</b></div>' +
-      '<div class="rrow"><span>' + esc(tr("rate_my")) + '</span><span class="stars">' + mine + '</span></div>' +
-      '<button class="btn block' + (S.appLike ? " success" : "") + '" data-act="likeApp">' + ic("favorite", S.appLike ? "fill" : "") + " " + esc(tr("like_app")) + (g && g.likes ? " · " + g.likes : "") + "</button></div>"
+    var g = U.rg, my = S.rate || 0, mine = ""
+    for (var i = 1; i <= 5; i++) mine += '<button class="rs' + (i <= my ? " on" : "") + '" data-act="rateApp" data-v="' + i + '" aria-label="' + i + '"><img style="width:26px;height:26px;display:block;pointer-events:none" alt="\u2B50" draggable="false" data-k="0" src="' + emSrc("\u2B50", 0) + '" onerror="emErr(this)"></button>'
+    return '<div class="itab">' +
+      '<div class="ir"><span>' + esc(tr("ver")) + "</span><b>Mini app " + CFG.VERSION + "</b></div>" +
+      '<div class="ir"><span>' + esc(tr("rate_my")) + '</span><span class="stars">' + mine + "</span></div></div>"
   }
   function rateSync(send) {
     var u = CFG.RATE_URL || (CFG.STATS_URL ? CFG.STATS_URL.replace(/\/$/, "") + "/rating" : ""); if (!u || !window.fetch) return
@@ -1650,7 +1651,7 @@
       return '<div class="shead"><button class="btn small back circ" data-act="moreBack" aria-label="back">' + ic("arrow_back") + '</button><h1>' + ic("translate") + " " + esc(tr("lang")) + '</h1><span></span></div><div class="globe"><canvas id="lgl"></canvas></div><div id="lvar" class="lrow">' + lvarHtml() + '</div><div id="lall" class="lrow">' + lallHtml() + "</div>"
     }
     if (U.more === "about") {
-      return '<div class="shead"><button class="btn small back circ" data-act="moreBack" aria-label="back">' + ic("arrow_back") + '</button><h1>' + ic("info") + " " + esc(tr("about")) + '</h1><span></span></div><div class="card stack"><p>' + ic("auto_awesome", "ab") + " " + esc(tr("about_text")) + '</p><p class="sub">' + ic("bookmark", "ab") + " Mini App " + CFG.VERSION + "</p>" + aboutRate() +
+      return '<div class="shead"><button class="btn small back circ" data-act="moreBack" aria-label="back">' + ic("arrow_back") + '</button><h1>' + ic("info") + " " + esc(tr("about")) + '</h1><span></span></div><div class="card stack"><p>' + ic("auto_awesome", "ab") + " " + esc(tr("about_text")) + '</p>' + aboutRate() +
         '<button class="btn primary block" data-act="openBot">' + ic("smart_toy") + " " + esc(tr("open_bot")) + '</button><button class="btn block" data-act="openChannel">' + ic("campaign") + " " + esc(tr("open_channel")) + "</button></div>"
     }
     return '<h1>' + ic("auto_awesome") + " " + esc(tr("nav_more")) + '</h1><p class="sub">&nbsp;</p><div class="list">' +
