@@ -1856,14 +1856,14 @@
     var nN = Object.keys(nm).length, seen = Object.keys(S.nseen || {}).length
     var h = pmHtml() + '<div class="stchips"><button data-act="stR" data-v="1"' + (R === 1 ? ' class="on"' : "") + ">" + esc(tr("st_today")) + '</button><button data-act="stR" data-v="7"' + (R === 7 ? ' class="on"' : "") + ">" + (prem ? "" : ic("lock")) + esc(tr("st_7")) + "</button></div>"
     function kp(icon, v, l) { return '<div class="stkp">' + ic(icon) + "<b>" + v + "</b><span>" + esc(l) + "</span></div>" }
-    h += '<div class="stk">' + kp("schedule", stDur(tot), tr("st_time")) + kp("self_improvement", fmtNum(sal), tr("st_sal")) + kp("menu_book", nN, tr("st_names")) + kp("auto_awesome", q, tr("st_quotes")) + "</div>"
+    h += '<div class="stk">' + kp("schedule", stDur(tot), tr("st_time")) + kp("favorite", fmtNum(sal), tr("st_sal")) + kp("menu_book", nN, tr("st_names")) + kp("auto_awesome", q, tr("st_quotes")) + "</div>"
     var hv = hrs.map(function (x) { return x / 60 }), hl = []
     for (i = 0; i < 24; i++) hl[i] = i
     h += stCard(tr("st_hours"), "bar_chart", tot > 0 ? stBars(hv, hl, R === 1 ? new Date().getHours() : -1, null, 6) : '<p class="stem">' + esc(tr("st_empty")) + "</p>", false)
     var wl = wk.map(stWd), tv = wk.map(function (k) { return Math.round(stGet(k).s / 60) }), sv = wk.map(function (k) { return stGet(k).sal || 0 }), nv = wk.map(function (k) { return (stGet(k).nm || []).length })
     if (!prem) { tv = wk.map(function () { return 0 }); sv = tv.slice(); nv = tv.slice() }
     h += stCard(tr("st_days"), "schedule", stBars(tv, wl, 6, function (x) { return x }), !prem)
-    h += stCard(tr("st_saldays"), "self_improvement", stLine(sv, wl, 6), !prem)
+    h += stCard(tr("st_saldays"), "favorite", stLine(sv, wl, 6), !prem)
     h += stCard(tr("st_seen"), "menu_book", '<div class="stdw">' + stDonut([{ v: seen, c: "var(--accent)" }, { v: Math.max(0, 99 - seen), c: "rgba(128,128,128,.25)" }], seen, tr("st_of99")) + "</div>", false)
     h += stCard(tr("st_namesopen"), "menu_book", stBars(nv, wl, 6, function (x) { return x }), !prem)
     var pal = ["#60a5fa", "#34d399", "#fbbf24", "#f472b6", "#a78bfa", "#fb7185", "#2dd4bf", "#fb923c", "#94a3b8"], parts = [], lg = "", mt = 0, ids = Object.keys(md).sort(function (a, b) { return md[b] - md[a] })
