@@ -30,6 +30,10 @@ window.CONFIG = {
   // Misol: { t: "Sarlavha", poster: "video/1.jpg", src: { 1080: "video/1_1080.mp4", 720: "video/1_720.mp4", 480: "video/1_480.mp4" } }
   // Telegram kanal posti ham bo'ladi (ochiq kanal): { t: "Film", tg: "AsmaulHusnaOfficial/12" } yoki to'liq t.me havolasi. Sifat tanlovi bunda yo'q.
   VIDEOS: [
-    { t: { uz: "Birinchi dars", ru: "Первый урок", en: "Lesson 1" }, yt: "aNUAEaendno" }
-    ]
+    { t: { uz: "Allohning 99 go'zal ismi", uz_kr: "Аллоҳнинг 99 гўзал исми", ru: "99 прекрасных имён Аллаха", en: "The 99 Beautiful Names of Allah" }, yt: "OYj5-nBzt4U" },
+    { t: { uz: "Asmaul Husna (bolalar uchun)", uz_kr: "Асмаул Хусна (болалар учун)", ru: "Асмаул Хусна (для детей)", en: "Asmaul Husna (for kids)" }, yt: "aNUAEaendno" },
+    { t: { uz: "Asma-ul-Husna — Shayx Muhammad Sodiq", uz_kr: "Асма-ул-Хусна — Шайх Муҳаммад Содиқ", ru: "Асма-уль-Хусна — Шейх Мухаммад Содик", en: "Asma-ul-Husna — Sheikh Muhammad Sodiq" }, yt: "IwuuyC4hMeg" },
+    { t: { uz: "Jannat onalar oyog'i ostida — 1-qism", uz_kr: "Жаннат оналар оёғи остида — 1-қисм", ru: "Рай под ногами матерей — часть 1", en: "Paradise Lies at the Feet of Mothers — Part 1" }, yt: "TWtLQjuA5sI" },
+    { t: { uz: "Jannat onalar oyog'i ostida — 2-qism", uz_kr: "Жаннат оналар оёғи остида — 2-қисм", ru: "Рай под ногами матерей — часть 2", en: "Paradise Lies at the Feet of Mothers — Part 2" }, yt: "-arXzf9f_8g" }
+  ]
 }
