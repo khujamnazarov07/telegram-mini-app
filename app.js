@@ -21,6 +21,13 @@
     gender: "Jins|Жинс|Пол|Gender|الجنس|Cinsiyet|Jenis kelamin|性别|लिंग|Género",
     g_female: "Ayol|Аёл|Женский|Female|أنثى|Kadın|Perempuan|女|महिला|Mujer",
     g_male: "Erkak|Эркак|Мужской|Male|ذكر|Erkek|Laki-laki|男|पुरुष|Hombre",
+    hk2: "Iqtiboslar|Иқтибослар|Цитаты|Quotes|اقتباسات|Alıntılar|Kutipan|语录|उद्धरण|Citas",
+    hk3: "Allohning so‘zlari|Аллоҳнинг сўзлари|Слова Аллаха|Words of Allah|كلمات الله|Allah’ın sözleri|Firman Allah|真主的话语|अल्लाह के शब्द|Palabras de Alá",
+    hk4: "Qalb tasallisi|Қалб тасаллиси|Утешение для сердца|Comfort for the heart|سلوى القلب|Kalbe teselli|Penghibur hati|心灵慰藉|दिल का सुकून|Consuelo del corazón",
+    hk6: "Ruhiy tasalli|Руҳий тасалли|Душевное утешение|Spiritual comfort|سلوى الروح|Ruhi teselli|Ketenangan jiwa|心灵安慰|आत्मिक सुकून|Consuelo espiritual",
+    hk7: "Rahmat so‘zlari|Раҳмат сўзлари|Слова милосердия|Words of mercy|كلمات الرحمة|Rahmet sözleri|Kata-kata rahmat|慈悯之语|रहमत के शब्द|Palabras de misericordia",
+    hk8: "Eslatma|Эслатма|Напоминание|Reminder|تذكير|Hatırlatma|Pengingat|提醒|याद दिलाना|Recordatorio",
+    hk5: "Qur’on nuri|Қуръон нури|Свет Корана|Light of the Qur’an|نور القرآن|Kur’an nuru|Cahaya Al-Qur’an|古兰经之光|क़ुरआन की रोशनी|Luz del Corán",
     hikmat: "Kun hikmati|Кун ҳикмати|Мудрость дня|Wisdom of the day|حكمة اليوم|Günün hikmeti|Hikmah hari ini|每日智慧|आज की हिकमत|Sabiduría del día",
     more_t: "Ko'proq|Кўпроқ|Ещё|More|المزيد|Daha fazla|Selengkapnya|更多|और देखें|Más",
     favs: "Sevimlilar|Севимлилар|Избранное|Favorites|المفضلة|Favoriler|Favorit|收藏|पसंदीदा|Favoritos",
@@ -425,7 +432,7 @@
       '<button class="sgo" data-act="sgo" aria-label="' + esc(tr("search")) + '">' + ic("search") + "</button></div></div>" + fl +
       '<div id="ngrid" class="ngrid' + (open ? " open" : "") + '"><div id="grid">' + nameCards(filterNames()) + "</div></div>" +
       '<button id="ntog" class="btn block moodtog" data-act="namesToggle"' + (searching ? " hidden" : "") + ">" + ic(U.namesOpen ? "expand_less" : "expand_more") + " <span>" + esc(tr(U.namesOpen ? "mood_less" : "mood_all")) + "</span></button>" +
-      '<button class="hikrow" data-act="hikmat"><span>' + esc(tr("hikmat")) + "</span>" + ic("chevron_right") + "</button>"
+      '<button class="hikrow" data-act="hikmat"><span id="hph" class="hph2" aria-label="' + esc(tr("hikmat")) + '"><span></span><span></span></span>' + ic("chevron_right") + "</button>"
   }
   // umumiy soat: 99 hisobi va header g'ildiraklari bir ritmda (barmoq tegsa to'xtaydi, qo'yilgach 3s dan keyin boshidan)
   var CLK = { tc: 0, block: 0 }
@@ -447,6 +454,23 @@
       if (el.textContent !== String(v)) el.textContent = v
     }
     nhRaf = requestAnimationFrame(step)
+  }
+  var hpT = null
+  function hpStart() {
+    clearInterval(hpT); hpT = null
+    var box = document.getElementById("hph")
+    if (!box) return
+    var cur = box.firstChild, oth = box.lastChild, k = 0, items = [tr("hikmat"), tr("hk2"), tr("hk3"), tr("hk4"), tr("hk6"), tr("hk5"), tr("hk7"), tr("hk8")]
+    function put(el, y, o, tt) { el.style.transition = tt ? "transform .5s cubic-bezier(.3,.7,.2,1), opacity .5s" : "none"; el.style.transform = "translateY(" + y + "%)"; el.style.opacity = o }
+    cur.textContent = items[0]; put(cur, 0, 1, false); put(oth, 120, 0, false)
+    hpT = setInterval(function () {
+      if (!document.getElementById("hph")) { clearInterval(hpT); hpT = null; return }
+      if (document.hidden) return
+      k = (k + 1) % items.length
+      oth.textContent = items[k]; put(oth, 120, 0, false); void oth.offsetWidth
+      put(cur, -120, 0, true); put(oth, 0, 1, true)
+      var t = cur; cur = oth; oth = t
+    }, 2600)
   }
   var phT = null
   function phStart() {
@@ -1995,7 +2019,7 @@
     initHours()
     hgAttach()
     meanFit()
-    phStart(); nhStart(); mediaInit(); themeInit(); hswInit(); mdInit(); hlStart()
+    phStart(); hpStart(); nhStart(); mediaInit(); themeInit(); hswInit(); mdInit(); hlStart()
     nsUpdate()
     miniSync()
     if (U.tab === "more" && U.more === "settings") gText()
