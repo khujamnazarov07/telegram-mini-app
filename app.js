@@ -123,6 +123,8 @@
     t_hl: "Marker|Маркер|Маркер|Highlighter|قلم التمييز|Fosforlu kalem|Stabilo|荧光笔|हाइलाइटर|Marcador",
     t_color: "Rang|Ранг|Цвет|Color|اللون|Renk|Warna|颜色|रंग|Color",
     t_glass: "Shisha|Шиша|Стекло|Glass|الزجاج|Cam|Kaca|玻璃|काँच|Cristal",
+    more_d: "Batafsil|Батафсил|Подробнее|Details|التفاصيل|Detaylar|Detail|详情|विवरण|Detalles",
+    pm_free: "Biz Premiumni oxirat uchun harakat qilayotgan insonlar uchun tekin qildik, Alloh yo'lida.|Биз Премиумни охират учун ҳаракат қилаётган инсонлар учун текин қилдик, Аллоҳ йўлида.|Мы сделали Премиум бесплатным для тех, кто трудится ради Ахирата, во имя Аллаха.|We made Premium free for people striving for the Hereafter, for the sake of Allah.|جعلنا بريميوم مجانًا لمن يسعى للآخرة، في سبيل الله.|Premium'u ahiret için çabalayanlara Allah yolunda ücretsiz yaptık.|Kami menggratiskan Premium bagi mereka yang berusaha untuk akhirat, di jalan Allah.|我们为追求后世的人免费开放高级版，为了真主。|हमने प्रीमियम को आख़िरत के लिए प्रयासरत लोगों के लिए अल्लाह की राह में मुफ़्त किया है।|Hicimos Premium gratuito para quienes se esfuerzan por la otra vida, por Alá.",
     dglass: "Shisha effekti|Шиша эффекти|Эффект стекла|Glass effect|تأثير الزجاج|Cam efekti|Efek kaca|玻璃效果|काँच प्रभाव|Efecto cristal",
     pm_need: "Bu funksiya Premium bilan ochiladi|Бу функция Премиум билан очилади|Доступно с Премиум|Available with Premium|متاح مع بريميوم|Premium ile açılır|Tersedia dengan Premium|需要高级版|प्रीमियम के साथ उपलब्ध|Disponible con Premium",
     t_gon: "Shisha effekti|Шиша эффекти|Эффект стекла|Glass effect|تأثير الزجاج|Cam efekti|Efek kaca|玻璃效果|काँच प्रभाव|Efecto cristal",
@@ -253,6 +255,13 @@
     el.className = "toast show"
     clearTimeout(toastTimer)
     toastTimer = setTimeout(function () { el.className = "toast" }, 1600)
+  }
+  function pToast(msg) {
+    var el = document.getElementById("toast")
+    el.innerHTML = "<span>" + esc(msg) + '</span><button data-act="premGo">' + esc(tr("more_d")) + " ›</button>"
+    el.className = "toast show pm"
+    clearTimeout(toastTimer)
+    toastTimer = setTimeout(function () { el.className = "toast" }, 3500)
   }
   function openTg(url) {
     if (tg && tg.openTelegramLink) tg.openTelegramLink(url)
@@ -1664,10 +1673,14 @@
     if (U.more === "settings") {
       var cg = S.gender === "female" ? "th_female" : S.gender === "male" ? "th_male" : "th_auto"
       return '<div class="shead"><button class="btn small back circ" data-act="moreBack" aria-label="back">' + ic("arrow_back") + '</button><h1>' + ic("settings") + " " + esc(tr("settings")) + '</h1><span></span></div><div class="tzpill" id="tzpill"></div><div class="list">' +
+        '<button data-act="more" data-v="premium">' + ic("workspace_premium") + " " + esc(tr("st_prem")) + "</button>" +
         '<button data-act="more" data-v="mode">' + ic("contrast") + " " + esc(tr("mode_t")) + " · " + esc(tr("th_" + S.theme)) + "</button>" +
         '<button data-act="more" data-v="theme">' + ic("palette") + " " + esc(tr("theme_t")) + " · " + esc(tr(cg)) + "</button>" +
         '<button data-act="more" data-v="lang">' + ic("translate") + " " + esc(tr("lang")) + " · " + LANG_NAMES[S.lang] + "</button>" +
         '<div class="rrow" data-act="more" data-v="remind">' + ic("notifications") + "<span>" + esc(tr("remind")) + '</span><button class="tgl' + (S.remind === false ? "" : " on") + '" data-act="rmt" data-v="all" aria-label="remind"><i></i></button></div></div>'
+    }
+    if (U.more === "premium") {
+      return '<div class="shead"><button class="btn small back circ" data-act="moreBack" aria-label="back">' + ic("arrow_back") + '</button><h1>' + ic("workspace_premium") + " " + esc(tr("st_prem")) + '</h1><span></span></div><div id="pmbody">' + pmHtml() + '</div><p class="pmfree">' + esc(tr("pm_free")) + "</p>"
     }
     if (U.more === "remind") {
       var rp = rmGet(), on0 = S.remind !== false
@@ -1828,7 +1841,7 @@
   }
   function stCard(title, icon, body, lock) {
     return '<div class="card stc' + (lock ? " locked" : "") + '"><div class="stct">' + ic(icon) + "<span>" + esc(title) + '</span></div><div class="stcb">' + body + "</div>" +
-      (lock ? '<div class="stlk">' + ic("lock") + "<b>" + esc(tr("st_prem")) + "</b><span>" + esc(tr("st_lock")) + "</span></div>" : "") + "</div>"
+      (lock ? '<div class="stlk">' + ic("lock") + "<b>" + esc(tr("st_prem")) + "</b><span>" + esc(tr("st_lock")) + '</span><button class="stmore" data-act="premGo">' + esc(tr("more_d")) + " ›</button></div>" : "") + "</div>"
   }
   function statsHtml() {
     var prem = isPrem(), R = (U.stR === 7 && prem) ? 7 : 1, keys = stKeys(R), wk = stKeys(7), i, j
@@ -1999,7 +2012,7 @@
     if (U.detail) { U.detail = 0; render(); window.scrollTo(0, 0); return }
     if (U.tab === "more" && U.more !== "menu") {
       if (U.hikBack) { U.hikBack = false; U.tab = "names" }
-      U.more = (U.more === "lang" || U.more === "theme" || U.more === "mode" || U.more === "remind") ? "settings" : "menu"; render(); window.scrollTo(0, 0); return
+      U.more = (U.more === "lang" || U.more === "theme" || U.more === "mode" || U.more === "remind" || U.more === "premium") ? "settings" : "menu"; render(); window.scrollTo(0, 0); return
     }
     if (U.tab === "mood" && U.moodPick) { U.moodPick = ""; render(); window.scrollTo(0, 0); return }
     if (U.tab !== "names") { U.tab = "names"; U.more = "menu"; U.moodPick = ""; U.hikBack = false; render(); window.scrollTo(0, 0); requestAnimationFrame(function () { window.scrollTo(0, 0) }) }
@@ -2937,7 +2950,7 @@
       S.daily = { mode: "goal", target: Math.min(t, 999999), step: st, owedDays: fr ? (old.gdOwed || 0) : (old.owedDays || 0), draft: fr ? (old.gdDraft || 0) : (old.draft || 0), lastCheckedDate: todayStr(), todayDone: fr ? old.gdDate === todayStr() : !!old.todayDone }
       U.dailyMenu = false; save(); render()
     }
-    else if (act === "stR") { if (v === "7" && !isPrem()) toast(tr("st_lock")); else { U.stR = parseInt(v, 10); stPaint() } }
+    else if (act === "stR") { if (v === "7" && !isPrem()) pToast(tr("st_lock")); else { U.stR = parseInt(v, 10); stPaint() } }
     else if (act === "pmTrial") {
       if (!trCan()) { toast(tr("pm_nolimit")); return }
       var tn = Date.now(), tr0 = (S.trial && S.trial.log) || []
@@ -2945,7 +2958,8 @@
       save(); toast(tr("pm_trial_on")); stPaint()
     }
     else if (act === "stDev") { clearTimeout(ST.devT); ST.dev++; ST.devT = setTimeout(function () { ST.dev = 0 }, 1500); if (ST.dev >= 5) { ST.dev = 0; S.premium = !S.premium; save(); toast(S.premium ? "Premium ON" : "Premium OFF"); render() } }
-    else if (act === "dglass") { if (!isPrem()) toast(tr("pm_need")); else { S.dglass = !S.dglass; save(); render() } }
+    else if (act === "dglass") { if (!isPrem()) pToast(tr("pm_need")); else { S.dglass = !S.dglass; save(); render() } }
+    else if (act === "premGo") { document.getElementById("toast").className = "toast"; U.tab = "more"; U.more = "premium"; U.hikBack = false; U.detail = 0; render(); window.scrollTo(0, 0) }
     else if (act === "dailyMenu") { U.dailyMenu = !U.dailyMenu; U.dmode = ""; render() }
     else if (act === "dmode") { U.dmode = v; render() }
     else if (act === "tap") {
