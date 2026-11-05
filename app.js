@@ -1861,6 +1861,7 @@
     for (i = 0; i < 24; i++) hl[i] = i
     h += stCard(tr("st_hours"), "bar_chart", tot > 0 ? stBars(hv, hl, R === 1 ? new Date().getHours() : -1, null, 6) : '<p class="stem">' + esc(tr("st_empty")) + "</p>", false)
     var wl = wk.map(stWd), tv = wk.map(function (k) { return Math.round(stGet(k).s / 60) }), sv = wk.map(function (k) { return stGet(k).sal || 0 }), nv = wk.map(function (k) { return (stGet(k).nm || []).length })
+    if (!prem) { tv = wk.map(function () { return 0 }); sv = tv.slice(); nv = tv.slice() }
     h += stCard(tr("st_days"), "schedule", stBars(tv, wl, 6, function (x) { return x }), !prem)
     h += stCard(tr("st_saldays"), "self_improvement", stLine(sv, wl, 6), !prem)
     h += stCard(tr("st_seen"), "menu_book", '<div class="stdw">' + stDonut([{ v: seen, c: "var(--accent)" }, { v: Math.max(0, 99 - seen), c: "rgba(128,128,128,.25)" }], seen, tr("st_of99")) + "</div>", false)
