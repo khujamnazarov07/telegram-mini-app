@@ -455,23 +455,22 @@
     }
     nhRaf = requestAnimationFrame(step)
   }
-  var hpT = null
   function hpStart() {
-    clearInterval(hpT); hpT = null
+    HPT = null
     var box = document.getElementById("hph")
     if (!box) return
     var cur = box.firstChild, oth = box.lastChild, k = 0, items = [tr("hikmat"), tr("hk2"), tr("hk3"), tr("hk4"), tr("hk6"), tr("hk5"), tr("hk7"), tr("hk8")]
     function put(el, y, o, tt) { el.style.transition = tt ? "transform .5s cubic-bezier(.3,.7,.2,1), opacity .5s" : "none"; el.style.transform = "translateY(" + y + "%)"; el.style.opacity = o }
     cur.textContent = items[0]; put(cur, 0, 1, false); put(oth, 120, 0, false)
-    hpT = setInterval(function () {
-      if (!document.getElementById("hph")) { clearInterval(hpT); hpT = null; return }
-      if (document.hidden) return
+    HPT = function () {
+      if (!document.getElementById("hph")) { HPT = null; return }
       k = (k + 1) % items.length
       oth.textContent = items[k]; put(oth, 120, 0, false); void oth.offsetWidth
       put(cur, -120, 0, true); put(oth, 0, 1, true)
       var t = cur; cur = oth; oth = t
-    }, 2600)
+    }
   }
+  var HPT = null
   var phT = null
   function phStart() {
     clearInterval(phT); phT = null
@@ -484,6 +483,7 @@
     phT = setInterval(function () {
       if (!document.getElementById("ph")) { clearInterval(phT); phT = null; return }
       if (document.hidden) return
+      if (HPT) HPT()
       k = (k + 1) % items.length
       oth.textContent = items[k]; put(oth, 120, 0, false); void oth.offsetWidth
       put(cur, -120, 0, true); put(oth, 0, 1, true)
@@ -2019,7 +2019,7 @@
     initHours()
     hgAttach()
     meanFit()
-    phStart(); hpStart(); nhStart(); mediaInit(); themeInit(); hswInit(); mdInit(); hlStart()
+    hpStart(); phStart(); nhStart(); mediaInit(); themeInit(); hswInit(); mdInit(); hlStart()
     nsUpdate()
     miniSync()
     if (U.tab === "more" && U.more === "settings") gText()
