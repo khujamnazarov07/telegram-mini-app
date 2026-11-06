@@ -1262,3 +1262,7 @@ html[data-theme="dark"] .pmfree { background: rgb(255 255 255 / calc(.07 * var(-
 .hikrow { position: relative; }
 .hph2 { position: absolute; top: 0; bottom: 0; inset-inline: 16px 48px; overflow: hidden; pointer-events: none; text-align: start; }
 .hph2 span { position: absolute; inset-inline-start: 0; top: 50%; margin-top: -.7em; line-height: 1.4; white-space: nowrap; will-change: transform; }
+
+.hikrow > .msi { margin-inline-start: auto; position: relative; z-index: 1; }
+html .mini, html[data-gender="male"] .mini, html[data-gender="female"] .mini { bottom: calc(80px + env(safe-area-inset-bottom)); border-radius: 29px; padding: 0 10px; }
+html[data-gender="male"] .mini .mpb { border-radius: 50%; transform: none; }

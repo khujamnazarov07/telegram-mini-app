@@ -91,7 +91,7 @@
     pm_days: "kun ketma-ket|кун кетма-кет|дн. подряд|days in a row|أيام متتالية|gün üst üste|hari berturut|天连续|दिन लगातार|días seguidos",
     pm_grace: "Bugun kunlik salavotni bajaring, aks holda Premium tugaydi|Бугун кунлик салавотни бажаринг, акс ҳолда Премиум тугайди|Выполните сегодня салават, иначе Премиум закончится|Complete today's salawat or Premium ends|أكمل صلاة اليوم وإلا ينتهي بريميوم|Bugün salavatı tamamlayın, yoksa Premium biter|Selesaikan selawat hari ini atau Premium berakhir|今天完成赞圣，否则高级版将结束|आज सलावत पूरी करें, वरना प्रीमियम समाप्त हो जाएगा|Completa hoy el salawat o Premium termina",
     pm_left: "Qolgan vaqt|Қолган вақт|Осталось|Time left|الوقت المتبقي|Kalan süre|Sisa waktu|剩余时间|शेष समय|Tiempo restante",
-    pm_trial: "5 daqiqa sinab ko'rish|5 дақиқа синаб кўриш|Попробовать 5 минут|Try for 5 minutes|جرّب 5 دقائق|5 dakika dene|Coba 5 menit|试用5分钟|5 मिनट आज़माएँ|Probar 5 minutos",
+    pm_trial: "3 daqiqa sinab ko'rish|3 дақиқа синаб кўриш|Попробовать 3 минуты|Try for 3 minutes|جرّب 3 دقائق|3 dakika dene|Coba 3 menit|试用3分钟|3 मिनट आज़माएँ|Probar 3 minutos",
     pm_trial_on: "Sinov faol|Синов фаол|Пробный режим|Trial active|التجربة مفعّلة|Deneme aktif|Uji coba aktif|试用中|ट्रायल सक्रिय|Prueba activa",
     pm_limit: "Bugun {a}/3 · Hafta {b}/7|Бугун {a}/3 · Ҳафта {b}/7|Сегодня {a}/3 · Неделя {b}/7|Today {a}/3 · Week {b}/7|اليوم {a}/3 · الأسبوع {b}/7|Bugün {a}/3 · Hafta {b}/7|Hari ini {a}/3 · Minggu {b}/7|今天 {a}/3 · 本周 {b}/7|आज {a}/3 · सप्ताह {b}/7|Hoy {a}/3 · Semana {b}/7",
     pm_nolimit: "Sinov limiti tugadi|Синов лимити тугади|Лимит пробных исчерпан|Trial limit reached|انتهى حد التجارب|Deneme limiti doldu|Batas uji coba habis|试用次数已用完|ट्रायल सीमा समाप्त|Límite de pruebas alcanzado",
@@ -293,7 +293,7 @@
     var g = U.rg, my = S.rate || 0, mine = ""
     for (var i = 1; i <= 5; i++) mine += '<button class="rs' + (i <= my ? " on" : "") + '" data-act="rateApp" data-v="' + i + '" aria-label="' + i + '"><img style="width:26px;height:26px;display:block;pointer-events:none" alt="\u2B50" draggable="false" data-k="0" src="' + emSrc("\u2B50", 0) + '" onerror="emErr(this)"></button>'
     return '<div class="itab">' +
-      '<div class="ir"><span>' + esc(tr("ver")) + "</span><b>Mini app " + CFG.VERSION + "</b></div>" +
+      '<div class="ir" data-act="stDev"><span>' + esc(tr("ver")) + "</span><b>Mini app " + CFG.VERSION + "</b></div>" +
       '<div class="ir"><span>' + esc(tr("rate_my")) + '</span><span class="stars">' + mine + "</span></div></div>"
   }
   function rateSync(send) {
@@ -1672,7 +1672,7 @@
       var d = quoteData(U.quoteIdx)
       return '<button class="btn small back circ" data-act="moreBack" aria-label="back">' + ic("arrow_back") + "</button>" +
         '<div class="card quote"><div class="qin"><strong>' + esc(d.title) + '</strong><div class="qt">' + esc(d.body) + " " + emImg(d.em) + '</div></div><div class="qrefs"><span class="ref">' + ic("verified") + " " + esc(d.src) + '</span><span class="ref">' + ic("smart_toy") + " @" + CFG.BOT + "</span></div></div>" +
-        '<div class="qbtns"><button class="btn" data-act="share">' + ic("share") + "<span>" + esc(tr("share")) + '</span></button><button class="btn" data-act="open" data-v="' + d.q.n + '">' + ic("auto_awesome") + "<span>" + esc(D.names[d.q.n - 1].t) + '</span></button><button class="btn" data-act="quoteNext">' + ic("restart_alt") + "</button></div>"
+        '<div class="qbtns"><button class="btn" data-act="share">' + ic("share") + "<span>" + esc(tr("share")) + '</span></button><button class="btn" data-act="open" data-v="' + d.q.n + '">' + ic("auto_awesome") + "<span>" + esc(D.names[d.q.n - 1].t) + '</span></button><button class="btn" data-act="quoteNext">' + ic("skip_next") + "</button></div>"
     }
     if (U.more === "favs") {
       var ids = []
@@ -1725,7 +1725,7 @@
         '<button class="btn primary block" data-act="openBot">' + ic("smart_toy") + " " + esc(tr("open_bot")) + '</button><button class="btn block" data-act="openChannel">' + ic("campaign") + " " + esc(tr("open_channel")) + "</button></div>"
     }
     if (U.more === "stats") {
-      return '<div class="shead"><button class="btn small back circ" data-act="moreBack" aria-label="back">' + ic("arrow_back") + '</button><h1 data-act="stDev">' + ic("bar_chart") + " " + esc(tr("st_t")) + '</h1><span></span></div><div id="stbody">' + statsHtml() + "</div>"
+      return '<div class="shead"><button class="btn small back circ" data-act="moreBack" aria-label="back">' + ic("arrow_back") + '</button><h1>' + ic("bar_chart") + " " + esc(tr("st_t")) + '</h1><span></span></div><div id="stbody">' + statsHtml() + "</div>"
     }
     return '<h1>' + ic("auto_awesome") + " " + esc(tr("nav_more")) + '</h1><p class="sub">&nbsp;</p><div class="list">' +
       '<button data-act="more" data-v="settings">' + ic("settings") + " " + esc(tr("settings")) + "</button>" +
@@ -1740,7 +1740,7 @@
   // STATISTIKA
   // ====================
   function isPrem() { return !!S.premium || pmObj().on || trLeft() > 0 }
-  var PM_N = 7, PM_TRIAL = 5 * 60000, PM_DAY = 3, PM_WEEK = 7
+  var PM_N = 7, PM_TRIAL = 3 * 60000, PM_DAY = 1, PM_WEEK = 3
   function pmObj() { return S.pm || (S.pm = { on: false, n: 0, last: "" }) }
   function dayAdd(k, n) { var p = k.split("-"), x = new Date(+p[0], +p[1] - 1, +p[2] + n); return x.getFullYear() + "-" + ("0" + (x.getMonth() + 1)).slice(-2) + "-" + ("0" + x.getDate()).slice(-2) }
   function dayStart(k) { var p = k.split("-"); return new Date(+p[0], +p[1] - 1, +p[2]).getTime() }
@@ -1796,7 +1796,7 @@
     var u = trUsed(), can = trCan(), dots = ""
     for (i = 0; i < PM_N; i++) dots += "<i" + (i < p.n ? ' class="on"' : "") + "></i>"
     return '<div class="pmc">' + ic("workspace_premium") + '<div class="pmb"><b>' + esc(tr("st_prem")) + " · " + Math.min(p.n, PM_N) + "/" + PM_N + '</b><span>' + esc(tr("pm_goal")) + '</span><div class="pmdots">' + dots + '</div>' +
-      '<button class="btn small pmbtn' + (can ? "" : " off") + '" data-act="pmTrial">' + ic("timer") + " " + esc(can ? tr("pm_trial") : tr("pm_nolimit")) + '</button><span class="pml">' + esc(tr("pm_limit").replace("{a}", u[0]).replace("{b}", u[1])) + "</span></div></div>"
+      '<button class="btn small pmbtn' + (can ? "" : " off") + '" data-act="pmTrial">' + ic("timer") + " " + esc(can ? tr("pm_trial") : tr("pm_nolimit")) + '</button></div></div>'
   }
   function stEmpty() { return { s: 0, h: [], sal: 0, nm: [], no: 0, md: {}, q: 0 } }
   function stDay(k) {
