@@ -1014,19 +1014,20 @@ body { padding-bottom: calc(var(--nav-h) + env(safe-area-inset-bottom)) !importa
 .bgc { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 8px; border-radius: 16px; border: 2px solid var(--line); background: var(--card); font-size: 13px; font-weight: 600; }
 .bgc.on { border-color: var(--accent); }
 .bgp { display: block; width: 100%; height: 64px; border-radius: 10px; background: linear-gradient(135deg, var(--accent), color-mix(in srgb, var(--accent) 30%, #888)); }
-.bgp.m { background: linear-gradient(180deg, #050d24, #0b2748 60%, #14566a); position: relative; overflow: hidden; }
-.bgp.m::after { content: ""; position: absolute; left: 22%; right: 22%; bottom: 0; height: 40%; background: #050f20; border-radius: 40px 40px 0 0; }
+.bgp.m1 { background: url(bg_m1.webp) center / cover; }
+.bgp.m2 { background: url(bg_m2.webp) center / cover; }
+.bgp.m3 { background: url(bg_m3.webp) center / cover; }
 #mbg { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
 #mbg svg { width: 100%; height: 100%; display: block; }
 #mbg .tw { animation: mtw 3s ease-in-out infinite; }
 @keyframes mtw { 50% { opacity: .15; } }
-html[data-bg="mosque"] #app { position: relative; z-index: 1; }
-html[data-bg="mosque"] body { background: #0c2350 !important; }
-html[data-bg="mosque"][data-theme="light"] body { background: #a9d6f2 !important; }
-html[data-bg="mosque"] body::before, html[data-bg="mosque"] body::after, html[data-bg="mosque"]::after { display: none !important; }
-html[data-bg="mosque"][data-theme="dark"] { --bg: #07142c; --card: rgba(14, 28, 54, .66); --text: #f2f6f4; --hint: #b9cbc4; --line: rgba(255,255,255,.18); }
-html[data-bg="mosque"][data-theme="light"] { --bg: #cfe8f5; --card: rgba(255, 255, 255, .66); --text: #10303d; --hint: #36596a; --line: rgba(16,48,61,.18); }
-html[data-bg="mosque"] h1, html[data-bg="mosque"] .sub { text-shadow: 0 1px 6px rgba(0,0,0,.25); }
+html[data-bg^="mosque"] #app { position: relative; z-index: 1; }
+html[data-bg^="mosque"] body { background: #0c2350 !important; }
+html[data-bg^="mosque"][data-theme="light"] body { background: #a9d6f2 !important; }
+html[data-bg^="mosque"] body::before, html[data-bg^="mosque"] body::after, html[data-bg^="mosque"]::after { display: none !important; }
+html[data-bg^="mosque"][data-theme="dark"] { --bg: #07142c; --card: rgba(14, 28, 54, .66); --text: #f2f6f4; --hint: #b9cbc4; --line: rgba(255,255,255,.18); }
+html[data-bg^="mosque"][data-theme="light"] { --bg: #cfe8f5; --card: rgba(255, 255, 255, .66); --text: #10303d; --hint: #36596a; --line: rgba(16,48,61,.18); }
+html[data-bg^="mosque"] h1, html[data-bg^="mosque"] .sub { text-shadow: 0 1px 6px rgba(0,0,0,.25); }
 
 .bgrow { flex-wrap: wrap; }
 .bgc { flex: 1 1 40%; }
@@ -1266,3 +1267,6 @@ html[data-theme="dark"] .pmfree { background: rgb(255 255 255 / calc(.07 * var(-
 .hikrow > .msi { margin-inline-start: auto; position: relative; z-index: 1; }
 html .mini, html[data-gender="male"] .mini, html[data-gender="female"] .mini { bottom: calc(80px + env(safe-area-inset-bottom)); border-radius: 29px; padding: 0 10px; }
 html[data-gender="male"] .mini .mpb { border-radius: 50%; transform: none; }
+
+html[data-bg^="mosque"] #mbg img { filter: brightness(.82) saturate(1.05); }
+html[data-bg^="mosque"] body { background: #07142c !important; }
