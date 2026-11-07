@@ -3085,7 +3085,7 @@
     return Math.atan2(parseFloat(p[1]), parseFloat(p[0])) * 180 / Math.PI
   }
   document.addEventListener("pointerdown", function (e) {
-    var w = e.target.closest && e.target.closest("#hgbox.free .hgw")
+    var w = e.target.closest && e.target.closest("#hgbox .hgw")
     if (!w || document.querySelector("#hgbox.flip")) return
     var a0 = 0
     if (hgAnim) { a0 = hgAngle(w); hgAnim.onfinish = null; hgAnim.cancel(); hgAnim = null; w.style.transform = "rotate(" + a0.toFixed(1) + "deg)" }
