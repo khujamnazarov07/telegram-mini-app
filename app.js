@@ -21,6 +21,10 @@
     gender: "Jins|Жинс|Пол|Gender|الجنس|Cinsiyet|Jenis kelamin|性别|लिंग|Género",
     g_female: "Ayol|Аёл|Женский|Female|أنثى|Kadın|Perempuan|女|महिला|Mujer",
     g_male: "Erkak|Эркак|Мужской|Male|ذكر|Erkek|Laki-laki|男|पुरुष|Hombre",
+    qb0: "Oddiy|Оддий|Обычный|Plain|عادي|Düz|Polos|默认|सादा|Normal",
+    qb1: "Naqsh|Нақш|Узор|Pattern|نقش|Desen|Pola|图案|पैटर्न|Patrón",
+    qb2: "Shisha|Шиша|Стекло|Glass|زجاج|Cam|Kaca|玻璃|काँच|Cristal",
+    qb3: "Zumrad|Зумрад|Изумруд|Emerald|زمرد|Zümrüt|Zamrud|翡翠|पन्ना|Esmeralda",
     hk2: "Iqtiboslar|Иқтибослар|Цитаты|Quotes|اقتباسات|Alıntılar|Kutipan|语录|उद्धरण|Citas",
     hk3: "Allohning so‘zlari|Аллоҳнинг сўзлари|Слова Аллаха|Words of Allah|كلمات الله|Allah’ın sözleri|Firman Allah|真主的话语|अल्लाह के शब्द|Palabras de Alá",
     hk4: "Qalb tasallisi|Қалб тасаллиси|Утешение для сердца|Comfort for the heart|سلوى القلب|Kalbe teselli|Penghibur hati|心灵慰藉|दिल का सुकून|Consuelo del corazón",
@@ -1669,9 +1673,14 @@
   function viewMore() {
     if (U.more === "quote") {
       if (U.quoteIdx < 0) U.quoteIdx = Math.floor(Math.random() * D.quotes.length)
-      var d = quoteData(U.quoteIdx)
-      return '<button class="btn small back circ" data-act="moreBack" aria-label="back">' + ic("arrow_back") + "</button>" +
-        '<div class="card quote"><div class="qin"><strong>' + esc(d.title) + '</strong><div class="qt">' + esc(d.body) + " " + emImg(d.em) + '</div></div><div class="qrefs"><span class="ref">' + ic("verified") + " " + esc(d.src) + '</span><span class="ref">' + ic("smart_toy") + " @" + CFG.BOT + "</span></div></div>" +
+      var d = quoteData(U.quoteIdx), qb = isPrem() ? (S.qbg | 0) : 0, qbs = ""
+      if (isPrem()) {
+        qbs = '<div class="qbgs">'
+        for (var qi = 0; qi < 4; qi++) qbs += '<button class="' + (qb === qi ? "on" : "") + '" data-act="qbg" data-v="' + qi + '"><i class="qd' + qi + '"></i>' + esc(tr("qb" + qi)) + "</button>"
+        qbs += "</div>"
+      }
+      return '<button class="btn small back circ" data-act="moreBack" aria-label="back">' + ic("arrow_back") + "</button>" + qbs +
+        '<div class="card quote' + (qb ? " qbg" + qb : "") + '"><div class="qin"><strong>' + esc(d.title) + '</strong><div class="qt">' + esc(d.body) + " " + emImg(d.em) + '</div></div><div class="qrefs"><span class="ref">' + ic("verified") + " " + esc(d.src) + '</span><span class="ref">' + ic("smart_toy") + " @" + CFG.BOT + "</span></div></div>" +
         '<div class="qbtns"><button class="btn" data-act="share">' + ic("share") + "<span>" + esc(tr("share")) + '</span></button><button class="btn" data-act="open" data-v="' + d.q.n + '">' + ic("auto_awesome") + "<span>" + esc(D.names[d.q.n - 1].t) + '</span></button><button class="btn" data-act="quoteNext">' + ic("skip_next") + "</button></div>"
     }
     if (U.more === "favs") {
@@ -2984,6 +2993,7 @@
     }
     else if (act === "stDev") { clearTimeout(ST.devT); ST.dev++; ST.devT = setTimeout(function () { ST.dev = 0 }, 1500); if (ST.dev >= 5) { ST.dev = 0; S.premium = !S.premium; save(); toast(S.premium ? "Premium ON" : "Premium OFF"); render() } }
     else if (act === "dglass") { if (!isPrem()) pToast(tr("pm_need")); else { S.dglass = !S.dglass; save(); render() } }
+    else if (act === "qbg") { if (isPrem()) { S.qbg = +v; save(); render() } }
     else if (act === "premGo") { document.getElementById("toast").className = "toast"; U.tab = "more"; U.more = "premium"; U.hikBack = false; U.detail = 0; render(); window.scrollTo(0, 0) }
     else if (act === "dailyMenu") { U.dailyMenu = !U.dailyMenu; U.dmode = ""; render() }
     else if (act === "dmode") { U.dmode = v; render() }
