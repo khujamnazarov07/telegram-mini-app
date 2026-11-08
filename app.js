@@ -1578,7 +1578,7 @@
     function rn() { sd = (sd * 9301 + 49297) % 233280; return sd / 233280 }
     for (i = 0; i < 90; i++) { r = rn(); st += '<circle cx="' + (rn() * 360).toFixed(1) + '" cy="' + (rn() * 440).toFixed(1) + '" r="' + (r < .85 ? .5 + rn() * .6 : 1.3 + rn() * .7).toFixed(2) + '" fill="#fff" opacity="' + (.35 + rn() * .6).toFixed(2) + '"' + (i % 4 === 0 ? ' class="tw" style="animation-delay:' + (rn() * 4).toFixed(1) + 's"' : "") + "/>" }
     st += "</svg>"
-    return st + '<div class="tbtop"><div class="tbar">اللَّهُمَّ صَلِّ عَلَىٰ مُحَمَّدٍ</div><div class="tblat">Allohumma solli ‘alā Muhammad</div></div>' + s +
+    return '<div class="tbmoon"></div>' + st + '<i class="tbcl c1"></i><i class="tbcl c2"></i><i class="tbcl c3"></i><div class="tbtop"><div class="tbar">اللَّهُمَّ صَلِّ عَلَىٰ مُحَمَّدٍ</div><div class="tblat">Allohumma solli ‘alā Muhammad</div></div>' + s +
       '<div class="tbring"><svg viewBox="0 0 150 150"><defs><linearGradient id="tbl" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#46d7ff"/><stop offset="1" stop-color="#b07cff"/></linearGradient></defs>' +
       '<circle cx="75" cy="75" r="62" fill="rgba(5,13,36,.45)" stroke="rgba(255,255,255,.14)" stroke-width="7"/>' +
       '<circle id="tbarc" cx="75" cy="75" r="62" fill="none" stroke="url(#tbl)" stroke-width="7" stroke-linecap="round" stroke-dasharray="' + (C * pct).toFixed(1) + " " + C.toFixed(1) + '" transform="rotate(-90 75 75)"/></svg>' +

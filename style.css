@@ -1297,9 +1297,9 @@ html[data-font="serif"] { --ff: "Noto Serif", serif; }
 .fchips button { padding: 9px 14px; border-radius: 999px; border: 2px solid transparent; background: var(--line); color: var(--text); font-size: 15px; }
 .fchips button.on { border-color: var(--accent); }
 
-.hgstage.tbs { --tx: #eaf6ff; --tx2: rgba(234, 246, 255, .68); --s1: #46d7ff; --s2: #b07cff; background: radial-gradient(circle at 93% 6%, rgba(235, 244, 255, .95) 0 7px, rgba(160, 190, 255, .28) 8px 26px, transparent 27px), linear-gradient(180deg, #050d24, #0b2748 55%, #0d4a68); color: #eaf6ff; padding: 18px 0 14px; text-align: center; }
+.hgstage.tbs { --tx: #eaf6ff; --tx2: rgba(234, 246, 255, .68); --s1: #46d7ff; --s2: #b07cff; background: linear-gradient(180deg, #050d24, #0b2748 55%, #0d4a68); color: #eaf6ff; padding: 18px 0 14px; text-align: center; }
 .tbtop { position: relative; z-index: 2; }
-.tbar { font-family: var(--arabic); font-size: 28px; line-height: 1.6; direction: rtl; }
+.tbar { font-family: var(--arabic); font-size: 25px; padding-inline: 8px 40px; line-height: 1.6; direction: rtl; }
 .tblat { font-size: 13px; opacity: .72; margin-top: -2px; }
 .tbsvg { display: block; width: 100%; height: auto; margin-top: 6px; position: relative; z-index: 2; cursor: pointer; -webkit-tap-highlight-color: transparent; }
 .tbring { position: relative; width: 150px; height: 150px; margin: 0 auto 6px; z-index: 2; }
@@ -1315,9 +1315,17 @@ html[data-font="serif"] { --ff: "Noto Serif", serif; }
 .toast.pm button, .stmore { flex: none; display: inline-flex; align-items: center; white-space: nowrap; background: rgb(255 255 255 / .2); -webkit-backdrop-filter: blur(max(5px, calc(14px * var(--bk, 1)))); backdrop-filter: blur(max(5px, calc(14px * var(--bk, 1)))); border: 1px solid rgba(255, 255, 255, .35); box-shadow: inset 0 1px 0 rgba(255, 255, 255, .35); color: #fff; border-radius: 999px; padding: 6px 14px; font-size: 13px; font-weight: 600; }
 .stmore { color: var(--text); }
 .stlk { -webkit-backdrop-filter: blur(max(5px, calc(10px * var(--bk, 1)))); backdrop-filter: blur(max(5px, calc(10px * var(--bk, 1)))); }
-html[data-theme] body .daily .hgstage.tbs { background: radial-gradient(circle at 93% 6%, rgba(235, 244, 255, .95) 0 7px, rgba(160, 190, 255, .28) 8px 26px, transparent 27px), linear-gradient(180deg, #050d24, #0b2748 55%, #0d4a68); -webkit-backdrop-filter: none; backdrop-filter: none; }
-html[data-theme] body .daily.dglass .hgstage.tbs { background: radial-gradient(circle at 93% 6%, rgba(235, 244, 255, .8) 0 7px, rgba(160, 190, 255, .2) 8px 26px, transparent 27px), rgb(8 24 52 / calc(.35 * var(--gk, 1) + .1)); -webkit-backdrop-filter: blur(max(5px, calc(16px * var(--bk, 1)))) saturate(1.5); backdrop-filter: blur(max(5px, calc(16px * var(--bk, 1)))) saturate(1.5); }
+html[data-theme] body .daily .hgstage.tbs { background: linear-gradient(180deg, #050d24, #0b2748 55%, #0d4a68); -webkit-backdrop-filter: none; backdrop-filter: none; }
+html[data-theme] body .daily.dglass .hgstage.tbs { background: rgb(8 24 52 / calc(.35 * var(--gk, 1) + .1)); -webkit-backdrop-filter: blur(max(5px, calc(16px * var(--bk, 1)))) saturate(1.5); backdrop-filter: blur(max(5px, calc(16px * var(--bk, 1)))) saturate(1.5); }
 
 .tbstars { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 1; pointer-events: none; }
 .tbstars .tw { animation: tbtw 3.4s ease-in-out infinite; }
 @keyframes tbtw { 0%, 100% { opacity: .25; } 50% { opacity: 1; } }
+
+.tbmoon { position: absolute; top: 8px; right: 10px; width: 38px; height: 38px; border-radius: 50%; z-index: 1; pointer-events: none; background: radial-gradient(circle at 36% 32%, #ffffff 0, #eef3ff 40%, #c9d6f0 75%, #aebddb 100%); box-shadow: 0 0 22px 6px rgba(190, 210, 255, .45), 0 0 60px 18px rgba(150, 180, 255, .2); }
+.tbmoon::after { content: ""; position: absolute; inset: 0; border-radius: 50%; background: radial-gradient(circle at 62% 60%, rgba(120, 140, 180, .35) 0 6px, transparent 7px), radial-gradient(circle at 30% 66%, rgba(120, 140, 180, .28) 0 4px, transparent 5px), radial-gradient(circle at 55% 28%, rgba(120, 140, 180, .25) 0 3px, transparent 4px); }
+.tbcl { position: absolute; left: -180px; height: 34px; width: 150px; border-radius: 50%; z-index: 1; pointer-events: none; background: rgba(120, 150, 205, .55); filter: blur(10px); animation: tbcl 26s linear infinite; }
+.tbcl.c1 { top: 8px; }
+.tbcl.c2 { top: 36px; width: 190px; height: 28px; animation-duration: 34s; animation-delay: -14s; background: rgba(100, 130, 190, .45); }
+.tbcl.c3 { top: 20px; width: 120px; animation-duration: 21s; animation-delay: -6s; }
+@keyframes tbcl { from { transform: translateX(0); } to { transform: translateX(640px); } }
