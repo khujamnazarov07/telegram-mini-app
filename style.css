@@ -17,7 +17,7 @@
 :root[data-theme="light"] { color-scheme: light; --bg: #f6f7f4; --card: #ffffff; --text: #1c2421; --hint: #5c6762; --line: rgba(120, 130, 125, .22); }
 :root[data-theme="dark"] { color-scheme: dark; --bg: #131816; --card: #1b2320; --text: #e8efeb; --hint: #8fa097; --line: rgba(160, 180, 170, .18); }
 * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-html, body { margin: 0; background: var(--bg); color: var(--text); font: 16px/1.45 "Plus Jakarta Sans", -apple-system, "Segoe UI", Roboto, system-ui, sans-serif; }
+html, body { margin: 0; background: var(--bg); color: var(--text); font: 16px/1.45 var(--ff, "Plus Jakarta Sans"), "Plus Jakarta Sans", -apple-system, "Segoe UI", Roboto, system-ui, sans-serif; }
 button, input, textarea, select { font-family: inherit; }
 body { padding-bottom: calc(var(--nav-h) + env(safe-area-inset-bottom)); }
 #app { max-width: 640px; margin: 0 auto; padding: 14px 16px 24px; }
@@ -1288,3 +1288,11 @@ html[data-theme] body .card.quote.qbg2.qbg2.qbg2 { background: radial-gradient(6
 html[data-theme] body .card.quote.qbg2.qbg2.qbg2::before { border-color: rgba(255, 255, 255, .28); }
 html[data-theme] body .card.quote.qbg2.qbg2.qbg2::after { background: linear-gradient(100deg, transparent, rgba(255, 255, 255, .3), transparent); }
 html[data-theme] body .card.quote.qbg3.qbg3.qbg3 { background: radial-gradient(90% 55% at 50% 0%, #1fa377 0%, rgba(16, 110, 80, 0) 72%), radial-gradient(70% 45% at 50% 100%, rgba(6, 60, 40, .9), transparent 80%), linear-gradient(180deg, #0f6a4c 0%, #07412b 45%, #010503 100%); -webkit-backdrop-filter: none; backdrop-filter: none; border-color: rgba(230, 195, 90, .75); }
+
+html[data-font="cutive"] { --ff: "Cutive Mono", monospace; }
+html[data-font="nova"] { --ff: "Nova Mono", monospace; }
+html[data-font="sono"] { --ff: "Sono", monospace; }
+html[data-font="serif"] { --ff: "Noto Serif", serif; }
+.fchips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+.fchips button { padding: 9px 14px; border-radius: 999px; border: 2px solid transparent; background: var(--line); color: var(--text); font-size: 15px; }
+.fchips button.on { border-color: var(--accent); }

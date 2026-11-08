@@ -25,6 +25,7 @@
     qb1: "Naqsh|Нақш|Узор|Pattern|نقش|Desen|Pola|图案|पैटर्न|Patrón",
     qb2: "Shisha|Шиша|Стекло|Glass|زجاج|Cam|Kaca|玻璃|काँच|Cristal",
     qb3: "Zumrad|Зумрад|Изумруд|Emerald|زمرد|Zümrüt|Zamrud|翡翠|पन्ना|Esmeralda",
+    t_font: "Shrift|Шрифт|Шрифт|Font|الخط|Yazı tipi|Font|字体|फ़ॉन्ट|Fuente",
     hk2: "Iqtiboslar|Иқтибослар|Цитаты|Quotes|اقتباسات|Alıntılar|Kutipan|语录|उद्धरण|Citas",
     hk3: "Allohning so‘zlari|Аллоҳнинг сўзлари|Слова Аллаха|Words of Allah|كلمات الله|Allah’ın sözleri|Firman Allah|真主的话语|अल्लाह के शब्द|Palabras de Alá",
     hk4: "Qalb tasallisi|Қалб тасаллиси|Утешение для сердца|Comfort for the heart|سلوى القلب|Kalbe teselli|Penghibur hati|心灵慰藉|दिल का सुकून|Consuelo del corazón",
@@ -1697,7 +1698,7 @@
     }
     if (U.more === "theme") {
       return '<div class="shead"><button class="btn small back circ" data-act="moreBack" aria-label="back">' + ic("arrow_back") + '</button><h1>' + ic("palette") + " " + esc(tr("theme_t")) + '</h1><span></span></div><p class="sub">&nbsp;</p>' + hswHtml("g") +
-        '<div id="themeOpts" class="topts">' + themeOpts() + '</div><p class="ginfo">' + ic("info") + " <span>" + esc(tr("gender_info")) + "</span></p>"
+        '<div id="themeOpts" class="topts">' + themeOpts() + "</div>" + fontHtml() + '<p class="ginfo">' + ic("info") + " <span>" + esc(tr("gender_info")) + "</span></p>"
     }
     if (U.more === "mode") {
       var mm = '<div class="shead"><button class="btn small back circ" data-act="moreBack" aria-label="back">' + ic("arrow_back") + '</button><h1>' + ic("contrast") + " " + esc(tr("mode_t")) + '</h1><span></span></div><div id="mdw" class="hsl"></div><div id="mglobe">' + modeGlobeHtml() + "</div>"
@@ -2553,6 +2554,7 @@
   }
   function applyGender() {
     var root = document.documentElement, st = root.style
+    applyFont()
     var ng = S.gender === "female" ? "female" : S.gender === "male" ? "male" : "auto"
     if (root.getAttribute("data-gender") && root.getAttribute("data-gender") !== ng) {
       root.classList.add("tsw"); clearTimeout(window._tsw); window._tsw = setTimeout(function () { root.classList.remove("tsw") }, 450)
@@ -2575,6 +2577,13 @@
     petalFx()
   }
   var HLC = [[235, 40, 40, .7], [255, 226, 0, .72], [20, 205, 90, .7], [30, 170, 255, .7], [255, 255, 255, .5]]
+  var FONTS = [["", "Plus Jakarta Sans"], ["cutive", "Cutive Mono"], ["nova", "Nova Mono"], ["sono", "Sono"], ["serif", "Noto Serif"]]
+  function fontHtml() {
+    var h = '<div class="card tpill col fnt"><span class="tp-l">' + esc(tr("t_font")) + '</span><div class="fchips">'
+    for (var i = 0; i < FONTS.length; i++) h += '<button class="' + ((S.font || "") === FONTS[i][0] ? "on" : "") + '" data-act="font" data-v="' + FONTS[i][0] + '" style="font-family:\'' + FONTS[i][1] + '\', sans-serif">' + (i === 0 ? esc(tr("t_bg0")) : FONTS[i][1]) + "</button>"
+    return h + "</div></div>"
+  }
+  function applyFont() { document.documentElement.setAttribute("data-font", S.font || "") }
   function hlPill() {
     var h = "", cur = S.hlc | 0
     for (var i = 0; i < HLC.length; i++) h += '<button class="sws' + (i === 4 ? " wh" : "") + (i === cur ? " on" : "") + '" data-act="hlc" data-v="' + i + '" style="--c:rgb(' + HLC[i][0] + "," + HLC[i][1] + "," + HLC[i][2] + ')" aria-label="color"></button>'
@@ -3058,6 +3067,7 @@
     else if (act === "setMode") { S.theme = v; save(); applyTheme(); if (wheels.theme) wheels.theme.set(THEMES.indexOf(v), true); render() }
     else if (act === "sgo") { var qq = document.getElementById("q"); if (qq) { qq.focus(); if (qq.value) qq.select() } }
     else if (act === "gtoggle") { if (S.gender === "female") S.fgon = !gOn(); else S.mgon = !gOn(); applyGender(); save(); tOptsRefresh() }
+    else if (act === "font") { S.font = v; save(); applyFont(); var fc = document.querySelectorAll(".fchips button"); for (var fi = 0; fi < fc.length; fi++) fc[fi].classList.toggle("on", fc[fi].getAttribute("data-v") === v) }
     else if (act === "hlc") { S.hlc = parseInt(v, 10); save(); tOptsRefresh() }
     else if (act === "gsol") { if (S.gender === "female") S.fsol = parseInt(v, 10); else S.msol = parseInt(v, 10); applyGender(); save(); tOptsRefresh() }
     else if (act === "fcolor") { S.fcolor = parseInt(v, 10); applyGender(); save(); tOptsRefresh() }
