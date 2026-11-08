@@ -26,6 +26,8 @@
     qb2: "Shisha|Шиша|Стекло|Glass|زجاج|Cam|Kaca|玻璃|काँच|Cristal",
     qb3: "Zumrad|Зумрад|Изумруд|Emerald|زمرد|Zümrüt|Zamrud|翡翠|पन्ना|Esmeralda",
     t_font: "Shrift|Шрифт|Шрифт|Font|الخط|Yazı tipi|Font|字体|फ़ॉन्ट|Fuente",
+    dv_hg: "Qumsoat|Қумсоат|Песочные часы|Hourglass|ساعة رملية|Kum saati|Jam pasir|沙漏|रेतघड़ी|Reloj de arena",
+    dv_tb: "Tasbeh|Тасбеҳ|Тасбих|Tasbih|مسبحة|Tesbih|Tasbih|念珠|तस्बीह|Tasbih",
     hk2: "Iqtiboslar|Иқтибослар|Цитаты|Quotes|اقتباسات|Alıntılar|Kutipan|语录|उद्धरण|Citas",
     hk3: "Allohning so‘zlari|Аллоҳнинг сўзлари|Слова Аллаха|Words of Allah|كلمات الله|Allah’ın sözleri|Firman Allah|真主的话语|अल्लाह के शब्द|Palabras de Alá",
     hk4: "Qalb tasallisi|Қалб тасаллиси|Утешение для сердца|Comfort for the heart|سلوى القلب|Kalbe teselli|Penghibur hati|心灵慰藉|दिल का सुकून|Consuelo del corazón",
@@ -1560,9 +1562,62 @@
     }
     showGoal()
   }
+  var TB_N = 14, TB_SP = 30, TB_L = 420, tbOffC = 0, tbOffT = 0, tbRaf = 0
+  function tbY(x) { var u = (x - 180) / 200; return 66 + 50 * (1 - u * u) }
+  function tbHtml(ds) {
+    var p = "", i, x
+    for (i = 0; i <= 24; i++) { x = -20 + i * 16.7; p += (i ? "L" : "M") + x.toFixed(1) + " " + tbY(x).toFixed(1) }
+    var s = '<svg id="tbsvg" class="tbsvg" viewBox="0 0 360 150" data-act="tap"><defs>' +
+      '<radialGradient id="tbb" cx="35%" cy="30%" r="75%"><stop offset="0" stop-color="#b8f4ff"/><stop offset=".45" stop-color="#27b4ee"/><stop offset="1" stop-color="#0a5aa8"/></radialGradient>' +
+      '<radialGradient id="tbg" cx="35%" cy="30%" r="75%"><stop offset="0" stop-color="#fff0b8"/><stop offset=".5" stop-color="#e9ab2e"/><stop offset="1" stop-color="#8a5a10"/></radialGradient></defs>' +
+      '<path d="' + p + '" fill="none" stroke="rgba(200,230,255,.35)" stroke-width="1.5"/>'
+    for (i = 0; i < TB_N; i++) s += '<circle class="tbd" data-i="' + i + '" r="' + (i === 0 ? 13 : 11.5) + '" fill="url(#' + (i === 0 ? "tbg" : "tbb") + ')"/>'
+    s += "</svg>"
+    var pct = Math.min(1, (ds.draft || 0) / Math.max(1, ds.target)), C = 2 * Math.PI * 62
+    return '<div class="tbtop"><div class="tbar">اللَّهُمَّ صَلِّ عَلَىٰ مُحَمَّدٍ</div><div class="tblat">Allohumma solli ‘alā Muhammad</div></div>' + s +
+      '<div class="tbring"><svg viewBox="0 0 150 150"><defs><linearGradient id="tbl" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#46d7ff"/><stop offset="1" stop-color="#b07cff"/></linearGradient></defs>' +
+      '<circle cx="75" cy="75" r="62" fill="rgba(5,13,36,.45)" stroke="rgba(255,255,255,.14)" stroke-width="7"/>' +
+      '<circle id="tbarc" cx="75" cy="75" r="62" fill="none" stroke="url(#tbl)" stroke-width="7" stroke-linecap="round" stroke-dasharray="' + (C * pct).toFixed(1) + " " + C.toFixed(1) + '" transform="rotate(-90 75 75)"/></svg>' +
+      '<div class="tbnum"><b id="tbn">' + (ds.draft || 0) + '</b><span>/ ' + fmtNum(ds.target) + "</span></div></div>"
+  }
+  function tbDraw() {
+    var svg = document.getElementById("tbsvg"); if (!svg) return
+    var ds = svg.querySelectorAll(".tbd"), i, x
+    for (i = 0; i < ds.length; i++) {
+      x = (((i * TB_SP - tbOffC + 390) % TB_L) + TB_L) % TB_L - 30
+      ds[i].setAttribute("cx", x.toFixed(1)); ds[i].setAttribute("cy", tbY(x).toFixed(1))
+    }
+  }
+  function tbInit() {
+    var svg = document.getElementById("tbsvg"); if (!svg) return
+    cancelAnimationFrame(tbRaf)
+    tbOffC = tbOffT = ((S.daily && S.daily.draft) || 0) * TB_SP
+    tbDraw()
+  }
+  function tbTap(cycles) {
+    var ds = S.daily, stg = document.getElementById("hgstage")
+    var n = document.getElementById("tbn"), arc = document.getElementById("tbarc")
+    if (n) n.textContent = cycles > 0 ? ds.target : (ds.draft || 0)
+    if (arc) { var C = 2 * Math.PI * 62, pc = cycles > 0 ? 1 : Math.min(1, (ds.draft || 0) / ds.target); arc.setAttribute("stroke-dasharray", (C * pc).toFixed(1) + " " + C.toFixed(1)) }
+    if (stg) {
+      var pl = document.createElement("b"); pl.className = "tbp"; pl.textContent = "+" + (ds.step || 1); stg.appendChild(pl)
+      setTimeout(function () { pl.remove() }, 800)
+    }
+    tbOffT += TB_SP * (ds.step || 1)
+    var from = tbOffC, t0 = 0
+    cancelAnimationFrame(tbRaf)
+    function fr(ts) {
+      if (!t0) t0 = ts
+      var k = Math.min(1, (ts - t0) / 260), e = 1 - Math.pow(1 - k, 3)
+      tbOffC = from + (tbOffT - from) * e; tbDraw()
+      if (k < 1) tbRaf = requestAnimationFrame(fr)
+    }
+    tbRaf = requestAnimationFrame(fr)
+  }
   function viewDaily() {
     var ds = S.daily
     var dgRow = '<div class="topt"><div class="tl"><span>' + esc(tr("dglass")) + '</span><button class="tgl pr' + (isPrem() ? " pm" : "") + (S.dglass && isPrem() ? " on" : "") + '" data-act="dglass" aria-label="glass"><i>' + ic(isPrem() ? "lock_open" : "lock") + "</i></button></div></div>"
+    var dvSeg = '<div class="seg"><button data-act="dview" data-v="hg" class="' + (S.dview === "tb" ? "" : "on") + '">' + esc(tr("dv_hg")) + '</button><button data-act="dview" data-v="tb" class="' + (S.dview === "tb" ? "on" : "") + '">' + esc(tr("dv_tb")) + "</button></div>"
     var formHtml = function () {
       var gv = ds && ds.target ? Math.min(ds.target, 999999) : 0, cols = ""
       var pad = ("000000" + gv).slice(-6)
@@ -1572,11 +1627,11 @@
       }
       var dm = U.dmode || (ds && ds.mode) || "goal"
       var seg = '<div class="seg"><button data-act="dmode" data-v="goal" class="' + (dm === "goal" ? "on" : "") + '">' + esc(tr("mode_goal")) + '</button><button data-act="dmode" data-v="free" class="' + (dm === "free" ? "on" : "") + '">' + esc(tr("mode_free")) + "</button></div>"
-      if (dm === "free") return '<div class="card stack goalbox">' + seg + '<p class="sub center" style="margin:4px 0">' + esc(tr("free_hint")) + '</p>' + dgRow + '<button class="btn success block" data-act="saveDaily">' + esc(tr("save")) + "</button></div>"
+      if (dm === "free") return '<div class="card stack goalbox">' + seg + '<p class="sub center" style="margin:4px 0">' + esc(tr("free_hint")) + '</p>' + dvSeg + dgRow + '<button class="btn success block" data-act="saveDaily">' + esc(tr("save")) + "</button></div>"
       return '<div class="card stack goalbox">' + seg + '<div class="goalhead"><span>' + esc(tr("target_lbl")) + '</span><b id="goalVal">' + fmtNum(gv) + "</b></div>" +
         '<div class="digits" id="digits" dir="ltr">' + cols + "</div>" +
         '<div class="chips">' + [33, 100, 300, 1000].map(function (x) { return '<button class="chip" data-act="preset" data-v="' + x + '">' + fmtNum(x) + "</button>" }).join("") + "</div>" +
-        dgRow + '<button class="btn success block" data-act="saveDaily">' + esc(tr("save")) + "</button></div>"
+        dvSeg + dgRow + '<button class="btn success block" data-act="saveDaily">' + esc(tr("save")) + "</button></div>"
     }
     if (!ds || !ds.target) {
       if (U.dmode === "free") return '<h1>📿 ' + esc(tr("daily")) + '</h1>' + formHtml()
@@ -1588,7 +1643,8 @@
     var h = '<div class="daily' + (S.dglass && isPrem() ? " dglass" : "") + '"><div class="dhead"><h1>📿 ' + esc(tr("daily")) + '</h1><button class="gear' + (U.dailyMenu ? " on" : "") + '" data-act="dailyMenu" aria-label="Settings">' + ic("settings") + '</button></div>'
     if (U.dailyMenu) h += '<div style="margin-bottom:10px">' + formHtml() + "</div>"
     if (owed > 0) h += '<p class="owed center">⊘ ' + esc(tr("owed").replace("{n}", owed)) + "</p>"
-    h += '<div id="hgwrap" class="hgwrap"><div id="hgstage" class="hgstage">' + hgBg() + '<div id="hgbox" class="hgbox' + (ds.mode === "free" ? " free" : "") + '">' + hgSvg(hgShown) + "</div>"
+    var tbv = S.dview === "tb"
+    h += '<div id="hgwrap" class="hgwrap"><div id="hgstage" class="hgstage' + (tbv ? " tbs" : "") + '">' + (tbv ? tbHtml(ds) : hgBg() + '<div id="hgbox" class="hgbox' + (ds.mode === "free" ? " free" : "") + '">' + hgSvg(hgShown) + "</div>")
     if (ds.todayDone) h += '<div class="done center">✦ ' + esc(tr("cong")) + "</div>"
     else h += dBarHtml(ds, target, draft)
     h += "</div></div>"
@@ -2029,7 +2085,7 @@
     initHours()
     hgAttach()
     meanFit()
-    hpStart(); phStart(); nhStart(); mediaInit(); themeInit(); hswInit(); mdInit(); hlStart()
+    hpStart(); phStart(); nhStart(); tbInit(); mediaInit(); themeInit(); hswInit(); mdInit(); hlStart()
     nsUpdate()
     miniSync()
     if (U.tab === "more" && U.more === "settings") gText()
@@ -3001,6 +3057,7 @@
       save(); toast(tr("pm_trial_on")); stPaint()
     }
     else if (act === "stDev") { clearTimeout(ST.devT); ST.dev++; ST.devT = setTimeout(function () { ST.dev = 0 }, 1500); if (ST.dev >= 5) { ST.dev = 0; S.premium = !S.premium; save(); toast(S.premium ? "Premium ON" : "Premium OFF"); render() } }
+    else if (act === "dview") { S.dview = v; save(); render() }
     else if (act === "dglass") { if (!isPrem()) pToast(tr("pm_need")); else { S.dglass = !S.dglass; save(); render() } }
     else if (act === "qbg") { if (isPrem()) { S.qbg = +v; save(); render() } }
     else if (act === "premGo") { document.getElementById("toast").className = "toast"; U.tab = "more"; U.more = "premium"; U.hikBack = false; U.detail = 0; render(); window.scrollTo(0, 0) }
@@ -3022,6 +3079,11 @@
       }
       if (cycles > 0) pmDone()
       save()
+      if (S.dview === "tb") {
+        tbTap(cycles); hgStats(false)
+        if (cycles > 0) { try { tg && tg.HapticFeedback && tg.HapticFeedback.notificationOccurred("success") } catch (e) {} setTimeout(render, 700) }
+        return
+      }
       var to = cycles > 0 ? 100 : Math.min(100, Math.floor(ds.draft * 100 / ds.target))
       var from = hgShown
       if (to > from) { hgDrop(from, to); hgShown = to }
