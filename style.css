@@ -1329,7 +1329,7 @@ html[data-theme] body .daily.dglass .hgstage.tbs { background: rgb(8 24 52 / cal
 .tbcl.c3 { top: 20px; width: 120px; animation-duration: 21s; animation-delay: -6s; }
 @keyframes tbcl { from { transform: translateX(0); } to { transform: translateX(640px); } }
 
-.daily > *:not(.tapzone):not(.owed):not(.done):not(.pill), .daily .goalbox, .daily .hgwrap { width: 100%; max-width: 100%; box-sizing: border-box; }
+.daily > *:not(.tapzone):not(.owed):not(.done):not(.pill):not(.tap-round), .daily .goalbox, .daily .hgwrap { width: 100%; max-width: 100%; box-sizing: border-box; }
 .daily .tapzone { flex: none; }
 .daily .tap-round { flex: none; width: 124px; height: 124px; }
 .goalbox .seg, .goalbox .btn { width: 100%; }
