@@ -1322,10 +1322,15 @@ html[data-theme] body .daily.dglass .hgstage.tbs { background: rgb(8 24 52 / cal
 .tbstars .tw { animation: tbtw 3.4s ease-in-out infinite; }
 @keyframes tbtw { 0%, 100% { opacity: .25; } 50% { opacity: 1; } }
 
-.tbmoon { position: absolute; top: 8px; right: 10px; width: 38px; height: 38px; border-radius: 50%; z-index: 1; pointer-events: none; background: radial-gradient(circle at 36% 32%, #ffffff 0, #eef3ff 40%, #c9d6f0 75%, #aebddb 100%); box-shadow: 0 0 22px 6px rgba(190, 210, 255, .45), 0 0 60px 18px rgba(150, 180, 255, .2); }
-.tbmoon::after { content: ""; position: absolute; inset: 0; border-radius: 50%; background: radial-gradient(circle at 62% 60%, rgba(120, 140, 180, .35) 0 6px, transparent 7px), radial-gradient(circle at 30% 66%, rgba(120, 140, 180, .28) 0 4px, transparent 5px), radial-gradient(circle at 55% 28%, rgba(120, 140, 180, .25) 0 3px, transparent 4px); }
+.tbmoon { position: absolute; top: 6px; right: 8px; width: 46px; height: 46px; z-index: 1; pointer-events: none; background: url(bg_moon.webp) center/contain no-repeat; filter: drop-shadow(0 0 8px rgba(200, 215, 255, .55)) drop-shadow(0 0 22px rgba(160, 185, 255, .3)); }
 .tbcl { position: absolute; left: -180px; height: 34px; width: 150px; border-radius: 50%; z-index: 1; pointer-events: none; background: rgba(120, 150, 205, .55); filter: blur(10px); animation: tbcl 26s linear infinite; }
 .tbcl.c1 { top: 8px; }
 .tbcl.c2 { top: 36px; width: 190px; height: 28px; animation-duration: 34s; animation-delay: -14s; background: rgba(100, 130, 190, .45); }
 .tbcl.c3 { top: 20px; width: 120px; animation-duration: 21s; animation-delay: -6s; }
 @keyframes tbcl { from { transform: translateX(0); } to { transform: translateX(640px); } }
+
+.daily > *:not(.tapzone):not(.owed):not(.done):not(.pill), .daily .goalbox, .daily .hgwrap { width: 100%; max-width: 100%; box-sizing: border-box; }
+.daily .tapzone { flex: none; }
+.daily .tap-round { flex: none; width: 124px; height: 124px; }
+.goalbox .seg, .goalbox .btn { width: 100%; }
+.goalbox .seg button { flex: 1 1 0; min-width: 0; }

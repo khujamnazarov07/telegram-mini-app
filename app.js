@@ -1636,7 +1636,7 @@
       }
       var dm = U.dmode || (ds && ds.mode) || "goal"
       var seg = '<div class="seg"><button data-act="dmode" data-v="goal" class="' + (dm === "goal" ? "on" : "") + '">' + esc(tr("mode_goal")) + '</button><button data-act="dmode" data-v="free" class="' + (dm === "free" ? "on" : "") + '">' + esc(tr("mode_free")) + "</button></div>"
-      if (dm === "free") return '<div class="card stack goalbox">' + seg + '' + (S.dview === "tb" ? "" : '<p class="sub center" style="margin:4px 0">' + esc(tr("free_hint")) + "</p>") + dvSeg + dgRow + '<button class="btn success block" data-act="saveDaily">' + esc(tr("save")) + "</button></div>"
+      if (dm === "free") return '<div class="card stack goalbox">' + seg + '' + "" + dvSeg + dgRow + '<button class="btn success block" data-act="saveDaily">' + esc(tr("save")) + "</button></div>"
       return '<div class="card stack goalbox">' + seg + '<div class="goalhead"><span>' + esc(tr("target_lbl")) + '</span><b id="goalVal">' + fmtNum(gv) + "</b></div>" +
         '<div class="digits" id="digits" dir="ltr">' + cols + "</div>" +
         '<div class="chips">' + [33, 100, 300, 1000].map(function (x) { return '<button class="chip" data-act="preset" data-v="' + x + '">' + fmtNum(x) + "</button>" }).join("") + "</div>" +
