@@ -1571,10 +1571,14 @@
       '<radialGradient id="tbb" cx="35%" cy="30%" r="75%"><stop offset="0" stop-color="#b8f4ff"/><stop offset=".45" stop-color="#27b4ee"/><stop offset="1" stop-color="#0a5aa8"/></radialGradient>' +
       '<radialGradient id="tbg" cx="35%" cy="30%" r="75%"><stop offset="0" stop-color="#fff0b8"/><stop offset=".5" stop-color="#e9ab2e"/><stop offset="1" stop-color="#8a5a10"/></radialGradient></defs>' +
       '<path d="' + p + '" fill="none" stroke="rgba(200,230,255,.35)" stroke-width="1.5"/>'
-    for (i = 0; i < TB_N; i++) s += '<circle class="tbd" data-i="' + i + '" r="' + (i === 0 ? 13 : 11.5) + '" fill="url(#' + (i === 0 ? "tbg" : "tbb") + ')"/>'
+    for (i = 0; i < 17; i++) s += '<circle class="tbd" data-i="' + i + '" r="11.5" fill="url(#tbb)"/>'
     s += "</svg>"
     var pct = Math.min(1, (ds.draft || 0) / Math.max(1, ds.target)), C = 2 * Math.PI * 62
-    return '<div class="tbtop"><div class="tbar">اللَّهُمَّ صَلِّ عَلَىٰ مُحَمَّدٍ</div><div class="tblat">Allohumma solli ‘alā Muhammad</div></div>' + s +
+    var st = '<svg class="tbstars" viewBox="0 0 360 440" preserveAspectRatio="xMidYMid slice" aria-hidden="true">', sd = 7, r
+    function rn() { sd = (sd * 9301 + 49297) % 233280; return sd / 233280 }
+    for (i = 0; i < 90; i++) { r = rn(); st += '<circle cx="' + (rn() * 360).toFixed(1) + '" cy="' + (rn() * 440).toFixed(1) + '" r="' + (r < .85 ? .5 + rn() * .6 : 1.3 + rn() * .7).toFixed(2) + '" fill="#fff" opacity="' + (.35 + rn() * .6).toFixed(2) + '"' + (i % 4 === 0 ? ' class="tw" style="animation-delay:' + (rn() * 4).toFixed(1) + 's"' : "") + "/>" }
+    st += "</svg>"
+    return st + '<div class="tbtop"><div class="tbar">اللَّهُمَّ صَلِّ عَلَىٰ مُحَمَّدٍ</div><div class="tblat">Allohumma solli ‘alā Muhammad</div></div>' + s +
       '<div class="tbring"><svg viewBox="0 0 150 150"><defs><linearGradient id="tbl" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#46d7ff"/><stop offset="1" stop-color="#b07cff"/></linearGradient></defs>' +
       '<circle cx="75" cy="75" r="62" fill="rgba(5,13,36,.45)" stroke="rgba(255,255,255,.14)" stroke-width="7"/>' +
       '<circle id="tbarc" cx="75" cy="75" r="62" fill="none" stroke="url(#tbl)" stroke-width="7" stroke-linecap="round" stroke-dasharray="' + (C * pct).toFixed(1) + " " + C.toFixed(1) + '" transform="rotate(-90 75 75)"/></svg>' +
@@ -1582,16 +1586,21 @@
   }
   function tbDraw() {
     var svg = document.getElementById("tbsvg"); if (!svg) return
-    var ds = svg.querySelectorAll(".tbd"), i, x
-    for (i = 0; i < ds.length; i++) {
-      x = (((i * TB_SP - tbOffC + 390) % TB_L) + TB_L) % TB_L - 30
-      ds[i].setAttribute("cx", x.toFixed(1)); ds[i].setAttribute("cy", tbY(x).toFixed(1))
+    var ds = svg.querySelectorAll(".tbd"), j, k, x, sc, p = tbOffC, kb = Math.floor(p) - 8
+    for (j = 0; j < ds.length; j++) {
+      k = kb + j
+      if (k < 0 || k > 999999) { ds[j].setAttribute("visibility", "hidden"); continue }
+      x = 180 + (k - p) * TB_SP
+      sc = 1 + .4 * Math.max(0, 1 - Math.abs(x - 180) / TB_SP)
+      ds[j].setAttribute("visibility", "visible")
+      ds[j].setAttribute("fill", k > 0 && k % 33 === 0 ? "url(#tbg)" : "url(#tbb)")
+      ds[j].setAttribute("transform", "translate(" + x.toFixed(1) + " " + tbY(x).toFixed(1) + ") scale(" + sc.toFixed(3) + ")")
     }
   }
   function tbInit() {
     var svg = document.getElementById("tbsvg"); if (!svg) return
     cancelAnimationFrame(tbRaf)
-    tbOffC = tbOffT = ((S.daily && S.daily.draft) || 0) * TB_SP
+    tbOffC = tbOffT = (S.daily && S.daily.draft) || 0
     tbDraw()
   }
   function tbTap(cycles) {
@@ -1603,7 +1612,7 @@
       var pl = document.createElement("b"); pl.className = "tbp"; pl.textContent = "+" + (ds.step || 1); stg.appendChild(pl)
       setTimeout(function () { pl.remove() }, 800)
     }
-    tbOffT += TB_SP * (ds.step || 1)
+    tbOffT += ds.step || 1
     var from = tbOffC, t0 = 0
     cancelAnimationFrame(tbRaf)
     function fr(ts) {
@@ -1627,7 +1636,7 @@
       }
       var dm = U.dmode || (ds && ds.mode) || "goal"
       var seg = '<div class="seg"><button data-act="dmode" data-v="goal" class="' + (dm === "goal" ? "on" : "") + '">' + esc(tr("mode_goal")) + '</button><button data-act="dmode" data-v="free" class="' + (dm === "free" ? "on" : "") + '">' + esc(tr("mode_free")) + "</button></div>"
-      if (dm === "free") return '<div class="card stack goalbox">' + seg + '<p class="sub center" style="margin:4px 0">' + esc(tr("free_hint")) + '</p>' + dvSeg + dgRow + '<button class="btn success block" data-act="saveDaily">' + esc(tr("save")) + "</button></div>"
+      if (dm === "free") return '<div class="card stack goalbox">' + seg + '' + (S.dview === "tb" ? "" : '<p class="sub center" style="margin:4px 0">' + esc(tr("free_hint")) + "</p>") + dvSeg + dgRow + '<button class="btn success block" data-act="saveDaily">' + esc(tr("save")) + "</button></div>"
       return '<div class="card stack goalbox">' + seg + '<div class="goalhead"><span>' + esc(tr("target_lbl")) + '</span><b id="goalVal">' + fmtNum(gv) + "</b></div>" +
         '<div class="digits" id="digits" dir="ltr">' + cols + "</div>" +
         '<div class="chips">' + [33, 100, 300, 1000].map(function (x) { return '<button class="chip" data-act="preset" data-v="' + x + '">' + fmtNum(x) + "</button>" }).join("") + "</div>" +
@@ -1646,7 +1655,7 @@
     var tbv = S.dview === "tb"
     h += '<div id="hgwrap" class="hgwrap"><div id="hgstage" class="hgstage' + (tbv ? " tbs" : "") + '">' + (tbv ? tbHtml(ds) : hgBg() + '<div id="hgbox" class="hgbox' + (ds.mode === "free" ? " free" : "") + '">' + hgSvg(hgShown) + "</div>")
     if (ds.todayDone) h += '<div class="done center">✦ ' + esc(tr("cong")) + "</div>"
-    else h += dBarHtml(ds, target, draft)
+    else if (!tbv) h += dBarHtml(ds, target, draft)
     h += "</div></div>"
     h += ds.todayDone ? '<button class="tap-round off" disabled>✓</button>' : '<div class="tapzone"><i class="tb b1"></i><i class="tb b2"></i><i class="tb b3"></i><button class="tap-round" data-act="tap" aria-label="+">' + (ic("add") + (step > 1 ? '<b class="stp">' + step + "</b>" : "")) + "</button></div>"
     return h + "</div>"
