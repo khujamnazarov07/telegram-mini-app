@@ -33,6 +33,20 @@
     hk4: "Qalb tasallisi|Қалб тасаллиси|Утешение для сердца|Comfort for the heart|سلوى القلب|Kalbe teselli|Penghibur hati|心灵慰藉|दिल का सुकून|Consuelo del corazón",
     hk6: "Ruhiy tasalli|Руҳий тасалли|Душевное утешение|Spiritual comfort|سلوى الروح|Ruhi teselli|Ketenangan jiwa|心灵安慰|आत्मिक सुकून|Consuelo espiritual",
     hk7: "Rahmat so‘zlari|Раҳмат сўзлари|Слова милосердия|Words of mercy|كلمات الرحمة|Rahmet sözleri|Kata-kata rahmat|慈悯之语|रहमत के शब्द|Palabras de misericordia",
+    waq_t: "Voqea challenji|Воқеа челленжи|Челлендж «Аль-Вакиа»|Al-Waqi'ah challenge|تحدي الواقعة|Vâkıa challenge'ı|Tantangan Al-Waqi'ah|瓦吉亚挑战|अल-वाक़िआ चैलेंज|Reto Al-Waqi'ah",
+    waq_new: "Yangi · boshlash|Янги · бошлаш|Новый · начать|New · start|جديد · ابدأ|Yeni · başla|Baru · mulai|新 · 开始|नया · शुरू करें|Nuevo · empezar",
+    waq_lv: "Daraja|Даража|Уровень|Level|المستوى|Seviye|Level|等级|स्तर|Nivel",
+    waq_debt: "Qarz|Қарз|Долг|Debt|دَين|Borç|Utang|欠|बकाया|Deuda",
+    waq_dw: "kun|кун|дн.|days|يوم|gün|hari|天|दिन|días",
+    waq_today: "Bugun|Бугун|Сегодня|Today|اليوم|Bugün|Hari ini|今天|आज|Hoy",
+    waq_left: "Qoldi|Қолди|Осталось|Left|المتبقي|Kalan|Sisa|剩余|शेष|Quedan",
+    waq_start: "Boshlash|Бошлаш|Начать|Start|ابدأ|Başla|Mulai|开始|शुरू करें|Empezar",
+    waq_rules: "40 kunlik challenj. Daraja = kuniga o'qiladigan marta: 1-kun 1 ta, 2-kun 2 ta … 40-kun 40 ta. O'qilmagan kun qarzga yoziladi va qarz kuni joriy daraja soniga teng. Avval bugungi, keyin qarz yopiladi. Darajaga yetmagan qoldiq kun oxirida o'chadi.|40 кунлик челлендж. Даража = кунига ўқиладиган марта: 1-кун 1 та, 2-кун 2 та … 40-кун 40 та. Ўқилмаган кун қарзга ёзилади ва қарз куни жорий даража сонига тенг. Аввал бугунги, кейин қарз ёпилади. Даражага етмаган қолдиқ кун охирида ўчади.|40-дневный челлендж. Уровень = сколько раз читать в день: 1-й день 1, 2-й день 2 … 40-й день 40. Пропущенный день становится долгом, равным текущему уровню. Сначала закрывается сегодняшний, затем долг. Остаток меньше уровня в конце дня сгорает.|A 40-day challenge. Level = readings per day: day 1 is 1, day 2 is 2 … day 40 is 40. A missed day becomes a debt day equal to your current level. Today is closed first, then the debt. A remainder below the level is dropped at the end of the day.|تحدٍّ لمدة 40 يومًا. المستوى = عدد مرات القراءة يوميًا: اليوم 1 مرة، اليوم 2 مرتان … اليوم 40 أربعون مرة. اليوم الفائت يصبح دَينًا بقدر المستوى الحالي. يُغلق اليوم الحالي أولًا ثم الدَّين. ما نقص عن المستوى يُحذف في نهاية اليوم.|40 günlük meydan okuma. Seviye = günlük okuma sayısı: 1. gün 1, 2. gün 2 … 40. gün 40. Okunmayan gün, mevcut seviye kadar borç olur. Önce bugün, sonra borç kapanır. Seviyeye yetmeyen kalan gün sonunda silinir.|Tantangan 40 hari. Level = jumlah bacaan per hari: hari 1 = 1, hari 2 = 2 … hari 40 = 40. Hari terlewat menjadi utang sebesar level saat ini. Hari ini ditutup dulu, lalu utang. Sisa di bawah level dihapus di akhir hari.|40天挑战。等级 = 每天诵读次数：第1天1次，第2天2次……第40天40次。漏掉的一天记为欠天，数量等于当前等级。先完成今天，再还欠天。不足等级的余数在当天结束时清零。|40 दिन की चुनौती। स्तर = प्रतिदिन पढ़ने की संख्या: दिन 1 में 1, दिन 2 में 2 … दिन 40 में 40। छूटा दिन मौजूदा स्तर के बराबर बकाया बनता है। पहले आज, फिर बकाया पूरा होता है। स्तर से कम बचा हिस्सा दिन के अंत में हट जाता है।|Reto de 40 días. Nivel = lecturas por día: día 1 son 1, día 2 son 2 … día 40 son 40. Un día perdido se vuelve deuda igual al nivel actual. Primero se cierra hoy y luego la deuda. El resto menor al nivel se descarta al final del día.",
+    waq_done: "Bugungi daraja bajarildi|Бугунги даража бажарилди|Сегодняшний уровень выполнен|Today's level completed|اكتمل مستوى اليوم|Bugünün seviyesi tamamlandı|Level hari ini selesai|今日等级已完成|आज का स्तर पूरा हुआ|Nivel de hoy completado",
+    waq_fin: "Challenj yakunlandi! Alloh qabul qilsin|Челлендж якунланди! Аллоҳ қабул қилсин|Челлендж завершён! Да примет Аллах|Challenge complete! May Allah accept|اكتمل التحدي! تقبّل الله|Meydan okuma tamamlandı! Allah kabul etsin|Tantangan selesai! Semoga Allah menerima|挑战完成！愿真主接受|चुनौती पूरी हुई! अल्लाह क़बूल करे|¡Reto completado! Que Allah lo acepte",
+    waq_reset: "Qaytadan boshlash|Қайтадан бошлаш|Начать заново|Start over|ابدأ من جديد|Baştan başla|Mulai ulang|重新开始|फिर से शुरू करें|Empezar de nuevo",
+    waq_resetq: "Barcha natija o'chadi. Qaytadan boshlaysizmi?|Барча натижа ўчади. Қайтадан бошлайсизми?|Весь прогресс будет удалён. Начать заново?|All progress will be erased. Start over?|سيتم حذف كل التقدم. هل تبدأ من جديد؟|Tüm ilerleme silinecek. Baştan başlansın mı?|Semua progres akan dihapus. Mulai ulang?|所有进度将被清除。重新开始？|सारी प्रगति मिट जाएगी। फिर से शुरू करें?|Se borrará todo el progreso. ¿Empezar de nuevo?",
+    waq_bonus: "Qo'shimcha|Қўшимча|Дополнительно|Extra|إضافي|Ekstra|Tambahan|额外|अतिरिक्त|Extra",
     hk8: "Eslatma|Эслатма|Напоминание|Reminder|تذكير|Hatırlatma|Pengingat|提醒|याद दिलाना|Recordatorio",
     hk5: "Qur’on nuri|Қуръон нури|Свет Корана|Light of the Qur’an|نور القرآن|Kur’an nuru|Cahaya Al-Qur’an|古兰经之光|क़ुरआन की रोशनी|Luz del Corán",
     hikmat: "Kun hikmati|Кун ҳикмати|Мудрость дня|Wisdom of the day|حكمة اليوم|Günün hikmeti|Hikmah hari ini|每日智慧|आज की हिकमत|Sabiduría del día",
@@ -324,7 +338,7 @@
     if (v === U.tab && !U.detail && U.more === "menu") return
     var from = navIdx(), to = 0
     for (var i = 0; i < NAVS.length; i++) if (NAVS[i][0] === v) to = i
-    var go = function () { U.tab = v; U.hikBack = false; U.detail = 0; U.more = "menu"; U.moodPick = ""; render() }
+    var go = function () { U.waq = false; U.tab = v; U.hikBack = false; U.detail = 0; U.more = "menu"; U.moodPick = ""; render() }
     if (from === to) return go()
     slidePage(to > from ? 1 : -1, go)
   }
@@ -439,7 +453,77 @@
       '<button class="sgo" data-act="sgo" aria-label="' + esc(tr("search")) + '">' + ic("search") + "</button></div></div>" + fl +
       '<div id="ngrid" class="ngrid' + (open ? " open" : "") + '"><div id="grid">' + nameCards(filterNames()) + "</div></div>" +
       '<button id="ntog" class="btn block moodtog" data-act="namesToggle"' + (searching ? " hidden" : "") + ">" + ic(U.namesOpen ? "expand_less" : "expand_more") + " <span>" + esc(tr(U.namesOpen ? "mood_less" : "mood_all")) + "</span></button>" +
-      '<button class="hikrow" data-act="hikmat"><span id="hph" class="hph2" aria-label="' + esc(tr("hikmat")) + '"><span></span><span></span></span>' + ic("chevron_right") + "</button>"
+      viewHomePanel()
+  }
+
+  // ====================
+  // VOQEA CHALLENJI
+  // ====================
+  var WQ_MAX = 40
+  function wq() { return S.wq || (S.wq = { on: false, level: 1, debt: 0, draft: 0, done: false, last: "", d0: 0, read: 0, total: 0, bonus: 0, fin: false }) }
+  function dayNum(k) { var p = k.split("-"); return Date.UTC(+p[0], +p[1] - 1, +p[2]) / 864e5 }
+  function wqRoll() {
+    var w = wq(); if (!w.on || w.fin) return
+    var t = todayStr()
+    if (!w.last) { w.last = t; return }
+    if (w.last === t) return
+    var n = Math.round(dayNum(t) - dayNum(w.last)); if (n < 1) { w.last = t; return }
+    if (w.done) { if (w.level < WQ_MAX) w.level++ } else w.debt++
+    if (n > 1) w.debt += n - 1
+    w.done = false; w.draft = 0; w.read = 0; w.bonus = 0; w.d0 = w.debt; w.last = t
+    save()
+  }
+  function wqLeft(w) { return (w.done ? 0 : w.level) + w.debt * w.level - w.draft }
+  function wqTap() {
+    var w = wq(); wqRoll()
+    w.total++
+    if (w.done && w.debt === 0) { w.bonus++; return }
+    w.draft++; w.read++
+    while (w.draft >= w.level) {
+      if (!w.done) { w.done = true; w.draft -= w.level }
+      else if (w.debt > 0) { w.debt--; w.draft -= w.level }
+      else break
+    }
+    if (w.done && w.debt === 0) { w.draft = 0; if (w.level >= WQ_MAX) w.fin = true }
+    save()
+  }
+  function wqLv() {
+    var w = wq(), L = w.level, T = L * (1 + w.d0), p = Math.min(w.read, T)
+    var tp = Math.round(L / T * 1000) / 10, fl = Math.round(p / T * 1000) / 10
+    var clamp = function (v) { return Math.max(20, Math.min(80, v)) }
+    var left = Math.max(0, wqLeft(w))
+    return '<div class="wqflags"><span class="wqfl t' + (w.done ? " ok" : "") + '" style="left:' + (w.d0 ? clamp(tp) : 50) + '%">' + esc(tr("waq_today")) + " " + (w.done ? "✓" : L) + "</span>" +
+      (w.d0 ? '<span class="wqfl d' + (w.debt ? "" : " ok") + '" style="left:' + (tp > 62 ? 88 : 78) + '%">' + esc(tr("waq_debt")) + " " + w.debt + " " + esc(tr("waq_dw")) + "</span>" : "") + "</div>" +
+      '<div class="wqbar"><u style="left:' + tp + '%"></u><i style="width:' + fl + '%"></i></div>' +
+      '<div class="wqnums"><span>' + esc(tr("waq_left")) + ": <b>" + left + "</b></span><span>" + esc(tr("waq_lv")) + " <b>" + L + "</b> · " + p + "/" + T + (w.bonus ? " · +" + w.bonus : "") + "</span></div>"
+  }
+  function viewWaq() {
+    var w = wq(); wqRoll()
+    var back = '<button class="btn small back circ" data-act="waqClose" aria-label="back">' + ic("arrow_back") + "</button>"
+    if (!w.on) return back + '<div class="card stack goalbox"><h2 class="wqt">' + ic("bedtime") + " " + esc(tr("waq_t")) + '</h2><p class="sub">' + esc(tr("waq_rules")) + '</p><button class="btn success block" data-act="waqStart">' + esc(tr("waq_start")) + "</button></div>"
+    var W = window.WAQ || [], ar = ["٠", "١", "٢", "٣", "٤", "٥", "٦", "٧", "٨", "٩"], sh = ""
+    for (var i = 0; i < W.length; i++) {
+      var n = String(i + 1).split("").map(function (c) { return ar[+c] }).join("")
+      sh += W[i] + ' <span class="ay">' + n + "</span> "
+    }
+    return back + '<div class="waq"><div class="wqhd"><b>' + ic("bedtime") + " " + esc(tr("waq_t")) + '</b><span id="wqlvn">' + esc(tr("waq_lv")) + " " + w.level + "</span></div>" +
+      '<div class="wqsura" dir="rtl" lang="ar">' + sh + "</div>" +
+      '<div id="wqlv" class="wqlv">' + (w.fin ? '<p class="done center">✦ ' + esc(tr("waq_fin")) + "</p>" : wqLv()) + "</div>" +
+      '<div class="tapzone wqtz"><i class="tb b1"></i><i class="tb b2"></i><i class="tb b3"></i><button class="tap-round' + (w.fin ? " off" : "") + '" data-act="waqTap" aria-label="+">' + (w.fin ? "✓" : ic("add")) + "</button></div>" +
+      '<button class="btn small wqrst" data-act="waqReset">' + ic("restart_alt") + " " + esc(tr("waq_reset")) + "</button></div>"
+  }
+  function wqPaint() {
+    var w = wq(), el = document.getElementById("wqlv"); if (!el) return
+    if (w.fin) { render(); return }
+    el.innerHTML = wqLv()
+  }
+  function viewHomePanel() {
+    var w = wq(); wqRoll()
+    var lay = S.hlay === "list" ? "list" : "grid"
+    return '<div class="hpanel"><div class="hptg" role="group"><button data-act="hlay" data-v="grid" class="' + (lay === "grid" ? "on" : "") + '" aria-label="grid">' + ic("grid_view") + '</button><button data-act="hlay" data-v="list" class="' + (lay === "list" ? "on" : "") + '" aria-label="list">' + ic("view_list") + "</button></div>" +
+      '<div class="hpg ' + lay + '"><button class="hikrow hcard" data-act="hikmat"><span id="hph" class="hph2" aria-label="' + esc(tr("hikmat")) + '"><span></span><span></span></span>' + ic("chevron_right") + "</button>" +
+      '<button class="hikrow hcard wqc' + (w.on && !w.fin ? " act" : "") + '" data-act="waqOpen"><span class="hct"><b>' + ic("bedtime") + " " + esc(tr("waq_t")) + "</b><small>" +
+      esc(w.on ? tr("waq_lv") + " " + w.level + (w.debt ? " · " + tr("waq_debt") + " " + w.debt : "") : tr("waq_new")) + "</small></span>" + ic("chevron_right") + "</button></div></div>"
   }
   // umumiy soat: 99 hisobi va header g'ildiraklari bir ritmda (barmoq tegsa to'xtaydi, qo'yilgach 3s dan keyin boshidan)
   var CLK = { tc: 0, block: 0 }
@@ -2077,6 +2161,7 @@
     var h
     try {
       if (U.detail) h = viewDetail()
+      else if (U.waq) h = viewWaq()
       else if (U.tab === "names") h = viewNames()
       else if (U.tab === "media") h = viewMedia()
       else if (U.tab === "mood") h = viewMood()
@@ -2103,12 +2188,13 @@
     renderNav()
     if (wheels.theme) updateThemeLabels()
     if (tg && tg.BackButton) {
-      if (U.detail || U.tab !== "names") tg.BackButton.show()
+      if (U.detail || U.waq || U.tab !== "names") tg.BackButton.show()
       else tg.BackButton.hide()
     }
     window.scrollTo(0, 0)
   }
   function goBack() {
+    if (U.waq) { U.waq = false; render(); window.scrollTo(0, 0); return }
     if (U.detail) { U.detail = 0; render(); window.scrollTo(0, 0); return }
     if (U.tab === "more" && U.more !== "menu") {
       if (U.hikBack) { U.hikBack = false; U.tab = "names" }
@@ -3028,6 +3114,12 @@
       el.innerHTML = ic(U.namesOpen ? "expand_less" : "expand_more") + " <span>" + esc(tr(U.namesOpen ? "mood_less" : "mood_all")) + "</span>"
       nsUpdate(); setTimeout(nsUpdate, 250); setTimeout(nsUpdate, 520)
     }
+    else if (act === "hlay") { S.hlay = v === "list" ? "list" : "grid"; save(); render() }
+    else if (act === "waqOpen") { U.waq = true; render(); window.scrollTo(0, 0) }
+    else if (act === "waqClose") { U.waq = false; render(); window.scrollTo(0, 0) }
+    else if (act === "waqStart") { var w0 = wq(); S.wq = { on: true, level: 1, debt: 0, draft: 0, done: false, last: todayStr(), d0: 0, read: 0, total: 0, bonus: 0, fin: false }; save(); render() }
+    else if (act === "waqTap") { if (!wq().fin) { wqTap(); wqPaint() } }
+    else if (act === "waqReset") { if (window.confirm(tr("waq_resetq"))) { S.wq = null; save(); render() } }
     else if (act === "hikmat") {
       var dt = new Date(), dn = Math.floor((Date.UTC(dt.getFullYear(), dt.getMonth(), dt.getDate()) - Date.UTC(dt.getFullYear(), 0, 0)) / 864e5)
       U.tab = "more"; U.more = "quote"; U.quoteIdx = dn % D.quotes.length; U.hikBack = true; render()
@@ -3351,8 +3443,8 @@
     clearTimeout(spT)
     spT = setTimeout(function () {
       var ds = S.daily || {}
-      var p = { initData: tg.initData, lang: S.lang === "uz_new" ? "uz" : (S.lang || "uz"), tz: -new Date().getTimezoneOffset(), remind: S.remind === false ? 0 : 1, mode: ds.mode || "", done: ds.todayDone ? 1 : 0, owed: ds.owedDays || 0, date: ds.lastCheckedDate || "", rm: rmGet() }
-      var k = JSON.stringify([p.lang, p.tz, p.remind, p.mode, p.done, p.owed, p.date, p.rm])
+      var p = { initData: tg.initData, lang: S.lang === "uz_new" ? "uz" : (S.lang || "uz"), tz: -new Date().getTimezoneOffset(), remind: S.remind === false ? 0 : 1, mode: ds.mode || "", done: ds.todayDone ? 1 : 0, owed: ds.owedDays || 0, date: ds.lastCheckedDate || "", rm: rmGet(), prem: (S.premium || pmObj().on) ? 2 : (trLeft() > 0 ? 1 : 0) }
+      var k = JSON.stringify([p.lang, p.tz, p.remind, p.mode, p.done, p.owed, p.date, p.rm, p.prem])
       if (k === spLast) return
       spLast = k
       try { fetch(u.replace(/\/$/, "") + "/sync", { method: "POST", body: JSON.stringify(p), keepalive: true }).catch(function () { spLast = "" }) } catch (e) {}
