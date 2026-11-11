@@ -41,11 +41,12 @@
     waq_today: "Bugun|Бугун|Сегодня|Today|اليوم|Bugün|Hari ini|今天|आज|Hoy",
     waq_left: "Qoldi|Қолди|Осталось|Left|المتبقي|Kalan|Sisa|剩余|शेष|Quedan",
     waq_start: "Boshlash|Бошлаш|Начать|Start|ابدأ|Başla|Mulai|开始|शुरू करें|Empezar",
-    waq_rules: "40 kunlik challenj. Daraja = kuniga o'qiladigan marta: 1-kun 1 ta, 2-kun 2 ta … 40-kun 40 ta. O'qilmagan kun qarzga yoziladi va qarz kuni joriy daraja soniga teng. Avval bugungi, keyin qarz yopiladi. Darajaga yetmagan qoldiq kun oxirida o'chadi.|40 кунлик челлендж. Даража = кунига ўқиладиган марта: 1-кун 1 та, 2-кун 2 та … 40-кун 40 та. Ўқилмаган кун қарзга ёзилади ва қарз куни жорий даража сонига тенг. Аввал бугунги, кейин қарз ёпилади. Даражага етмаган қолдиқ кун охирида ўчади.|40-дневный челлендж. Уровень = сколько раз читать в день: 1-й день 1, 2-й день 2 … 40-й день 40. Пропущенный день становится долгом, равным текущему уровню. Сначала закрывается сегодняшний, затем долг. Остаток меньше уровня в конце дня сгорает.|A 40-day challenge. Level = readings per day: day 1 is 1, day 2 is 2 … day 40 is 40. A missed day becomes a debt day equal to your current level. Today is closed first, then the debt. A remainder below the level is dropped at the end of the day.|تحدٍّ لمدة 40 يومًا. المستوى = عدد مرات القراءة يوميًا: اليوم 1 مرة، اليوم 2 مرتان … اليوم 40 أربعون مرة. اليوم الفائت يصبح دَينًا بقدر المستوى الحالي. يُغلق اليوم الحالي أولًا ثم الدَّين. ما نقص عن المستوى يُحذف في نهاية اليوم.|40 günlük meydan okuma. Seviye = günlük okuma sayısı: 1. gün 1, 2. gün 2 … 40. gün 40. Okunmayan gün, mevcut seviye kadar borç olur. Önce bugün, sonra borç kapanır. Seviyeye yetmeyen kalan gün sonunda silinir.|Tantangan 40 hari. Level = jumlah bacaan per hari: hari 1 = 1, hari 2 = 2 … hari 40 = 40. Hari terlewat menjadi utang sebesar level saat ini. Hari ini ditutup dulu, lalu utang. Sisa di bawah level dihapus di akhir hari.|40天挑战。等级 = 每天诵读次数：第1天1次，第2天2次……第40天40次。漏掉的一天记为欠天，数量等于当前等级。先完成今天，再还欠天。不足等级的余数在当天结束时清零。|40 दिन की चुनौती। स्तर = प्रतिदिन पढ़ने की संख्या: दिन 1 में 1, दिन 2 में 2 … दिन 40 में 40। छूटा दिन मौजूदा स्तर के बराबर बकाया बनता है। पहले आज, फिर बकाया पूरा होता है। स्तर से कम बचा हिस्सा दिन के अंत में हट जाता है।|Reto de 40 días. Nivel = lecturas por día: día 1 son 1, día 2 son 2 … día 40 son 40. Un día perdido se vuelve deuda igual al nivel actual. Primero se cierra hoy y luego la deuda. El resto menor al nivel se descarta al final del día.",
+    waq_rules: "40 kunlik challenj. Daraja = kuniga o'qiladigan marta: 1-kun 1 ta, 2-kun 2 ta … 40-kun 40 ta. O'qilmagan kun qarzga yoziladi va qarz kuni joriy daraja soniga teng. Avval qarz kunlari, oxirida bugun yopiladi. Maqsadga yetgach, ortiqcha aytib bo'lmaydi. Darajaga yetmagan qoldiq kun oxirida o'chadi.|40 кунлик челлендж. Даража = кунига ўқиладиган марта: 1-кун 1 та, 2-кун 2 та … 40-кун 40 та. Ўқилмаган кун қарзга ёзилади ва қарз куни жорий даража сонига тенг. Аввал қарз кунлари, охирида бугун ёпилади. Мақсадга етгач, ортиқча айтиб бўлмайди. Даражага етмаган қолдиқ кун охирида ўчади.|40-дневный челлендж. Уровень = сколько раз читать в день: 1-й день 1, 2-й день 2 … 40-й день 40. Пропущенный день становится долгом, равным текущему уровню. Сначала закрывается долг, последним — сегодняшний день. После цели читать сверх нормы нельзя. Остаток меньше уровня в конце дня сгорает.|A 40-day challenge. Level = readings per day: day 1 is 1, day 2 is 2 … day 40 is 40. A missed day becomes a debt day equal to your current level. Debt days are closed first, today last. Once the goal is reached, extra reading is locked. A remainder below the level is dropped at the end of the day.|تحدٍّ لمدة 40 يومًا. المستوى = عدد مرات القراءة يوميًا: اليوم 1 مرة، اليوم 2 مرتان … اليوم 40 أربعون مرة. اليوم الفائت يصبح دَينًا بقدر المستوى الحالي. يُغلق الدَّين أولًا ثم اليوم الحالي، وبعد بلوغ الهدف لا تُسمح الزيادة. ما نقص عن المستوى يُحذف في نهاية اليوم.|40 günlük meydan okuma. Seviye = günlük okuma sayısı: 1. gün 1, 2. gün 2 … 40. gün 40. Okunmayan gün, mevcut seviye kadar borç olur. Önce borç, en son bugün kapanır. Hedefe ulaşınca fazlası kilitlenir. Seviyeye yetmeyen kalan gün sonunda silinir.|Tantangan 40 hari. Level = jumlah bacaan per hari: hari 1 = 1, hari 2 = 2 … hari 40 = 40. Hari terlewat menjadi utang sebesar level saat ini. Utang ditutup dulu, hari ini terakhir. Setelah target tercapai, tambahan dikunci. Sisa di bawah level dihapus di akhir hari.|40天挑战。等级 = 每天诵读次数：第1天1次，第2天2次……第40天40次。漏掉的一天记为欠天，数量等于当前等级。先还欠天，最后完成今天。达标后不能再多诵。不足等级的余数在当天结束时清零。|40 दिन की चुनौती। स्तर = प्रतिदिन पढ़ने की संख्या: दिन 1 में 1, दिन 2 में 2 … दिन 40 में 40। छूटा दिन मौजूदा स्तर के बराबर बकाया बनता है। पहले बकाया, अंत में आज पूरा होता है। लक्ष्य पूरा होने पर अतिरिक्त पढ़ना बंद हो जाता है। स्तर से कम बचा हिस्सा दिन के अंत में हट जाता है।|Reto de 40 días. Nivel = lecturas por día: día 1 son 1, día 2 son 2 … día 40 son 40. Un día perdido se vuelve deuda igual al nivel actual. Primero se cierra la deuda y al final hoy. Al llegar a la meta, no se permite leer de más. El resto menor al nivel se descarta al final del día.",
     waq_done: "Bugungi daraja bajarildi|Бугунги даража бажарилди|Сегодняшний уровень выполнен|Today's level completed|اكتمل مستوى اليوم|Bugünün seviyesi tamamlandı|Level hari ini selesai|今日等级已完成|आज का स्तर पूरा हुआ|Nivel de hoy completado",
     waq_fin: "Challenj yakunlandi! Alloh qabul qilsin|Челлендж якунланди! Аллоҳ қабул қилсин|Челлендж завершён! Да примет Аллах|Challenge complete! May Allah accept|اكتمل التحدي! تقبّل الله|Meydan okuma tamamlandı! Allah kabul etsin|Tantangan selesai! Semoga Allah menerima|挑战完成！愿真主接受|चुनौती पूरी हुई! अल्लाह क़बूल करे|¡Reto completado! Que Allah lo acepte",
     waq_reset: "Qaytadan boshlash|Қайтадан бошлаш|Начать заново|Start over|ابدأ من جديد|Baştan başla|Mulai ulang|重新开始|फिर से शुरू करें|Empezar de nuevo",
     waq_resetq: "Barcha natija o'chadi. Qaytadan boshlaysizmi?|Барча натижа ўчади. Қайтадан бошлайсизми?|Весь прогресс будет удалён. Начать заново?|All progress will be erased. Start over?|سيتم حذف كل التقدم. هل تبدأ من جديد؟|Tüm ilerleme silinecek. Baştan başlansın mı?|Semua progres akan dihapus. Mulai ulang?|所有进度将被清除。重新开始？|सारी प्रगति मिट जाएगी। फिर से शुरू करें?|Se borrará todo el progreso. ¿Empezar de nuevo?",
+    waq_total: "Jami|Жами|Всего|Total|المجموع|Toplam|Total|总计|कुल|Total",
     waq_bonus: "Qo'shimcha|Қўшимча|Дополнительно|Extra|إضافي|Ekstra|Tambahan|额外|अतिरिक्त|Extra",
     hk8: "Eslatma|Эслатма|Напоминание|Reminder|تذكير|Hatırlatma|Pengingat|提醒|याद दिलाना|Recordatorio",
     hk5: "Qur’on nuri|Қуръон нури|Свет Корана|Light of the Qur’an|نور القرآن|Kur’an nuru|Cahaya Al-Qur’an|古兰经之光|क़ुरआन की रोशनी|Luz del Corán",
@@ -474,28 +475,40 @@
     save()
   }
   function wqLeft(w) { return (w.done ? 0 : w.level) + w.debt * w.level - w.draft }
+  function wqLock(w) { return w.fin || (w.done && w.debt === 0) }
   function wqTap() {
     var w = wq(); wqRoll()
-    w.total++
-    if (w.done && w.debt === 0) { w.bonus++; return }
-    w.draft++; w.read++
+    if (wqLock(w)) return
+    w.total++; w.draft++; w.read++
     while (w.draft >= w.level) {
-      if (!w.done) { w.done = true; w.draft -= w.level }
-      else if (w.debt > 0) { w.debt--; w.draft -= w.level }
+      if (w.debt > 0) { w.debt--; w.draft -= w.level }
+      else if (!w.done) { w.done = true; w.draft -= w.level }
       else break
     }
     if (w.done && w.debt === 0) { w.draft = 0; if (w.level >= WQ_MAX) w.fin = true }
     save()
   }
   function wqLv() {
-    var w = wq(), L = w.level, T = L * (1 + w.d0), p = Math.min(w.read, T)
-    var tp = Math.round(L / T * 1000) / 10, fl = Math.round(p / T * 1000) / 10
-    var clamp = function (v) { return Math.max(20, Math.min(80, v)) }
-    var left = Math.max(0, wqLeft(w))
-    return '<div class="wqflags"><span class="wqfl t' + (w.done ? " ok" : "") + '" style="left:' + (w.d0 ? clamp(tp) : 50) + '%">' + esc(tr("waq_today")) + " " + (w.done ? "✓" : L) + "</span>" +
-      (w.d0 ? '<span class="wqfl d' + (w.debt ? "" : " ok") + '" style="left:' + (tp > 62 ? 88 : 78) + '%">' + esc(tr("waq_debt")) + " " + w.debt + " " + esc(tr("waq_dw")) + "</span>" : "") + "</div>" +
-      '<div class="wqbar"><u style="left:' + tp + '%"></u><i style="width:' + fl + '%"></i></div>' +
-      '<div class="wqnums"><span>' + esc(tr("waq_left")) + ": <b>" + left + "</b></span><span>" + esc(tr("waq_lv")) + " <b>" + L + "</b> · " + p + "/" + T + (w.bonus ? " · +" + w.bonus : "") + "</span></div>"
+    var w = wq(), L = w.level, N = 1 + w.d0, T = L * N, p = Math.min(w.read, T)
+    var seg = "", lab = N <= 8, i
+    if (N <= 24) {
+      for (i = 0; i < N; i++) {
+        var f = Math.max(0, Math.min(L, p - i * L))
+        seg += '<span class="wqs' + (i === N - 1 ? " td" : "") + (f >= L ? " full" : "") + '"><i style="width:' + (f / L * 100) + '%"></i>' + (lab ? "<em>" + f + "/" + L + "</em>" : "") + "</span>"
+      }
+    } else {
+      seg = '<span class="wqs one"><i style="width:' + (p / T * 100) + '%"></i></span>'
+    }
+    var tdRead = Math.max(0, p - w.d0 * L)
+    return '<div class="wqflags">' + (w.d0 ? '<span class="wqfl d' + (w.debt ? "" : " ok") + '">' + esc(tr("waq_debt")) + " " + w.debt + " " + esc(tr("waq_dw")) + " × " + L + "</span>" : "<span></span>") +
+      '<span class="wqfl t' + (w.done ? " ok" : "") + '">' + esc(tr("waq_today")) + " " + (w.done ? "✓" : tdRead + "/" + L) + "</span></div>" +
+      '<div class="wqbar' + (N > 24 ? " dense" : "") + '">' + seg + "</div>" +
+      '<div class="wqnums"><span>' + esc(tr("waq_total")) + ": <b>" + p + "/" + T + "</b></span><span>" + esc(tr("waq_left")) + ": <b>" + Math.max(0, wqLeft(w)) + "</b></span></div>"
+  }
+  function wqTrans(i) {
+    var T = window.WAQ_T || {}, l = S.lang
+    if (l === "uz_new") return UZN((T.uz || [])[i] || "")
+    return (T[l] || T.en || [])[i] || ""
   }
   function viewWaq() {
     var w = wq(); wqRoll()
@@ -504,18 +517,21 @@
     var W = window.WAQ || [], ar = ["٠", "١", "٢", "٣", "٤", "٥", "٦", "٧", "٨", "٩"], sh = ""
     for (var i = 0; i < W.length; i++) {
       var n = String(i + 1).split("").map(function (c) { return ar[+c] }).join("")
-      sh += W[i] + ' <span class="ay">' + n + "</span> "
+      sh += '<div class="wqr"><div class="wqa" dir="rtl" lang="ar">' + W[i] + ' <span class="ay">' + n + '</span></div><div class="wqx"><sup>' + (i + 1) + "</sup> " + esc(wqTrans(i)) + "</div></div>"
     }
+    var lock = wqLock(w)
     return back + '<div class="waq"><div class="wqhd"><b>' + ic("bedtime") + " " + esc(tr("waq_t")) + '</b><span id="wqlvn">' + esc(tr("waq_lv")) + " " + w.level + "</span></div>" +
-      '<div class="wqsura" dir="rtl" lang="ar">' + sh + "</div>" +
+      '<div class="wqsura" dir="ltr">' + sh + "</div>" +
       '<div id="wqlv" class="wqlv">' + (w.fin ? '<p class="done center">✦ ' + esc(tr("waq_fin")) + "</p>" : wqLv()) + "</div>" +
-      '<div class="tapzone wqtz"><i class="tb b1"></i><i class="tb b2"></i><i class="tb b3"></i><button class="tap-round' + (w.fin ? " off" : "") + '" data-act="waqTap" aria-label="+">' + (w.fin ? "✓" : ic("add")) + "</button></div>" +
+      '<div class="tapzone wqtz"><i class="tb b1"></i><i class="tb b2"></i><i class="tb b3"></i><button id="wqplus" class="tap-round' + (lock ? " off" : "") + '" data-act="waqTap" aria-label="+">' + (lock ? "✓" : ic("add")) + "</button></div>" +
       '<button class="btn small wqrst" data-act="waqReset">' + ic("restart_alt") + " " + esc(tr("waq_reset")) + "</button></div>"
   }
   function wqPaint() {
     var w = wq(), el = document.getElementById("wqlv"); if (!el) return
     if (w.fin) { render(); return }
     el.innerHTML = wqLv()
+    var b = document.getElementById("wqplus"), lock = wqLock(w)
+    if (b) { b.classList.toggle("off", lock); b.innerHTML = lock ? "✓" : ic("add") }
   }
   function viewHomePanel() {
     var w = wq(); wqRoll()
