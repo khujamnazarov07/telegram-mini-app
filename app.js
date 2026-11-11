@@ -46,6 +46,13 @@
     waq_fin: "Challenj yakunlandi! Alloh qabul qilsin|Челлендж якунланди! Аллоҳ қабул қилсин|Челлендж завершён! Да примет Аллах|Challenge complete! May Allah accept|اكتمل التحدي! تقبّل الله|Meydan okuma tamamlandı! Allah kabul etsin|Tantangan selesai! Semoga Allah menerima|挑战完成！愿真主接受|चुनौती पूरी हुई! अल्लाह क़बूल करे|¡Reto completado! Que Allah lo acepte",
     waq_reset: "Qaytadan boshlash|Қайтадан бошлаш|Начать заново|Start over|ابدأ من جديد|Baştan başla|Mulai ulang|重新开始|फिर से शुरू करें|Empezar de nuevo",
     waq_resetq: "Barcha natija o'chadi. Qaytadan boshlaysizmi?|Барча натижа ўчади. Қайтадан бошлайсизми?|Весь прогресс будет удалён. Начать заново?|All progress will be erased. Start over?|سيتم حذف كل التقدم. هل تبدأ من جديد؟|Tüm ilerleme silinecek. Baştan başlansın mı?|Semua progres akan dihapus. Mulai ulang?|所有进度将被清除。重新开始？|सारी प्रगति मिट जाएगी। फिर से शुरू करें?|Se borrará todo el progreso. ¿Empezar de nuevo?",
+    t_gen: "Jins|Жинс|Пол|Gender|الجنس|Cinsiyet|Gender|性别|लिंग|Género",
+    t_bgn: "Mavzu|Мавзу|Тема|Theme|السمة|Tema|Tema|主题|थीम|Tema",
+    t_bg4: "Qish|Қиш|Зима|Winter|الشتاء|Kış|Musim dingin|冬季|सर्दी|Invierno",
+    t_bg5: "Oddiy|Оддий|Простой|Simple|بسيط|Sade|Sederhana|简约|सादा|Simple",
+    pm_bg: "Fon rasmlari Premium bilan ochiladi. Premium foydalanuvchilar masjid, qish va boshqa chiroyli fonlardan birini tanlab, ilovani o'zgartira oladi.|Фон расмлари Premium билан очилади. Premium фойдаланувчилар масжид, қиш ва бошқа гўзал фонлардан бирини танлаб, иловани ўзгартира олади.|Фоновые картинки открываются с Premium. Пользователи Premium могут выбрать мечеть, зиму и другие красивые фоны.|Background images unlock with Premium. Premium users can pick mosque, winter and other beautiful backgrounds.|صور الخلفية تُفتح مع Premium. يمكن لمستخدمي Premium اختيار المسجد أو الشتاء أو خلفيات جميلة أخرى.|Arka plan görselleri Premium ile açılır. Premium kullanıcılar cami, kış ve diğer güzel arka planları seçebilir.|Gambar latar terbuka dengan Premium. Pengguna Premium dapat memilih masjid, musim dingin, dan latar indah lainnya.|背景图片需要 Premium 解锁。Premium 用户可选择清真寺、冬季等精美背景。|पृष्ठभूमि चित्र Premium के साथ खुलते हैं। Premium उपयोगकर्ता मस्जिद, सर्दी और अन्य सुंदर पृष्ठभूमि चुन सकते हैं।|Los fondos se desbloquean con Premium. Los usuarios Premium pueden elegir mezquita, invierno y otros fondos hermosos.",
+    pm_hl: "Marker ranglari Premium bilan ochiladi. Standart qizil rang bepul, qolgan ranglarni Premium foydalanuvchilar tanlay oladi.|Маркер ранглари Premium билан очилади. Стандарт қизил ранг бепул, қолган ранглар Premium фойдаланувчилар учун.|Цвета маркера открываются с Premium. Красный бесплатен, остальные доступны пользователям Premium.|Highlighter colors unlock with Premium. Red is free, the other colors are for Premium users.|ألوان القلم تُفتح مع Premium. الأحمر مجاني والبقية لمستخدمي Premium.|Fosforlu kalem renkleri Premium ile açılır. Kırmızı ücretsiz, diğer renkler Premium kullanıcılar içindir.|Warna stabilo terbuka dengan Premium. Merah gratis, warna lain untuk pengguna Premium.|荧光笔颜色需要 Premium 解锁。红色免费，其他颜色仅限 Premium 用户。|मार्कर के रंग Premium के साथ खुलते हैं। लाल मुफ़्त है, बाकी रंग Premium उपयोगकर्ताओं के लिए हैं।|Los colores del marcador se desbloquean con Premium. El rojo es gratis; los demás son para usuarios Premium.",
+    pm_font: "Shriftlar Premium bilan ochiladi. Premium foydalanuvchilar 4 xil maxsus shriftdan birini tanlab, butun ilova ko'rinishini o'zgartira oladi.|Шрифтлар Premium билан очилади. Premium фойдаланувчилар 4 хил махсус шрифтдан бирини танлаб, бутун илова кўринишини ўзгартира олади.|Шрифты открываются с Premium. Пользователи Premium могут выбрать один из 4 особых шрифтов и изменить вид всего приложения.|Fonts unlock with Premium. Premium users can pick one of 4 special fonts and change the look of the whole app.|الخطوط تُفتح مع Premium. يمكن لمستخدمي Premium اختيار أحد 4 خطوط خاصة وتغيير مظهر التطبيق بالكامل.|Yazı tipleri Premium ile açılır. Premium kullanıcılar 4 özel yazı tipinden birini seçip tüm uygulamanın görünümünü değiştirebilir.|Font terbuka dengan Premium. Pengguna Premium dapat memilih salah satu dari 4 font khusus dan mengubah tampilan seluruh aplikasi.|字体需要 Premium 解锁。Premium 用户可从 4 种特色字体中选择，更改整个应用的外观。|फ़ॉन्ट Premium के साथ खुलते हैं। Premium उपयोगकर्ता 4 विशेष फ़ॉन्ट में से चुनकर पूरे ऐप का रूप बदल सकते हैं।|Las fuentes se desbloquean con Premium. Los usuarios Premium pueden elegir una de 4 fuentes especiales y cambiar el aspecto de toda la app.",
     waq_p2: "O'qilishi|Ўқилиши|Транскрипция|Reading|النطق|Okunuşu|Cara baca|读音|उच्चारण|Lectura",
     waq_p3: "Tarjima|Таржима|Перевод|Translation|الترجمة|Çeviri|Terjemahan|译文|अनुवाद|Traducción",
     waq_total: "Jami|Жами|Всего|Total|المجموع|Toplam|Total|总计|कुल|Total",
@@ -337,11 +344,20 @@
     navInd.style.transition = first ? "transform .35s cubic-bezier(.3,1.3,.4,1)" : "none"
     navInd.style.transform = "translateX(" + b.offsetLeft + "px)"
   }
+  var AMT = {}
+  function armAuto(flag, sel) {
+    clearTimeout(AMT[flag])
+    AMT[flag] = setTimeout(function () {
+      if (!U[flag]) return
+      var b = document.querySelector(sel)
+      if (b) b.click(); else U[flag] = false
+    }, 30000)
+  }
   function goTab(v) {
-    if (v === U.tab && !U.detail && U.more === "menu") return
+    if (v === U.tab && !U.detail && !U.waq && U.more === "menu") { window.scrollTo({ top: 0, behavior: "smooth" }); return }
     var from = navIdx(), to = 0
     for (var i = 0; i < NAVS.length; i++) if (NAVS[i][0] === v) to = i
-    var go = function () { U.waq = false; U.tab = v; U.hikBack = false; U.detail = 0; U.more = "menu"; U.moodPick = ""; render() }
+    var go = function () { window.scrollTo(0, 0); U.namesOpen = false; U.waq = false; U.tab = v; U.hikBack = false; U.detail = 0; U.more = "menu"; U.moodPick = ""; render() }
     if (from === to) return go()
     slidePage(to > from ? 1 : -1, go)
   }
@@ -1900,7 +1916,7 @@
         for (var qi = 0; qi < 4; qi++) qbs += '<button class="' + (qb === qi ? "on" : "") + '" data-act="qbg" data-v="' + qi + '"><i class="qd' + qi + '"></i>' + esc(tr("qb" + qi)) + "</button>"
         qbs += "</div>"
       }
-      return '<button class="btn small back circ" data-act="moreBack" aria-label="back">' + ic("arrow_back") + "</button>" + qbs +
+      return '<button class="btn small back circ" data-act="moreBack" aria-label="back">' + ic("arrow_back") + "</button>" + hlPill() + qbs +
         '<div class="card quote' + (qb ? " qbg" + qb : "") + '"><div class="qin"><strong>' + esc(d.title) + '</strong><div class="qt">' + esc(d.body) + " " + emImg(d.em) + '</div></div><div class="qrefs"><span class="ref">' + ic("verified") + " " + esc(d.src) + '</span><span class="ref">' + ic("smart_toy") + " @" + CFG.BOT + "</span></div></div>" +
         '<div class="qbtns"><button class="btn" data-act="share">' + ic("share") + "<span>" + esc(tr("share")) + '</span></button><button class="btn" data-act="open" data-v="' + d.q.n + '">' + ic("auto_awesome") + "<span>" + esc(D.names[d.q.n - 1].t) + '</span></button><button class="btn" data-act="quoteNext">' + ic("skip_next") + "</button></div>"
     }
@@ -1917,8 +1933,8 @@
       return h
     }
     if (U.more === "theme") {
-      return '<div class="shead"><button class="btn small back circ" data-act="moreBack" aria-label="back">' + ic("arrow_back") + '</button><h1>' + ic("palette") + " " + esc(tr("theme_t")) + '</h1><span></span></div><p class="sub">&nbsp;</p>' + hswHtml("g") +
-        '<div id="themeOpts" class="topts">' + themeOpts() + "</div>" + fontHtml() + '<p class="ginfo">' + ic("info") + " <span>" + esc(tr("gender_info")) + "</span></p>"
+      return '<div class="shead"><button class="btn small back circ" data-act="moreBack" aria-label="back">' + ic("arrow_back") + '</button><h1>' + ic("palette") + " " + esc(tr("theme_t")) + '</h1><span></span></div>' +
+        '<div id="themeOpts" class="topts">' + themeOpts() + '</div><p class="ginfo">' + ic("info") + " <span>" + esc(tr("gender_info")) + "</span></p>"
     }
     if (U.more === "mode") {
       var mm = '<div class="shead"><button class="btn small back circ" data-act="moreBack" aria-label="back">' + ic("arrow_back") + '</button><h1>' + ic("contrast") + " " + esc(tr("mode_t")) + '</h1><span></span></div><div id="mdw" class="hsl"></div><div id="mglobe">' + modeGlobeHtml() + "</div>"
@@ -1933,6 +1949,7 @@
         '<button data-act="more" data-v="lang">' + ic("translate") + " " + esc(tr("lang")) + " · " + LANG_NAMES[S.lang] + "</button>" +
         '<div class="rrow" data-act="more" data-v="remind">' + ic("notifications") + "<span>" + esc(tr("remind")) + '</span><button class="tgl' + (S.remind === false ? "" : " on") + '" data-act="rmt" data-v="all" aria-label="remind"><i></i></button></div></div>'
     }
+    if (U.more === "pmx") return pmxHtml()
     if (U.more === "premium") {
       return '<div class="shead"><button class="btn small back circ" data-act="moreBack" aria-label="back">' + ic("arrow_back") + '</button><h1>' + ic("workspace_premium") + " " + esc(tr("st_prem")) + '</h1><span></span></div><div id="pmbody">' + pmHtml() + '</div><p class="pmfree">' + esc(tr("pm_free")) + "</p>"
     }
@@ -1969,7 +1986,17 @@
   // ====================
   // STATISTIKA
   // ====================
-  function isPrem() { return !!S.premium || pmObj().on || trLeft() > 0 }
+  function pmxLive() { var x = S.pmx; if (x && x.until > Date.now()) return x; if (x) { S.pmx = null; save() } return null }
+  function isPrem() { var x = pmxLive(); if (x) return x.mode === "on"; return !!S.premium || pmObj().on || trLeft() > 0 }
+  function pmxHtml() {
+    var x = pmxLive(), on = isPrem(), m = x ? Math.max(0, Math.ceil((x.until - Date.now()) / 1000)) : 0
+    return '<div class="shead"><button class="btn small back circ" data-act="moreBack" aria-label="back">' + ic("arrow_back") + '</button><h1>' + ic("workspace_premium") + ' Premium test</h1><span></span></div>' +
+      '<div class="card stack goalbox"><p class="sub center">Hozirgi holat</p><h2 class="center">' + (on ? "★ Premium YOQIQ" : "Premium YO'Q") + (x ? " (vaqtincha)" : "") + '</h2>' +
+      (x ? '<p class="sub center"><b id="pmxc">' + ("0" + Math.floor(m / 60)).slice(-2) + ":" + ("0" + (m % 60)).slice(-2) + "</b> qoldi</p>" : "") +
+      '<button class="btn success block" data-act="pmxSet" data-v="on">10 daqiqa Premium yoqish</button>' +
+      '<button class="btn block" data-act="pmxSet" data-v="off">10 daqiqa Premium o\'chirish</button>' +
+      (x ? '<button class="btn small block" data-act="pmxSet" data-v="">Haqiqiy holatga qaytish</button>' : "") + "</div>"
+  }
   var PM_N = 7, PM_TRIAL = 3 * 60000, PM_DAY = 1, PM_WEEK = 3
   function pmObj() { return S.pm || (S.pm = { on: false, n: 0, last: "" }) }
   function dayAdd(k, n) { var p = k.split("-"), x = new Date(+p[0], +p[1] - 1, +p[2] + n); return x.getFullYear() + "-" + ("0" + (x.getMonth() + 1)).slice(-2) + "-" + ("0" + x.getDate()).slice(-2) }
@@ -1982,7 +2009,7 @@
   function pmCheck() {
     var p = pmObj(), t = todayStr()
     if (!p.last || p.last === t || p.last === dayAdd(t, -1)) return
-    if (p.on) { if (Date.now() >= dayStart(dayAdd(p.last, 3))) { p.on = false; p.n = 0; p.last = ""; save(); toast(tr("pm_end")) } }
+    if (p.on) { if (Date.now() >= dayStart(dayAdd(p.last, 3))) { p.on = false; p.n = 0; p.last = ""; p.re = 1; save(); toast(tr("pm_end")) } }
     else { p.n = 0; p.last = ""; save() }
   }
   function pmDone() {
@@ -1991,7 +2018,7 @@
     if (p.last === t) { save(); return }
     if (!p.last) p.n = 1; else if (p.last === dayAdd(t, -1) || p.on) p.n++; else p.n = 1
     p.last = t
-    if (!p.on && p.n >= PM_N) { p.on = true; toast(tr("pm_got")) }
+    if (!p.on && p.n >= (p.re ? 3 : PM_N)) { p.on = true; p.re = 0; toast(tr("pm_got")) }
     save()
   }
   function trLeft() { var t = S.trial; return t && t.until > Date.now() ? t.until - Date.now() : 0 }
@@ -2024,8 +2051,8 @@
     }
     if (tl > 0) return '<div class="pmc on">' + ic("timer") + '<div class="pmb"><b>' + esc(tr("pm_trial_on")) + '</b><span>' + esc(tr("pm_left")) + ' · <em id="pmt" data-u="' + (Date.now() + tl) + '">' + pmClock(tl) + "</em></span></div></div>"
     var u = trUsed(), can = trCan(), dots = ""
-    for (i = 0; i < PM_N; i++) dots += "<i" + (i < p.n ? ' class="on"' : "") + "></i>"
-    return '<div class="pmc">' + ic("workspace_premium") + '<div class="pmb"><b>' + esc(tr("st_prem")) + " · " + Math.min(p.n, PM_N) + "/" + PM_N + '</b><span>' + esc(tr("pm_goal")) + '</span><div class="pmdots">' + dots + '</div>' +
+    for (i = 0; i < (p.re ? 3 : PM_N); i++) dots += "<i" + (i < p.n ? ' class="on"' : "") + "></i>"
+    return '<div class="pmc">' + ic("workspace_premium") + '<div class="pmb"><b>' + esc(tr("st_prem")) + " · " + Math.min(p.n, p.re ? 3 : PM_N) + "/" + (p.re ? 3 : PM_N) + '</b><span>' + esc(tr("pm_goal")) + '</span><div class="pmdots">' + dots + '</div>' +
       '<button class="btn small pmbtn' + (can ? "" : " off") + '" data-act="pmTrial">' + ic("timer") + " " + esc(can ? tr("pm_trial") : tr("pm_nolimit")) + '</button></div></div>'
   }
   function stEmpty() { return { s: 0, h: [], sal: 0, nm: [], no: 0, md: {}, q: 0 } }
@@ -2209,7 +2236,7 @@
         var c = list[a], g = c.g, k = -1, f = 0
         for (var e = 0; e < c.ent.length; e++) if (now >= c.ent[e].s) { k = e; f = Math.min(1, (now - c.ent[e].s) / (c.ent[e].e - c.ent[e].s)) } else break
         g.setTransform(c.dpr, 0, 0, c.dpr, 0, 0); g.clearRect(0, 0, c.CW, c.CH)
-        var hc = HLC[S.hlc | 0] || HLC[0], dkm = effTheme() === "dark", wh = (S.hlc | 0) === 4
+        var hci = isPrem() ? (S.hlc | 0) : 0, hc = HLC[hci] || HLC[0], dkm = effTheme() === "dark", wh = hci === 4
         g.fillStyle = "rgba(" + hc[0] + "," + hc[1] + "," + hc[2] + "," + (wh ? (dkm ? .34 : .9) : hc[3]) + ")"
         g.strokeStyle = wh ? (dkm ? "rgba(255,255,255,.4)" : "rgba(0,0,0,.22)") : "rgba(" + (hc[0] * .75 | 0) + "," + (hc[1] * .75 | 0) + "," + (hc[2] * .75 | 0) + ",.4)"
         g.lineWidth = 1; g.lineJoin = "round"
@@ -2251,6 +2278,11 @@
     hgAttach()
     meanFit()
     document.addEventListener("scroll", function (ev) { var t = ev.target; if (t && t.classList && t.classList.contains("wqpg")) { var i = Math.round(t.scrollLeft / Math.max(1, t.clientWidth)), bs = document.querySelectorAll(".wqtab"); for (var k = 0; k < bs.length; k++) bs[k].classList.toggle("on", k === i) } }, true)
+    setInterval(function () {
+      var c = document.getElementById("pmxc"); if (!c) { if (S.pmx && S.pmx.until <= Date.now()) { pmxLive(); applyGender(); render() } return }
+      var x = pmxLive(); if (!x) { applyGender(); render(); return }
+      var m = Math.max(0, Math.ceil((x.until - Date.now()) / 1000)); c.textContent = ("0" + Math.floor(m / 60)).slice(-2) + ":" + ("0" + (m % 60)).slice(-2)
+    }, 1000)
     hpStart(); phStart(); nhStart(); tbInit(); mediaInit(); themeInit(); hswInit(); mdInit(); hlStart()
     nsUpdate()
     miniSync()
@@ -2761,18 +2793,20 @@
     }
     requestAnimationFrame(loop)
   }
-  var BGV = { mosque: ["", ""], mosque2: ["", ""], mosque3: ["", ""], gold: ["", ""], cream: ["", ""] }
+  var BGV = { mosque: ["", ""], mosque2: ["", ""], mosque3: ["", ""], winter1: ["", ""], winter2: ["", ""], winter3: ["", ""], quran: ["", ""], gold: ["", ""], cream: ["", ""] }
+  function isImgBg(k) { return /^(mosque|winter|quran)/.test(k || "") }
+  var BGF = { mosque: "m1", mosque2: "m2", mosque3: "m3", winter1: "w1", winter2: "w2", winter3: "w3", quran: "q" }
   function applyBg() {
     var root = document.documentElement, g = S.gender
     var v = g === "female" ? S.fbg : g === "male" ? S.mbg : ""
-    if (!BGV[v]) v = ""
+    if (!BGV[v] || (isImgBg(v) && !isPrem())) v = ""
     var night = effTheme() === "dark"
     root.setAttribute("data-bg", v)
     var el = document.getElementById("mbg")
     if (v) {
       if (!el) { el = document.createElement("div"); el.id = "mbg"; document.body.insertBefore(el, document.body.firstChild) }
       var k = v + (night ? "n" : "d")
-      if (el.getAttribute("data-k") !== k) { el.setAttribute("data-k", k); el.innerHTML = '<img src="bg_' + (v === "mosque" ? "m1" : v === "mosque2" ? "m2" : v === "mosque3" ? "m3" : v) + '.webp" alt="">' }
+      if (el.getAttribute("data-k") !== k) { el.setAttribute("data-k", k); el.innerHTML = '<img src="bg_' + (BGF[v] || v) + '.webp" alt="">' }
     } else if (el) el.remove()
   }
   function applyGender() {
@@ -2801,18 +2835,26 @@
   }
   var HLC = [[235, 40, 40, .7], [255, 226, 0, .72], [20, 205, 90, .7], [30, 170, 255, .7], [255, 255, 255, .5]]
   var FONTS = [["", "Plus Jakarta Sans"], ["cutive", "Cutive Mono"], ["nova", "Nova Mono"], ["sono", "Sono"], ["serif", "Noto Serif"]]
-  function fontHtml() {
-    var h = '<div class="card tpill col fnt"><span class="tp-l">' + esc(tr("t_font")) + '</span><div class="fchips">'
-    for (var i = 0; i < FONTS.length; i++) h += '<button class="' + ((S.font || "") === FONTS[i][0] ? "on" : "") + '" data-act="font" data-v="' + FONTS[i][0] + '" style="font-family:\'' + FONTS[i][1] + '\', sans-serif">' + (i === 0 ? esc(tr("t_bg0")) : FONTS[i][1]) + "</button>"
-    return h + "</div></div>"
+  function applyFont() { document.documentElement.setAttribute("data-font", isPrem() ? (S.font || "") : "") }
+  function sRow(title, inner) { return '<div class="srow"><b>' + esc(title) + '</b><div class="sstrip"><div class="sin">' + inner + "</div></div></div>" }
+  function sCenter() {
+    var st = document.querySelectorAll(".sstrip")
+    for (var i = 0; i < st.length; i++) {
+      var on = st[i].querySelector(".on"); if (!on) continue
+      st[i].scrollLeft = Math.max(0, on.offsetLeft + on.offsetWidth - st[i].clientWidth + 18)
+    }
   }
-  function applyFont() { document.documentElement.setAttribute("data-font", S.font || "") }
   function hlPill() {
-    var h = "", cur = S.hlc | 0
-    for (var i = 0; i < HLC.length; i++) h += '<button class="sws' + (i === 4 ? " wh" : "") + (i === cur ? " on" : "") + '" data-act="hlc" data-v="' + i + '" style="--c:rgb(' + HLC[i][0] + "," + HLC[i][1] + "," + HLC[i][2] + ')" aria-label="color"></button>'
-    return '<div class="card tpill"><span class="tp-l">' + esc(tr("t_hl")) + '</span><div class="swrow">' + h + "</div></div>"
+    var h = "", cur = isPrem() ? (S.hlc | 0) : 0
+    for (var i = 0; i < HLC.length; i++) h += '<button class="sws' + (i === 4 ? " wh" : "") + (i === cur ? " on" : "") + ((i && !isPrem()) ? " lk" : "") + '" data-act="hlc" data-v="' + i + '" style="--c:rgb(' + HLC[i][0] + "," + HLC[i][1] + "," + HLC[i][2] + ')" aria-label="color"></button>'
+    return sRow(tr("t_hl"), h)
   }
-  var BGK = ["", "mosque", "mosque2", "mosque3", "gold", "cream"], BGL = [["t_bg0", "d", ""], ["t_bg1", "m1", " 1"], ["t_bg1", "m2", " 2"], ["t_bg1", "m3", " 3"], ["t_bg2", "g", ""], ["t_bg3", "c", ""]]
+  function fontRow() {
+    var h = "", cf = isPrem() ? (S.font || "") : ""
+    for (var i = 0; i < FONTS.length; i++) h += '<button class="sch' + (cf === FONTS[i][0] ? " on" : "") + (i && !isPrem() ? " lk" : "") + '" data-act="font" data-v="' + FONTS[i][0] + '" style="font-family:\'' + FONTS[i][1] + '\', sans-serif">' + (i && !isPrem() ? ic("lock") : "") + (i === 0 ? esc(tr("t_bg0")) : FONTS[i][1]) + "</button>"
+    return sRow(tr("t_font"), h)
+  }
+  var BGK = ["", "mosque", "mosque2", "mosque3", "winter1", "winter2", "winter3", "quran", "gold", "cream"], BGL = [["t_bg0", "d", ""], ["t_bg1", "m1", " 1"], ["t_bg1", "m2", " 2"], ["t_bg1", "m3", " 3"], ["t_bg4", "w1", " 1"], ["t_bg4", "w2", " 2"], ["t_bg4", "w3", " 3"], ["t_bg5", "q", ""], ["t_bg2", "g", ""], ["t_bg3", "c", ""]]
   var MDK = ["auto", "light", "dark"]
   function modeGlobeHtml() {
     if (S.theme !== "auto") return ""
@@ -2867,6 +2909,7 @@
     return Math.max(0, BGK.indexOf((S.gender === "female" ? S.fbg : S.mbg) || ""))
   }
   function hswInit() {
+    sCenter()
     var els = document.querySelectorAll(".hsw")
     for (var q = 0; q < els.length; q++) (function (el) {
       if (el._in) return
@@ -2899,13 +2942,18 @@
     o.innerHTML = themeOpts(); hswInit()
   }
   function themeOpts() {
-    var h = "", i, fem = S.gender === "female", mal = S.gender === "male"
-    if (!fem && !mal) return ""
+    var i, fem = S.gender === "female", mal = S.gender === "male", gc = "", bc = "", cc = ""
+    var gcur = fem ? 2 : mal ? 1 : 0
+    for (i = 0; i < 3; i++) gc += '<button class="sch' + (i === gcur ? " on" : "") + '" data-act="sgen" data-v="' + i + '">' + ic(TICONS[i]) + esc(tr(TLAB[i])) + "</button>"
+    var out = '<div class="srows">' + sRow(tr("t_gen"), gc)
+    if (!fem && !mal) return out + fontRow() + "</div>"
+    var bgc = (fem ? S.fbg : S.mbg) || ""
+    if (isImgBg(bgc) && !isPrem()) bgc = ""
+    for (i = 0; i < BGK.length; i++) bc += '<button class="sch' + (BGK[i] === bgc ? " on" : "") + (isImgBg(BGK[i]) && !isPrem() ? " lk" : "") + '" data-act="sbg" data-v="' + BGK[i] + '"><i class="bgp ' + BGL[i][1] + '"></i>' + esc(tr(BGL[i][0]) + BGL[i][2]) + "</button>"
     var arr = fem ? PINKS : MALES, cur = (fem ? S.fcolor : S.mcolor) | 0, act = fem ? "fcolor" : "mcolor"
-    for (i = 0; i < arr.length; i++) h += '<button class="sws' + (arr[i].w ? " wh" : "") + (i === cur ? " on" : "") + '" data-act="' + act + '" data-v="' + i + '" style="--c:' + arr[i].a + '" aria-label="color"></button>'
+    for (i = 0; i < arr.length; i++) cc += '<button class="sws' + (arr[i].w ? " wh" : "") + (i === cur ? " on" : "") + '" data-act="' + act + '" data-v="' + i + '" style="--c:' + arr[i].a + '" aria-label="color"></button>'
     var on = gOn(), dk = effTheme() === "dark"
-    var out = hswHtml("b") +
-      '<div class="card tpill"><span class="tp-l">' + esc(tr("t_color")) + '</span><div class="swrow">' + h + "</div></div>" + hlPill() +
+    out += sRow(tr("t_bgn"), bc) + sRow(tr("t_color"), cc) + fontRow() + "</div>" +
       '<div class="card tpill col"><div class="tl"><span>' + esc(tr("t_gon")) + '</span><button class="tgl' + (on ? " on" : "") + '" data-act="gtoggle" aria-label="glass"><i></i></button></div>'
     if (on) {
       var gl = fem ? (S.fgl == null ? 100 : S.fgl) : (S.mgl == null ? 100 : S.mgl), bl = fem ? (S.fbl == null ? 2 : S.fbl) : (S.mbl == null ? 2 : S.mbl)
@@ -3180,6 +3228,7 @@
     else if (act === "moodAgain") { U.moodPick = ""; render() }
     else if (act === "moodPage") { U.moodPage = parseInt(v, 10); render() }
     else if (act === "namesToggle") {
+      armAuto("namesOpen", "#ntog")
       U.namesOpen = !U.namesOpen
       var ng2 = document.getElementById("ngrid")
       if (ng2) ng2.classList.toggle("open", U.namesOpen)
@@ -3191,6 +3240,7 @@
     else if (act === "waqClose") { U.waq = false; render(); window.scrollTo(0, 0) }
     else if (act === "waqStart") { var w0 = wq(); S.wq = { on: true, level: 1, debt: 0, dd: [], dd0: [], draft: 0, done: false, last: todayStr(), d0: 0, read: 0, total: 0, bonus: 0, fin: false }; save(); render() }
     else if (act === "waqTap") { if (!wq().fin) { wqTap(); wqPaint() } }
+    else if (act === "pmxSet") { S.pmx = v ? { mode: v, until: Date.now() + 600000 } : null; save(); applyGender(); render() }
     else if (act === "waqPg") { var pg = document.querySelector(".wqpg"); if (pg) pg.scrollTo({ left: pg.clientWidth * (+v || 0), behavior: "smooth" }) }
     else if (act === "waqReset") { if (window.confirm(tr("waq_resetq"))) { S.wq = null; save(); render() } }
     else if (act === "hikmat") {
@@ -3198,12 +3248,14 @@
       U.tab = "more"; U.more = "quote"; U.quoteIdx = dn % D.quotes.length; U.hikBack = true; render()
     }
     else if (act === "meanTog") {
+      armAuto("mexp", ".mtog")
       U.mexp = !U.mexp
       var mt = document.querySelector("#slide .mt")
       if (mt) mt.classList.toggle("open", U.mexp)
       el.innerHTML = ic(U.mexp ? "expand_less" : "expand_more") + " <span>" + esc(tr(U.mexp ? "mood_less" : "more_t")) + "</span>"
     }
     else if (act === "moodToggle") {
+      armAuto("moodOpen", '[data-act="moodToggle"]')
       U.moodOpen = !U.moodOpen
       var mg = document.getElementById("moodgrid")
       if (mg) mg.classList.toggle("open", U.moodOpen)
@@ -3230,7 +3282,7 @@
       S.trial = { until: tn + PM_TRIAL, log: tr0.filter(function (x) { return x >= tn - 7 * 86400000 }).concat([tn]) }
       save(); toast(tr("pm_trial_on")); stPaint()
     }
-    else if (act === "stDev") { clearTimeout(ST.devT); ST.dev++; ST.devT = setTimeout(function () { ST.dev = 0 }, 1500); if (ST.dev >= 5) { ST.dev = 0; S.premium = !S.premium; save(); toast(S.premium ? "Premium ON" : "Premium OFF"); render() } }
+    else if (act === "stDev") { clearTimeout(ST.devT); ST.dev++; ST.devT = setTimeout(function () { ST.dev = 0 }, 1500); if (ST.dev >= 5) { ST.dev = 0; U.tab = "more"; U.more = "pmx"; render(); window.scrollTo(0, 0) } }
     else if (act === "dview") { S.dview = v; save(); render() }
     else if (act === "dglass") { if (!isPrem()) pToast(tr("pm_need")); else { S.dglass = !S.dglass; save(); render() } }
     else if (act === "qbg") { if (isPrem()) { S.qbg = +v; save(); render() } }
@@ -3250,6 +3302,17 @@
         cycles++
         if (ds.mode === "free") continue
         if (ds.owedDays > 0) ds.owedDays--; else ds.todayDone = true
+      }
+      if (ds.mode === "free" && ds.gdTarget > 0) {
+        var gtd = todayStr()
+        if (ds.gdDate !== gtd) {
+          ds.gdDraft = (ds.gdDraft || 0) + (ds.step || 1)
+          while (ds.gdDraft >= ds.gdTarget) {
+            ds.gdDraft -= ds.gdTarget
+            if (ds.gdOwed > 0) ds.gdOwed--
+            else { ds.gdDate = gtd; ds.gdDraft = 0; cycles++; break }
+          }
+        }
       }
       if (cycles > 0) pmDone()
       save()
@@ -3303,8 +3366,10 @@
     else if (act === "setMode") { S.theme = v; save(); applyTheme(); if (wheels.theme) wheels.theme.set(THEMES.indexOf(v), true); render() }
     else if (act === "sgo") { var qq = document.getElementById("q"); if (qq) { qq.focus(); if (qq.value) qq.select() } }
     else if (act === "gtoggle") { if (S.gender === "female") S.fgon = !gOn(); else S.mgon = !gOn(); applyGender(); save(); tOptsRefresh() }
-    else if (act === "font") { S.font = v; save(); applyFont(); var fc = document.querySelectorAll(".fchips button"); for (var fi = 0; fi < fc.length; fi++) fc[fi].classList.toggle("on", fc[fi].getAttribute("data-v") === v) }
-    else if (act === "hlc") { S.hlc = parseInt(v, 10); save(); tOptsRefresh() }
+    else if (act === "font") { if (v && !isPrem()) { pToast(tr("pm_font")); return } S.font = v; save(); applyFont(); tOptsRefresh() }
+    else if (act === "hlc") { var hv = parseInt(v, 10); if (hv && !isPrem()) { pToast(tr("pm_hl")); return } S.hlc = hv; save(); if (U.more === "quote") render(); else tOptsRefresh() }
+    else if (act === "sgen") { S.gender = TKEYS[+v] || "auto"; applyGender(); save(); tOptsRefresh() }
+    else if (act === "sbg") { if (isImgBg(v) && !isPrem()) { pToast(tr("pm_bg")); return } if (S.gender === "female") S.fbg = v; else S.mbg = v; save(); applyGender(); tOptsRefresh() }
     else if (act === "gsol") { if (S.gender === "female") S.fsol = parseInt(v, 10); else S.msol = parseInt(v, 10); applyGender(); save(); tOptsRefresh() }
     else if (act === "fcolor") { S.fcolor = parseInt(v, 10); applyGender(); save(); tOptsRefresh() }
     else if (act === "mcolor") { S.mcolor = parseInt(v, 10); applyGender(); save(); tOptsRefresh() }
