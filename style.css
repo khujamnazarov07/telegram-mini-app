@@ -1385,3 +1385,52 @@ html[data-theme] body .hptg { background: var(--bg, #0b0b0d); }
 .hpanel { background: color-mix(in srgb, var(--card) 40%, transparent); -webkit-backdrop-filter: blur(max(5px, calc(10px * var(--bk, 1)))); backdrop-filter: blur(max(5px, calc(10px * var(--bk, 1)))); }
 .hpg .hcard { background: color-mix(in srgb, var(--card) 78%, transparent); }
 .ngrid:not(.open) { max-height: 348px !important; }
+
+.wqtop { display: grid; grid-template-columns: 44px 1fr 44px; align-items: center; gap: 8px; margin-bottom: 10px; }
+.wqtop .back { margin: 0; }
+.wqttl { display: flex; align-items: center; justify-content: center; gap: 8px; min-width: 0; }
+.wqpill, .wqlvb, .wqtab, .wqg, .wqchip { background: color-mix(in srgb, var(--card) 62%, transparent); -webkit-backdrop-filter: blur(max(5px, calc(14px * var(--bk, 1)))) saturate(1.4); backdrop-filter: blur(max(5px, calc(14px * var(--bk, 1)))) saturate(1.4); border: 1px solid var(--line); box-shadow: inset 0 1px 0 rgba(255, 255, 255, .18); }
+.wqpill { display: flex; align-items: center; gap: 6px; height: 38px; padding: 0 14px; border-radius: 99px; font-size: 16px; min-width: 0; }
+.wqpill b { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.wqpill .msi { font-size: 20px; color: var(--accent); }
+.wqlvb { position: relative; flex: none; width: 38px; height: 38px; border-radius: 50%; display: grid; place-items: center; }
+.wqlvb .msi { font-size: 32px; color: var(--accent); font-variation-settings: "FILL" 1; }
+.wqlvb b { position: absolute; inset: 0; display: grid; place-items: center; font-size: 14px; font-weight: 900; color: var(--accent-text, #fff); line-height: 1; padding-bottom: 1px; }
+.wqbox { flex: 1 1 0; min-height: 260px; display: flex; flex-direction: column; border-radius: 22px; overflow: hidden; background: color-mix(in srgb, var(--card) 66%, transparent); -webkit-backdrop-filter: blur(max(5px, calc(14px * var(--bk, 1)))) saturate(1.3); backdrop-filter: blur(max(5px, calc(14px * var(--bk, 1)))) saturate(1.3); border: 1px solid var(--line); }
+.wqtabs { flex: none; display: flex; gap: 6px; padding: 8px; justify-content: center; }
+.wqtab { padding: 5px 12px; border-radius: 99px; font-size: 12px; font-weight: 700; color: var(--hint); }
+.wqtab.on { background: var(--accent); color: var(--accent-text, #fff); border-color: var(--accent); }
+.wqpg { flex: 1 1 0; min-height: 0; display: flex; overflow-x: auto; overflow-y: hidden; scroll-snap-type: x mandatory; scrollbar-width: none; -webkit-overflow-scrolling: touch; overscroll-behavior-x: contain; }
+.wqpg::-webkit-scrollbar { display: none; }
+.wqp { flex: 0 0 100%; min-width: 0; overflow-y: auto; scroll-snap-align: start; scroll-snap-stop: always; padding: 6px 18px 18px; box-sizing: border-box; }
+.wqp.p1 { font-family: var(--arabic); font-size: 27px; line-height: 2.3; text-align: center; }
+.wqp.p1 .ay { display: inline-grid; place-items: center; min-width: 26px; height: 26px; padding: 0 3px; border: 1.5px solid var(--accent); border-radius: 50%; font-size: 12px; line-height: 1; color: var(--accent); vertical-align: middle; font-family: inherit; }
+.wqp.p2, .wqp.p3 { font-size: 15px; line-height: 1.7; }
+.wqp.p2 { font-style: italic; }
+.wqp p { margin: 0 0 12px; }
+.wqp sup { color: var(--accent); font-weight: 800; font-style: normal; margin-inline-end: 2px; }
+.wqdates { position: relative; display: grid; grid-template-columns: repeat(var(--n), minmax(0, 1fr)); }
+.wqcw { padding: 0 3px; min-width: 0; }
+.wqdc { container-type: inline-size; display: flex; justify-content: center; }
+.wqchip { display: inline-flex; max-width: 100%; justify-content: center; padding: 3px 8px; border-radius: 99px; font-size: 11px; font-weight: 800; white-space: nowrap; overflow: hidden; color: var(--text); }
+.wqcw.ok .wqchip { background: var(--accent); border-color: var(--accent); color: var(--accent-text, #fff); }
+.wqchip .s, .wqchip .t { display: none; }
+@container (max-width: 78px) { .wqchip .f { display: none; } .wqchip .s { display: inline; } }
+@container (max-width: 46px) { .wqchip .s { display: none; } .wqchip .t { display: inline; } .wqchip { padding: 3px 5px; font-size: 10px; } }
+.wqdot { position: absolute; top: 50%; width: 5px; height: 5px; margin: -2.5px 0 0 -2.5px; border-radius: 50%; background: var(--accent); }
+.wqbw { position: relative; }
+.wqbw.yr { margin-bottom: 14px; }
+.wqbar { display: flex; height: 28px; border-radius: 99px; overflow: hidden; background: color-mix(in srgb, var(--card) 62%, transparent); -webkit-backdrop-filter: blur(max(5px, calc(10px * var(--bk, 1)))); backdrop-filter: blur(max(5px, calc(10px * var(--bk, 1)))); border: 1px solid var(--line); }
+.wqs { position: relative; flex: 1 1 0; min-width: 0; display: grid; place-items: center; background: repeating-linear-gradient(45deg, color-mix(in srgb, var(--accent) 18%, transparent) 0 5px, transparent 5px 10px); }
+.wqs + .wqs { border: 0; box-shadow: inset 1px 0 0 color-mix(in srgb, var(--text) 22%, transparent); }
+.wqs i { position: absolute; top: 0; bottom: 0; inset-inline-start: 0; background: var(--accent); transition: width .25s; }
+.wqs em { position: relative; z-index: 1; font-style: normal; font-size: 10px; font-weight: 800; color: var(--text); text-shadow: 0 0 4px var(--bg); }
+.wqs.full em { color: var(--accent-text, #fff); text-shadow: none; }
+.wqyt { position: absolute; top: -5px; bottom: -5px; width: 3px; margin-left: -1.5px; border-radius: 2px; background: var(--text); text-decoration: none; opacity: .85; }
+.wqyt s { position: absolute; top: 100%; left: 50%; transform: translateX(-50%); margin-top: 1px; font-size: 9px; font-weight: 800; text-decoration: none; color: var(--hint); }
+.wqnums { display: flex; justify-content: center; flex-wrap: wrap; gap: 6px; }
+.wqg { padding: 4px 11px; border-radius: 99px; font-size: 12px; color: var(--hint); }
+.wqg b { color: var(--text); }
+.wqg.done { color: var(--text); font-weight: 800; }
+.wqtz .tap-round.tap-round.tap-round { background: color-mix(in srgb, var(--accent) 38%, transparent); -webkit-backdrop-filter: blur(max(5px, calc(14px * var(--bk, 1)))) saturate(1.6); backdrop-filter: blur(max(5px, calc(14px * var(--bk, 1)))) saturate(1.6); border: 1.5px solid color-mix(in srgb, var(--accent) 55%, rgba(255, 255, 255, .5)); color: #fff; box-shadow: inset 0 2px 0 rgba(255, 255, 255, .38), inset 0 -10px 24px color-mix(in srgb, var(--accent) 30%, transparent), 0 12px 30px color-mix(in srgb, var(--accent) 32%, transparent); margin: 0; }
+.wqtz .tap-round.tap-round.tap-round.off { background: color-mix(in srgb, var(--text) 14%, transparent); border-color: var(--line); color: var(--hint); box-shadow: inset 0 2px 0 rgba(255, 255, 255, .22); }

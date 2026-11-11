@@ -46,6 +46,8 @@
     waq_fin: "Challenj yakunlandi! Alloh qabul qilsin|Челлендж якунланди! Аллоҳ қабул қилсин|Челлендж завершён! Да примет Аллах|Challenge complete! May Allah accept|اكتمل التحدي! تقبّل الله|Meydan okuma tamamlandı! Allah kabul etsin|Tantangan selesai! Semoga Allah menerima|挑战完成！愿真主接受|चुनौती पूरी हुई! अल्लाह क़बूल करे|¡Reto completado! Que Allah lo acepte",
     waq_reset: "Qaytadan boshlash|Қайтадан бошлаш|Начать заново|Start over|ابدأ من جديد|Baştan başla|Mulai ulang|重新开始|फिर से शुरू करें|Empezar de nuevo",
     waq_resetq: "Barcha natija o'chadi. Qaytadan boshlaysizmi?|Барча натижа ўчади. Қайтадан бошлайсизми?|Весь прогресс будет удалён. Начать заново?|All progress will be erased. Start over?|سيتم حذف كل التقدم. هل تبدأ من جديد؟|Tüm ilerleme silinecek. Baştan başlansın mı?|Semua progres akan dihapus. Mulai ulang?|所有进度将被清除。重新开始？|सारी प्रगति मिट जाएगी। फिर से शुरू करें?|Se borrará todo el progreso. ¿Empezar de nuevo?",
+    waq_p2: "O'qilishi|Ўқилиши|Транскрипция|Reading|النطق|Okunuşu|Cara baca|读音|उच्चारण|Lectura",
+    waq_p3: "Tarjima|Таржима|Перевод|Translation|الترجمة|Çeviri|Terjemahan|译文|अनुवाद|Traducción",
     waq_total: "Jami|Жами|Всего|Total|المجموع|Toplam|Total|总计|कुल|Total",
     waq_bonus: "Qo'shimcha|Қўшимча|Дополнительно|Extra|إضافي|Ekstra|Tambahan|额外|अतिरिक्त|Extra",
     hk8: "Eslatma|Эслатма|Напоминание|Reminder|تذكير|Hatırlatma|Pengingat|提醒|याद दिलाना|Recordatorio",
@@ -463,15 +465,26 @@
   var WQ_MAX = 40
   function wq() { return S.wq || (S.wq = { on: false, level: 1, debt: 0, draft: 0, done: false, last: "", d0: 0, read: 0, total: 0, bonus: 0, fin: false }) }
   function dayNum(k) { var p = k.split("-"); return Date.UTC(+p[0], +p[1] - 1, +p[2]) / 864e5 }
+  function addDay(k, n) { var d = new Date((dayNum(k) + n) * 864e5); return d.getUTCFullYear() + "-" + ("0" + (d.getUTCMonth() + 1)).slice(-2) + "-" + ("0" + d.getUTCDate()).slice(-2) }
+  function wqNorm(w) {
+    if (!w.dd || w.dd.length !== w.debt) {
+      var t = todayStr(); w.dd = []
+      for (var i = w.debt; i >= 1; i--) w.dd.push(addDay(t, -i))
+    }
+    if (!w.dd0 || w.dd0.length !== w.d0) { w.dd0 = w.dd.slice(0, w.d0) }
+    return w
+  }
   function wqRoll() {
     var w = wq(); if (!w.on || w.fin) return
+    wqNorm(w)
     var t = todayStr()
     if (!w.last) { w.last = t; return }
     if (w.last === t) return
     var n = Math.round(dayNum(t) - dayNum(w.last)); if (n < 1) { w.last = t; return }
-    if (w.done) { if (w.level < WQ_MAX) w.level++ } else w.debt++
-    if (n > 1) w.debt += n - 1
-    w.done = false; w.draft = 0; w.read = 0; w.bonus = 0; w.d0 = w.debt; w.last = t
+    if (w.done) { if (w.level < WQ_MAX) w.level++ } else w.dd.push(w.last)
+    for (var i = 1; i < n; i++) w.dd.push(addDay(w.last, i))
+    w.debt = w.dd.length
+    w.done = false; w.draft = 0; w.read = 0; w.bonus = 0; w.d0 = w.debt; w.dd0 = w.dd.slice(); w.last = t
     save()
   }
   function wqLeft(w) { return (w.done ? 0 : w.level) + w.debt * w.level - w.draft }
@@ -481,50 +494,92 @@
     if (wqLock(w)) return
     w.total++; w.draft++; w.read++
     while (w.draft >= w.level) {
-      if (w.debt > 0) { w.debt--; w.draft -= w.level }
+      if (w.debt > 0) { w.debt--; if (w.dd) w.dd.shift(); w.draft -= w.level }
       else if (!w.done) { w.done = true; w.draft -= w.level }
       else break
     }
     if (w.done && w.debt === 0) { w.draft = 0; if (w.level >= WQ_MAX) w.fin = true }
     save()
   }
+  function wqLoc() { var l = S.lang; return l === "uz_kr" ? "uz-Cyrl" : l === "uz_new" ? "uz" : l === "zh" ? "zh-CN" : l }
+  var WQM = {
+    uz: "yanvar fevral mart aprel may iyun iyul avgust sentabr oktabr noyabr dekabr",
+    uz_kr: "январ феврал март апрел май июн июл август сентабр октабр ноябр декабр",
+    ru: "января февраля марта апреля мая июня июля августа сентября октября ноября декабря",
+    en: "January February March April May June July August September October November December",
+    tr: "Ocak Şubat Mart Nisan Mayıs Haziran Temmuz Ağustos Eylül Ekim Kasım Aralık",
+    id: "Januari Februari Maret April Mei Juni Juli Agustus September Oktober November Desember",
+    es: "enero febrero marzo abril mayo junio julio agosto septiembre octubre noviembre diciembre"
+  }
+  function wqFmt(k, lv) {
+    var p = k.split("-"), d = +p[2], mi = +p[1] - 1, l = S.lang === "uz_new" ? "uz" : S.lang, nm
+    if (l === "zh") return (mi + 1) + "月" + d + "日"
+    if (WQM[l]) nm = WQM[l].split(" ")[mi]
+    else {
+      try { nm = new Intl.DateTimeFormat(l, { month: "long", timeZone: "UTC" }).format(new Date(Date.UTC(+p[0], mi, 15, 12))) } catch (x) { nm = WQM.en.split(" ")[mi] }
+    }
+    if (lv === 1) nm = nm.slice(0, 3); else if (lv === 2) nm = nm.slice(0, 2)
+    var s = d + ((l === "uz" || l === "uz_kr") ? "-" : " ") + nm
+    return S.lang === "uz_new" ? UZN(s) : s
+  }
+  function wqChip(k, today) {
+    if (today) { var t = esc(tr("waq_today")); return '<div class="wqdc"><span class="wqchip"><b class="f">' + t + '</b><b class="s">' + t + '</b><b class="t">' + esc(t.slice(0, 3)) + "</b></span></div>" }
+    return '<div class="wqdc"><span class="wqchip"><b class="f">' + esc(wqFmt(k, 0)) + '</b><b class="s">' + esc(wqFmt(k, 1)) + '</b><b class="t">' + esc(wqFmt(k, 2)) + "</b></span></div>"
+  }
   function wqLv() {
-    var w = wq(), L = w.level, N = 1 + w.d0, T = L * N, p = Math.min(w.read, T)
-    var seg = "", lab = N <= 8, i
+    var w = wqNorm(wq()), L = w.level, N = 1 + w.d0, T = L * N, p = Math.min(w.read, T)
+    var D = w.dd0.concat([w.last || todayStr()]), seg = "", lab = N <= 8, chips = "", ticks = "", i
     if (N <= 24) {
       for (i = 0; i < N; i++) {
         var f = Math.max(0, Math.min(L, p - i * L))
-        seg += '<span class="wqs' + (i === N - 1 ? " td" : "") + (f >= L ? " full" : "") + '"><i style="width:' + (f / L * 100) + '%"></i>' + (lab ? "<em>" + f + "/" + L + "</em>" : "") + "</span>"
+        seg += '<span class="wqs' + (f >= L ? " full" : "") + '"><i style="width:' + (f / L * 100) + '%"></i>' + (lab ? "<em>" + f + "/" + L + "</em>" : "") + "</span>"
+        chips += '<div class="wqcw' + (f >= L ? " ok" : "") + '">' + wqChip(D[i], i === N - 1) + "</div>"
+        if (i > 0 && D[i].slice(0, 4) !== D[i - 1].slice(0, 4)) ticks += '<u class="wqyt" style="left:' + (i / N * 100) + '%"><s>' + D[i].slice(0, 4) + "</s></u>"
+        if (i > 0) chips += '<i class="wqdot" style="left:' + (i / N * 100) + '%"></i>'
       }
     } else {
       seg = '<span class="wqs one"><i style="width:' + (p / T * 100) + '%"></i></span>'
+      chips = '<div class="wqcw">' + wqChip(D[0], false) + '</div><div class="wqcw"><div class="wqdc"><span class="wqchip">' + N + " " + esc(tr("waq_dw")) + '</span></div></div><div class="wqcw">' + wqChip("", true) + "</div>"
+      chips += '<i class="wqdot" style="left:33.3%"></i><i class="wqdot" style="left:66.6%"></i>'
+      for (i = 1; i < N; i++) if (D[i].slice(0, 4) !== D[i - 1].slice(0, 4)) ticks += '<u class="wqyt" style="left:' + (i / N * 100) + '%"><s>' + D[i].slice(0, 4) + "</s></u>"
     }
-    var tdRead = Math.max(0, p - w.d0 * L)
-    return '<div class="wqflags">' + (w.d0 ? '<span class="wqfl d' + (w.debt ? "" : " ok") + '">' + esc(tr("waq_debt")) + " " + w.debt + " " + esc(tr("waq_dw")) + " × " + L + "</span>" : "<span></span>") +
-      '<span class="wqfl t' + (w.done ? " ok" : "") + '">' + esc(tr("waq_today")) + " " + (w.done ? "✓" : tdRead + "/" + L) + "</span></div>" +
-      '<div class="wqbar' + (N > 24 ? " dense" : "") + '">' + seg + "</div>" +
-      '<div class="wqnums"><span>' + esc(tr("waq_total")) + ": <b>" + p + "/" + T + "</b></span><span>" + esc(tr("waq_left")) + ": <b>" + Math.max(0, wqLeft(w)) + "</b></span></div>"
+    var ncol = N <= 24 ? N : 3
+    return '<div class="wqdates" style="--n:' + ncol + '">' + chips + "</div>" +
+      '<div class="wqbw' + (ticks ? " yr" : "") + '"><div class="wqbar">' + seg + "</div>" + ticks + "</div>" +
+      '<div class="wqnums"><span class="wqg">' + esc(tr("waq_total")) + " <b>" + p + "/" + T + "</b></span>" +
+      (w.debt ? '<span class="wqg">' + esc(tr("waq_debt")) + " <b>" + w.debt + " " + esc(tr("waq_dw")) + " × " + L + "</b></span>" : "") +
+      '<span class="wqg">' + esc(tr("waq_left")) + " <b>" + Math.max(0, wqLeft(w)) + "</b></span></div>"
   }
   function wqTrans(i) {
     var T = window.WAQ_T || {}, l = S.lang
     if (l === "uz_new") return UZN((T.uz || [])[i] || "")
     return (T[l] || T.en || [])[i] || ""
   }
+  function wqTl(i) {
+    var R = window.WAQ_R || {}, l = S.lang
+    if (l === "uz_new") return UZN((R.uz || [])[i] || "")
+    return (R[l] || (l === "ru" ? R.uz_kr : null) || R.en || [])[i] || ""
+  }
   function viewWaq() {
     var w = wq(); wqRoll()
     var back = '<button class="btn small back circ" data-act="waqClose" aria-label="back">' + ic("arrow_back") + "</button>"
     if (!w.on) return back + '<div class="card stack goalbox"><h2 class="wqt">' + ic("bedtime") + " " + esc(tr("waq_t")) + '</h2><p class="sub">' + esc(tr("waq_rules")) + '</p><button class="btn success block" data-act="waqStart">' + esc(tr("waq_start")) + "</button></div>"
-    var W = window.WAQ || [], ar = ["٠", "١", "٢", "٣", "٤", "٥", "٦", "٧", "٨", "٩"], sh = ""
+    var W = window.WAQ || [], ar = ["٠", "١", "٢", "٣", "٤", "٥", "٦", "٧", "٨", "٩"], p1 = "", p2 = "", p3 = ""
     for (var i = 0; i < W.length; i++) {
       var n = String(i + 1).split("").map(function (c) { return ar[+c] }).join("")
-      sh += '<div class="wqr"><div class="wqa" dir="rtl" lang="ar">' + W[i] + ' <span class="ay">' + n + '</span></div><div class="wqx"><sup>' + (i + 1) + "</sup> " + esc(wqTrans(i)) + "</div></div>"
+      p1 += W[i] + ' <span class="ay">' + n + "</span> "
+      p2 += '<p><sup>' + (i + 1) + "</sup> " + esc(wqTl(i)) + "</p>"
+      p3 += '<p><sup>' + (i + 1) + "</sup> " + esc(wqTrans(i)) + "</p>"
     }
-    var lock = wqLock(w)
-    return back + '<div class="waq"><div class="wqhd"><b>' + ic("bedtime") + " " + esc(tr("waq_t")) + '</b><span id="wqlvn">' + esc(tr("waq_lv")) + " " + w.level + "</span></div>" +
-      '<div class="wqsura" dir="ltr">' + sh + "</div>" +
-      '<div id="wqlv" class="wqlv">' + (w.fin ? '<p class="done center">✦ ' + esc(tr("waq_fin")) + "</p>" : wqLv()) + "</div>" +
+    var lock = wqLock(w), tabs = [["العربية", 0], [tr("waq_p2"), 1], [tr("waq_p3"), 2]].map(function (t) {
+      return '<button class="wqtab' + (t[1] === 0 ? " on" : "") + '" data-act="waqPg" data-v="' + t[1] + '">' + esc(t[0]) + "</button>"
+    }).join("")
+    return '<div class="wqtop">' + back + '<div class="wqttl"><div class="wqpill">' + ic("bedtime") + "<b>" + esc(tr("waq_t")) + '</b></div><div class="wqlvb" id="wqlvn" title="' + esc(tr("waq_lv")) + '">' + ic("shield") + "<b>" + w.level + "</b></div></div><span></span></div>" +
+      '<div class="waq"><div class="wqbox"><div class="wqtabs">' + tabs + "</div>" +
+      '<div class="wqpg" dir="ltr"><section class="wqp p1" dir="rtl" lang="ar">' + p1 + '</section><section class="wqp p2">' + p2 + '</section><section class="wqp p3">' + p3 + "</section></div></div>" +
+      '<div id="wqlv" class="wqlv">' + (w.fin ? '<p class="wqg done center">✦ ' + esc(tr("waq_fin")) + "</p>" : wqLv()) + "</div>" +
       '<div class="tapzone wqtz"><i class="tb b1"></i><i class="tb b2"></i><i class="tb b3"></i><button id="wqplus" class="tap-round' + (lock ? " off" : "") + '" data-act="waqTap" aria-label="+">' + (lock ? "✓" : ic("add")) + "</button></div>" +
-      '<button class="btn small wqrst" data-act="waqReset">' + ic("restart_alt") + " " + esc(tr("waq_reset")) + "</button></div>"
+      (w.fin ? '<button class="btn small wqrst" data-act="waqReset">' + ic("restart_alt") + " " + esc(tr("waq_reset")) + "</button>" : "") + "</div>"
   }
   function wqPaint() {
     var w = wq(), el = document.getElementById("wqlv"); if (!el) return
@@ -2195,6 +2250,7 @@
     initHours()
     hgAttach()
     meanFit()
+    document.addEventListener("scroll", function (ev) { var t = ev.target; if (t && t.classList && t.classList.contains("wqpg")) { var i = Math.round(t.scrollLeft / Math.max(1, t.clientWidth)), bs = document.querySelectorAll(".wqtab"); for (var k = 0; k < bs.length; k++) bs[k].classList.toggle("on", k === i) } }, true)
     hpStart(); phStart(); nhStart(); tbInit(); mediaInit(); themeInit(); hswInit(); mdInit(); hlStart()
     nsUpdate()
     miniSync()
@@ -3133,8 +3189,9 @@
     else if (act === "hlay") { S.hlay = v === "list" ? "list" : "grid"; save(); render() }
     else if (act === "waqOpen") { U.waq = true; render(); window.scrollTo(0, 0) }
     else if (act === "waqClose") { U.waq = false; render(); window.scrollTo(0, 0) }
-    else if (act === "waqStart") { var w0 = wq(); S.wq = { on: true, level: 1, debt: 0, draft: 0, done: false, last: todayStr(), d0: 0, read: 0, total: 0, bonus: 0, fin: false }; save(); render() }
+    else if (act === "waqStart") { var w0 = wq(); S.wq = { on: true, level: 1, debt: 0, dd: [], dd0: [], draft: 0, done: false, last: todayStr(), d0: 0, read: 0, total: 0, bonus: 0, fin: false }; save(); render() }
     else if (act === "waqTap") { if (!wq().fin) { wqTap(); wqPaint() } }
+    else if (act === "waqPg") { var pg = document.querySelector(".wqpg"); if (pg) pg.scrollTo({ left: pg.clientWidth * (+v || 0), behavior: "smooth" }) }
     else if (act === "waqReset") { if (window.confirm(tr("waq_resetq"))) { S.wq = null; save(); render() } }
     else if (act === "hikmat") {
       var dt = new Date(), dn = Math.floor((Date.UTC(dt.getFullYear(), dt.getMonth(), dt.getDate()) - Date.UTC(dt.getFullYear(), 0, 0)) / 864e5)
