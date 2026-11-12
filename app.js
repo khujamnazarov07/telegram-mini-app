@@ -312,6 +312,7 @@
   var U = { nf: "all", tab: "names", detail: 0, q: "", mode: "video", audioN: 1, moodPage: 1, moodPick: "", more: "menu", quoteIdx: -1, dpanel: "", dir: "", moodOpen: false }
   var app = document.getElementById("app")
   var navEl = document.getElementById("nav")
+  if (navEl && !document.getElementById("navbg")) navEl.insertAdjacentHTML("afterend", '<div id="navbg"></div>')
   var NAVS = [
     ["names", "menu_book", "nav_names"],
     ["media", "movie", "nav_media"],
@@ -2802,6 +2803,7 @@
     if (!BGV[v] || (isImgBg(v) && !isPrem())) v = ""
     var night = effTheme() === "dark"
     root.setAttribute("data-bg", v)
+    if (isImgBg(v) && v !== "winter2") root.setAttribute("data-tone", "d"); else root.removeAttribute("data-tone")
     var el = document.getElementById("mbg")
     if (v) {
       if (!el) { el = document.createElement("div"); el.id = "mbg"; document.body.insertBefore(el, document.body.firstChild) }

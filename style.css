@@ -1442,8 +1442,6 @@ html[data-theme] body .hptg { background: var(--bg, #0b0b0d); }
 .bgp.w2 { background: url(bg_w2.webp) center / cover; }
 .bgp.w3 { background: url(bg_w3.webp) center / cover; }
 .bgp.q { background: url(bg_q.webp) center / cover; }
-html[data-bg="quran"] body, html[data-bg="quran"][data-theme] body { background: #050505 !important; }
-html[data-bg="quran"], html[data-bg="quran"][data-theme] { --bg: #070707; --card: rgba(16, 16, 16, .7); --text: #f2f2f2; --hint: #b3b3b3; --line: rgba(255, 255, 255, .16); }
 html[data-bg="quran"] #mbg img { filter: brightness(.9); }
 .srows { display: grid; gap: 8px; margin-bottom: 10px; }
 .srow { display: flex; align-items: center; gap: 6px; min-height: 52px; padding: 6px 4px 6px 14px; border-radius: 18px; background: color-mix(in srgb, var(--card) 62%, transparent); -webkit-backdrop-filter: blur(max(5px, calc(14px * var(--bk, 1)))) saturate(1.4); backdrop-filter: blur(max(5px, calc(14px * var(--bk, 1)))) saturate(1.4); border: 1px solid var(--line); box-shadow: inset 0 1px 0 rgba(255, 255, 255, .16); }
@@ -1461,3 +1459,8 @@ html body .nav.nav.nav.nav { background-image: linear-gradient(color-mix(in srgb
 .srows { grid-template-columns: minmax(0, 1fr); }
 .srow { min-width: 0; box-sizing: border-box; max-width: 100%; }
 #themeOpts, .topts { min-width: 0; max-width: 100%; }
+
+html[data-tone="d"][data-theme="light"] #mbg::after { content: ""; position: absolute; inset: 0; background: rgba(255, 255, 255, .7); }
+html[data-tone="d"][data-theme="light"] #mbg img { filter: brightness(1.7) saturate(.8) blur(2px); }
+#navbg { position: fixed; inset-inline: 0; bottom: 0; height: calc(var(--nav-h) + env(safe-area-inset-bottom) + 30px); z-index: 4; pointer-events: none; background: color-mix(in srgb, var(--bg) 90%, transparent); -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px); -webkit-mask-image: linear-gradient(transparent, #000 30px); mask-image: linear-gradient(transparent, #000 30px); }
+.nav.hidden ~ #navbg { display: none; }
