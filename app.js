@@ -46,6 +46,11 @@
     waq_fin: "Challenj yakunlandi! Alloh qabul qilsin|Челлендж якунланди! Аллоҳ қабул қилсин|Челлендж завершён! Да примет Аллах|Challenge complete! May Allah accept|اكتمل التحدي! تقبّل الله|Meydan okuma tamamlandı! Allah kabul etsin|Tantangan selesai! Semoga Allah menerima|挑战完成！愿真主接受|चुनौती पूरी हुई! अल्लाह क़बूल करे|¡Reto completado! Que Allah lo acepte",
     waq_reset: "Qaytadan boshlash|Қайтадан бошлаш|Начать заново|Start over|ابدأ من جديد|Baştan başla|Mulai ulang|重新开始|फिर से शुरू करें|Empezar de nuevo",
     waq_resetq: "Barcha natija o'chadi. Qaytadan boshlaysizmi?|Барча натижа ўчади. Қайтадан бошлайсизми?|Весь прогресс будет удалён. Начать заново?|All progress will be erased. Start over?|سيتم حذف كل التقدم. هل تبدأ من جديد؟|Tüm ilerleme silinecek. Baştan başlansın mı?|Semua progres akan dihapus. Mulai ulang?|所有进度将被清除。重新开始？|सारी प्रगति मिट जाएगी। फिर से शुरू करें?|Se borrará todo el progreso. ¿Empezar de nuevo?",
+    t_plain: "Oddiy|Оддий|Обычный|Plain|عادي|Normal|Biasa|普通|सामान्य|Normal",
+    t_seas: "Mavsumiy|Мавсумий|Сезонный|Seasonal|موسمي|Mevsimlik|Musiman|季节|मौसमी|Estacional",
+    s_spr: "Bahor|Баҳор|Весна|Spring|الربيع|İlkbahar|Musim semi|春季|वसंत|Primavera",
+    s_sum: "Yoz|Ёз|Лето|Summer|الصيف|Yaz|Musim panas|夏季|गर्मी|Verano",
+    s_aut: "Kuz|Куз|Осень|Autumn|الخريف|Sonbahar|Musim gugur|秋季|पतझड़|Otoño",
     t_gen: "Jins|Жинс|Пол|Gender|الجنس|Cinsiyet|Gender|性别|लिंग|Género",
     t_bgn: "Mavzu|Мавзу|Тема|Theme|السمة|Tema|Tema|主题|थीम|Tema",
     t_bg4: "Qish|Қиш|Зима|Winter|الشتاء|Kış|Musim dingin|冬季|सर्दी|Invierno",
@@ -545,23 +550,24 @@
   }
   function wqLv() {
     var w = wqNorm(wq()), L = w.level, N = 1 + w.d0, T = L * N, p = Math.min(w.read, T)
-    var D = w.dd0.concat([w.last || todayStr()]), seg = "", lab = N <= 8, chips = "", ticks = "", i
+    var D = w.dd0.concat([w.last || todayStr()]), seg = "", lab = N <= 8, chips = "", ticks = "", dots = "", i
     if (N <= 24) {
       for (i = 0; i < N; i++) {
         var f = Math.max(0, Math.min(L, p - i * L))
         seg += '<span class="wqs' + (f >= L ? " full" : "") + '"><i style="width:' + (f / L * 100) + '%"></i>' + (lab ? "<em>" + f + "/" + L + "</em>" : "") + "</span>"
         chips += '<div class="wqcw' + (f >= L ? " ok" : "") + '">' + wqChip(D[i], i === N - 1) + "</div>"
+        dots += "<i></i>"
         if (i > 0 && D[i].slice(0, 4) !== D[i - 1].slice(0, 4)) ticks += '<u class="wqyt" style="left:' + (i / N * 100) + '%"><s>' + D[i].slice(0, 4) + "</s></u>"
-        if (i > 0) chips += '<i class="wqdot" style="left:' + (i / N * 100) + '%"></i>'
       }
     } else {
       seg = '<span class="wqs one"><i style="width:' + (p / T * 100) + '%"></i></span>'
       chips = '<div class="wqcw">' + wqChip(D[0], false) + '</div><div class="wqcw"><div class="wqdc"><span class="wqchip">' + N + " " + esc(tr("waq_dw")) + '</span></div></div><div class="wqcw">' + wqChip("", true) + "</div>"
-      chips += '<i class="wqdot" style="left:33.3%"></i><i class="wqdot" style="left:66.6%"></i>'
+      dots = "<i></i><i></i><i></i>"
       for (i = 1; i < N; i++) if (D[i].slice(0, 4) !== D[i - 1].slice(0, 4)) ticks += '<u class="wqyt" style="left:' + (i / N * 100) + '%"><s>' + D[i].slice(0, 4) + "</s></u>"
     }
     var ncol = N <= 24 ? N : 3
     return '<div class="wqdates" style="--n:' + ncol + '">' + chips + "</div>" +
+      '<div class="wqdots" style="--n:' + ncol + '">' + dots + "</div>" +
       '<div class="wqbw' + (ticks ? " yr" : "") + '"><div class="wqbar">' + seg + "</div>" + ticks + "</div>" +
       '<div class="wqnums"><span class="wqg">' + esc(tr("waq_total")) + " <b>" + p + "/" + T + "</b></span>" +
       (w.debt ? '<span class="wqg">' + esc(tr("waq_debt")) + " <b>" + w.debt + " " + esc(tr("waq_dw")) + " × " + L + "</b></span>" : "") +
@@ -2278,7 +2284,8 @@
     initHours()
     hgAttach()
     meanFit()
-    document.addEventListener("scroll", function (ev) { var t = ev.target; if (t && t.classList && t.classList.contains("wqpg")) { var i = Math.round(t.scrollLeft / Math.max(1, t.clientWidth)), bs = document.querySelectorAll(".wqtab"); for (var k = 0; k < bs.length; k++) bs[k].classList.toggle("on", k === i) } }, true)
+    document.addEventListener("scroll", function (ev) { var t = ev.target; if (t && t.classList && t.classList.contains("sstrip")) { sWrap(t); return }
+      if (t && t.classList && t.classList.contains("wqpg")) { var i = Math.round(t.scrollLeft / Math.max(1, t.clientWidth)), bs = document.querySelectorAll(".wqtab"); for (var k = 0; k < bs.length; k++) bs[k].classList.toggle("on", k === i) } }, true)
     setInterval(function () {
       var c = document.getElementById("pmxc"); if (!c) { if (S.pmx && S.pmx.until <= Date.now()) { pmxLive(); applyGender(); render() } return }
       var x = pmxLive(); if (!x) { applyGender(); render(); return }
@@ -2838,13 +2845,25 @@
   var HLC = [[235, 40, 40, .7], [255, 226, 0, .72], [20, 205, 90, .7], [30, 170, 255, .7], [255, 255, 255, .5]]
   var FONTS = [["", "Plus Jakarta Sans"], ["cutive", "Cutive Mono"], ["nova", "Nova Mono"], ["sono", "Sono"], ["serif", "Noto Serif"]]
   function applyFont() { document.documentElement.setAttribute("data-font", isPrem() ? (S.font || "") : "") }
-  function sRow(title, inner) { return '<div class="srow"><b>' + esc(title) + '</b><div class="sstrip"><div class="sin">' + inner + "</div></div></div>" }
+  function sRow(title, inner, cls, extra) {
+    return '<div class="srow' + (cls ? " " + cls : "") + '"><b>' + esc(title) + '</b><div class="sstrip"><div class="sin"><div class="sg">' + inner + '</div><div class="sg cp" aria-hidden="true">' + inner + '</div><div class="sg cp" aria-hidden="true">' + inner + "</div></div></div>" + (extra || "") + "</div>"
+  }
   function sCenter() {
     var st = document.querySelectorAll(".sstrip")
     for (var i = 0; i < st.length; i++) {
-      var on = st[i].querySelector(".on"); if (!on) continue
-      st[i].scrollLeft = Math.max(0, on.offsetLeft + on.offsetWidth - st[i].clientWidth + 18)
+      var sin = st[i].firstChild, gs = sin && sin.children; if (!gs || !gs[0]) continue
+      sin.classList.remove("nl")
+      var w = gs[0].offsetWidth
+      if (w && w <= st[i].clientWidth - 6) { sin.classList.add("nl"); st[i].scrollLeft = 0; continue }
+      var on = gs[1].querySelector(".on")
+      st[i].scrollLeft = on ? Math.max(0, on.offsetLeft + on.offsetWidth - st[i].clientWidth + 18) : w
     }
+  }
+  function sWrap(t) {
+    var sin = t.firstChild, w = sin && sin.children[0] ? sin.children[0].offsetWidth : 0
+    if (!w || sin.classList.contains("nl")) return
+    if (t.scrollLeft < w * 0.5) t.scrollLeft += w
+    else if (t.scrollLeft > w * 1.5) t.scrollLeft -= w
   }
   function hlPill() {
     var h = "", cur = isPrem() ? (S.hlc | 0) : 0
@@ -2955,7 +2974,11 @@
     var arr = fem ? PINKS : MALES, cur = (fem ? S.fcolor : S.mcolor) | 0, act = fem ? "fcolor" : "mcolor"
     for (i = 0; i < arr.length; i++) cc += '<button class="sws' + (arr[i].w ? " wh" : "") + (i === cur ? " on" : "") + '" data-act="' + act + '" data-v="' + i + '" style="--c:' + arr[i].a + '" aria-label="color"></button>'
     var on = gOn(), dk = effTheme() === "dark"
-    out += sRow(tr("t_bgn"), bc) + sRow(tr("t_color"), cc) + fontRow() + "</div>" +
+    var sea = S.bgmode === "season", sc2 = ""
+    var SEA = [["spring", "s_spr"], ["summer", "s_sum"], ["autumn", "s_aut"], ["winter", "t_bg4"]]
+    for (i = 0; i < SEA.length; i++) sc2 += '<button class="sch' + (S.season === SEA[i][0] ? " on" : "") + '" data-act="sseason" data-v="' + SEA[i][0] + '">' + esc(tr(SEA[i][1])) + "</button>"
+    var stg = '<div class="hptg stg" role="group"><button data-act="bgmode" data-v="plain" class="' + (sea ? "" : "on") + '">' + esc(tr("t_plain")) + '</button><button data-act="bgmode" data-v="season" class="' + (sea ? "on" : "") + '">' + esc(tr("t_seas")) + "</button></div>"
+    out += sRow(tr("t_bgn"), sea ? sc2 : bc, "hastg", stg) + sRow(tr("t_color"), cc) + fontRow() + "</div>" +
       '<div class="card tpill col"><div class="tl"><span>' + esc(tr("t_gon")) + '</span><button class="tgl' + (on ? " on" : "") + '" data-act="gtoggle" aria-label="glass"><i></i></button></div>'
     if (on) {
       var gl = fem ? (S.fgl == null ? 100 : S.fgl) : (S.mgl == null ? 100 : S.mgl), bl = fem ? (S.fbl == null ? 2 : S.fbl) : (S.mbl == null ? 2 : S.mbl)
@@ -3370,6 +3393,8 @@
     else if (act === "gtoggle") { if (S.gender === "female") S.fgon = !gOn(); else S.mgon = !gOn(); applyGender(); save(); tOptsRefresh() }
     else if (act === "font") { if (v && !isPrem()) { pToast(tr("pm_font")); return } S.font = v; save(); applyFont(); tOptsRefresh() }
     else if (act === "hlc") { var hv = parseInt(v, 10); if (hv && !isPrem()) { pToast(tr("pm_hl")); return } S.hlc = hv; save(); if (U.more === "quote") render(); else tOptsRefresh() }
+    else if (act === "bgmode") { S.bgmode = v === "season" ? "season" : "plain"; save(); tOptsRefresh() }
+    else if (act === "sseason") { S.season = v; save(); tOptsRefresh() }
     else if (act === "sgen") { S.gender = TKEYS[+v] || "auto"; applyGender(); save(); tOptsRefresh() }
     else if (act === "sbg") { if (isImgBg(v) && !isPrem()) { pToast(tr("pm_bg")); return } if (S.gender === "female") S.fbg = v; else S.mbg = v; save(); applyGender(); tOptsRefresh() }
     else if (act === "gsol") { if (S.gender === "female") S.fsol = parseInt(v, 10); else S.msol = parseInt(v, 10); applyGender(); save(); tOptsRefresh() }
