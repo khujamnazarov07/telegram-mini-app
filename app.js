@@ -2263,7 +2263,8 @@
   function render() {
     document.documentElement.lang = S.lang.slice(0, 2)
     document.documentElement.dir = S.lang === "ar" ? "rtl" : "ltr"
-    var h
+    var h, sy = window.pageYOffset || 0, vkey = [U.tab, U.more, U.detail, U.waq ? 1 : 0, U.moodPick].join("|"), same = vkey === U.vkey
+    U.vkey = vkey
     try {
       if (U.detail) h = viewDetail()
       else if (U.waq) h = viewWaq()
@@ -2284,6 +2285,7 @@
     initHours()
     hgAttach()
     meanFit()
+    if (!window.__uiOnce) { window.__uiOnce = 1
     document.addEventListener("scroll", function (ev) { var t = ev.target; if (t && t.classList && t.classList.contains("sstrip")) { sWrap(t); return }
       if (t && t.classList && t.classList.contains("wqpg")) { var i = Math.round(t.scrollLeft / Math.max(1, t.clientWidth)), bs = document.querySelectorAll(".wqtab"); for (var k = 0; k < bs.length; k++) bs[k].classList.toggle("on", k === i) } }, true)
     setInterval(function () {
@@ -2291,6 +2293,7 @@
       var x = pmxLive(); if (!x) { applyGender(); render(); return }
       var m = Math.max(0, Math.ceil((x.until - Date.now()) / 1000)); c.textContent = ("0" + Math.floor(m / 60)).slice(-2) + ":" + ("0" + (m % 60)).slice(-2)
     }, 1000)
+    }
     hpStart(); phStart(); nhStart(); tbInit(); mediaInit(); themeInit(); hswInit(); mdInit(); hlStart()
     nsUpdate()
     miniSync()
@@ -2303,7 +2306,7 @@
       if (U.detail || U.waq || U.tab !== "names") tg.BackButton.show()
       else tg.BackButton.hide()
     }
-    window.scrollTo(0, 0)
+    window.scrollTo(0, same ? sy : 0)
   }
   function goBack() {
     if (U.waq) { U.waq = false; render(); window.scrollTo(0, 0); return }

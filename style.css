@@ -1493,3 +1493,11 @@ html[data-gender="female"] .sin .sws { border-radius: 50%; }
 .tgl.tgl.on { background: color-mix(in srgb, var(--accent) 22%, transparent); }
 .tgl.tgl.on i { background: var(--accent); transform: translateX(20px); }
 .srow:not(.hastg) { height: 56px; box-sizing: border-box; }
+
+.sstrip { -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 14px, #000 calc(100% - 14px), transparent 100%); mask-image: linear-gradient(90deg, transparent 0, #000 14px, #000 calc(100% - 14px), transparent 100%); }
+.sin { padding-inline: 10px; }
+.hpanel { border: 1.5px solid var(--accent) !important; }
+.hpanel::before, .srow.hastg::before { display: none; }
+.srow.hastg { border: 1px solid var(--line); }
+html[data-theme] body .hptg.hptg { background: color-mix(in srgb, var(--text) calc(9% * var(--gk, 1)), transparent); -webkit-backdrop-filter: blur(max(5px, calc(14px * var(--bk, 1)))) saturate(1.5); backdrop-filter: blur(max(5px, calc(14px * var(--bk, 1)))) saturate(1.5); }
+.hptg { background: color-mix(in srgb, var(--text) calc(9% * var(--gk, 1)), transparent); -webkit-backdrop-filter: blur(max(5px, calc(14px * var(--bk, 1)))) saturate(1.5); backdrop-filter: blur(max(5px, calc(14px * var(--bk, 1)))) saturate(1.5); }
