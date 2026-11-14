@@ -1501,3 +1501,17 @@ html[data-gender="female"] .sin .sws { border-radius: 50%; }
 .srow.hastg { border: 1px solid var(--line); }
 html[data-theme] body .hptg.hptg { background: color-mix(in srgb, var(--text) calc(9% * var(--gk, 1)), transparent); -webkit-backdrop-filter: blur(max(5px, calc(14px * var(--bk, 1)))) saturate(1.5); backdrop-filter: blur(max(5px, calc(14px * var(--bk, 1)))) saturate(1.5); }
 .hptg { background: color-mix(in srgb, var(--text) calc(9% * var(--gk, 1)), transparent); -webkit-backdrop-filter: blur(max(5px, calc(14px * var(--bk, 1)))) saturate(1.5); backdrop-filter: blur(max(5px, calc(14px * var(--bk, 1)))) saturate(1.5); }
+
+/* v160 */
+.hpanel.hpanel { z-index: 0; background: none; -webkit-backdrop-filter: none; backdrop-filter: none; }
+.hpanel.hpanel::before { content: ""; display: block; position: absolute; inset: 0; z-index: -1; border: 0; border-radius: 18px; background: color-mix(in srgb, var(--card) 40%, transparent); -webkit-backdrop-filter: blur(max(5px, calc(10px * var(--bk, 1)))); backdrop-filter: blur(max(5px, calc(10px * var(--bk, 1)))); -webkit-mask: none; mask: none; pointer-events: none; }
+.srow.hastg.hastg { z-index: 0; background: none; -webkit-backdrop-filter: none; backdrop-filter: none; box-shadow: none; }
+.srow.hastg.hastg::before { content: ""; display: block; position: absolute; inset: 0; z-index: -1; border: 0; border-radius: 17px; background: color-mix(in srgb, var(--card) 62%, transparent); -webkit-backdrop-filter: blur(max(5px, calc(14px * var(--bk, 1)))) saturate(1.4); backdrop-filter: blur(max(5px, calc(14px * var(--bk, 1)))) saturate(1.4); -webkit-mask: none; mask: none; pointer-events: none; }
+.hptg, html[data-theme] body .hptg.hptg { z-index: 2; background: color-mix(in srgb, var(--text) calc(10% * var(--gk, 1)), transparent); -webkit-backdrop-filter: blur(max(5px, calc(14px * var(--bk, 1)))) saturate(1.5); backdrop-filter: blur(max(5px, calc(14px * var(--bk, 1)))) saturate(1.5); }
+.wqs:not(.full) i { border-start-end-radius: 99px; border-end-end-radius: 99px; }
+.wqs { background-size: 28.284px 28.284px; animation: wqmv 5s linear infinite; }
+@keyframes wqmv { to { background-position: 28.284px 0; } }
+
+/* v161 */
+.lrow { padding: 20px 14px 30px; margin: -12px -14px -22px; -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 22px, #000 calc(100% - 22px), transparent 100%); mask-image: linear-gradient(90deg, transparent 0, #000 22px, #000 calc(100% - 22px), transparent 100%); }
+.lchip.col { box-shadow: 0 8px 26px -2px color-mix(in srgb, var(--c) 45%, transparent); }

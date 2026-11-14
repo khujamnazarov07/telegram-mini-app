@@ -2336,7 +2336,6 @@
     ["Dakka", 90.4, 23.8, "Asia/Dhaka"], ["Bangkok", 100.5, 13.8, "Asia/Bangkok"], ["Almati", 76.9, 43.2, "Asia/Almaty"], ["Los-Anjeles", -118.2, 34, "America/Los_Angeles"],
     ["Mexiko", -99.1, 19.4, "America/Mexico_City"], ["San-Paulu", -46.6, -23.5, "America/Sao_Paulo"]
   ]
-  var CCOL = ["#ff5d73", "#ffb020", "#3ddc97", "#4cc9f0", "#c77dff", "#ff8fab", "#f4d35e", "#5eead4"]
   var CNAMES = {
     "Moskva": "Moskva|Москва|Москва|Moscow|موسكو|Moskova|Moskow|莫斯科|मॉस्को|Moscú",
     "Seul": "Seul|Сеул|Сеул|Seoul|سيول|Seul|Seoul|首尔|सियोल|Seúl",
@@ -2412,6 +2411,67 @@
     { k: "BR", lo: -47.9, la: -15.8, f: "🇧🇷", c: "#c2910a", L: ["pt"] },
     { k: "TJ", lo: 68.8, la: 38.6, f: "🇹🇯", c: "#c93a3a", L: ["tg"] }
   ]
+  var CITY_CC = { "Moskva": "RU", "Seul": "KR", "London": "GB", "Toshkent": "UZ", "Makka": "SA", "Istanbul": "TR", "Dubay": "AE", "Nyu-York": "US", "Tokio": "JP", "Pekin": "CN", "Dehli": "IN", "Jakarta": "ID", "Sidney": "AU", "Qohira": "EG", "Lagos": "NG", "Nayrobi": "KE", "Madrid": "ES", "Parij": "FR", "Tehron": "IR", "Karachi": "PK", "Dakka": "BD", "Bangkok": "TH", "Almati": "KZ", "Los-Anjeles": "US", "Mexiko": "MX", "San-Paulu": "BR" }
+  var CPAL = ["#e5484d", "#f76b15", "#c99a06", "#30a46c", "#12a594", "#1d9bf0", "#6e56cf", "#d6409f"]
+  function gdist(a, b) {
+    var p = Math.PI / 180, d = Math.sin((b[1] - a[1]) * p / 2) ** 2 + Math.cos(a[1] * p) * Math.cos(b[1] * p) * Math.sin((b[0] - a[0]) * p / 2) ** 2
+    return 12742 * Math.asin(Math.min(1, Math.sqrt(d)))
+  }
+  function spread(items) {
+    var n = items.length, near = [], out = {}, i, j, p, q
+    for (i = 0; i < n; i++) {
+      near[i] = []
+      for (j = 0; j < n; j++) {
+        if (i === j) continue
+        var md = 1e9
+        for (p = 0; p < items[i].pts.length; p++) for (q = 0; q < items[j].pts.length; q++) md = Math.min(md, gdist(items[i].pts[p], items[j].pts[q]))
+        if (md < 4200) near[i][near[i].length] = [j, (4200 - md) / 4200]
+      }
+    }
+    var ord = items.map(function (x, k) { return k }).sort(function (x, y) { return near[y].length - near[x].length || x - y }), col = []
+    for (var oi = 0; oi < n; oi++) {
+      i = ord[oi]
+      var best = 0, bs = 1e9
+      for (var c = 0; c < CPAL.length; c++) {
+        var sc = 0
+        for (var k = 0; k < near[i].length; k++) {
+          var cj = col[near[i][k][0]]
+          if (cj === undefined) continue
+          var dd = Math.min(Math.abs(cj - c), CPAL.length - Math.abs(cj - c))
+          sc += near[i][k][1] * (dd === 0 ? 10 : dd === 1 ? 1 : 0)
+        }
+        sc += c * 1e-4
+        if (sc < bs) { bs = sc; best = c }
+      }
+      col[i] = best; out[items[i].id] = CPAL[best]
+    }
+    return out
+  }
+  var CTY_COL = spread(CTY.map(function (x) { return { id: x.k, pts: [[x.lo, x.la]] } }))
+  for (var ci0 = 0; ci0 < CTY.length; ci0++) CTY[ci0].c = CTY_COL[CTY[ci0].k]
+  var CC_COL = (function () {
+    var m = {}, o = []
+    for (var i = 0; i < CITIES.length; i++) { var k = CITY_CC[CITIES[i][0]] || CITIES[i][0]; (m[k] = m[k] || []).push([CITIES[i][1], CITIES[i][2]]) }
+    for (var k2 in m) o[o.length] = { id: k2, pts: m[k2] }
+    return spread(o)
+  })()
+  function drawBorders(g, pr, cc, col, al, lw) {
+    var rs = window.CB && window.CB[cc]
+    if (!rs) return
+    g.strokeStyle = col; g.lineWidth = lw; g.globalAlpha = al; g.lineJoin = "round"
+    for (var i = 0; i < rs.length; i++) {
+      var r = rs[i], pen = false
+      g.beginPath()
+      for (var j = 0; j < r.length; j += 2) {
+        var q = pr(r[j], r[j + 1])
+        if (q[2] <= 0.02) { pen = false; continue }
+        if (pen) g.lineTo(q[0], q[1]); else g.moveTo(q[0], q[1])
+        pen = true
+      }
+      g.stroke()
+    }
+    g.globalAlpha = 1
+  }
   function ctys() {
     var o = []
     for (var i = 0; i < CTY.length; i++) {
@@ -2480,6 +2540,7 @@
         g.fillRect(q[0] - r / 2, q[1] - r / 2, r, r)
       }
       g.globalAlpha = 1
+      for (var bm = 0; bm < cs.length; bm++) drawBorders(g, pr, cs[bm].k, cs[bm].c, 0.85, cs[bm].k === (U.lcty || "") ? 2.4 : 1.3)
       var fs = 10.5, bh = fs + 8, vis = []
       g.font = "700 " + fs + "px system-ui, sans-serif"; g.textBaseline = "middle"; g.textAlign = "center"
       for (var m = 0; m < cs.length; m++) {
@@ -2637,6 +2698,13 @@
         g.fillRect(q[0] - r / 2, q[1] - r / 2, r, r)
       }
       g.globalAlpha = 1
+      var seenC = {}
+      for (var bm = 0; bm < CITIES.length; bm++) {
+        var cc0 = CITY_CC[CITIES[bm][0]]
+        if (!cc0 || seenC[cc0]) continue
+        seenC[cc0] = 1
+        drawBorders(g, pr, cc0, CC_COL[cc0], 0.85, sel && CITY_CC[sel[0]] === cc0 ? 2.2 : 1.3)
+      }
       var fs = 10, bh = fs + 7, vis = []
       g.font = "700 " + fs + "px system-ui, sans-serif"; g.textBaseline = "middle"; g.textAlign = "center"
       for (var m = 0; m < CITIES.length; m++) {
@@ -2652,7 +2720,7 @@
         for (a = col.length - 1; a >= 0; a--) { var mx = a < col.length - 1 ? ly[a + 1] - bh - 2 : H - lim; if (ly[a] > mx) ly[a] = mx }
         for (a = 0; a < col.length; a++) {
           var v = col[a], tw = g.measureText(v.nm).width + 10, ax = sd > 0 ? Math.max(CX + R + 6, v.x + 4) : Math.min(CX - R - 6, v.x - 4)
-          var bx = sd > 0 ? ax : ax - tw, ty = ly[a], on = sel && sel[0] === v.c[0], cl = CCOL[v.m % CCOL.length], pu = 0.5 + 0.5 * Math.sin(ph * 2.2 + v.m)
+          var bx = sd > 0 ? ax : ax - tw, ty = ly[a], on = sel && sel[0] === v.c[0], cl = CC_COL[CITY_CC[v.c[0]]] || CPAL[0], pu = 0.5 + 0.5 * Math.sin(ph * 2.2 + v.m)
           var al = 0.4 + 0.6 * Math.min(1, v.z * 1.6), dy = ty - v.y, ex = v.x + sd * Math.abs(dy)
           if (sd > 0 ? ex > ax : ex < ax) ex = ax
           g.globalAlpha = al * 0.8; g.strokeStyle = cl; g.lineWidth = 1.1
