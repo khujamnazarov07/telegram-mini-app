@@ -3166,14 +3166,7 @@
     return h + "</svg>"
   }
   var SNOWSP = {}
-  var FLK = [
-    { n: 7, t0: 0.22, t1: 0.9, L: 0.36, ang: 1.05, mw: 0.042, bw: 0.026, plate: 0.13, tw: 1 },
-    { n: 9, t0: 0.16, t1: 0.92, L: 0.28, ang: 1.0, mw: 0.04, bw: 0.024, plate: 0.1, tw: 1 },
-    { n: 5, t0: 0.3, t1: 0.88, L: 0.4, ang: 0.95, mw: 0.044, bw: 0.028, plate: 0.2, tw: 2 },
-    { n: 4, t0: 0.55, t1: 0.9, L: 0.26, ang: 1.05, mw: 0.044, bw: 0.028, plate: 0.46, tw: 1, hex: 1 },
-    { n: 6, t0: 0.35, t1: 0.92, L: 0.3, ang: 0.85, mw: 0.04, bw: 0.026, plate: 0.28, tw: 1, hex: 1 },
-    { n: 8, t0: 0.2, t1: 0.9, L: 0.32, ang: 1.1, mw: 0.042, bw: 0.025, plate: 0.12, tw: 2 }
-  ]
+  var FLK = [{ n: 8, t0: 0.18, t1: 0.92, L: 0.34, ang: 1.05, mw: 0.036, bw: 0.02, plate: 0.12, tw: 1 }]
   function flakeSprite(type, night) {
     var key = type + (night ? "n" : "d")
     if (SNOWSP[key]) return SNOWSP[key]
@@ -3222,7 +3215,7 @@
     function fit() { W = host.clientWidth || window.innerWidth; H = host.clientHeight || window.innerHeight; cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr) }
     function mk(first) {
       var z = Math.pow(Math.random(), 1.35)
-      return { x: Math.random() * W, y: first ? Math.random() * H : -40 - Math.random() * 60, z: z, sz: 8 + z * 28, vy: 16 + z * 52 + Math.random() * 10, a: 0.42 + 0.55 * z, ph: Math.random() * 6.28, fr: 0.35 + Math.random() * 0.8, am: 6 + z * 20, rot: Math.random() * 6.28, rs: (Math.random() < 0.5 ? -1 : 1) * (0.7 + Math.random() * 1.5) * (1 - z * 0.3), tl: Math.random() < 0.4 ? 0.5 + Math.random() * 0.8 : 0, ty: Math.floor(Math.random() * 6) }
+      return { x: Math.random() * W, y: first ? Math.random() * H : -40 - Math.random() * 60, z: z, sz: 8 + z * 28, vy: 16 + z * 52 + Math.random() * 10, a: 0.42 + 0.55 * z, ph: Math.random() * 6.28, fr: 0.35 + Math.random() * 0.8, am: 6 + z * 20, rot: Math.random() * 6.28, rs: (Math.random() < 0.5 ? -1 : 1) * (0.7 + Math.random() * 1.5) * (1 - z * 0.3), tl: Math.random() < 0.4 ? 0.5 + Math.random() * 0.8 : 0, ty: 0 }
     }
     fit()
     for (i = 0; i < N; i++) fl.push(mk(true))
