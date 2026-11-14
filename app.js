@@ -3087,14 +3087,188 @@
   var BGV = { mosque: ["", ""], mosque2: ["", ""], mosque3: ["", ""], winter1: ["", ""], winter2: ["", ""], winter3: ["", ""], quran: ["", ""], gold: ["", ""], cream: ["", ""] }
   function isImgBg(k) { return /^(mosque|winter|quran)/.test(k || "") }
   var BGF = { mosque: "m1", mosque2: "m2", mosque3: "m3", winter1: "w1", winter2: "w2", winter3: "w3", quran: "q" }
+  // ====================
+  // FASL MAVZULARI: QISH
+  // ====================
+  function rng32(a) { return function () { a |= 0; a = a + 0x6D2B79F5 | 0; var t = Math.imul(a ^ a >>> 15, 1 | a); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296 } }
+  function wRidge(rn, base, amp, step, ph) {
+    var pts = []
+    for (var x = -30; x <= 430; x += step) {
+      var y = base - amp * (0.55 * Math.sin(x / 61 + ph) + 0.3 * Math.sin(x / 27 + ph * 2.1) + 0.15 * Math.sin(x / 13 + ph * 3.3)) - rn() * amp * 0.22
+      pts.push([x, y])
+    }
+    return pts
+  }
+  function wPoly(pts, bottom) {
+    var d = "M" + pts[0][0] + " " + bottom
+    for (var i = 0; i < pts.length; i++) d += "L" + pts[i][0].toFixed(1) + " " + pts[i][1].toFixed(1)
+    return d + "L" + pts[pts.length - 1][0] + " " + bottom + "Z"
+  }
+  function wCap(pts, thr, rn) {
+    var up = "", dn = [], i, y
+    for (i = 0; i < pts.length; i++) {
+      y = pts[i][1]
+      var dep = Math.max(0, thr - y) * 1.15 + (y < thr ? 4 + rn() * 9 : 0)
+      up += (i ? "L" : "M") + pts[i][0].toFixed(1) + " " + y.toFixed(1)
+      dn.push(pts[i][0].toFixed(1) + " " + (y + dep).toFixed(1))
+    }
+    return up + "L" + dn.reverse().join("L") + "Z"
+  }
+  function wTree(rn, x0, y0, night) {
+    var segs = []
+    function br(x, y, a, len, w, d) {
+      var x2 = x + len * Math.sin(a), y2 = y - len * Math.cos(a)
+      segs.push([x, y, x2, y2, w, d])
+      if (d >= 7) return
+      var n = d < 2 ? 3 : (rn() < 0.28 ? 3 : 2)
+      for (var i = 0; i < n; i++) {
+        var da = (i - (n - 1) / 2) * (0.42 + rn() * 0.26) + (rn() - 0.5) * 0.3
+        br(x2, y2, Math.max(-1.15, Math.min(1.15, a + da)), len * (0.7 + rn() * 0.14), w * 0.68, d + 1)
+      }
+    }
+    br(x0, y0, -0.06, 104, 10, 0)
+    var wood = night ? "#150f0d" : "#4d4039", sn = night ? "#cfe0f2" : "#ffffff", h = "", s = "", i
+    for (i = 0; i < segs.length; i++) {
+      var q = segs[i]
+      h += '<path d="M' + q[0].toFixed(1) + " " + q[1].toFixed(1) + "L" + q[2].toFixed(1) + " " + q[3].toFixed(1) + '" stroke-width="' + q[4].toFixed(2) + '"/>'
+      if (q[5] >= 1 && q[3] < q[1] + 6) s += '<path d="M' + q[0].toFixed(1) + " " + (q[1] - q[4] * 0.32).toFixed(1) + "L" + q[2].toFixed(1) + " " + (q[3] - q[4] * 0.32).toFixed(1) + '" stroke-width="' + Math.max(0.9, q[4] * 0.5).toFixed(2) + '"/>'
+    }
+    return '<g stroke="' + wood + '" stroke-linecap="round" fill="none">' + h + '</g><g stroke="' + sn + '" stroke-opacity=".92" stroke-linecap="round" fill="none">' + s + "</g>"
+  }
+  function winterScene(night) {
+    var rn = rng32(20261), C = night ?
+      { s1: "#050b1d", s2: "#10294f", s3: "#2d5b86", m1: "#2a4468", c1: "#a9c1de", m2: "#192c4b", c2: "#86a3c6", g1: "#e4eef9", g2: "#8fa9c9", fog: "#4f7fae" } :
+      { s1: "#8fbbe0", s2: "#c6dff1", s3: "#eef6fb", m1: "#a5bcd5", c1: "#ffffff", m2: "#86a1c0", c2: "#f4f9fd", g1: "#ffffff", g2: "#cfe0f1", fog: "#ffffff" }
+    var far = wRidge(rn, 500, 120, 20, 0.4), mid = wRidge(rn, 560, 90, 18, 2.2)
+    var h = '<svg viewBox="0 0 400 800" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg"><defs>' +
+      '<linearGradient id="wsk" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="' + C.s1 + '"/><stop offset=".55" stop-color="' + C.s2 + '"/><stop offset="1" stop-color="' + C.s3 + '"/></linearGradient>' +
+      '<linearGradient id="wgr" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="' + C.g1 + '"/><stop offset="1" stop-color="' + C.g2 + '"/></linearGradient>' +
+      '<linearGradient id="wfg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="' + C.fog + '" stop-opacity="0"/><stop offset="1" stop-color="' + C.fog + '" stop-opacity="' + (night ? ".38" : ".7") + '"/></linearGradient>' +
+      '<radialGradient id="wmn"><stop offset="0" stop-color="#fffbe9" stop-opacity=".9"/><stop offset=".35" stop-color="#e8ecff" stop-opacity=".25"/><stop offset="1" stop-color="#e8ecff" stop-opacity="0"/></radialGradient></defs>' +
+      '<rect width="400" height="800" fill="url(#wsk)"/>'
+    if (night) {
+      for (var i = 0; i < 70; i++) {
+        var sy = rn() * 430, op = (0.25 + rn() * 0.65) * (1 - sy / 520)
+        h += '<circle class="tw" style="animation-delay:-' + (rn() * 3).toFixed(2) + 's" cx="' + (rn() * 400).toFixed(1) + '" cy="' + sy.toFixed(1) + '" r="' + (0.4 + rn() * 0.9).toFixed(2) + '" fill="#fff" opacity="' + op.toFixed(2) + '"/>'
+      }
+      h += '<circle cx="84" cy="150" r="90" fill="url(#wmn)"/><circle cx="84" cy="150" r="24" fill="#f6f3e4"/><circle cx="76" cy="144" r="5" fill="#dedbc9" opacity=".6"/><circle cx="92" cy="158" r="3.5" fill="#dedbc9" opacity=".5"/>'
+    } else {
+      h += '<circle cx="84" cy="170" r="110" fill="url(#wmn)" opacity=".7"/>'
+    }
+    h += '<path d="' + wPoly(far, 800) + '" fill="' + C.m1 + '"/><path d="' + wCap(far, 465, rn) + '" fill="' + C.c1 + '" opacity=".95"/>'
+    h += '<rect x="0" y="430" width="400" height="180" fill="url(#wfg)"/>'
+    h += '<path d="' + wPoly(mid, 800) + '" fill="' + C.m2 + '"/><path d="' + wCap(mid, 540, rn) + '" fill="' + C.c2 + '" opacity=".95"/>'
+    h += '<path d="M-20 640C60 600 140 612 210 632S340 650 430 612V800H-20Z" fill="url(#wgr)"/>'
+    h += '<path d="M-20 690C80 655 170 668 250 690S380 700 430 676V800H-20Z" fill="' + C.g1 + '" opacity=".92"/>'
+    h += '<path d="M-20 690C80 655 170 668 250 690S380 700 430 676" fill="none" stroke="' + C.g2 + '" stroke-opacity=".55" stroke-width="1.4"/>'
+    h += wTree(rn, 296, 690, night)
+    for (var j = 0; j < 40; j++) h += '<circle class="tw" style="animation-delay:-' + (rn() * 3).toFixed(2) + 's" cx="' + (rn() * 400).toFixed(1) + '" cy="' + (650 + rn() * 140).toFixed(1) + '" r="' + (0.5 + rn() * 0.8).toFixed(2) + '" fill="#fff" opacity="' + (night ? 0.7 : 0.9) + '"/>'
+    return h + "</svg>"
+  }
+  var SNOWSP = {}
+  function flakeSprite(type, night) {
+    var key = type + (night ? "n" : "d")
+    if (SNOWSP[key]) return SNOWSP[key]
+    var R = 56, SZ = R * 2 + 12, c = document.createElement("canvas")
+    c.width = c.height = SZ
+    var g = c.getContext("2d"), col = night ? "255,255,255" : "104,148,200", k, i, sd
+    g.translate(SZ / 2, SZ / 2)
+    g.lineCap = "round"; g.lineJoin = "round"
+    g.strokeStyle = "rgba(" + col + ",.97)"; g.fillStyle = "rgba(" + col + ",.28)"
+    g.shadowColor = "rgba(" + (night ? "180,215,255" : "70,120,190") + ",.85)"; g.shadowBlur = 5
+    g.lineWidth = R * 0.075
+    function ln(x1, y1, x2, y2) { g.beginPath(); g.moveTo(x1, y1); g.lineTo(x2, y2); g.stroke() }
+    function hex(r, fill) { g.beginPath(); for (var q = 0; q < 6; q++) { var a = q * Math.PI / 3; g[q ? "lineTo" : "moveTo"](r * Math.cos(a), r * Math.sin(a)) } g.closePath(); if (fill) g.fill(); g.stroke() }
+    if (type === 1) { g.lineWidth = R * 0.06; hex(R * 0.86, true); hex(R * 0.5, false); g.lineWidth = R * 0.07 }
+    if (type === 3) hex(R * 0.2, true)
+    for (k = 0; k < 6; k++) {
+      g.save(); g.rotate(k * Math.PI / 3)
+      if (type === 0) {
+        ln(0, 0, R, 0)
+        var ts = [0.3, 0.52, 0.74], ls = [0.36, 0.3, 0.2]
+        for (i = 0; i < 3; i++) for (sd = -1; sd <= 1; sd += 2) {
+          var bx = R * ts[i], bl = R * ls[i], ex = bx + bl * Math.cos(Math.PI / 3), ey = sd * bl * Math.sin(Math.PI / 3)
+          ln(bx, 0, ex, ey)
+          if (i < 2) { var mx2 = bx + (ex - bx) * 0.55, my2 = ey * 0.55; ln(mx2, my2, mx2 + bl * 0.22, my2 + sd * bl * 0.2) }
+        }
+        ln(R, 0, R * 0.9, R * 0.07); ln(R, 0, R * 0.9, -R * 0.07)
+      } else if (type === 1) {
+        ln(R * 0.12, 0, R * 0.86, 0)
+        for (sd = -1; sd <= 1; sd += 2) { ln(R * 0.55, 0, R * 0.7, sd * R * 0.14); ln(R * 0.32, 0, R * 0.42, sd * R * 0.1) }
+      } else if (type === 2) {
+        ln(0, 0, R, 0)
+        var t2 = [0.26, 0.5, 0.72], l2 = [0.3, 0.28, 0.2]
+        for (i = 0; i < 3; i++) for (sd = -1; sd <= 1; sd += 2) ln(R * t2[i], 0, R * t2[i] + R * l2[i] * 0.72, sd * R * l2[i] * 0.72)
+        ln(R, 0, R * 0.86, R * 0.14); ln(R, 0, R * 0.86, -R * 0.14)
+      } else {
+        g.beginPath(); g.moveTo(R * 0.2, 0); g.lineTo(R * 0.56, R * 0.2); g.lineTo(R * 0.94, R * 0.09); g.lineTo(R * 0.94, -R * 0.09); g.lineTo(R * 0.56, -R * 0.2); g.closePath(); g.fill(); g.stroke()
+        ln(R * 0.2, 0, R * 0.94, 0)
+      }
+      g.restore()
+    }
+    g.shadowBlur = 0
+    g.fillStyle = "rgba(" + col + ",1)"; g.beginPath(); g.arc(0, 0, R * 0.06, 0, 6.2832); g.fill()
+    return (SNOWSP[key] = c)
+  }
+  var SNOW = { raf: 0, el: null }
+  function snowStart(host, night) {
+    snowStop()
+    var cv = document.createElement("canvas"); cv.className = "snw"; host.appendChild(cv)
+    var g = cv.getContext("2d"), W = 0, H = 0, dpr = Math.min(2, window.devicePixelRatio || 1), fl = [], i
+    var red = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    var N = red ? 26 : (window.innerWidth < 500 ? 58 : 90)
+    function fit() { W = host.clientWidth || window.innerWidth; H = host.clientHeight || window.innerHeight; cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr) }
+    function mk(first) {
+      var z = Math.pow(Math.random(), 1.35)
+      return { x: Math.random() * W, y: first ? Math.random() * H : -40 - Math.random() * 60, z: z, sz: 7 + z * 25, vy: 16 + z * 52 + Math.random() * 10, a: 0.42 + 0.55 * z, ph: Math.random() * 6.28, fr: 0.35 + Math.random() * 0.8, am: 6 + z * 20, rot: Math.random() * 6.28, rs: (Math.random() - 0.5) * (1.1 - z * 0.6), ty: Math.floor(Math.random() * 4) }
+    }
+    fit()
+    for (i = 0; i < N; i++) fl.push(mk(true))
+    fl.sort(function (p, q) { return p.z - q.z })
+    var t0 = 0
+    SNOW.el = host
+    function frame(ts) {
+      if (!host.isConnected || SNOW.el !== host) return
+      SNOW.raf = requestAnimationFrame(frame)
+      if (document.hidden) { t0 = 0; return }
+      var dt = t0 ? Math.min(0.05, (ts - t0) / 1000) : 0.016
+      t0 = ts
+      if (host.clientWidth !== W || host.clientHeight !== H) fit()
+      var tm = ts / 1000, wind = Math.sin(tm * 0.17) * 14 + Math.sin(tm * 0.53) * 6 + 8
+      g.setTransform(dpr, 0, 0, dpr, 0, 0)
+      g.clearRect(0, 0, W, H)
+      for (var k = 0; k < fl.length; k++) {
+        var f = fl[k]
+        f.y += f.vy * dt * (red ? 0.5 : 1)
+        f.x += (wind * (0.4 + f.z) + Math.cos(tm * f.fr + f.ph) * f.am * f.fr) * dt
+        f.rot += f.rs * dt
+        if (f.y > H + 40 || f.x > W + 60 || f.x < -60) { var n = mk(false); n.x = f.x > W + 60 ? -30 : Math.random() * W; fl[k] = n; f = n }
+        g.globalAlpha = f.a
+        g.save(); g.translate(f.x, f.y); g.rotate(f.rot)
+        g.drawImage(flakeSprite(f.ty, night), -f.sz / 2, -f.sz / 2, f.sz, f.sz)
+        g.restore()
+      }
+      g.globalAlpha = 1
+    }
+    SNOW.raf = requestAnimationFrame(frame)
+  }
+  function snowStop() { if (SNOW.raf) cancelAnimationFrame(SNOW.raf); SNOW.raf = 0; SNOW.el = null }
   function applyBg() {
     var root = document.documentElement, g = S.gender
     var v = g === "female" ? S.fbg : g === "male" ? S.mbg : ""
     if (!BGV[v] || (isImgBg(v) && !isPrem())) v = ""
     var night = effTheme() === "dark"
-    root.setAttribute("data-bg", v)
-    if (isImgBg(v) && v !== "winter2") root.setAttribute("data-tone", "d"); else root.removeAttribute("data-tone")
+    var seaOn = S.bgmode === "season" && S.season === "winter" && isPrem()
+    root.setAttribute("data-bg", seaOn ? "season" : v)
+    if (!seaOn && isImgBg(v) && v !== "winter2") root.setAttribute("data-tone", "d"); else root.removeAttribute("data-tone")
     var el = document.getElementById("mbg")
+    if (seaOn) {
+      if (!el) { el = document.createElement("div"); el.id = "mbg"; document.body.insertBefore(el, document.body.firstChild) }
+      var sk = "sea-winter" + (night ? "n" : "d")
+      if (el.getAttribute("data-k") !== sk || SNOW.el !== el) { el.setAttribute("data-k", sk); el.innerHTML = winterScene(night); snowStart(el, night) }
+      return
+    }
+    snowStop()
     if (v) {
       if (!el) { el = document.createElement("div"); el.id = "mbg"; document.body.insertBefore(el, document.body.firstChild) }
       var k = v + (night ? "n" : "d")
@@ -3682,8 +3856,8 @@
     else if (act === "gtoggle") { if (S.gender === "female") S.fgon = !gOn(); else S.mgon = !gOn(); applyGender(); save(); tOptsRefresh() }
     else if (act === "font") { if (v && !isPrem()) { pToast(tr("pm_font")); return } S.font = v; save(); applyFont(); tOptsRefresh() }
     else if (act === "hlc") { var hv = parseInt(v, 10); if (hv && !isPrem()) { pToast(tr("pm_hl")); return } S.hlc = hv; save(); if (U.more === "quote") render(); else tOptsRefresh() }
-    else if (act === "bgmode") { S.bgmode = v === "season" ? "season" : "plain"; save(); tOptsRefresh() }
-    else if (act === "sseason") { S.season = v; save(); tOptsRefresh() }
+    else if (act === "bgmode") { if (v === "season" && !isPrem()) { pToast(tr("pm_bg")); return } S.bgmode = v === "season" ? "season" : "plain"; save(); applyBg(); tOptsRefresh() }
+    else if (act === "sseason") { S.season = v; save(); applyBg(); tOptsRefresh() }
     else if (act === "sgen") { S.gender = TKEYS[+v] || "auto"; applyGender(); save(); tOptsRefresh() }
     else if (act === "sbg") { if (isImgBg(v) && !isPrem()) { pToast(tr("pm_bg")); return } if (S.gender === "female") S.fbg = v; else S.mbg = v; save(); applyGender(); tOptsRefresh() }
     else if (act === "gsol") { if (S.gender === "female") S.fsol = parseInt(v, 10); else S.msol = parseInt(v, 10); applyGender(); save(); tOptsRefresh() }
