@@ -147,6 +147,18 @@
     t_bg2: "Oltin|Олтин|Золото|Gold|ذهبي|Altın|Emas|金色|सुनहरा|Dorado",
     t_bg3: "Krem|Крем|Крем|Cream|كريمي|Krem|Krem|奶油|क्रीम|Crema",
     about: "Haqida|Ҳақида|О приложении|About|حول|Hakkında|Tentang|关于|के बारे में|Acerca de",
+    help: "Yordam|Ёрдам|Помощь|Help|المساعدة|Yardım|Bantuan|帮助|मदद|Ayuda",
+    notif: "Bildirishnomalar|Билдиришномалар|Уведомления|Notifications|الإشعارات|Bildirimler|Notifikasi|通知|सूचनाएं|Notificaciones",
+    h_dev: "Dasturchi|Дастурчи|Разработчик|Developer|المطوّر|Geliştirici|Pengembang|开发者|डेवलपर|Desarrollador",
+    h_ph: "Xabar yozing...|Хабар ёзинг...|Напишите сообщение...|Write a message...|اكتب رسالة...|Mesaj yazın...|Tulis pesan...|输入消息...|संदेश लिखें...|Escribe un mensaje...",
+    h_empty: "Savol yoki taklifingizni yozing, dasturchi javob beradi|Савол ёки таклифингизни ёзинг, дастурчи жавоб беради|Напишите вопрос или предложение — разработчик ответит|Write your question or idea and the developer will reply|اكتب سؤالك أو اقتراحك وسيرد عليك المطوّر|Sorunuzu veya önerinizi yazın, geliştirici yanıtlayacak|Tulis pertanyaan atau saran Anda, pengembang akan membalas|写下您的问题或建议，开发者会回复|अपना सवाल या सुझाव लिखें, डेवलपर जवाब देगा|Escribe tu pregunta o idea y el desarrollador responderá",
+    h_new: "Dasturchidan yangi xabar|Дастурчидан янги хабар|Новое сообщение от разработчика|New message from the developer|رسالة جديدة من المطوّر|Geliştiriciden yeni mesaj|Pesan baru dari pengembang|开发者的新消息|डेवलपर का नया संदेश|Nuevo mensaje del desarrollador",
+    h_none: "Bildirishnomalar yo'q|Билдиришномалар йўқ|Уведомлений нет|No notifications|لا توجد إشعارات|Bildirim yok|Tidak ada notifikasi|暂无通知|कोई सूचना नहीं|Sin notificaciones",
+    h_del: "Chatni o'chirish|Чатни ўчириш|Удалить чат|Delete chat|حذف المحادثة|Sohbeti sil|Hapus obrolan|删除聊天|चैट हटाएं|Eliminar chat",
+    h_delq: "Chat butunlay o'chiriladi. Davom etilsinmi?|Чат бутунлай ўчирилади. Давом этилсинми?|Чат будет удалён полностью. Продолжить?|The chat will be deleted permanently. Continue?|ستُحذف المحادثة نهائيًا. هل تتابع؟|Sohbet kalıcı olarak silinecek. Devam edilsin mi?|Obrolan akan dihapus permanen. Lanjutkan?|聊天将被永久删除。继续吗？|चैट हमेशा के लिए हट जाएगी। जारी रखें?|El chat se eliminará de forma permanente. ¿Continuar?",
+    h_chats: "Chatlar|Чатлар|Чаты|Chats|المحادثات|Sohbetler|Obrolan|聊天|चैट|Chats",
+    h_noc: "Hali xabarlar yo'q|Ҳали хабарлар йўқ|Сообщений пока нет|No messages yet|لا توجد رسائل بعد|Henüz mesaj yok|Belum ada pesan|暂无消息|अभी कोई संदेश नहीं|Aún no hay mensajes",
+    h_err: "Yuborilmadi|Юборилмади|Не отправлено|Not sent|لم يتم الإرسال|Gönderilemedi|Tidak terkirim|发送失败|भेजा नहीं गया|No enviado",
     ver: "Versiya|Версия|Версия|Version|الإصدار|Sürüm|Versi|版本|संस्करण|Versión",
     rate_my: "Sizning mahsulotimizga bahoyingiz|Сизнинг маҳсулотимизга баҳойингиз|Ваша оценка нашего продукта|Your rating of our product|تقييمك لمنتجنا|Ürünümüze puanınız|Penilaian Anda untuk produk kami|您对我们产品的评分|हमारे उत्पाद को आपकी रेटिंग|Tu valoración de nuestro producto",
     like_app: "Ilova yoqdi|Илова ёқди|Нравится|Like|أعجبني|Beğen|Suka|喜欢|पसंद|Me gusta",
@@ -416,7 +428,7 @@
   function renderNav() {
     var h = ""
     for (var i = 0; i < NAVS.length; i++) {
-      h += '<button data-act="tab" data-v="' + NAVS[i][0] + '" aria-label="' + esc(tr(NAVS[i][2])) + '" class="' + (U.tab === NAVS[i][0] && !U.detail ? "on" : "") + '">' + ic(NAVS[i][1], "ic") + '<span>' + esc(tr(NAVS[i][2])) + "</span></button>"
+      h += '<button data-act="tab" data-v="' + NAVS[i][0] + '" aria-label="' + esc(tr(NAVS[i][2])) + '" class="' + (U.tab === NAVS[i][0] && !U.detail ? "on" : "") + (NAVS[i][0] === "more" && HC.n > 0 ? " hasn" : "") + '">' + ic(NAVS[i][1], "ic") + '<span>' + esc(tr(NAVS[i][2])) + "</span></button>"
     }
     navEl.innerHTML = h
     navEl.className = "nav" + (U.detail ? " hidden" : "")
@@ -1914,6 +1926,135 @@
     var em = HEM[i % HEM.length]
     return { q: q, title: title, body: body, em: em, src: src, share: q.e + " " + title + "\n\n" + body + "\n\n" + em + "\n\n📖 " + src }
   }
+  // ====================
+  // YORDAM (chat) va BILDIRISHNOMALAR
+  // ====================
+  var HC = { admin: false, msgs: [], pend: [], chats: null, name: "", un: "", busy: 0, n: 0, tk: 0 }
+  var CK1 = '<svg class="tk" viewBox="0 0 12 11"><path d="M1.5 5.8l3.3 3.2L10.5 1.5"/></svg>'
+  var CK2 = '<svg class="tk" viewBox="0 0 22 11"><path d="M1.5 5.8l3.3 3.2L10.5 1.5"/><path d="M11.5 5.8l3.3 3.2L20.5 1.5"/></svg>'
+  function hBase() { return CFG.STATS_URL ? String(CFG.STATS_URL).replace(/\/$/, "") : "" }
+  function hPost(p, b) {
+    if (!hBase() || !tg || !tg.initData || !window.fetch) return Promise.reject(new Error("no"))
+    b = b || {}; b.initData = tg.initData
+    return fetch(hBase() + p, { method: "POST", body: JSON.stringify(b) }).then(function (r) { if (!r.ok) throw new Error("http"); return r.json() })
+  }
+  function hHM(ts) { var d = new Date(ts); return ("0" + d.getHours()).slice(-2) + ":" + ("0" + d.getMinutes()).slice(-2) }
+  function hDay(ts) {
+    var d = new Date(ts), n = new Date(), k = d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate()
+    return wqFmt(k, 0) + (d.getFullYear() === n.getFullYear() ? "" : ", " + d.getFullYear())
+  }
+  function hMore() { return U.tab === "more" && (U.more === "help" || U.more === "notif") }
+  function hSetBadge(n) {
+    if (n === HC.n) return
+    HC.n = n
+    var b = navEl && navEl.querySelector('[data-v="more"]')
+    if (b) b.classList.toggle("hasn", n > 0)
+    if (U.tab === "more" && U.more === "menu") render()
+  }
+  function hBadge() {
+    hPost("/chat/unread", {}).then(function (j) { HC.admin = !!j.admin; hSetBadge(j.n || 0) }).catch(function () {})
+  }
+  function hSync(open) {
+    if (HC.busy) return
+    HC.busy = 1
+    hPost("/chat/sync", { open: open ? 1 : 0, uid: U.hcUid || 0 }).then(function (j) {
+      HC.busy = 0
+      if (j.chats) {
+        HC.admin = true; HC.chats = j.chats
+        var un = 0; for (var i = 0; i < j.chats.length; i++) un += j.chats[i].n
+        hSetBadge(un)
+        if (U.more === "help" && !U.hcUid) { if (document.getElementById("hlist")) hListPaint(); else render() } else if (U.more === "notif") notifPaint()
+        return
+      }
+      var wasAdmin = HC.admin
+      HC.admin = !!j.admin; HC.name = j.name || ""; HC.un = j.un || ""
+      HC.msgs = j.msgs || []
+      var un2 = 0; if (!HC.admin) for (var k = 0; k < HC.msgs.length; k++) if (HC.msgs[k].f === "a" && !HC.msgs[k].rts) un2++
+      if (!HC.admin) hSetBadge(open ? 0 : un2)
+      if (U.more === "help") { if (U.hcUid && !document.getElementById("chatTx")) render(); else chatPaint() } else if (U.more === "notif") notifPaint()
+    }).catch(function () { HC.busy = 0 })
+  }
+  function chatPaint(force) {
+    var el = document.getElementById("chatMsgs")
+    if (!el) return
+    var near = window.innerHeight + (window.pageYOffset || 0) >= document.documentElement.scrollHeight - 180
+    var me = HC.admin ? "a" : "u", list = HC.msgs.concat(HC.pend), h = "", last = ""
+    if (!list.length) h = '<p class="hempty">' + esc(tr(HC.admin ? "h_noc" : "h_empty")) + "</p>"
+    for (var i = 0; i < list.length; i++) {
+      var m = list[i], ds = hDay(m.ts), mine = m.f === me
+      if (ds !== last) { h += '<div class="hday">' + esc(ds) + "</div>"; last = ds }
+      var tk = !mine ? "" : (m.pending || (!m.dts && !m.rts)) ? '<span class="tks">' + CK1 + "</span>" : '<span class="tks' + (m.rts ? " rd" : "") + '">' + CK2 + "</span>"
+      h += '<div class="hm ' + (mine ? "me" : "th") + '"><div class="hb">' + esc(m.t).replace(/\n/g, "<br>") + '<span class="hmeta">' + hHM(m.ts) + tk + "</span></div></div>"
+    }
+    el.innerHTML = h
+    if (force || near) window.scrollTo(0, document.documentElement.scrollHeight)
+  }
+  function hListPaint() {
+    var el = document.getElementById("hlist")
+    if (!el) return
+    var c = HC.chats || [], h = ""
+    if (!c.length) h = '<p class="hempty">' + esc(tr("h_noc")) + "</p>"
+    for (var i = 0; i < c.length; i++) {
+      var x = c[i], nm = x.name || ("ID " + x.uid)
+      h += '<button class="hrow" data-act="chatOpen" data-v="' + x.uid + '"><span class="hav">' + esc(nm.charAt(0).toUpperCase()) + '</span><span class="hmid"><b>' + esc(nm) + (x.un ? ' <i>@' + esc(x.un) + "</i>" : "") + "</b><em>" + (x.f === "a" ? "↩ " : "") + esc(x.t) + '</em></span><span class="hr2"><small>' + hHM(x.ts) + "</small>" + (x.n ? '<span class="bdg">' + x.n + "</span>" : "") + "</span></button>"
+    }
+    el.innerHTML = h
+  }
+  function notifPaint() {
+    var el = document.getElementById("nlist")
+    if (!el) return
+    var h = ""
+    if (HC.admin) {
+      var c = HC.chats || []
+      for (var i = 0; i < c.length; i++) if (c[i].n) h += '<button class="hrow" data-act="chatOpen" data-v="' + c[i].uid + '"><span class="hav">' + ic("notifications") + '</span><span class="hmid"><b>' + esc(c[i].name || ("ID " + c[i].uid)) + "</b><em>" + esc(c[i].t) + '</em></span><span class="hr2"><small>' + hHM(c[i].ts) + '</small><span class="bdg">' + c[i].n + "</span></span></button>"
+    } else {
+      var l = HC.msgs.filter(function (m) { return m.f === "a" }).reverse().slice(0, 20)
+      for (var k = 0; k < l.length; k++) h += '<button class="hrow' + (l[k].rts ? "" : " unr") + '" data-act="more" data-v="help"><span class="hav">' + ic("notifications") + '</span><span class="hmid"><b>' + esc(tr("h_new")) + "</b><em>" + esc(l[k].t) + '</em></span><span class="hr2"><small>' + esc(hDay(l[k].ts)) + " " + hHM(l[k].ts) + "</small>" + (l[k].rts ? "" : '<span class="bdg">•</span>') + "</span></button>"
+    }
+    el.innerHTML = h || '<p class="hempty">' + esc(tr("h_none")) + "</p>"
+  }
+  function helpHtml() {
+    var adm = HC.admin, inChat = !adm || U.hcUid, title = adm && U.hcUid ? (HC.name || "ID " + U.hcUid) : tr("help")
+    var h = '<div class="shead"><button class="btn small back circ" data-act="moreBack" aria-label="back">' + ic("arrow_back") + "</button><h1>" + (adm && U.hcUid ? "" : ic("support_agent") + " ") + esc(title) + "</h1>" +
+      (adm && U.hcUid ? '<button class="btn small circ" data-act="chatDel" aria-label="delete">' + ic("delete") + "</button>" : "<span></span>") + "</div>"
+    if (!inChat) return h + '<div id="hlist" class="hl"></div>'
+    return h + (adm ? "" : '<p class="sub">' + esc(tr("h_dev")) + "</p>") + '<div id="chatMsgs" class="chat"></div>' +
+      '<div class="chatin"><textarea id="chatTx" rows="1" maxlength="1500" placeholder="' + esc(tr("h_ph")) + '"></textarea><button class="send" data-act="chatSend" aria-label="send">' + ic("send") + "</button></div>"
+  }
+  function notifHtml() {
+    return '<div class="shead"><button class="btn small back circ" data-act="moreBack" aria-label="back">' + ic("arrow_back") + "</button><h1>" + ic("notifications") + " " + esc(tr("notif")) + '</h1><span></span></div><div id="nlist" class="hl"></div>'
+  }
+  function hStart() {
+    if (!hMore()) return
+    if (U.more === "help") { chatPaint(true) ; if (document.getElementById("hlist")) hListPaint() }
+    else notifPaint()
+    hSync(U.more === "help" && (!HC.admin || !!U.hcUid))
+  }
+  function hSend(t) {
+    var me = HC.admin ? "a" : "u", pm = { id: 0, f: me, t: t, ts: Date.now(), pending: 1 }
+    HC.pend = HC.pend.concat([pm]); chatPaint(true)
+    hPost("/chat/send", { text: t, uid: U.hcUid || 0 }).then(function (j) {
+      HC.pend = HC.pend.filter(function (x) { return x !== pm })
+      if (j && j.ok) HC.msgs.push({ id: j.id, f: me, t: t, ts: j.ts || Date.now(), dts: null, rts: null }); else { toast(tr("h_err")); var tx = document.getElementById("chatTx"); if (tx && !tx.value) tx.value = t }
+      chatPaint(true)
+    }).catch(function () {
+      HC.pend = HC.pend.filter(function (x) { return x !== pm })
+      toast(tr("h_err")); var tx = document.getElementById("chatTx"); if (tx && !tx.value) tx.value = t
+      chatPaint(true)
+    })
+  }
+  document.addEventListener("input", function (e) {
+    var t = e.target
+    if (t && t.id === "chatTx") { t.style.height = "auto"; t.style.height = Math.min(120, t.scrollHeight) + "px" }
+  })
+  setInterval(function () {
+    if (document.hidden) return
+    HC.tk++
+    if (hMore()) { if (U.more === "help" ? HC.tk % 1 === 0 : HC.tk % 2 === 0) hSync(U.more === "help" && (!HC.admin || !!U.hcUid)) }
+    else if (HC.tk % 15 === 0) hBadge()
+  }, 3000)
+  setTimeout(hBadge, 2500)
+
   function viewMore() {
     if (U.more === "quote") {
       if (U.quoteIdx < 0) U.quoteIdx = Math.floor(Math.random() * D.quotes.length)
@@ -1978,11 +2119,15 @@
       return '<div class="shead"><button class="btn small back circ" data-act="moreBack" aria-label="back">' + ic("arrow_back") + '</button><h1>' + ic("info") + " " + esc(tr("about")) + '</h1><span></span></div><div class="card stack"><p>' + ic("auto_awesome", "ab") + " " + esc(tr("about_text")) + '</p>' + aboutRate() +
         '<button class="btn primary block" data-act="openBot">' + ic("smart_toy") + " " + esc(tr("open_bot")) + '</button><button class="btn block" data-act="openChannel">' + ic("campaign") + " " + esc(tr("open_channel")) + "</button></div>"
     }
+    if (U.more === "help") return helpHtml()
+    if (U.more === "notif") return notifHtml()
     if (U.more === "stats") {
       return '<div class="shead"><button class="btn small back circ" data-act="moreBack" aria-label="back">' + ic("arrow_back") + '</button><h1>' + ic("bar_chart") + " " + esc(tr("st_t")) + '</h1><span></span></div><div id="stbody">' + statsHtml() + "</div>"
     }
     return '<h1>' + ic("auto_awesome") + " " + esc(tr("nav_more")) + '</h1><p class="sub">&nbsp;</p><div class="list">' +
       '<button data-act="more" data-v="settings">' + ic("settings") + " " + esc(tr("settings")) + "</button>" +
+      '<button data-act="more" data-v="help">' + ic("support_agent") + " " + esc(tr("help")) + (HC.admin && HC.n ? '<span class="bdg">' + HC.n + "</span>" : "") + "</button>" +
+      '<button data-act="more" data-v="notif">' + ic("notifications") + " " + esc(tr("notif")) + (HC.n ? '<span class="bdg">' + HC.n + "</span>" : "") + "</button>" +
       '<button data-act="more" data-v="stats">' + ic("bar_chart") + " " + esc(tr("st_t")) + "</button>" +
       '<button data-act="more" data-v="about">' + ic("info") + " " + esc(tr("about")) + "</button></div>"
   }
@@ -2300,6 +2445,7 @@
     if (U.tab === "more" && U.more === "settings") gText()
     if (U.tab === "more" && U.more === "mode") startGlobe()
     if (U.tab === "more" && U.more === "lang") startLangGlobe()
+    hStart()
     renderNav()
     if (wheels.theme) updateThemeLabels()
     if (tg && tg.BackButton) {
@@ -2311,6 +2457,7 @@
   function goBack() {
     if (U.waq) { U.waq = false; render(); window.scrollTo(0, 0); return }
     if (U.detail) { U.detail = 0; render(); window.scrollTo(0, 0); return }
+    if (U.tab === "more" && U.more === "help" && U.hcUid) { U.hcUid = 0; HC.msgs = []; render(); window.scrollTo(0, 0); return }
     if (U.tab === "more" && U.more !== "menu") {
       if (U.hikBack) { U.hikBack = false; U.tab = "names" }
       U.more = (U.more === "lang" || U.more === "theme" || U.more === "mode" || U.more === "remind" || U.more === "premium") ? "settings" : "menu"; render(); window.scrollTo(0, 0); return
@@ -3500,6 +3647,12 @@
     else if (act === "rateApp") { S.rate = +v; save(); rateSync(true); render() }
     else if (act === "rmt") { if (v === "all") S.remind = S.remind === false; else { var rq = rmGet(); rq[v] = rq[v] ? 0 : 1; S.rm = rq } save(); render() }
     else if (act === "likeApp") { S.appLike = !S.appLike; save(); rateSync(true); render() }
+    else if (act === "chatSend") { var ctx = document.getElementById("chatTx"), ct = ctx ? ctx.value.trim() : ""; if (ct) { ctx.value = ""; ctx.style.height = "auto"; hSend(ct) } }
+    else if (act === "chatOpen") { U.hcUid = parseInt(v, 10) || 0; U.more = "help"; HC.name = ""; for (var cq = 0; HC.chats && cq < HC.chats.length; cq++) if (HC.chats[cq].uid === U.hcUid) HC.name = HC.chats[cq].name; HC.msgs = []; HC.pend = []; render(); window.scrollTo(0, 0) }
+    else if (act === "chatDel") {
+      var cdo = function () { hPost("/chat/del", { uid: U.hcUid }).then(function () { U.hcUid = 0; HC.msgs = []; render(); window.scrollTo(0, 0) }).catch(function () {}) }
+      if (tg && tg.showConfirm) tg.showConfirm(tr("h_delq"), function (ok) { if (ok) cdo() }); else if (window.confirm(tr("h_delq"))) cdo()
+    }
     else if (act === "more") { U.more = v; if (v === "about") rateSync(false); if (v === "quote") U.quoteIdx = -1; render() }
     else if (act === "quoteNext") {
       var i = Math.floor(Math.random() * D.quotes.length)
@@ -3691,6 +3844,7 @@
       if (tg.setHeaderColor) tg.setHeaderColor("bg_color")
     } catch (e) {}
   }
+  try { if (new URLSearchParams(location.search).get("go") === "help") { U.tab = "more"; U.more = "help" } } catch (e) {}
   audInit()
   applyTheme()
   render()
