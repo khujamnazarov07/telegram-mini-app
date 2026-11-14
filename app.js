@@ -1929,6 +1929,7 @@
   // ====================
   // YORDAM (chat) va BILDIRISHNOMALAR
   // ====================
+  var SUPI = '<span class="msi svgi" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="10.6" r="3.6"/><path d="M6.6 11.2a5.4 5.4 0 0 1 10.8 0"/><rect x="4.9" y="10.6" width="2.4" height="4.4" rx="1.1"/><rect x="16.7" y="10.6" width="2.4" height="4.4" rx="1.1"/><path d="M18 15v1.2a2 2 0 0 1-2 2h-2.4"/><circle cx="12.6" cy="18.2" r=".9"/><path d="M6.4 21.2c.7-2.2 2.6-3.4 5.6-3.4"/></svg></span>'
   var HC = { admin: false, msgs: [], pend: [], chats: null, name: "", un: "", busy: 0, n: 0, tk: 0 }
   var CK1 = '<svg class="tk" viewBox="0 0 12 11"><path d="M1.5 5.8l3.3 3.2L10.5 1.5"/></svg>'
   var CK2 = '<svg class="tk" viewBox="0 0 22 11"><path d="M1.5 5.8l3.3 3.2L10.5 1.5"/><path d="M11.5 5.8l3.3 3.2L20.5 1.5"/></svg>'
@@ -2015,7 +2016,7 @@
   }
   function helpHtml() {
     var adm = HC.admin, inChat = !adm || U.hcUid, title = adm && U.hcUid ? (HC.name || "ID " + U.hcUid) : tr("help")
-    var h = '<div class="shead"><button class="btn small back circ" data-act="moreBack" aria-label="back">' + ic("arrow_back") + "</button><h1>" + (adm && U.hcUid ? "" : ic("man") + " ") + esc(title) + "</h1>" +
+    var h = '<div class="shead"><button class="btn small back circ" data-act="moreBack" aria-label="back">' + ic("arrow_back") + "</button><h1>" + (adm && U.hcUid ? "" : SUPI + " ") + esc(title) + "</h1>" +
       (adm && U.hcUid ? '<button class="btn small circ" data-act="chatDel" aria-label="delete">' + ic("delete") + "</button>" : "<span></span>") + "</div>"
     if (!inChat) return h + '<div id="hlist" class="hl"></div>'
     return h + (adm ? "" : '<p class="sub">' + esc(tr("h_dev")) + "</p>") + '<div id="chatMsgs" class="chat"></div>' +
@@ -2126,7 +2127,7 @@
     }
     return '<h1>' + ic("auto_awesome") + " " + esc(tr("nav_more")) + '</h1><p class="sub">&nbsp;</p><div class="list">' +
       '<button data-act="more" data-v="settings">' + ic("settings") + " " + esc(tr("settings")) + "</button>" +
-      '<button data-act="more" data-v="help">' + ic("man") + " " + esc(tr("help")) + (HC.admin && HC.n ? '<span class="bdg">' + HC.n + "</span>" : "") + "</button>" +
+      '<button data-act="more" data-v="help">' + SUPI + " " + esc(tr("help")) + (HC.admin && HC.n ? '<span class="bdg">' + HC.n + "</span>" : "") + "</button>" +
       '<button data-act="more" data-v="notif">' + ic("notifications") + " " + esc(tr("notif")) + (HC.n ? '<span class="bdg">' + HC.n + "</span>" : "") + "</button>" +
       '<button data-act="more" data-v="stats">' + ic("bar_chart") + " " + esc(tr("st_t")) + "</button>" +
       '<button data-act="more" data-v="about">' + ic("info") + " " + esc(tr("about")) + "</button></div>"
