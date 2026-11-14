@@ -758,7 +758,7 @@
       return map
     }
     // 1-raqamli fayl "Alloh" (umumiy ism) bo'lsa, ism raqami = fayl raqami - 1; "25-26" kabi fayl ikki ismga xizmat qiladi
-    var off = (has[100] || (!has[1] && has[2]) || (has[1] && has[99] && !has[0] && items.length >= 99)) ? 1 : 0
+    var off = typeof CFG.AUDIO_OFF === "number" ? CFG.AUDIO_OFF : (has[100] || (!has[1] && has[2]) || (has[1] && has[99] && !has[0] && items.length >= 99)) ? 1 : 0
     for (i = 0; i < items.length; i++) for (k = items[i][0]; k <= items[i][1]; k++) if (k - off >= 1 && k - off <= 99) map[k - off] = items[i][2]
     return map
   }
