@@ -428,7 +428,7 @@
   function renderNav() {
     var h = ""
     for (var i = 0; i < NAVS.length; i++) {
-      h += '<button data-act="tab" data-v="' + NAVS[i][0] + '" aria-label="' + esc(tr(NAVS[i][2])) + '" class="' + (U.tab === NAVS[i][0] && !U.detail ? "on" : "") + (NAVS[i][0] === "more" && HC.n > 0 ? " hasn" : "") + '">' + ic(NAVS[i][1], "ic") + '<span>' + esc(tr(NAVS[i][2])) + "</span></button>"
+      h += '<button data-act="tab" data-v="' + NAVS[i][0] + '" aria-label="' + esc(tr(NAVS[i][2])) + '" class="' + (U.tab === NAVS[i][0] && !U.detail ? "on" : "") + (NAVS[i][0] === "more" && HCH.n > 0 ? " hasn" : "") + '">' + ic(NAVS[i][1], "ic") + '<span>' + esc(tr(NAVS[i][2])) + "</span></button>"
     }
     navEl.innerHTML = h
     navEl.className = "nav" + (U.detail ? " hidden" : "")
@@ -1930,7 +1930,7 @@
   // YORDAM (chat) va BILDIRISHNOMALAR
   // ====================
   var SUPI = '<span class="msi svgi" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="10.6" r="3.6"/><path d="M6.6 11.2a5.4 5.4 0 0 1 10.8 0"/><rect x="4.9" y="10.6" width="2.4" height="4.4" rx="1.1"/><rect x="16.7" y="10.6" width="2.4" height="4.4" rx="1.1"/><path d="M18 15v1.2a2 2 0 0 1-2 2h-2.4"/><circle cx="12.6" cy="18.2" r=".9"/><path d="M6.4 21.2c.7-2.2 2.6-3.4 5.6-3.4"/></svg></span>'
-  var HC = { admin: false, msgs: [], pend: [], chats: null, name: "", un: "", busy: 0, n: 0, tk: 0 }
+  var HCH = { admin: false, msgs: [], pend: [], chats: null, name: "", un: "", busy: 0, n: 0, tk: 0 }
   var CK1 = '<svg class="tk" viewBox="0 0 12 11"><path d="M1.5 5.8l3.3 3.2L10.5 1.5"/></svg>'
   var CK2 = '<svg class="tk" viewBox="0 0 22 11"><path d="M1.5 5.8l3.3 3.2L10.5 1.5"/><path d="M11.5 5.8l3.3 3.2L20.5 1.5"/></svg>'
   function hBase() { return CFG.STATS_URL ? String(CFG.STATS_URL).replace(/\/$/, "") : "" }
@@ -1946,41 +1946,41 @@
   }
   function hMore() { return U.tab === "more" && (U.more === "help" || U.more === "notif") }
   function hSetBadge(n) {
-    if (n === HC.n) return
-    HC.n = n
+    if (n === HCH.n) return
+    HCH.n = n
     var b = navEl && navEl.querySelector('[data-v="more"]')
     if (b) b.classList.toggle("hasn", n > 0)
     if (U.tab === "more" && U.more === "menu") render()
   }
   function hBadge() {
-    hPost("/chat/unread", {}).then(function (j) { HC.admin = !!j.admin; hSetBadge(j.n || 0) }).catch(function () {})
+    hPost("/chat/unread", {}).then(function (j) { HCH.admin = !!j.admin; hSetBadge(j.n || 0) }).catch(function () {})
   }
   function hSync(open) {
-    if (HC.busy) return
-    HC.busy = 1
+    if (HCH.busy) return
+    HCH.busy = 1
     hPost("/chat/sync", { open: open ? 1 : 0, uid: U.hcUid || 0 }).then(function (j) {
-      HC.busy = 0
+      HCH.busy = 0
       if (j.chats) {
-        HC.admin = true; HC.chats = j.chats
+        HCH.admin = true; HCH.chats = j.chats
         var un = 0; for (var i = 0; i < j.chats.length; i++) un += j.chats[i].n
         hSetBadge(un)
         if (U.more === "help" && !U.hcUid) { if (document.getElementById("hlist")) hListPaint(); else render() } else if (U.more === "notif") notifPaint()
         return
       }
-      var wasAdmin = HC.admin
-      HC.admin = !!j.admin; HC.name = j.name || ""; HC.un = j.un || ""
-      HC.msgs = j.msgs || []
-      var un2 = 0; if (!HC.admin) for (var k = 0; k < HC.msgs.length; k++) if (HC.msgs[k].f === "a" && !HC.msgs[k].rts) un2++
-      if (!HC.admin) hSetBadge(open ? 0 : un2)
+      var wasAdmin = HCH.admin
+      HCH.admin = !!j.admin; HCH.name = j.name || ""; HCH.un = j.un || ""
+      HCH.msgs = j.msgs || []
+      var un2 = 0; if (!HCH.admin) for (var k = 0; k < HCH.msgs.length; k++) if (HCH.msgs[k].f === "a" && !HCH.msgs[k].rts) un2++
+      if (!HCH.admin) hSetBadge(open ? 0 : un2)
       if (U.more === "help") { if (U.hcUid && !document.getElementById("chatTx")) render(); else chatPaint() } else if (U.more === "notif") notifPaint()
-    }).catch(function () { HC.busy = 0 })
+    }).catch(function () { HCH.busy = 0 })
   }
   function chatPaint(force) {
     var el = document.getElementById("chatMsgs")
     if (!el) return
     var near = window.innerHeight + (window.pageYOffset || 0) >= document.documentElement.scrollHeight - 180
-    var me = HC.admin ? "a" : "u", list = HC.msgs.concat(HC.pend), h = "", last = ""
-    if (!list.length) h = '<p class="hempty">' + esc(tr(HC.admin ? "h_noc" : "h_empty")) + "</p>"
+    var me = HCH.admin ? "a" : "u", list = HCH.msgs.concat(HCH.pend), h = "", last = ""
+    if (!list.length) h = '<p class="hempty">' + esc(tr(HCH.admin ? "h_noc" : "h_empty")) + "</p>"
     for (var i = 0; i < list.length; i++) {
       var m = list[i], ds = hDay(m.ts), mine = m.f === me
       if (ds !== last) { h += '<div class="hday">' + esc(ds) + "</div>"; last = ds }
@@ -1993,7 +1993,7 @@
   function hListPaint() {
     var el = document.getElementById("hlist")
     if (!el) return
-    var c = HC.chats || [], h = ""
+    var c = HCH.chats || [], h = ""
     if (!c.length) h = '<p class="hempty">' + esc(tr("h_noc")) + "</p>"
     for (var i = 0; i < c.length; i++) {
       var x = c[i], nm = x.name || ("ID " + x.uid)
@@ -2005,17 +2005,17 @@
     var el = document.getElementById("nlist")
     if (!el) return
     var h = ""
-    if (HC.admin) {
-      var c = HC.chats || []
+    if (HCH.admin) {
+      var c = HCH.chats || []
       for (var i = 0; i < c.length; i++) if (c[i].n) h += '<button class="hrow" data-act="chatOpen" data-v="' + c[i].uid + '"><span class="hav">' + ic("notifications") + '</span><span class="hmid"><b>' + esc(c[i].name || ("ID " + c[i].uid)) + "</b><em>" + esc(c[i].t) + '</em></span><span class="hr2"><small>' + hHM(c[i].ts) + '</small><span class="bdg">' + c[i].n + "</span></span></button>"
     } else {
-      var l = HC.msgs.filter(function (m) { return m.f === "a" }).reverse().slice(0, 20)
+      var l = HCH.msgs.filter(function (m) { return m.f === "a" }).reverse().slice(0, 20)
       for (var k = 0; k < l.length; k++) h += '<button class="hrow' + (l[k].rts ? "" : " unr") + '" data-act="more" data-v="help"><span class="hav">' + ic("notifications") + '</span><span class="hmid"><b>' + esc(tr("h_new")) + "</b><em>" + esc(l[k].t) + '</em></span><span class="hr2"><small>' + esc(hDay(l[k].ts)) + " " + hHM(l[k].ts) + "</small>" + (l[k].rts ? "" : '<span class="bdg">•</span>') + "</span></button>"
     }
     el.innerHTML = h || '<p class="hempty">' + esc(tr("h_none")) + "</p>"
   }
   function helpHtml() {
-    var adm = HC.admin, inChat = !adm || U.hcUid, title = adm && U.hcUid ? (HC.name || "ID " + U.hcUid) : tr("help")
+    var adm = HCH.admin, inChat = !adm || U.hcUid, title = adm && U.hcUid ? (HCH.name || "ID " + U.hcUid) : tr("help")
     var h = '<div class="shead"><button class="btn small back circ" data-act="moreBack" aria-label="back">' + ic("arrow_back") + "</button><h1>" + (adm && U.hcUid ? "" : SUPI + " ") + esc(title) + "</h1>" +
       (adm && U.hcUid ? '<button class="btn small circ" data-act="chatDel" aria-label="delete">' + ic("delete") + "</button>" : "<span></span>") + "</div>"
     if (!inChat) return h + '<div id="hlist" class="hl"></div>'
@@ -2029,17 +2029,17 @@
     if (!hMore()) return
     if (U.more === "help") { chatPaint(true) ; if (document.getElementById("hlist")) hListPaint() }
     else notifPaint()
-    hSync(U.more === "help" && (!HC.admin || !!U.hcUid))
+    hSync(U.more === "help" && (!HCH.admin || !!U.hcUid))
   }
   function hSend(t) {
-    var me = HC.admin ? "a" : "u", pm = { id: 0, f: me, t: t, ts: Date.now(), pending: 1 }
-    HC.pend = HC.pend.concat([pm]); chatPaint(true)
+    var me = HCH.admin ? "a" : "u", pm = { id: 0, f: me, t: t, ts: Date.now(), pending: 1 }
+    HCH.pend = HCH.pend.concat([pm]); chatPaint(true)
     hPost("/chat/send", { text: t, uid: U.hcUid || 0 }).then(function (j) {
-      HC.pend = HC.pend.filter(function (x) { return x !== pm })
-      if (j && j.ok) HC.msgs.push({ id: j.id, f: me, t: t, ts: j.ts || Date.now(), dts: null, rts: null }); else { toast(tr("h_err")); var tx = document.getElementById("chatTx"); if (tx && !tx.value) tx.value = t }
+      HCH.pend = HCH.pend.filter(function (x) { return x !== pm })
+      if (j && j.ok) HCH.msgs.push({ id: j.id, f: me, t: t, ts: j.ts || Date.now(), dts: null, rts: null }); else { toast(tr("h_err")); var tx = document.getElementById("chatTx"); if (tx && !tx.value) tx.value = t }
       chatPaint(true)
     }).catch(function () {
-      HC.pend = HC.pend.filter(function (x) { return x !== pm })
+      HCH.pend = HCH.pend.filter(function (x) { return x !== pm })
       toast(tr("h_err")); var tx = document.getElementById("chatTx"); if (tx && !tx.value) tx.value = t
       chatPaint(true)
     })
@@ -2050,9 +2050,9 @@
   })
   setInterval(function () {
     if (document.hidden) return
-    HC.tk++
-    if (hMore()) { if (U.more === "help" ? HC.tk % 1 === 0 : HC.tk % 2 === 0) hSync(U.more === "help" && (!HC.admin || !!U.hcUid)) }
-    else if (HC.tk % 15 === 0) hBadge()
+    HCH.tk++
+    if (hMore()) { if (U.more === "help" ? HCH.tk % 1 === 0 : HCH.tk % 2 === 0) hSync(U.more === "help" && (!HCH.admin || !!U.hcUid)) }
+    else if (HCH.tk % 15 === 0) hBadge()
   }, 3000)
   setTimeout(hBadge, 2500)
 
@@ -2127,8 +2127,8 @@
     }
     return '<h1>' + ic("auto_awesome") + " " + esc(tr("nav_more")) + '</h1><p class="sub">&nbsp;</p><div class="list">' +
       '<button data-act="more" data-v="settings">' + ic("settings") + " " + esc(tr("settings")) + "</button>" +
-      '<button data-act="more" data-v="help">' + SUPI + " " + esc(tr("help")) + (HC.admin && HC.n ? '<span class="bdg">' + HC.n + "</span>" : "") + "</button>" +
-      '<button data-act="more" data-v="notif">' + ic("notifications") + " " + esc(tr("notif")) + (HC.n ? '<span class="bdg">' + HC.n + "</span>" : "") + "</button>" +
+      '<button data-act="more" data-v="help">' + SUPI + " " + esc(tr("help")) + (HCH.admin && HCH.n ? '<span class="bdg">' + HCH.n + "</span>" : "") + "</button>" +
+      '<button data-act="more" data-v="notif">' + ic("notifications") + " " + esc(tr("notif")) + (HCH.n ? '<span class="bdg">' + HCH.n + "</span>" : "") + "</button>" +
       '<button data-act="more" data-v="stats">' + ic("bar_chart") + " " + esc(tr("st_t")) + "</button>" +
       '<button data-act="more" data-v="about">' + ic("info") + " " + esc(tr("about")) + "</button></div>"
   }
@@ -2458,7 +2458,7 @@
   function goBack() {
     if (U.waq) { U.waq = false; render(); window.scrollTo(0, 0); return }
     if (U.detail) { U.detail = 0; render(); window.scrollTo(0, 0); return }
-    if (U.tab === "more" && U.more === "help" && U.hcUid) { U.hcUid = 0; HC.msgs = []; render(); window.scrollTo(0, 0); return }
+    if (U.tab === "more" && U.more === "help" && U.hcUid) { U.hcUid = 0; HCH.msgs = []; render(); window.scrollTo(0, 0); return }
     if (U.tab === "more" && U.more !== "menu") {
       if (U.hikBack) { U.hikBack = false; U.tab = "names" }
       U.more = (U.more === "lang" || U.more === "theme" || U.more === "mode" || U.more === "remind" || U.more === "premium") ? "settings" : "menu"; render(); window.scrollTo(0, 0); return
@@ -3649,9 +3649,9 @@
     else if (act === "rmt") { if (v === "all") S.remind = S.remind === false; else { var rq = rmGet(); rq[v] = rq[v] ? 0 : 1; S.rm = rq } save(); render() }
     else if (act === "likeApp") { S.appLike = !S.appLike; save(); rateSync(true); render() }
     else if (act === "chatSend") { var ctx = document.getElementById("chatTx"), ct = ctx ? ctx.value.trim() : ""; if (ct) { ctx.value = ""; ctx.style.height = "auto"; hSend(ct) } }
-    else if (act === "chatOpen") { U.hcUid = parseInt(v, 10) || 0; U.more = "help"; HC.name = ""; for (var cq = 0; HC.chats && cq < HC.chats.length; cq++) if (HC.chats[cq].uid === U.hcUid) HC.name = HC.chats[cq].name; HC.msgs = []; HC.pend = []; render(); window.scrollTo(0, 0) }
+    else if (act === "chatOpen") { U.hcUid = parseInt(v, 10) || 0; U.more = "help"; HCH.name = ""; for (var cq = 0; HCH.chats && cq < HCH.chats.length; cq++) if (HCH.chats[cq].uid === U.hcUid) HCH.name = HCH.chats[cq].name; HCH.msgs = []; HCH.pend = []; render(); window.scrollTo(0, 0) }
     else if (act === "chatDel") {
-      var cdo = function () { hPost("/chat/del", { uid: U.hcUid }).then(function () { U.hcUid = 0; HC.msgs = []; render(); window.scrollTo(0, 0) }).catch(function () {}) }
+      var cdo = function () { hPost("/chat/del", { uid: U.hcUid }).then(function () { U.hcUid = 0; HCH.msgs = []; render(); window.scrollTo(0, 0) }).catch(function () {}) }
       if (tg && tg.showConfirm) tg.showConfirm(tr("h_delq"), function (ok) { if (ok) cdo() }); else if (window.confirm(tr("h_delq"))) cdo()
     }
     else if (act === "more") { U.more = v; if (v === "about") rateSync(false); if (v === "quote") U.quoteIdx = -1; render() }
