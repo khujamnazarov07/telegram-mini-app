@@ -2495,7 +2495,7 @@
       i = +key
       var cx = i % 180, cy = Math.floor(i / 180), b = false
       for (var dy = -1; dy <= 1 && !b; dy++) for (var dx = -1; dx <= 1; dx++) {
-        if (!dx && !dy) continue
+        if ((!dx && !dy) || (dx && dy)) continue
         var yy = cy + dy
         if (yy < 0 || yy > 89) continue
         if (cid[yy * 180 + (cx + dx + 180) % 180] !== cid[i]) { b = true; break }
@@ -2508,9 +2508,9 @@
     var C = cellInfo(), cc = C && C.cid[idx], col = cc && cm[cc]
     if (!col || !(cc === sc || C.brd[idx])) return false
     g.fillStyle = cc === sc ? fg : col
-    g.globalAlpha = cc === sc ? 0.7 + 0.3 * q[2] : 0.6 + 0.4 * q[2]
-    var r = cc === sc ? 2.2 + 1.4 * q[2] : 1.8 + 1.2 * q[2]
-    g.fillRect(q[0] - r / 2, q[1] - r / 2, r, r)
+    g.globalAlpha = cc === sc ? 0.8 + 0.2 * q[2] : 0.55 + 0.45 * q[2]
+    var r = cc === sc ? 1.5 + 1.2 * q[2] : 1.1 + 1.1 * q[2]
+    g.beginPath(); g.arc(q[0], q[1], r * 0.62, 0, 6.2832); g.fill()
     return true
   }
   var CBD = {}
