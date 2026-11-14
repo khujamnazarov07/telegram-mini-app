@@ -2455,6 +2455,64 @@
     for (var k2 in m) o[o.length] = { id: k2, pts: m[k2] }
     return spread(o)
   })()
+  var CELL = null
+  function pip(r, x, y) {
+    var ins = false
+    for (var i = 0, j = r.length - 2; i < r.length; j = i, i += 2) {
+      var xi = r[i], yi = r[i + 1], xj = r[j], yj = r[j + 1]
+      if ((yi > y) !== (yj > y) && x < (xj - xi) * (y - yi) / (yj - yi) + xi) ins = !ins
+    }
+    return ins
+  }
+  function cellInfo() {
+    if (CELL || !window.CB) return CELL
+    var cid = {}, brd = {}, i, k, n
+    for (i = 0; i < 16200; i++) {
+      if (!(parseInt(GMASK.charAt(i >> 2), 16) & (8 >> (i & 3)))) continue
+      var lo = -180 + (i % 180 + 0.5) * 2, la = 90 - (Math.floor(i / 180) + 0.5) * 2
+      for (k in window.CB) {
+        var rs = window.CB[k], hit = false
+        for (n = 0; n < rs.length && !hit; n++) hit = pip(rs[n], lo, la)
+        if (hit) { cid[i] = k; break }
+      }
+    }
+    var have = {}
+    for (var hk in cid) have[cid[hk]] = 1
+    for (k in window.CB) {
+      if (have[k]) continue
+      var sx = 0, sy = 0, cnt = 0, rr = window.CB[k][0]
+      for (n = 0; n < rr.length; n += 2) { sx += rr[n]; sy += rr[n + 1]; cnt++ }
+      sx /= cnt; sy /= cnt
+      var bi = -1, bd = 1e9
+      for (i = 0; i < 16200; i++) {
+        if (cid[i] || !(parseInt(GMASK.charAt(i >> 2), 16) & (8 >> (i & 3)))) continue
+        var d2 = Math.pow(-180 + (i % 180 + 0.5) * 2 - sx, 2) + Math.pow(90 - (Math.floor(i / 180) + 0.5) * 2 - sy, 2)
+        if (d2 < bd) { bd = d2; bi = i }
+      }
+      if (bi >= 0 && bd < 36) { cid[bi] = k; brd[bi] = 1 }
+    }
+    for (var key in cid) {
+      i = +key
+      var cx = i % 180, cy = Math.floor(i / 180), b = false
+      for (var dy = -1; dy <= 1 && !b; dy++) for (var dx = -1; dx <= 1; dx++) {
+        if (!dx && !dy) continue
+        var yy = cy + dy
+        if (yy < 0 || yy > 89) continue
+        if (cid[yy * 180 + (cx + dx + 180) % 180] !== cid[i]) { b = true; break }
+      }
+      if (b) brd[i] = 1
+    }
+    return (CELL = { cid: cid, brd: brd })
+  }
+  function landDot(g, q, idx, cm, sc, fg) {
+    var C = cellInfo(), cc = C && C.cid[idx], col = cc && cm[cc]
+    if (!col || !(cc === sc || C.brd[idx])) return false
+    g.fillStyle = cc === sc ? fg : col
+    g.globalAlpha = cc === sc ? 0.7 + 0.3 * q[2] : 0.6 + 0.4 * q[2]
+    var r = cc === sc ? 2.2 + 1.4 * q[2] : 1.8 + 1.2 * q[2]
+    g.fillRect(q[0] - r / 2, q[1] - r / 2, r, r)
+    return true
+  }
   var CBD = {}
   function bdots(cc) {
     if (CBD[cc]) return CBD[cc]
@@ -2501,7 +2559,7 @@
   function lvarHtml() {
     if (!U.lcty) return ""
     var c = ctyGet(U.lcty), h = ""
-    for (var i = 0; i < c.L.length; i++) h += lchip(c.L[i], c.c, true)
+    for (var i = 0; i < c.L.length; i++) h += lchip(c.L[i], c.c, c.L[i] === S.lang)
     return h
   }
   function lallHtml() {
@@ -2522,7 +2580,7 @@
     var cur = ctyGet(U.lcty || ctyOf(S.lang))
     var lon0 = cur.lo, tilt = 0.38, drag = false, sx = 0, sl = 0, moved = 0, last = 0, ph = 0, hits = []
     var land = []
-    for (var i = 0; i < 16200; i++) if (parseInt(GMASK.charAt(i >> 2), 16) & (8 >> (i & 3))) land[land.length] = [-180 + (i % 180 + 0.5) * 2, 90 - (Math.floor(i / 180) + 0.5) * 2]
+    for (var i = 0; i < 16200; i++) if (parseInt(GMASK.charAt(i >> 2), 16) & (8 >> (i & 3))) land[land.length] = [-180 + (i % 180 + 0.5) * 2, 90 - (Math.floor(i / 180) + 0.5) * 2, i]
     var fg = getComputedStyle(cv).color
     function pr(lo, la) {
       var l = (lo - lon0) * Math.PI / 180, p = la * Math.PI / 180
@@ -2542,16 +2600,18 @@
       grd.addColorStop(0, "rgba(120,160,150,.16)"); grd.addColorStop(1, "rgba(120,160,150,.04)")
       g.fillStyle = grd; g.beginPath(); g.arc(CX, CY, R, 0, 6.2832); g.fill()
       g.strokeStyle = "rgba(128,150,145,.35)"; g.lineWidth = 1; g.stroke()
+      var cmL = {}, scL = U.lcty || ctyOf(S.lang), fgS = fg
+      for (var bm = 0; bm < cs.length; bm++) cmL[cs[bm].k] = cs[bm].c
       g.fillStyle = fg
       for (var k = 0; k < land.length; k++) {
         var q = pr(land[k][0], land[k][1])
         if (q[2] <= 0.02) continue
+        if (landDot(g, q, land[k][2], cmL, scL, fgS)) { g.fillStyle = fg; continue }
         g.globalAlpha = 0.18 + 0.5 * q[2]
         var r = 1 + 1 * q[2]
         g.fillRect(q[0] - r / 2, q[1] - r / 2, r, r)
       }
       g.globalAlpha = 1
-      for (var bm = 0; bm < cs.length; bm++) drawBorders(g, pr, cs[bm].k, cs[bm].c, 0.95, cs[bm].k === (U.lcty || "") ? 2.2 : 1.6)
       var fs = 10.5, bh = fs + 8, vis = []
       g.font = "700 " + fs + "px system-ui, sans-serif"; g.textBaseline = "middle"; g.textAlign = "center"
       for (var m = 0; m < cs.length; m++) {
@@ -2675,7 +2735,7 @@
     var lon0 = sel0 ? sel0[1] : -new Date().getTimezoneOffset() / 4, tilt = 0.38, drag = false, sx = 0, sl = 0, moved = 0, last = 0, ph = 0, goal = null, hits = []
     GGO = function (lo) { goal = lo }
     var land = []
-    for (var i = 0; i < 16200; i++) if (parseInt(GMASK.charAt(i >> 2), 16) & (8 >> (i & 3))) land[land.length] = [-180 + (i % 180 + 0.5) * 2, 90 - (Math.floor(i / 180) + 0.5) * 2]
+    for (var i = 0; i < 16200; i++) if (parseInt(GMASK.charAt(i >> 2), 16) & (8 >> (i & 3))) land[land.length] = [-180 + (i % 180 + 0.5) * 2, 90 - (Math.floor(i / 180) + 0.5) * 2, i]
     var fg = getComputedStyle(cv).color
     function pr(lo, la) {
       var l = (lo - lon0) * Math.PI / 180, p = la * Math.PI / 180
@@ -2699,22 +2759,18 @@
       grd.addColorStop(0, "rgba(120,160,150,.16)"); grd.addColorStop(1, "rgba(120,160,150,.04)")
       g.fillStyle = grd; g.beginPath(); g.arc(CX, CY, R, 0, 6.2832); g.fill()
       g.strokeStyle = "rgba(128,150,145,.35)"; g.lineWidth = 1; g.stroke()
+      var cmT = {}, scT = sel && CITY_CC[sel[0]], fgS = fg
+      for (var bm = 0; bm < CITIES.length; bm++) if (CITY_CC[CITIES[bm][0]]) cmT[CITY_CC[CITIES[bm][0]]] = CC_COL[CITY_CC[CITIES[bm][0]]]
       g.fillStyle = fg
       for (var k = 0; k < land.length; k++) {
         var q = pr(land[k][0], land[k][1])
         if (q[2] <= 0.02) continue
+        if (landDot(g, q, land[k][2], cmT, scT, fgS)) { g.fillStyle = fg; continue }
         g.globalAlpha = 0.2 + 0.6 * q[2]
         var r = 1 + 1 * q[2]
         g.fillRect(q[0] - r / 2, q[1] - r / 2, r, r)
       }
       g.globalAlpha = 1
-      var seenC = {}
-      for (var bm = 0; bm < CITIES.length; bm++) {
-        var cc0 = CITY_CC[CITIES[bm][0]]
-        if (!cc0 || seenC[cc0]) continue
-        seenC[cc0] = 1
-        drawBorders(g, pr, cc0, CC_COL[cc0], 0.95, sel && CITY_CC[sel[0]] === cc0 ? 2.1 : 1.5)
-      }
       var fs = 10, bh = fs + 7, vis = []
       g.font = "700 " + fs + "px system-ui, sans-serif"; g.textBaseline = "middle"; g.textAlign = "center"
       for (var m = 0; m < CITIES.length; m++) {
