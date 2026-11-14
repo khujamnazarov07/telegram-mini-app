@@ -3165,49 +3165,23 @@
     for (var j = 0; j < 40; j++) h += '<circle class="tw" style="animation-delay:-' + (rn() * 3).toFixed(2) + 's" cx="' + (rn() * 400).toFixed(1) + '" cy="' + (650 + rn() * 140).toFixed(1) + '" r="' + (0.5 + rn() * 0.8).toFixed(2) + '" fill="#fff" opacity="' + (night ? 0.7 : 0.9) + '"/>'
     return h + "</svg>"
   }
-  var SNOWSP = {}
-  var FLK = [{ n: 8, t0: 0.18, t1: 0.92, L: 0.34, ang: 1.05, mw: 0.036, bw: 0.02, plate: 0.12, tw: 1 }]
-  function flakeSprite(type, night) {
-    var key = type + (night ? "n" : "d")
-    if (SNOWSP[key]) return SNOWSP[key]
-    var o = FLK[type % FLK.length], R = 74, SZ = R * 2 + 16, c = document.createElement("canvas")
-    c.width = c.height = SZ
-    var g = c.getContext("2d"), col = night ? "255,255,255" : "98,142,198", k, i, sd, j
-    g.translate(SZ / 2, SZ / 2)
-    g.lineCap = "round"; g.lineJoin = "round"
-    g.strokeStyle = "rgba(" + col + ",.97)"; g.fillStyle = "rgba(" + col + ",.2)"
-    g.shadowColor = night ? "rgba(150,205,255,.9)" : "rgba(70,120,190,.8)"; g.shadowBlur = 2.5
-    function ln(x1, y1, x2, y2) { g.beginPath(); g.moveTo(x1, y1); g.lineTo(x2, y2); g.stroke() }
-    function hex(r, fill) { g.beginPath(); for (var q = 0; q < 6; q++) { var a = q * Math.PI / 3; g[q ? "lineTo" : "moveTo"](r * Math.cos(a), r * Math.sin(a)) } g.closePath(); if (fill) g.fill(); g.stroke() }
-    g.lineWidth = R * 0.03
-    hex(R * o.plate, true); hex(R * o.plate * 0.55, false)
-    if (o.hex) { g.lineWidth = R * 0.035; hex(R * (o.t0 - 0.02), false) }
-    for (k = 0; k < 6; k++) {
-      g.save(); g.rotate(k * Math.PI / 3)
-      g.lineWidth = R * o.mw; ln(R * o.plate * 0.4, 0, R, 0)
-      for (i = 0; i < o.n; i++) {
-        var t = o.t0 + (o.t1 - o.t0) * i / (o.n - 1), L = R * o.L * Math.pow(1 - t, 0.8) * Math.min(1, t * 4 + 0.35), bx = R * t
-        for (sd = -1; sd <= 1; sd += 2) {
-          var ex = bx + L * Math.cos(o.ang), ey = sd * L * Math.sin(o.ang)
-          g.lineWidth = R * o.bw; ln(bx, 0, ex, ey)
-          g.lineWidth = R * o.bw * 0.7
-          for (j = 1; j <= o.tw; j++) {
-            var f = j / (o.tw + 1) + 0.12, px = bx + (ex - bx) * f, py = ey * f, tl = L * 0.3 * (1 - f * 0.5)
-            ln(px, py, px + tl, py)
-            if (t < 0.6) ln(px, py, px + tl * 0.7 * Math.cos(2 * o.ang), py + sd * tl * 0.7 * Math.sin(2 * o.ang))
-          }
-        }
-      }
-      g.lineWidth = R * o.bw; ln(R, 0, R * 0.93, R * 0.06); ln(R, 0, R * 0.93, -R * 0.06)
-      g.restore()
-    }
-    g.shadowBlur = 0
-    g.fillStyle = "rgba(" + col + ",1)"; g.beginPath(); g.arc(0, 0, R * 0.05, 0, 6.2832); g.fill()
-    return (SNOWSP[key] = c)
+    var FLKIMG = null, FLKS = {}
+  function flakeTinted(night) {
+    var k = night ? "n" : "d"
+    if (FLKS[k]) return FLKS[k]
+    if (!FLKIMG || !FLKIMG.complete || !FLKIMG.naturalWidth) return null
+    var c = document.createElement("canvas"); c.width = FLKIMG.naturalWidth; c.height = FLKIMG.naturalHeight
+    var g = c.getContext("2d")
+    g.drawImage(FLKIMG, 0, 0)
+    g.globalCompositeOperation = "source-atop"
+    g.fillStyle = night ? "rgba(255,255,255,.55)" : "rgba(70,110,185,.38)"
+    g.fillRect(0, 0, c.width, c.height)
+    return (FLKS[k] = c)
   }
   var SNOW = { raf: 0, el: null }
   function snowStart(host, night) {
     snowStop()
+    if (!FLKIMG) { FLKIMG = new Image(); FLKIMG.src = "flake.webp?v=1" }
     var cv = document.createElement("canvas"); cv.className = "snw"; host.appendChild(cv)
     var g = cv.getContext("2d"), W = 0, H = 0, dpr = Math.min(2, window.devicePixelRatio || 1), fl = [], i
     var red = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches
@@ -3215,7 +3189,7 @@
     function fit() { W = host.clientWidth || window.innerWidth; H = host.clientHeight || window.innerHeight; cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr) }
     function mk(first) {
       var z = Math.pow(Math.random(), 1.35)
-      return { x: Math.random() * W, y: first ? Math.random() * H : -40 - Math.random() * 60, z: z, sz: 8 + z * 28, vy: 16 + z * 52 + Math.random() * 10, a: 0.42 + 0.55 * z, ph: Math.random() * 6.28, fr: 0.35 + Math.random() * 0.8, am: 6 + z * 20, rot: Math.random() * 6.28, rs: (Math.random() < 0.5 ? -1 : 1) * (0.7 + Math.random() * 1.5) * (1 - z * 0.3), tl: Math.random() < 0.4 ? 0.5 + Math.random() * 0.8 : 0, ty: 0 }
+      return { x: Math.random() * W, y: first ? Math.random() * H : -40 - Math.random() * 60, z: z, sz: 11 + z * 32, vy: 16 + z * 52 + Math.random() * 10, a: 0.42 + 0.55 * z, ph: Math.random() * 6.28, fr: 0.35 + Math.random() * 0.8, am: 6 + z * 20, rot: Math.random() * 6.28, rs: (Math.random() < 0.5 ? -1 : 1) * (0.7 + Math.random() * 1.5) * (1 - z * 0.3), tl: Math.random() < 0.4 ? 0.5 + Math.random() * 0.8 : 0, ty: 0 }
     }
     fit()
     for (i = 0; i < N; i++) fl.push(mk(true))
@@ -3241,7 +3215,7 @@
         g.globalAlpha = f.a
         g.save(); g.translate(f.x, f.y); g.rotate(f.rot)
         if (f.tl) g.scale(1, 0.62 + 0.38 * Math.abs(Math.cos(tm * f.tl + f.ph)))
-        g.drawImage(flakeSprite(f.ty, night), -f.sz / 2, -f.sz / 2, f.sz, f.sz)
+        var fi = flakeTinted(night); if (fi) g.drawImage(fi, -f.sz / 2, -f.sz / 2, f.sz, f.sz)
         g.restore()
       }
       g.globalAlpha = 1
