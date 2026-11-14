@@ -2015,7 +2015,7 @@
   }
   function helpHtml() {
     var adm = HC.admin, inChat = !adm || U.hcUid, title = adm && U.hcUid ? (HC.name || "ID " + U.hcUid) : tr("help")
-    var h = '<div class="shead"><button class="btn small back circ" data-act="moreBack" aria-label="back">' + ic("arrow_back") + "</button><h1>" + (adm && U.hcUid ? "" : ic("support_agent") + " ") + esc(title) + "</h1>" +
+    var h = '<div class="shead"><button class="btn small back circ" data-act="moreBack" aria-label="back">' + ic("arrow_back") + "</button><h1>" + (adm && U.hcUid ? "" : ic("man") + " ") + esc(title) + "</h1>" +
       (adm && U.hcUid ? '<button class="btn small circ" data-act="chatDel" aria-label="delete">' + ic("delete") + "</button>" : "<span></span>") + "</div>"
     if (!inChat) return h + '<div id="hlist" class="hl"></div>'
     return h + (adm ? "" : '<p class="sub">' + esc(tr("h_dev")) + "</p>") + '<div id="chatMsgs" class="chat"></div>' +
@@ -2126,7 +2126,7 @@
     }
     return '<h1>' + ic("auto_awesome") + " " + esc(tr("nav_more")) + '</h1><p class="sub">&nbsp;</p><div class="list">' +
       '<button data-act="more" data-v="settings">' + ic("settings") + " " + esc(tr("settings")) + "</button>" +
-      '<button data-act="more" data-v="help">' + ic("support_agent") + " " + esc(tr("help")) + (HC.admin && HC.n ? '<span class="bdg">' + HC.n + "</span>" : "") + "</button>" +
+      '<button data-act="more" data-v="help">' + ic("man") + " " + esc(tr("help")) + (HC.admin && HC.n ? '<span class="bdg">' + HC.n + "</span>" : "") + "</button>" +
       '<button data-act="more" data-v="notif">' + ic("notifications") + " " + esc(tr("notif")) + (HC.n ? '<span class="bdg">' + HC.n + "</span>" : "") + "</button>" +
       '<button data-act="more" data-v="stats">' + ic("bar_chart") + " " + esc(tr("st_t")) + "</button>" +
       '<button data-act="more" data-v="about">' + ic("info") + " " + esc(tr("about")) + "</button></div>"
