@@ -2455,20 +2455,31 @@
     for (var k2 in m) o[o.length] = { id: k2, pts: m[k2] }
     return spread(o)
   })()
-  function drawBorders(g, pr, cc, col, al, lw) {
-    var rs = window.CB && window.CB[cc]
-    if (!rs) return
-    g.strokeStyle = col; g.lineWidth = lw; g.globalAlpha = al; g.lineJoin = "round"
+  var CBD = {}
+  function bdots(cc) {
+    if (CBD[cc]) return CBD[cc]
+    var rs = window.CB && window.CB[cc], o = []
+    if (!rs) return (CBD[cc] = o)
     for (var i = 0; i < rs.length; i++) {
-      var r = rs[i], pen = false
-      g.beginPath()
-      for (var j = 0; j < r.length; j += 2) {
-        var q = pr(r[j], r[j + 1])
-        if (q[2] <= 0.02) { pen = false; continue }
-        if (pen) g.lineTo(q[0], q[1]); else g.moveTo(q[0], q[1])
-        pen = true
+      var r = rs[i], rem = 0
+      for (var j = 0; j + 3 < r.length; j += 2) {
+        var x0 = r[j], y0 = r[j + 1], dx = r[j + 2] - x0, dy = r[j + 3] - y0, L = Math.sqrt(dx * dx + dy * dy), t = rem
+        while (t < L) { o[o.length] = [x0 + dx * t / L, y0 + dy * t / L]; t += 2.6 }
+        rem = t - L
       }
-      g.stroke()
+    }
+    return (CBD[cc] = o)
+  }
+  function drawBorders(g, pr, cc, col, al, lw) {
+    var d = bdots(cc)
+    if (!d.length) return
+    g.fillStyle = col
+    for (var i = 0; i < d.length; i++) {
+      var q = pr(d[i][0], d[i][1])
+      if (q[2] <= 0.02) continue
+      g.globalAlpha = al * (0.45 + 0.55 * q[2])
+      var r = lw * (0.55 + 0.45 * q[2])
+      g.beginPath(); g.arc(q[0], q[1], r, 0, 6.2832); g.fill()
     }
     g.globalAlpha = 1
   }
@@ -2540,7 +2551,7 @@
         g.fillRect(q[0] - r / 2, q[1] - r / 2, r, r)
       }
       g.globalAlpha = 1
-      for (var bm = 0; bm < cs.length; bm++) drawBorders(g, pr, cs[bm].k, cs[bm].c, 0.85, cs[bm].k === (U.lcty || "") ? 2.4 : 1.3)
+      for (var bm = 0; bm < cs.length; bm++) drawBorders(g, pr, cs[bm].k, cs[bm].c, 0.95, cs[bm].k === (U.lcty || "") ? 2.2 : 1.6)
       var fs = 10.5, bh = fs + 8, vis = []
       g.font = "700 " + fs + "px system-ui, sans-serif"; g.textBaseline = "middle"; g.textAlign = "center"
       for (var m = 0; m < cs.length; m++) {
@@ -2562,8 +2573,7 @@
           g.globalAlpha = al; g.strokeStyle = v.c.c; g.lineWidth = 1.3
           g.beginPath(); g.moveTo(v.x, v.y); g.lineTo(ex, ty); g.lineTo(ax, ty); g.stroke()
           g.fillStyle = v.c.c
-          g.globalAlpha = al * (0.28 + 0.2 * pu); g.beginPath(); g.arc(v.x, v.y, (on ? 9 : 6) + 2 * pu, 0, 6.2832); g.fill()
-          g.globalAlpha = al; g.beginPath(); g.arc(v.x, v.y, on ? 4.2 : 3.2, 0, 6.2832); g.fill()
+          g.globalAlpha = al
           g.beginPath(); if (g.roundRect) g.roundRect(bx, ty - bh / 2, tw, bh, 7); else g.rect(bx, ty - bh / 2, tw, bh); g.fill()
           if (on) { g.strokeStyle = "#fff"; g.lineWidth = 2; g.stroke() }
           g.fillStyle = "#fff"; g.fillText(v.nm, bx + tw / 2, ty + 0.5)
@@ -2703,7 +2713,7 @@
         var cc0 = CITY_CC[CITIES[bm][0]]
         if (!cc0 || seenC[cc0]) continue
         seenC[cc0] = 1
-        drawBorders(g, pr, cc0, CC_COL[cc0], 0.85, sel && CITY_CC[sel[0]] === cc0 ? 2.2 : 1.3)
+        drawBorders(g, pr, cc0, CC_COL[cc0], 0.95, sel && CITY_CC[sel[0]] === cc0 ? 2.1 : 1.5)
       }
       var fs = 10, bh = fs + 7, vis = []
       g.font = "700 " + fs + "px system-ui, sans-serif"; g.textBaseline = "middle"; g.textAlign = "center"
@@ -2726,9 +2736,7 @@
           g.globalAlpha = al * 0.8; g.strokeStyle = cl; g.lineWidth = 1.1
           g.beginPath(); g.moveTo(v.x, v.y); g.lineTo(ex, ty); g.lineTo(ax, ty); g.stroke()
           g.fillStyle = cl
-          g.globalAlpha = al * (0.25 + 0.25 * pu); g.beginPath(); g.arc(v.x, v.y, (on ? 8 : 5.5) + 2 * pu, 0, 6.2832); g.fill()
-          g.globalAlpha = al; g.beginPath(); g.arc(v.x, v.y, on ? 4 : 3, 0, 6.2832); g.fill()
-          if (on) { g.strokeStyle = fg; g.lineWidth = 1.5; g.beginPath(); g.arc(v.x, v.y, 6.5, 0, 6.2832); g.stroke() }
+          g.globalAlpha = al
           g.beginPath(); if (g.roundRect) g.roundRect(bx, ty - bh / 2, tw, bh, 6); else g.rect(bx, ty - bh / 2, tw, bh); g.fill()
           if (on) { g.strokeStyle = fg; g.lineWidth = 2; g.stroke() }
           g.fillStyle = "#fff"; g.fillText(v.nm, bx + tw / 2, ty + 0.5)
