@@ -3165,7 +3165,7 @@
     for (var j = 0; j < 40; j++) h += '<circle class="tw" style="animation-delay:-' + (rn() * 3).toFixed(2) + 's" cx="' + (rn() * 400).toFixed(1) + '" cy="' + (650 + rn() * 140).toFixed(1) + '" r="' + (0.5 + rn() * 0.8).toFixed(2) + '" fill="#fff" opacity="' + (night ? 0.7 : 0.9) + '"/>'
     return h + "</svg>"
   }
-    function aTree(rn, x0, y0, night) {
+    function aTree(rn, x0, y0, night, pl) {
     var segs = []
     function br(x, y, a, len, w, d) {
       var x2 = x + len * Math.sin(a), y2 = y - len * Math.cos(a)
@@ -3178,7 +3178,7 @@
       }
     }
     br(x0, y0, -0.06, 104, 10, 0)
-    var wood = night ? "#120c09" : "#3b2a20", pal = night ? ["#9a4524", "#b8741f", "#a03024", "#76591b", "#8a3a1a"] : ["#c8582a", "#e59a2d", "#c9402e", "#a8812a", "#d9701f"], h = "", lv = "", i, j
+    var wood = night ? "#120c09" : "#3b2a20", pal = pl ? pl : night ? ["#9a4524", "#b8741f", "#a03024", "#76591b", "#8a3a1a"] : ["#c8582a", "#e59a2d", "#c9402e", "#a8812a", "#d9701f"], h = "", lv = "", i, j
     for (i = 0; i < segs.length; i++) {
       var q = segs[i]
       h += '<path d="M' + q[0].toFixed(1) + " " + q[1].toFixed(1) + "L" + q[2].toFixed(1) + " " + q[3].toFixed(1) + '" stroke-width="' + q[4].toFixed(2) + '"/>'
@@ -3188,6 +3188,96 @@
       }
     }
     return '<g stroke="' + wood + '" stroke-linecap="round" fill="none">' + h + "</g><g>" + lv + "</g>"
+  }
+  function summerScene(night) {
+    var rn = rng32(7771), C = night ?
+      { s1: "#030818", s2: "#0f2147", s3: "#27405f", m1: "#1c3150", g1: "#1b4426", g2: "#0b2414", hl: "#123a22" } :
+      { s1: "#3f9be6", s2: "#9bd2f3", s3: "#fff1c4", m1: "#8fb2d4", g1: "#7cc653", g2: "#2f7d34", hl: "#4a9e48" }
+    var pal = night ? ["#14502a", "#1b6030", "#0f4423", "#256b34", "#0c3a1f"] : ["#2f9e44", "#43b052", "#238636", "#5cbf5a", "#37a348"]
+    var far = wRidge(rn, 500, 110, 20, 0.9), mid = wRidge(rn, 565, 80, 16, 2.7), h = "", i, x
+    h = '<svg viewBox="0 0 400 800" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg"><defs>' +
+      '<linearGradient id="ssk" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="' + C.s1 + '"/><stop offset=".6" stop-color="' + C.s2 + '"/><stop offset="1" stop-color="' + C.s3 + '"/></linearGradient>' +
+      '<linearGradient id="sgr" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="' + C.g1 + '"/><stop offset="1" stop-color="' + C.g2 + '"/></linearGradient>' +
+      '<radialGradient id="ssn"><stop offset="0" stop-color="#fff8d6" stop-opacity="1"/><stop offset=".25" stop-color="#ffe9a0" stop-opacity=".55"/><stop offset="1" stop-color="#ffe9a0" stop-opacity="0"/></radialGradient>' +
+      '<filter id="scb" x="-30%" y="-60%" width="160%" height="220%"><feGaussianBlur stdDeviation="8"/></filter></defs>' +
+      '<rect width="400" height="800" fill="url(#ssk)"/>'
+    if (night) {
+      for (i = 0; i < 70; i++) h += '<circle cx="' + (rn() * 400).toFixed(0) + '" cy="' + (rn() * 420).toFixed(0) + '" r="' + (0.5 + rn() * 1.1).toFixed(1) + '" fill="#fff" opacity="' + (0.35 + rn() * 0.6).toFixed(2) + '"/>'
+      h += '<circle cx="86" cy="150" r="22" fill="#f1ecd6" opacity=".92"/>'
+    } else {
+      h += '<circle cx="300" cy="130" r="150" fill="url(#ssn)"/><circle cx="300" cy="130" r="26" fill="#fffbe6"/>'
+      for (i = 0; i < 6; i++) h += '<ellipse cx="' + (rn() * 420 - 10).toFixed(0) + '" cy="' + (70 + rn() * 300).toFixed(0) + '" rx="' + (60 + rn() * 70).toFixed(0) + '" ry="' + (12 + rn() * 14).toFixed(0) + '" fill="#fff" opacity=".8" filter="url(#scb)"/>'
+    }
+    h += '<path d="' + wPoly(far, 800) + '" fill="' + C.m1 + '"/>'
+    h += '<path d="' + wPoly(mid, 800) + '" fill="' + C.hl + '"/>'
+    for (i = 0; i < mid.length; i++) for (x = 0; x < 3; x++) h += '<circle cx="' + (mid[i][0] + (rn() - 0.5) * 14).toFixed(1) + '" cy="' + (mid[i][1] + 3 + rn() * 22).toFixed(1) + '" r="' + (6 + rn() * 7).toFixed(1) + '" fill="' + pal[Math.floor(rn() * pal.length)] + '" opacity=".85"/>'
+    h += '<path d="M-20 640C60 604 140 616 210 636S340 652 430 616V800H-20Z" fill="url(#sgr)"/>'
+    h += '<path d="M-20 692C80 658 170 670 250 692S380 702 430 678V800H-20Z" fill="' + C.g1 + '" opacity=".9"/>'
+    h += aTree(rn, 296, 690, night, pal)
+    var fl = night ? ["#9fb0d8", "#c9b86a", "#b78fc9"] : ["#ffd84a", "#ffffff", "#ff7aa8", "#ffb347"]
+    for (i = 0; i < 90; i++) h += '<circle cx="' + (rn() * 400).toFixed(1) + '" cy="' + (655 + rn() * 140).toFixed(1) + '" r="' + (1.1 + rn() * 1.6).toFixed(1) + '" fill="' + fl[Math.floor(rn() * fl.length)] + '" opacity=".92"/>'
+    return h + "</svg>"
+  }
+  function summerStart(host, night) {
+    snowStop()
+    var cv = document.createElement("canvas"); cv.className = "snw"; host.appendChild(cv)
+    var g = cv.getContext("2d"), W = 0, H = 0, dpr = Math.min(2, window.devicePixelRatio || 1), ps = [], bf = [], i
+    var red = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    var NP = red ? 10 : (night ? 34 : 46), NB = night || red ? 0 : 4
+    function fit() { W = host.clientWidth || window.innerWidth; H = host.clientHeight || window.innerHeight; cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr) }
+    function mkP() {
+      var z = Math.random()
+      return { x: Math.random() * W, y: night ? H * (0.35 + Math.random() * 0.65) : Math.random() * H, z: z, a: Math.random() * 6.28, s: night ? 12 + Math.random() * 18 : 6 + z * 14, r: night ? 2.2 + Math.random() * 2 : 1.6 + z * 2.4, ph: Math.random() * 6.28, f: 0.6 + Math.random() * 1.6 }
+    }
+    function mkB() {
+      var cs = [["#ff8c1a", "#2b1a0a"], ["#ffd23f", "#3a2a0a"], ["#4fa3ff", "#0f1e3a"], ["#ff6fa5", "#3a0f22"]]
+      return { x: Math.random() * W, y: H * (0.45 + Math.random() * 0.4), h: Math.random() * 6.28, ph: Math.random() * 6.28, c: cs[Math.floor(Math.random() * cs.length)], sz: 9 + Math.random() * 6 }
+    }
+    fit()
+    for (i = 0; i < NP; i++) ps.push(mkP())
+    for (i = 0; i < NB; i++) bf.push(mkB())
+    var t0 = 0
+    SNOW.el = host
+    function frame(ts) {
+      if (!host.isConnected || SNOW.el !== host) return
+      SNOW.raf = requestAnimationFrame(frame)
+      if (document.hidden) { t0 = 0; return }
+      var dt = t0 ? Math.min(0.05, (ts - t0) / 1000) : 0.016, tm = ts / 1000, k, p, b, gr
+      t0 = ts
+      if (host.clientWidth !== W || host.clientHeight !== H) fit()
+      g.setTransform(dpr, 0, 0, dpr, 0, 0); g.clearRect(0, 0, W, H)
+      g.globalCompositeOperation = "lighter"
+      for (k = 0; k < ps.length; k++) {
+        p = ps[k]
+        p.a += (Math.random() - 0.5) * 2.4 * dt
+        p.x += Math.cos(p.a) * p.s * dt + (night ? 0 : 8 * dt)
+        p.y += Math.sin(p.a) * p.s * dt - (night ? 0 : 6 * dt)
+        if (p.x < -20) p.x = W + 10; if (p.x > W + 20) p.x = -10
+        if (p.y < -20) p.y = H + 10; if (p.y > H + 20) p.y = -10
+        var al = night ? 0.25 + 0.75 * Math.pow(0.5 + 0.5 * Math.sin(tm * p.f * 2 + p.ph), 2) : 0.5 + 0.3 * Math.sin(tm * p.f + p.ph), rr = p.r * (night ? 5 : 3.2)
+        gr = g.createRadialGradient(p.x, p.y, 0, p.x, p.y, rr)
+        if (night) { gr.addColorStop(0, "rgba(235,255,150," + al + ")"); gr.addColorStop(0.25, "rgba(190,240,70," + al * 0.55 + ")"); gr.addColorStop(1, "rgba(160,230,40,0)") }
+        else { gr.addColorStop(0, "rgba(255,255,235," + al + ")"); gr.addColorStop(0.4, "rgba(255,240,170," + al * 0.4 + ")"); gr.addColorStop(1, "rgba(255,230,140,0)") }
+        g.fillStyle = gr; g.beginPath(); g.arc(p.x, p.y, rr, 0, 6.2832); g.fill()
+      }
+      g.globalCompositeOperation = "source-over"
+      for (k = 0; k < bf.length; k++) {
+        b = bf[k]
+        b.h += Math.sin(tm * 0.9 + b.ph) * 1.4 * dt + (Math.random() - 0.5) * 2.2 * dt
+        var sp = 38 + Math.sin(tm * 3 + b.ph) * 16
+        b.x += Math.cos(b.h) * sp * dt; b.y += Math.sin(b.h) * sp * dt * 0.7 - 6 * dt
+        if (b.x < -30) b.x = W + 20; if (b.x > W + 30) b.x = -20
+        if (b.y < H * 0.12) b.h = Math.abs(b.h) * 0.5; if (b.y > H * 0.9) b.y = H * 0.9
+        var fl = Math.abs(Math.cos(tm * 11 + b.ph)), face = Math.cos(b.h) >= 0 ? 1 : -1
+        g.save(); g.translate(b.x, b.y); g.scale(face, 1)
+        g.fillStyle = b.c[0]; g.strokeStyle = b.c[1]; g.lineWidth = 0.8
+        g.beginPath(); g.ellipse(0, -b.sz * 0.35, b.sz * 0.5 * (0.25 + 0.75 * fl), b.sz * 0.55, -0.5, 0, 6.2832); g.fill(); g.stroke()
+        g.beginPath(); g.ellipse(0, b.sz * 0.25, b.sz * 0.38 * (0.25 + 0.75 * fl), b.sz * 0.42, 0.5, 0, 6.2832); g.fill(); g.stroke()
+        g.fillStyle = b.c[1]; g.beginPath(); g.ellipse(0, 0, 1.4, b.sz * 0.5, 0, 0, 6.2832); g.fill()
+        g.restore()
+      }
+    }
+    SNOW.raf = requestAnimationFrame(frame)
   }
   function autumnScene(night) {
     var rn = rng32(20263), C = night ?
@@ -3249,19 +3339,56 @@
     var red = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches
     var NL = red ? 10 : (window.innerWidth < 500 ? 26 : 38), NR = red ? 0 : (window.innerWidth < 500 ? 70 : 110)
     var cols = night ? ["#c4402f", "#b8321f", "#d9a62b", "#caa02a"] : ["#d63a28", "#c9301f", "#f0b92e", "#e8a81f"]
-    var trc = document.createElement("canvas"), tg = trc.getContext("2d"), dd = [], t00 = 0, fc = 0, MAXD = red ? 0 : (window.innerWidth < 500 ? 190 : 260), svg0 = host.querySelector("svg")
+    var trc = document.createElement("canvas"), tg = trc.getContext("2d"), dd = [], t00 = 0, fc = 0, MAXD = red ? 0 : (window.innerWidth < 500 ? 420 : 640), svg0 = host.querySelector("svg")
     var bgc = null, bgimg = null
     function bgMake() {
       if (!svg0 || !MAXD) return
       try {
         var cl = svg0.cloneNode(true); cl.removeAttribute("style"); cl.setAttribute("width", Math.round(W * dpr)); cl.setAttribute("height", Math.round(H * dpr))
         var im = new Image()
-        im.onload = function () { var c2 = document.createElement("canvas"); c2.width = Math.round(W * dpr); c2.height = Math.round(H * dpr); c2.getContext("2d").drawImage(im, 0, 0, c2.width, c2.height); bgc = c2 }
+        im.onload = function () { var c2 = document.createElement("canvas"); c2.width = Math.round(W * dpr); c2.height = Math.round(H * dpr); c2.getContext("2d").drawImage(im, 0, 0, c2.width, c2.height); bgc = c2; dirty = 1 }
         im.src = "data:image/svg+xml;charset=utf-8," + encodeURIComponent(new XMLSerializer().serializeToString(cl))
       } catch (e) {}
     }
-    function fit() { W = host.clientWidth || window.innerWidth; H = host.clientHeight || window.innerHeight; cv.width = trc.width = Math.round(W * dpr); cv.height = trc.height = Math.round(H * dpr); bgc = null; bgMake() }
-    function mkD() { return { x: Math.random() * W, y: Math.random() * H, r: 1.8 + Math.pow(Math.random(), 1.8) * 7, sl: 0, t: 0, mv: 1, v: 0, ty: 0, dist: 0 } }
+    function fit() { W = host.clientWidth || window.innerWidth; H = host.clientHeight || window.innerHeight; cv.width = trc.width = stc.width = Math.round(W * dpr); cv.height = trc.height = stc.height = Math.round(H * dpr); bgc = null; bgMake(); dirty = 1 }
+    var stc = document.createElement("canvas"), sg = stc.getContext("2d"), dirty = 1, lastSt = 0
+    function mkSh() { var s = [], i; for (i = 0; i < 8; i++) s.push(0.78 + Math.random() * 0.42); return s.map(function (v, i) { return (v + s[(i + 1) % 8] + s[(i + 7) % 8]) / 3 * 1.08 }) }
+    function blob(c, rx, ry, sh) {
+      var n = 8, i, p = [], m
+      for (i = 0; i < n; i++) p.push([rx * sh[i] * Math.cos(i * 6.2832 / n), ry * sh[i] * Math.sin(i * 6.2832 / n)])
+      c.moveTo((p[n - 1][0] + p[0][0]) / 2, (p[n - 1][1] + p[0][1]) / 2)
+      for (i = 0; i < n; i++) { m = p[(i + 1) % n]; c.quadraticCurveTo(p[i][0], p[i][1], (p[i][0] + m[0]) / 2, (p[i][1] + m[1]) / 2) }
+      c.closePath()
+    }
+    function mkD() { return { sh: mkSh(), x: Math.random() * W, y: Math.random() * H, r: 0.9 + Math.pow(Math.random(), 3) * 5.6, sl: 0, t: 0, mv: 1, v: 0, dist: 0, a: 0.72 + Math.random() * 0.28, rot: (Math.random() - 0.5) * 1.2 } }
+    function drawDrop(c, q) {
+      var r = q.r, ky = q.sl ? 1.7 : 1.12, rx = r * q.a * (q.sl ? 0.8 : 1), ry = r * ky
+      c.save(); c.translate(q.x, q.y); c.rotate(q.sl ? 0 : q.rot)
+      if (r < 1.5) {
+        c.beginPath(); blob(c, rx, ry, q.sh); c.fillStyle = night ? "rgba(215,230,250,.55)" : "rgba(255,255,255,.75)"; c.fill()
+        c.beginPath(); c.ellipse(0, ry * 0.5, rx, ry * 0.6, 0, 0, 3.1416); c.fillStyle = "rgba(0,0,0,.28)"; c.fill()
+        c.restore(); return
+      }
+      c.beginPath(); c.ellipse(0.7, r * 0.3, rx * 1.05, ry, 0, 0, 6.2832); c.fillStyle = "rgba(0,0,0,.14)"; c.fill()
+      c.beginPath(); blob(c, rx, ry, q.sh)
+      if (bgc && r > 2) {
+        c.save(); c.clip()
+        c.rotate(-(q.sl ? 0 : q.rot)); var kk = 1.5 + Math.min(r, 6) * 0.12
+        c.scale(-kk, -kk); c.drawImage(bgc, -q.x, -q.y, W, H)
+        c.restore()
+      } else { c.fillStyle = night ? "rgba(200,220,245,.22)" : "rgba(255,255,255,.35)"; c.fill() }
+      var gr = c.createRadialGradient(0, -ry * 0.15, Math.min(rx, ry) * 0.5, 0, 0, Math.max(rx, ry))
+      gr.addColorStop(0, "rgba(0,0,0,0)"); gr.addColorStop(1, "rgba(0,0,0,.34)")
+      c.beginPath(); blob(c, rx, ry, q.sh); c.fillStyle = gr; c.fill()
+      c.lineWidth = Math.max(0.5, r * 0.14); c.strokeStyle = "rgba(0,0,0,.4)"
+      c.beginPath(); c.ellipse(0, 0, rx * 0.95, ry * 0.95, 0, -0.3, 2.4); c.stroke()
+      c.strokeStyle = "rgba(255,255,255,.8)"
+      c.beginPath(); c.ellipse(0, 0, rx * 0.8, ry * 0.8, 0, 3.4, 4.8); c.stroke()
+      c.strokeStyle = "rgba(255,255,255,.55)"
+      c.beginPath(); c.ellipse(0, 0, rx * 0.7, ry * 0.7, 0, 0.5, 1.5); c.stroke()
+      c.beginPath(); c.arc(-rx * 0.35, -ry * 0.4, Math.max(0.6, r * 0.17), 0, 6.2832); c.fillStyle = "rgba(255,255,255,.95)"; c.fill()
+      c.restore()
+    }
     function mkL(first) {
       var z = Math.pow(Math.random(), 1.2)
       return { x: Math.random() * W, y: first ? Math.random() * H : -40 - Math.random() * 80, z: z, sz: 20 + z * 36, vy: 34 + z * 70 + Math.random() * 14, ph: Math.random() * 6.28, fr: 0.5 + Math.random() * 0.9, am: 14 + z * 26, rot: Math.random() * 6.28, rs: (Math.random() < 0.5 ? -1 : 1) * (0.6 + Math.random() * 1.6), tf: 1.2 + Math.random() * 2, sh: 0, c: cols[Math.floor(Math.random() * cols.length)], a: 0.92 + 0.08 * z }
@@ -3301,47 +3428,29 @@
       }
       g.globalAlpha = 1
       if (MAXD) {
-        var want = Math.round(MAXD * wet * wet * (3 - 2 * wet)), q, s2, m
-        if (dd.length < want && Math.random() < 0.6) dd.push(mkD())
-        if ((++fc & 3) === 0) { tg.globalCompositeOperation = "destination-out"; tg.fillStyle = "rgba(0,0,0,0.12)"; tg.fillRect(0, 0, trc.width, trc.height); tg.globalCompositeOperation = "source-over" }
-        tg.setTransform(dpr, 0, 0, dpr, 0, 0); tg.lineCap = "round"; tg.strokeStyle = night ? "rgba(210,225,245,.14)" : "rgba(255,255,255,.3)"
+        var want = Math.round(MAXD * wet * wet * (3 - 2 * wet)), q, s2, m, sp = 0
+        while (dd.length < want && sp++ < 6) { dd.push(mkD()); dirty = 1 }
+        if ((++fc & 3) === 0) { tg.globalCompositeOperation = "destination-out"; tg.fillStyle = "rgba(0,0,0,0.05)"; tg.fillRect(0, 0, trc.width, trc.height); tg.globalCompositeOperation = "source-over" }
+        tg.setTransform(dpr, 0, 0, dpr, 0, 0); tg.lineCap = "round"; tg.strokeStyle = night ? "rgba(210,225,245,.14)" : "rgba(255,255,255,.34)"
         for (k = dd.length - 1; k >= 0; k--) {
           q = dd[k]
-          if (!q.sl) { q.r += dt * 0.12 * (q.r < 6 ? 1 : 0.3); if (q.r > 7.2 || (q.r > 4.5 && Math.random() < dt * 0.012)) { q.sl = 1; q.t = 0.3; q.mv = 1 } continue }
+          if (!q.sl) { if (q.r > 3.4 && Math.random() < dt * 0.02 * wet) { q.sl = 1; q.t = 0.3; q.mv = 1; dirty = 1 } continue }
           q.t -= dt
           if (q.t < 0) { q.mv = !q.mv; q.t = q.mv ? 0.35 + Math.random() * 1.2 : 0.2 + Math.random() * 0.9 }
           if (q.mv) {
             var vt = 40 + q.r * 16, py = q.y, px = q.x
             q.v += (vt - q.v) * Math.min(1, dt * 3)
             q.y += q.v * dt; q.x += Math.sin(q.y * 0.07 + k) * 6 * dt
-            q.r -= dt * 0.28; q.dist += q.v * dt
-            tg.lineWidth = Math.max(0.7, q.r * 0.32); tg.beginPath(); tg.moveTo(px, py); tg.lineTo(q.x, q.y); tg.stroke()
-            if (q.dist > 16 + Math.random() * 10) { q.dist = 0; if (dd.length < MAXD + 60) dd.push({ x: q.x + (Math.random() - 0.5) * q.r, y: q.y - q.r, r: 0.7 + Math.random() * 1.1, sl: 0, t: 0, mv: 1, v: 0, dist: 0 }) }
-            for (m = dd.length - 1; m >= 0; m--) { s2 = dd[m]; if (s2 !== q && !s2.sl && Math.abs(s2.y - q.y) < q.r + s2.r && Math.abs(s2.x - q.x) < q.r + s2.r) { q.r = Math.sqrt(q.r * q.r + s2.r * s2.r * 0.8); dd.splice(m, 1); if (m < k) k-- } }
+            q.r -= dt * 0.22; q.dist += q.v * dt
+            tg.strokeStyle = "rgba(0,0,0,.1)"; tg.lineWidth = Math.max(1.2, q.r * 0.7); tg.beginPath(); tg.moveTo(px, py); tg.lineTo(q.x, q.y); tg.stroke(); tg.strokeStyle = night ? "rgba(210,225,245,.2)" : "rgba(255,255,255,.45)"; tg.lineWidth = Math.max(0.7, q.r * 0.4); tg.beginPath(); tg.moveTo(px, py); tg.lineTo(q.x, q.y); tg.stroke()
+            if (q.dist > 12 + Math.random() * 10) { q.dist = 0; if (dd.length < MAXD + 120) { dd.push({ x: q.x + (Math.random() - 0.5) * q.r, y: q.y - q.r, r: 0.7 + Math.random() * 1.2, sl: 0, t: 0, mv: 1, v: 0, dist: 0, a: 0.85, rot: 0, sh: mkSh() }); dirty = 1 } }
+            for (m = dd.length - 1; m >= 0; m--) { s2 = dd[m]; if (s2 !== q && !s2.sl && Math.abs(s2.y - q.y) < q.r + s2.r && Math.abs(s2.x - q.x) < q.r + s2.r) { q.r = Math.min(6.2, Math.sqrt(q.r * q.r + s2.r * s2.r * 0.8)); dd.splice(m, 1); if (m < k) k--; dirty = 1 } }
           } else q.v = 0
-          if (q.r < 2 || q.y > H + 12) { if (q.y > H + 12) dd.splice(k, 1); else { q.sl = 0; q.r = Math.max(q.r, 1.6) } }
+          if (q.r < 1.8 || q.y > H + 12) { dirty = 1; if (q.y > H + 12) dd.splice(k, 1); else { q.sl = 0; q.r = 1.8 } }
         }
-        g.globalAlpha = 1; g.drawImage(trc, 0, 0, W, H)
-        for (k = 0; k < dd.length; k++) {
-          q = dd[k]; var r = q.r, ky = q.sl ? 1.35 : 1.1, gr
-          g.save(); g.translate(q.x, q.y)
-          g.beginPath(); g.ellipse(1, r * 0.35 * ky, r * 1.04, r * ky, 0, 0, 6.2832); g.fillStyle = "rgba(0,0,0,.16)"; g.fill()
-          g.beginPath(); g.ellipse(0, 0, r, r * ky, 0, 0, 6.2832)
-          if (bgc && r > 2.2) {
-            g.save(); g.clip()
-            var kk = 1.5 + r * 0.14
-            g.translate(0, 0); g.scale(-kk, -kk); g.drawImage(bgc, -q.x, -q.y, W, H)
-            g.restore()
-          } else { g.fillStyle = night ? "rgba(200,220,245,.25)" : "rgba(255,255,255,.3)"; g.fill() }
-          g.scale(1, ky)
-          gr = g.createRadialGradient(0, -r * 0.1, r * 0.45, 0, 0, r)
-          gr.addColorStop(0, "rgba(0,0,0,0)"); gr.addColorStop(1, "rgba(0,0,0,.5)")
-          g.beginPath(); g.arc(0, 0, r, 0, 6.2832); g.fillStyle = gr; g.fill()
-          g.lineWidth = Math.max(0.6, r * 0.2); g.strokeStyle = "rgba(255,255,255,.55)"
-          g.beginPath(); g.arc(0, 0, r * 0.78, 0.5, 2.6); g.stroke()
-          g.beginPath(); g.arc(-r * 0.36, -r * 0.4, Math.max(0.7, r * 0.2), 0, 6.2832); g.fillStyle = "rgba(255,255,255,.95)"; g.fill()
-          g.restore()
-        }
+        if (dirty && ts - lastSt > 140) { dirty = 0; lastSt = ts; sg.setTransform(dpr, 0, 0, dpr, 0, 0); sg.clearRect(0, 0, W, H); for (k = 0; k < dd.length; k++) if (!dd[k].sl) drawDrop(sg, dd[k]) }
+        g.globalAlpha = 1; g.drawImage(trc, 0, 0, W, H); g.drawImage(stc, 0, 0, W, H)
+        for (k = 0; k < dd.length; k++) if (dd[k].sl) drawDrop(g, dd[k])
       }
       for (k = 0; k < lv.length; k++) {
         var f = lv[k]
@@ -3422,7 +3531,7 @@
     var v = g === "female" ? S.fbg : g === "male" ? S.mbg : ""
     if (!BGV[v] || (isImgBg(v) && !isPrem())) v = ""
     var night = effTheme() === "dark"
-    var seaOn = S.bgmode === "season" && (S.season === "winter" || S.season === "autumn") && isPrem()
+    var seaOn = S.bgmode === "season" && (S.season === "winter" || S.season === "autumn" || S.season === "summer") && isPrem()
     root.setAttribute("data-bg", seaOn ? "season" : v)
     if (!seaOn && isImgBg(v) && v !== "winter2") root.setAttribute("data-tone", "d"); else root.removeAttribute("data-tone")
     var el = document.getElementById("mbg")
@@ -3431,7 +3540,7 @@
       var sk = "sea-" + S.season + (night ? "n" : "d")
       if (el.getAttribute("data-k") !== sk || SNOW.el !== el) {
         el.setAttribute("data-k", sk)
-        if (S.season === "autumn") { el.innerHTML = autumnScene(night); autumnStart(el, night) } else { el.innerHTML = winterScene(night); snowStart(el, night) }
+        if (S.season === "autumn") { el.innerHTML = autumnScene(night); autumnStart(el, night) } else if (S.season === "summer") { el.innerHTML = summerScene(night); summerStart(el, night) } else { el.innerHTML = winterScene(night); snowStart(el, night) }
       }
       return
     }
