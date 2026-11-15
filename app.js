@@ -3189,6 +3189,35 @@
     }
     return '<g stroke="' + wood + '" stroke-linecap="round" fill="none">' + h + "</g><g>" + lv + "</g>"
   }
+  var BFSP = {}, BFC = [
+    { a: "#ff9a1e", a2: "#e2560c", e: "#1c0f08", d: "#fff4e0", v: "#2a1408" },
+    { a: "#ffe14d", a2: "#f2b705", e: "#1a1408", d: "#fffbe0", v: "#2a2008" },
+    { a: "#4aa8ff", a2: "#1d5fd1", e: "#0b1630", d: "#d8ecff", v: "#0b1630" },
+    { a: "#fff6f8", a2: "#f2b6cf", e: "#3a2a33", d: "#ffffff", v: "#6a4a58" }
+  ]
+  function bfSprite(i) {
+    if (BFSP[i]) return BFSP[i]
+    var c = document.createElement("canvas"), g, P = BFC[i], S3 = 3
+    c.width = 110 * S3; c.height = 110 * S3
+    g = c.getContext("2d"); g.scale(S3, S3); g.translate(6, 70)
+    function wing(path) {
+      var gr = g.createRadialGradient(0, 0, 4, 20, -10, 80)
+      gr.addColorStop(0, P.a2); gr.addColorStop(0.55, P.a); gr.addColorStop(1, P.a)
+      g.save(); path(); g.fillStyle = gr; g.fill(); g.clip()
+      g.strokeStyle = P.v; g.globalAlpha = 0.55; g.lineWidth = 0.9
+      for (var k = -5; k <= 5; k++) { g.beginPath(); g.moveTo(0, 0); g.quadraticCurveTo(40, k * 5, 92, k * 12 - 4); g.stroke() }
+      g.globalAlpha = 1; g.strokeStyle = P.e; g.lineWidth = 9; path(); g.stroke()
+      g.restore()
+      g.save(); path(); g.lineWidth = 1.6; g.strokeStyle = P.e; g.stroke(); g.restore()
+    }
+    function fore() { g.beginPath(); g.moveTo(0, -4); g.bezierCurveTo(6, -34, 42, -66, 80, -60); g.bezierCurveTo(98, -50, 86, -14, 70, -6); g.bezierCurveTo(48, 0, 22, 4, 0, 4); g.closePath() }
+    function hind() { g.beginPath(); g.moveTo(0, 3); g.bezierCurveTo(30, -2, 72, 2, 74, 24); g.bezierCurveTo(76, 44, 44, 52, 22, 36); g.bezierCurveTo(10, 28, 2, 18, 0, 3); g.closePath() }
+    wing(hind); wing(fore)
+    g.fillStyle = P.d
+    for (var k = 0; k < 7; k++) { var t = k / 6; g.beginPath(); g.arc(30 + t * 46, -52 + t * 20 - Math.sin(t * 3.14) * 4 + 16 - 16 * (1 - t), 1.8, 0, 6.2832); g.fill() }
+    for (k = 0; k < 5; k++) { t = k / 4; g.beginPath(); g.arc(22 + t * 40, 40 - Math.sin(t * 3.14) * 3 - t * 6 + 0, 1.6, 0, 6.2832); g.fill() }
+    return (BFSP[i] = c)
+  }
   function summerScene(night) {
     var rn = rng32(7771), C = night ?
       { s1: "#030818", s2: "#0f2147", s3: "#27405f", m1: "#1c3150", g1: "#1b4426", g2: "#0b2414", hl: "#123a22" } :
@@ -3231,7 +3260,7 @@
     }
     function mkB() {
       var cs = [["#ff8c1a", "#2b1a0a"], ["#ffd23f", "#3a2a0a"], ["#4fa3ff", "#0f1e3a"], ["#ff6fa5", "#3a0f22"]]
-      return { x: Math.random() * W, y: H * (0.45 + Math.random() * 0.4), h: Math.random() * 6.28, ph: Math.random() * 6.28, c: cs[Math.floor(Math.random() * cs.length)], sz: 9 + Math.random() * 6 }
+      return { x: Math.random() * W, y: H * (0.45 + Math.random() * 0.4), h: Math.random() * 6.28, ph: Math.random() * 6.28, ci: Math.floor(Math.random() * 4), sz: 38 + Math.random() * 16 }
     }
     fit()
     for (i = 0; i < NP; i++) ps.push(mkP())
@@ -3263,17 +3292,20 @@
       g.globalCompositeOperation = "source-over"
       for (k = 0; k < bf.length; k++) {
         b = bf[k]
-        b.h += Math.sin(tm * 0.9 + b.ph) * 1.4 * dt + (Math.random() - 0.5) * 2.2 * dt
-        var sp = 38 + Math.sin(tm * 3 + b.ph) * 16
-        b.x += Math.cos(b.h) * sp * dt; b.y += Math.sin(b.h) * sp * dt * 0.7 - 6 * dt
-        if (b.x < -30) b.x = W + 20; if (b.x > W + 30) b.x = -20
-        if (b.y < H * 0.12) b.h = Math.abs(b.h) * 0.5; if (b.y > H * 0.9) b.y = H * 0.9
-        var fl = Math.abs(Math.cos(tm * 11 + b.ph)), face = Math.cos(b.h) >= 0 ? 1 : -1
-        g.save(); g.translate(b.x, b.y); g.scale(face, 1)
-        g.fillStyle = b.c[0]; g.strokeStyle = b.c[1]; g.lineWidth = 0.8
-        g.beginPath(); g.ellipse(0, -b.sz * 0.35, b.sz * 0.5 * (0.25 + 0.75 * fl), b.sz * 0.55, -0.5, 0, 6.2832); g.fill(); g.stroke()
-        g.beginPath(); g.ellipse(0, b.sz * 0.25, b.sz * 0.38 * (0.25 + 0.75 * fl), b.sz * 0.42, 0.5, 0, 6.2832); g.fill(); g.stroke()
-        g.fillStyle = b.c[1]; g.beginPath(); g.ellipse(0, 0, 1.4, b.sz * 0.5, 0, 0, 6.2832); g.fill()
+        b.h += Math.sin(tm * 0.8 + b.ph) * 1.1 * dt + (Math.random() - 0.5) * 1.8 * dt
+        var sp = 30 + Math.sin(tm * 2.2 + b.ph) * 14
+        b.x += Math.cos(b.h) * sp * dt; b.y += Math.sin(b.h) * sp * dt * 0.8 + Math.sin(tm * 5 + b.ph) * 10 * dt
+        if (b.x < -40) b.x = W + 30; if (b.x > W + 40) b.x = -30
+        if (b.y < H * 0.12) b.h = Math.abs(b.h) * 0.5; if (b.y > H * 0.88) b.h = -Math.abs(b.h) * 0.6
+        var fl = Math.cos(tm * 13 + b.ph), kk = b.sz / 100, wf = 0.25 + 0.75 * Math.abs(fl), spr = bfSprite(b.ci), s3 = 3
+        g.save(); g.translate(b.x, b.y); g.rotate(b.h + 1.5708 + Math.sin(tm * 2 + b.ph) * 0.15); g.scale(kk, kk)
+        g.globalAlpha = 0.18; g.fillStyle = "#000"; g.beginPath(); g.ellipse(6, 10, 3, 12, 0, 0, 6.2832); g.fill(); g.globalAlpha = 1
+        g.save(); g.scale(wf, 1); g.drawImage(spr, -6, -70, 110, 110); g.restore()
+        g.save(); g.scale(-wf, 1); g.drawImage(spr, -6, -70, 110, 110); g.restore()
+        g.fillStyle = "#1a120c"; g.beginPath(); g.ellipse(0, 7, 2.6, 12, 0, 0, 6.2832); g.fill()
+        g.beginPath(); g.ellipse(0, -6, 3.4, 5, 0, 0, 6.2832); g.fill()
+        g.beginPath(); g.arc(0, -12, 2.6, 0, 6.2832); g.fill()
+        g.strokeStyle = "#1a120c"; g.lineWidth = 1; g.beginPath(); g.moveTo(-1, -14); g.quadraticCurveTo(-8, -26, -14, -28); g.moveTo(1, -14); g.quadraticCurveTo(8, -26, 14, -28); g.stroke()
         g.restore()
       }
     }
