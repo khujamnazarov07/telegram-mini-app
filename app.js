@@ -3165,7 +3165,143 @@
     for (var j = 0; j < 40; j++) h += '<circle class="tw" style="animation-delay:-' + (rn() * 3).toFixed(2) + 's" cx="' + (rn() * 400).toFixed(1) + '" cy="' + (650 + rn() * 140).toFixed(1) + '" r="' + (0.5 + rn() * 0.8).toFixed(2) + '" fill="#fff" opacity="' + (night ? 0.7 : 0.9) + '"/>'
     return h + "</svg>"
   }
-    var FLKIMG = null, FLKS = {}
+    function aTree(rn, x0, y0, night) {
+    var segs = []
+    function br(x, y, a, len, w, d) {
+      var x2 = x + len * Math.sin(a), y2 = y - len * Math.cos(a)
+      segs.push([x, y, x2, y2, w, d])
+      if (d >= 7) return
+      var n = d < 2 ? 3 : (rn() < 0.28 ? 3 : 2)
+      for (var i = 0; i < n; i++) {
+        var da = (i - (n - 1) / 2) * (0.42 + rn() * 0.26) + (rn() - 0.5) * 0.3
+        br(x2, y2, Math.max(-1.15, Math.min(1.15, a + da)), len * (0.7 + rn() * 0.14), w * 0.68, d + 1)
+      }
+    }
+    br(x0, y0, -0.06, 104, 10, 0)
+    var wood = night ? "#120c09" : "#3b2a20", pal = night ? ["#9a4524", "#b8741f", "#a03024", "#76591b", "#8a3a1a"] : ["#c8582a", "#e59a2d", "#c9402e", "#a8812a", "#d9701f"], h = "", lv = "", i, j
+    for (i = 0; i < segs.length; i++) {
+      var q = segs[i]
+      h += '<path d="M' + q[0].toFixed(1) + " " + q[1].toFixed(1) + "L" + q[2].toFixed(1) + " " + q[3].toFixed(1) + '" stroke-width="' + q[4].toFixed(2) + '"/>'
+      if (q[5] >= 4 && rn() < 0.78) {
+        var cnt = q[5] >= 6 ? 5 : 3
+        for (j = 0; j < cnt; j++) lv += '<ellipse cx="' + (q[2] + (rn() - 0.5) * 16).toFixed(1) + '" cy="' + (q[3] + (rn() - 0.5) * 14).toFixed(1) + '" rx="' + (3 + rn() * 2.4).toFixed(1) + '" ry="' + (1.7 + rn() * 1.2).toFixed(1) + '" transform="rotate(' + Math.round(rn() * 180) + " " + q[2].toFixed(1) + " " + q[3].toFixed(1) + ')" fill="' + pal[Math.floor(rn() * pal.length)] + '"/>'
+      }
+    }
+    return '<g stroke="' + wood + '" stroke-linecap="round" fill="none">' + h + "</g><g>" + lv + "</g>"
+  }
+  function autumnScene(night) {
+    var rn = rng32(20263), C = night ?
+      { s1: "#090d1d", s2: "#292640", s3: "#6b4636", m1: "#2b3350", g1: "#4b3321", g2: "#2b1b10", fog: "#9a5f3a" } :
+      { s1: "#7f93a8", s2: "#bbb5a8", s3: "#f1d9ad", m1: "#8e9cb4", g1: "#c88c3f", g2: "#7f5325", fog: "#ffe5b8" }
+    var pal = night ? ["#6e3a22", "#7a5420", "#5f2a1e", "#4d4018", "#6a2f18"] : ["#c0602a", "#d89a33", "#b5402c", "#9a8030", "#c9732a"]
+    var far = wRidge(rn, 500, 110, 20, 0.9), mid = wRidge(rn, 565, 80, 16, 2.7), h, i, x
+    h = '<svg viewBox="0 0 400 800" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg"><defs>' +
+      '<linearGradient id="ask" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="' + C.s1 + '"/><stop offset=".6" stop-color="' + C.s2 + '"/><stop offset="1" stop-color="' + C.s3 + '"/></linearGradient>' +
+      '<linearGradient id="agr" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="' + C.g1 + '"/><stop offset="1" stop-color="' + C.g2 + '"/></linearGradient>' +
+      '<linearGradient id="afg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="' + C.fog + '" stop-opacity="0"/><stop offset="1" stop-color="' + C.fog + '" stop-opacity="' + (night ? ".32" : ".6") + '"/></linearGradient>' +
+      '<filter id="acb" x="-30%" y="-60%" width="160%" height="220%"><feGaussianBlur stdDeviation="9"/></filter></defs>' +
+      '<rect width="400" height="800" fill="url(#ask)"/>'
+    if (night) h += '<circle cx="84" cy="150" r="22" fill="#e9e2cf" opacity=".5"/>'
+    for (i = 0; i < 6; i++) h += '<ellipse cx="' + (rn() * 420 - 10).toFixed(0) + '" cy="' + (60 + rn() * 330).toFixed(0) + '" rx="' + (70 + rn() * 80).toFixed(0) + '" ry="' + (14 + rn() * 16).toFixed(0) + '" fill="' + (night ? "#0b0d1a" : "#6c7684") + '" opacity="' + (night ? 0.55 : 0.4) + '" filter="url(#acb)"/>'
+    h += '<path d="' + wPoly(far, 800) + '" fill="' + C.m1 + '"/>'
+    h += '<rect x="0" y="430" width="400" height="190" fill="url(#afg)"/>'
+    h += '<path d="' + wPoly(mid, 800) + '" fill="' + pal[4] + '"/>'
+    for (i = 0; i < mid.length; i++) for (x = 0; x < 3; x++) h += '<circle cx="' + (mid[i][0] + (rn() - 0.5) * 14).toFixed(1) + '" cy="' + (mid[i][1] + 3 + rn() * 22).toFixed(1) + '" r="' + (6 + rn() * 7).toFixed(1) + '" fill="' + pal[Math.floor(rn() * pal.length)] + '"/>'
+    h += '<path d="M-20 640C60 604 140 616 210 636S340 652 430 616V800H-20Z" fill="url(#agr)"/>'
+    h += '<path d="M-20 692C80 658 170 670 250 692S380 702 430 678V800H-20Z" fill="' + C.g1 + '" opacity=".9"/>'
+    h += aTree(rn, 296, 690, night)
+    for (i = 0; i < 70; i++) {
+      var ly = 655 + rn() * 140
+      h += '<ellipse cx="' + (rn() * 400).toFixed(1) + '" cy="' + ly.toFixed(1) + '" rx="' + (2.4 + rn() * 2.4).toFixed(1) + '" ry="' + (1.2 + rn() * 1.1).toFixed(1) + '" transform="rotate(' + Math.round(rn() * 180) + ')" fill="' + pal[Math.floor(rn() * pal.length)] + '" opacity=".9"/>'
+    }
+    return h + "</svg>"
+  }
+  var LEAFSP = {}
+  function leafSprite(shape, color) {
+    var key = shape + color
+    if (LEAFSP[key]) return LEAFSP[key]
+    var S2 = 72, c = document.createElement("canvas"), g, k
+    c.width = c.height = S2
+    g = c.getContext("2d"); g.translate(S2 / 2, S2 / 2)
+    g.fillStyle = color; g.strokeStyle = "rgba(60,25,10,.55)"; g.lineWidth = 1.3; g.lineJoin = "round"
+    g.beginPath()
+    if (shape === 0) {
+      for (k = 0; k <= 120; k++) {
+        var th = k / 120 * 6.2832, r = 30 * (0.42 + 0.58 * Math.pow(Math.abs(Math.cos(2.5 * th)), 1.7)), px = r * Math.sin(th), py = -r * Math.cos(th)
+        g[k ? "lineTo" : "moveTo"](px, py)
+      }
+    } else if (shape === 1) {
+      g.moveTo(0, -30); g.bezierCurveTo(22, -16, 20, 14, 0, 28); g.bezierCurveTo(-20, 14, -22, -16, 0, -30)
+    } else {
+      g.moveTo(0, -30); g.bezierCurveTo(10, -22, 24, -6, 0, 26); g.bezierCurveTo(-24, -6, -10, -22, 0, -30)
+    }
+    g.closePath(); g.fill(); g.stroke()
+    g.lineWidth = 1.1; g.beginPath(); g.moveTo(0, 30); g.lineTo(0, -22)
+    if (shape === 0) { g.moveTo(0, 6); g.lineTo(-18, -8); g.moveTo(0, 6); g.lineTo(18, -8); g.moveTo(0, -6); g.lineTo(-10, -22); g.moveTo(0, -6); g.lineTo(10, -22) } else { for (k = -2; k <= 1; k++) { g.moveTo(0, k * 9 + 8); g.lineTo(-10, k * 9 - 2); g.moveTo(0, k * 9 + 8); g.lineTo(10, k * 9 - 2) } }
+    g.stroke()
+    g.strokeStyle = "rgba(60,25,10,.7)"; g.lineWidth = 2; g.beginPath(); g.moveTo(0, 28); g.lineTo(0, 36); g.stroke()
+    return (LEAFSP[key] = c)
+  }
+  function autumnStart(host, night) {
+    snowStop()
+    var cv = document.createElement("canvas"); cv.className = "snw"; host.appendChild(cv)
+    var g = cv.getContext("2d"), W = 0, H = 0, dpr = Math.min(2, window.devicePixelRatio || 1), lv = [], rn = [], i
+    var red = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    var NL = red ? 10 : (window.innerWidth < 500 ? 22 : 34), NR = red ? 0 : (window.innerWidth < 500 ? 70 : 110)
+    var cols = night ? ["#b4572e", "#d98a2b", "#c4402f", "#a98a2a", "#c9702a"] : ["#c8582a", "#e59a2d", "#c9402e", "#b8902c", "#d9701f"]
+    function fit() { W = host.clientWidth || window.innerWidth; H = host.clientHeight || window.innerHeight; cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr) }
+    function mkL(first) {
+      var z = Math.pow(Math.random(), 1.2)
+      return { x: Math.random() * W, y: first ? Math.random() * H : -40 - Math.random() * 80, z: z, sz: 12 + z * 22, vy: 34 + z * 70 + Math.random() * 14, ph: Math.random() * 6.28, fr: 0.5 + Math.random() * 0.9, am: 14 + z * 26, rot: Math.random() * 6.28, rs: (Math.random() < 0.5 ? -1 : 1) * (0.6 + Math.random() * 1.6), tf: 1.2 + Math.random() * 2, sh: Math.floor(Math.random() * 3), c: cols[Math.floor(Math.random() * cols.length)], a: 0.78 + 0.22 * z }
+    }
+    function mkR(first) {
+      var z = Math.random()
+      return { x: Math.random() * (W + 80) - 40, y: first ? Math.random() * H : -30, z: z, vy: 520 + z * 480, l: 9 + z * 17 }
+    }
+    fit()
+    for (i = 0; i < NL; i++) lv.push(mkL(true))
+    for (i = 0; i < NR; i++) rn.push(mkR(true))
+    lv.sort(function (p, q) { return p.z - q.z })
+    var t0 = 0
+    SNOW.el = host
+    function frame(ts) {
+      if (!host.isConnected || SNOW.el !== host) return
+      SNOW.raf = requestAnimationFrame(frame)
+      if (document.hidden) { t0 = 0; return }
+      var dt = t0 ? Math.min(0.05, (ts - t0) / 1000) : 0.016
+      t0 = ts
+      if (host.clientWidth !== W || host.clientHeight !== H) fit()
+      var tm = ts / 1000, wind = 26 + Math.sin(tm * 0.21) * 22 + Math.sin(tm * 0.67) * 9
+      g.setTransform(dpr, 0, 0, dpr, 0, 0)
+      g.clearRect(0, 0, W, H)
+      g.strokeStyle = night ? "rgb(190,210,240)" : "rgb(85,105,135)"
+      g.lineCap = "round"
+      for (var k = 0; k < rn.length; k++) {
+        var d = rn[k]
+        d.y += d.vy * dt; d.x -= 0
+        if (d.y > H + 30) { d.y = -30; d.x = Math.random() * (W + 80) - 40 }
+        var sl = 0.2 + wind / 260
+        g.globalAlpha = 0.12 + 0.26 * d.z; g.lineWidth = 0.7 + d.z * 0.8
+        g.beginPath(); g.moveTo(d.x, d.y); g.lineTo(d.x - d.l * sl, d.y - d.l); g.stroke()
+      }
+      g.globalAlpha = 1
+      for (k = 0; k < lv.length; k++) {
+        var f = lv[k]
+        f.y += f.vy * dt
+        f.x += (wind * (0.5 + f.z) + Math.cos(tm * f.fr + f.ph) * f.am) * dt
+        f.rot += f.rs * dt
+        if (f.y > H + 40 || f.x > W + 60) { var n = mkL(false); n.x = f.x > W + 60 ? -30 : Math.random() * W; lv[k] = n; f = n }
+        g.globalAlpha = f.a
+        g.save(); g.translate(f.x, f.y); g.rotate(f.rot)
+        g.scale(0.3 + 0.7 * Math.abs(Math.cos(tm * f.tf + f.ph)), 1)
+        g.drawImage(leafSprite(f.sh, f.c), -f.sz / 2, -f.sz / 2, f.sz, f.sz)
+        g.restore()
+      }
+      g.globalAlpha = 1
+    }
+    SNOW.raf = requestAnimationFrame(frame)
+  }
+  var FLKIMG = null, FLKS = {}
   function flakeTinted(night) {
     var k = night ? "n" : "d"
     if (FLKS[k]) return FLKS[k]
@@ -3185,11 +3321,11 @@
     var cv = document.createElement("canvas"); cv.className = "snw"; host.appendChild(cv)
     var g = cv.getContext("2d"), W = 0, H = 0, dpr = Math.min(2, window.devicePixelRatio || 1), fl = [], i
     var red = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches
-    var N = red ? 26 : (window.innerWidth < 500 ? 58 : 90)
+    var N = red ? 30 : (window.innerWidth < 500 ? 90 : 130)
     function fit() { W = host.clientWidth || window.innerWidth; H = host.clientHeight || window.innerHeight; cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr) }
     function mk(first) {
       var z = Math.pow(Math.random(), 1.35)
-      return { x: Math.random() * W, y: first ? Math.random() * H : -40 - Math.random() * 60, z: z, sz: 11 + z * 32, vy: 16 + z * 52 + Math.random() * 10, a: 0.42 + 0.55 * z, ph: Math.random() * 6.28, fr: 0.35 + Math.random() * 0.8, am: 6 + z * 20, rot: Math.random() * 6.28, rs: (Math.random() < 0.5 ? -1 : 1) * (0.7 + Math.random() * 1.5) * (1 - z * 0.3), tl: Math.random() < 0.4 ? 0.5 + Math.random() * 0.8 : 0, ty: 0 }
+      return { x: Math.random() * W, y: first ? Math.random() * H : -40 - Math.random() * 60, z: z, sz: 5 + z * 16, vy: 46 + z * 120 + Math.random() * 20, a: 0.42 + 0.55 * z, ph: Math.random() * 6.28, fr: 0.35 + Math.random() * 0.8, am: 4 + z * 12, rot: Math.random() * 6.28, rs: (Math.random() < 0.5 ? -1 : 1) * (0.7 + Math.random() * 1.5) * (1 - z * 0.3), tl: Math.random() < 0.4 ? 0.5 + Math.random() * 0.8 : 0, ty: 0 }
     }
     fit()
     for (i = 0; i < N; i++) fl.push(mk(true))
@@ -3228,14 +3364,17 @@
     var v = g === "female" ? S.fbg : g === "male" ? S.mbg : ""
     if (!BGV[v] || (isImgBg(v) && !isPrem())) v = ""
     var night = effTheme() === "dark"
-    var seaOn = S.bgmode === "season" && S.season === "winter" && isPrem()
+    var seaOn = S.bgmode === "season" && (S.season === "winter" || S.season === "autumn") && isPrem()
     root.setAttribute("data-bg", seaOn ? "season" : v)
     if (!seaOn && isImgBg(v) && v !== "winter2") root.setAttribute("data-tone", "d"); else root.removeAttribute("data-tone")
     var el = document.getElementById("mbg")
     if (seaOn) {
       if (!el) { el = document.createElement("div"); el.id = "mbg"; document.body.insertBefore(el, document.body.firstChild) }
-      var sk = "sea-winter" + (night ? "n" : "d")
-      if (el.getAttribute("data-k") !== sk || SNOW.el !== el) { el.setAttribute("data-k", sk); el.innerHTML = winterScene(night); snowStart(el, night) }
+      var sk = "sea-" + S.season + (night ? "n" : "d")
+      if (el.getAttribute("data-k") !== sk || SNOW.el !== el) {
+        el.setAttribute("data-k", sk)
+        if (S.season === "autumn") { el.innerHTML = autumnScene(night); autumnStart(el, night) } else { el.innerHTML = winterScene(night); snowStart(el, night) }
+      }
       return
     }
     snowStop()
@@ -3401,10 +3540,10 @@
     var arr = fem ? PINKS : MALES, cur = (fem ? S.fcolor : S.mcolor) | 0, act = fem ? "fcolor" : "mcolor"
     for (i = 0; i < arr.length; i++) cc += '<button class="sws' + (arr[i].w ? " wh" : "") + (i === cur ? " on" : "") + '" data-act="' + act + '" data-v="' + i + '" style="--c:' + arr[i].a + '" aria-label="color"></button>'
     var on = gOn(), dk = effTheme() === "dark"
-    var sea = S.bgmode === "season", sc2 = ""
+    var sea = S.bgmode === "season" && isPrem(), sc2 = ""
     var SEA = [["spring", "s_spr"], ["summer", "s_sum"], ["autumn", "s_aut"], ["winter", "t_bg4"]]
     for (i = 0; i < SEA.length; i++) sc2 += '<button class="sch' + (S.season === SEA[i][0] ? " on" : "") + '" data-act="sseason" data-v="' + SEA[i][0] + '">' + esc(tr(SEA[i][1])) + "</button>"
-    var stg = '<div class="hptg stg" role="group"><button data-act="bgmode" data-v="plain" class="' + (sea ? "" : "on") + '">' + esc(tr("t_plain")) + '</button><button data-act="bgmode" data-v="season" class="' + (sea ? "on" : "") + '">' + esc(tr("t_seas")) + "</button></div>"
+    var stg = '<div class="hptg stg" role="group"><button data-act="bgmode" data-v="plain" class="' + (sea ? "" : "on") + '">' + esc(tr("t_plain")) + '</button><button data-act="bgmode" data-v="season" class="' + (sea ? "on" : "") + '">' + (isPrem() ? "" : ic("lock") + " ") + esc(tr("t_seas")) + "</button></div>"
     out += sRow(tr("t_bgn"), sea ? sc2 : bc, "hastg", stg) + sRow(tr("t_color"), cc) + fontRow() + "</div>" +
       '<div class="card tpill col"><div class="tl"><span>' + esc(tr("t_gon")) + '</span><button class="tgl' + (on ? " on" : "") + '" data-act="gtoggle" aria-label="glass"><i></i></button></div>'
     if (on) {
