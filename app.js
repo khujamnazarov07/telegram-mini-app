@@ -3227,7 +3227,7 @@
     g.beginPath()
     if (shape === 0) {
       for (k = 0; k <= 120; k++) {
-        var th = k / 120 * 6.2832, r = 30 * (0.42 + 0.58 * Math.pow(Math.abs(Math.cos(2.5 * th)), 1.7)), px = r * Math.sin(th), py = -r * Math.cos(th)
+        var th = k / 120 * 6.2832, r = 30 * (0.5 + 0.5 * Math.pow(Math.abs(Math.cos(2.5 * th)), 0.8)), px = r * Math.sin(th), py = -r * Math.cos(th)
         g[k ? "lineTo" : "moveTo"](px, py)
       }
     } else if (shape === 1) {
@@ -3247,12 +3247,24 @@
     var cv = document.createElement("canvas"); cv.className = "snw"; host.appendChild(cv)
     var g = cv.getContext("2d"), W = 0, H = 0, dpr = Math.min(2, window.devicePixelRatio || 1), lv = [], rn = [], i
     var red = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches
-    var NL = red ? 10 : (window.innerWidth < 500 ? 22 : 34), NR = red ? 0 : (window.innerWidth < 500 ? 70 : 110)
-    var cols = night ? ["#b4572e", "#d98a2b", "#c4402f", "#a98a2a", "#c9702a"] : ["#c8582a", "#e59a2d", "#c9402e", "#b8902c", "#d9701f"]
-    function fit() { W = host.clientWidth || window.innerWidth; H = host.clientHeight || window.innerHeight; cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr) }
+    var NL = red ? 10 : (window.innerWidth < 500 ? 26 : 38), NR = red ? 0 : (window.innerWidth < 500 ? 70 : 110)
+    var cols = night ? ["#c4402f", "#b8321f", "#d9a62b", "#caa02a"] : ["#d63a28", "#c9301f", "#f0b92e", "#e8a81f"]
+    var trc = document.createElement("canvas"), tg = trc.getContext("2d"), dd = [], t00 = 0, fc = 0, MAXD = red ? 0 : (window.innerWidth < 500 ? 190 : 260), svg0 = host.querySelector("svg")
+    var bgc = null, bgimg = null
+    function bgMake() {
+      if (!svg0 || !MAXD) return
+      try {
+        var cl = svg0.cloneNode(true); cl.removeAttribute("style"); cl.setAttribute("width", Math.round(W * dpr)); cl.setAttribute("height", Math.round(H * dpr))
+        var im = new Image()
+        im.onload = function () { var c2 = document.createElement("canvas"); c2.width = Math.round(W * dpr); c2.height = Math.round(H * dpr); c2.getContext("2d").drawImage(im, 0, 0, c2.width, c2.height); bgc = c2 }
+        im.src = "data:image/svg+xml;charset=utf-8," + encodeURIComponent(new XMLSerializer().serializeToString(cl))
+      } catch (e) {}
+    }
+    function fit() { W = host.clientWidth || window.innerWidth; H = host.clientHeight || window.innerHeight; cv.width = trc.width = Math.round(W * dpr); cv.height = trc.height = Math.round(H * dpr); bgc = null; bgMake() }
+    function mkD() { return { x: Math.random() * W, y: Math.random() * H, r: 1.8 + Math.pow(Math.random(), 1.8) * 7, sl: 0, t: 0, mv: 1, v: 0, ty: 0, dist: 0 } }
     function mkL(first) {
       var z = Math.pow(Math.random(), 1.2)
-      return { x: Math.random() * W, y: first ? Math.random() * H : -40 - Math.random() * 80, z: z, sz: 12 + z * 22, vy: 34 + z * 70 + Math.random() * 14, ph: Math.random() * 6.28, fr: 0.5 + Math.random() * 0.9, am: 14 + z * 26, rot: Math.random() * 6.28, rs: (Math.random() < 0.5 ? -1 : 1) * (0.6 + Math.random() * 1.6), tf: 1.2 + Math.random() * 2, sh: Math.floor(Math.random() * 3), c: cols[Math.floor(Math.random() * cols.length)], a: 0.78 + 0.22 * z }
+      return { x: Math.random() * W, y: first ? Math.random() * H : -40 - Math.random() * 80, z: z, sz: 20 + z * 36, vy: 34 + z * 70 + Math.random() * 14, ph: Math.random() * 6.28, fr: 0.5 + Math.random() * 0.9, am: 14 + z * 26, rot: Math.random() * 6.28, rs: (Math.random() < 0.5 ? -1 : 1) * (0.6 + Math.random() * 1.6), tf: 1.2 + Math.random() * 2, sh: 0, c: cols[Math.floor(Math.random() * cols.length)], a: 0.92 + 0.08 * z }
     }
     function mkR(first) {
       var z = Math.random()
@@ -3271,6 +3283,9 @@
       var dt = t0 ? Math.min(0.05, (ts - t0) / 1000) : 0.016
       t0 = ts
       if (host.clientWidth !== W || host.clientHeight !== H) fit()
+      if (!t00) t00 = ts
+      var age = (ts - t00) / 1000, wet = Math.min(1, age / 50)
+      if (svg0) svg0.style.filter = "blur(" + (0.6 + wet * 0.9).toFixed(2) + "px)"
       var tm = ts / 1000, wind = 26 + Math.sin(tm * 0.21) * 22 + Math.sin(tm * 0.67) * 9
       g.setTransform(dpr, 0, 0, dpr, 0, 0)
       g.clearRect(0, 0, W, H)
@@ -3285,6 +3300,49 @@
         g.beginPath(); g.moveTo(d.x, d.y); g.lineTo(d.x - d.l * sl, d.y - d.l); g.stroke()
       }
       g.globalAlpha = 1
+      if (MAXD) {
+        var want = Math.round(MAXD * wet * wet * (3 - 2 * wet)), q, s2, m
+        if (dd.length < want && Math.random() < 0.6) dd.push(mkD())
+        if ((++fc & 3) === 0) { tg.globalCompositeOperation = "destination-out"; tg.fillStyle = "rgba(0,0,0,0.12)"; tg.fillRect(0, 0, trc.width, trc.height); tg.globalCompositeOperation = "source-over" }
+        tg.setTransform(dpr, 0, 0, dpr, 0, 0); tg.lineCap = "round"; tg.strokeStyle = night ? "rgba(210,225,245,.14)" : "rgba(255,255,255,.3)"
+        for (k = dd.length - 1; k >= 0; k--) {
+          q = dd[k]
+          if (!q.sl) { q.r += dt * 0.12 * (q.r < 6 ? 1 : 0.3); if (q.r > 7.2 || (q.r > 4.5 && Math.random() < dt * 0.012)) { q.sl = 1; q.t = 0.3; q.mv = 1 } continue }
+          q.t -= dt
+          if (q.t < 0) { q.mv = !q.mv; q.t = q.mv ? 0.35 + Math.random() * 1.2 : 0.2 + Math.random() * 0.9 }
+          if (q.mv) {
+            var vt = 40 + q.r * 16, py = q.y, px = q.x
+            q.v += (vt - q.v) * Math.min(1, dt * 3)
+            q.y += q.v * dt; q.x += Math.sin(q.y * 0.07 + k) * 6 * dt
+            q.r -= dt * 0.28; q.dist += q.v * dt
+            tg.lineWidth = Math.max(0.7, q.r * 0.32); tg.beginPath(); tg.moveTo(px, py); tg.lineTo(q.x, q.y); tg.stroke()
+            if (q.dist > 16 + Math.random() * 10) { q.dist = 0; if (dd.length < MAXD + 60) dd.push({ x: q.x + (Math.random() - 0.5) * q.r, y: q.y - q.r, r: 0.7 + Math.random() * 1.1, sl: 0, t: 0, mv: 1, v: 0, dist: 0 }) }
+            for (m = dd.length - 1; m >= 0; m--) { s2 = dd[m]; if (s2 !== q && !s2.sl && Math.abs(s2.y - q.y) < q.r + s2.r && Math.abs(s2.x - q.x) < q.r + s2.r) { q.r = Math.sqrt(q.r * q.r + s2.r * s2.r * 0.8); dd.splice(m, 1); if (m < k) k-- } }
+          } else q.v = 0
+          if (q.r < 2 || q.y > H + 12) { if (q.y > H + 12) dd.splice(k, 1); else { q.sl = 0; q.r = Math.max(q.r, 1.6) } }
+        }
+        g.globalAlpha = 1; g.drawImage(trc, 0, 0, W, H)
+        for (k = 0; k < dd.length; k++) {
+          q = dd[k]; var r = q.r, ky = q.sl ? 1.35 : 1.1, gr
+          g.save(); g.translate(q.x, q.y)
+          g.beginPath(); g.ellipse(1, r * 0.35 * ky, r * 1.04, r * ky, 0, 0, 6.2832); g.fillStyle = "rgba(0,0,0,.16)"; g.fill()
+          g.beginPath(); g.ellipse(0, 0, r, r * ky, 0, 0, 6.2832)
+          if (bgc && r > 2.2) {
+            g.save(); g.clip()
+            var kk = 1.5 + r * 0.14
+            g.translate(0, 0); g.scale(-kk, -kk); g.drawImage(bgc, -q.x, -q.y, W, H)
+            g.restore()
+          } else { g.fillStyle = night ? "rgba(200,220,245,.25)" : "rgba(255,255,255,.3)"; g.fill() }
+          g.scale(1, ky)
+          gr = g.createRadialGradient(0, -r * 0.1, r * 0.45, 0, 0, r)
+          gr.addColorStop(0, "rgba(0,0,0,0)"); gr.addColorStop(1, "rgba(0,0,0,.5)")
+          g.beginPath(); g.arc(0, 0, r, 0, 6.2832); g.fillStyle = gr; g.fill()
+          g.lineWidth = Math.max(0.6, r * 0.2); g.strokeStyle = "rgba(255,255,255,.55)"
+          g.beginPath(); g.arc(0, 0, r * 0.78, 0.5, 2.6); g.stroke()
+          g.beginPath(); g.arc(-r * 0.36, -r * 0.4, Math.max(0.7, r * 0.2), 0, 6.2832); g.fillStyle = "rgba(255,255,255,.95)"; g.fill()
+          g.restore()
+        }
+      }
       for (k = 0; k < lv.length; k++) {
         var f = lv[k]
         f.y += f.vy * dt
