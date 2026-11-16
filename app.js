@@ -151,6 +151,11 @@
     notif: "Bildirishnomalar|Билдиришномалар|Уведомления|Notifications|الإشعارات|Bildirimler|Notifikasi|通知|सूचनाएं|Notificaciones",
     h_dev: "Dasturchi|Дастурчи|Разработчик|Developer|المطوّر|Geliştirici|Pengembang|开发者|डेवलपर|Desarrollador",
     h_ph: "Xabar yozing...|Хабар ёзинг...|Напишите сообщение...|Write a message...|اكتب رسالة...|Mesaj yazın...|Tulis pesan...|输入消息...|संदेश लिखें...|Escribe un mensaje...",
+    h_ph2: "Xatolik bormi?|Хато борми?|Нашли ошибку?|Found a bug?|وجدت خطأ؟|Hata mı buldun?|Menemukan bug?|发现错误了吗？|कोई गड़बड़ी मिली?|¿Encontraste un error?",
+    h_ph3: "Taklifingiz bormi?|Таклифингиз борми?|Есть идея?|Got an idea?|لديك فكرة؟|Bir fikrin var mı?|Punya ide?|有好主意吗？|कोई सुझाव है?|¿Tienes una idea?",
+    h_ph4: "Savolingizni yozing...|Саволингизни ёзинг...|Задайте вопрос...|Ask a question...|اطرح سؤالك...|Sorunuzu yazın...|Ajukan pertanyaan...|提出问题...|सवाल पूछें...|Haz una pregunta...",
+    h_big: "Fayl 20 MB dan katta bo'lmasin|Файл 20 МБ дан катта бўлмасин|Файл не больше 20 МБ|File must be under 20 MB|يجب ألا يتجاوز الملف 20 ميغابايت|Dosya 20 MB'dan küçük olmalı|File maksimal 20 MB|文件不能超过 20 MB|फ़ाइल 20 MB से छोटी हो|El archivo debe pesar menos de 20 MB",
+    h_info: "Savol, xatolik yoki taklifingizni yozing — dasturchi javob beradi. Rasm, video va fayl yuborish mumkin. Yozishmalar 7 kundan so'ng avtomatik o'chiriladi.|Савол, хато ёки таклифингизни ёзинг — дастурчи жавоб беради. Расм, видео ва файл юбориш мумкин. Ёзишмалар 7 кундан сўнг автоматик ўчирилади.|Напишите вопрос, об ошибке или идею — разработчик ответит. Можно отправлять фото, видео и файлы. Переписка автоматически удаляется через 7 дней.|Write a question, a bug report or an idea and the developer will reply. You can send photos, videos and files. Messages are deleted automatically after 7 days.|اكتب سؤالك أو بلاغ الخطأ أو اقتراحك وسيرد المطوّر. يمكنك إرسال الصور والفيديو والملفات. تُحذف الرسائل تلقائيًا بعد 7 أيام.|Sorunuzu, hatayı veya önerinizi yazın, geliştirici yanıtlar. Fotoğraf, video ve dosya gönderebilirsiniz. Mesajlar 7 gün sonra otomatik silinir.|Tulis pertanyaan, laporan bug, atau ide Anda, pengembang akan membalas. Anda bisa mengirim foto, video, dan file. Pesan dihapus otomatis setelah 7 hari.|写下您的问题、错误或建议，开发者会回复。可发送图片、视频和文件。消息将在 7 天后自动删除。|अपना सवाल, गड़बड़ी या सुझाव लिखें, डेवलपर जवाब देगा। फ़ोटो, वीडियो और फ़ाइल भेज सकते हैं। संदेश 7 दिन बाद अपने आप हट जाते हैं।|Escribe tu pregunta, error o idea y el desarrollador responderá. Puedes enviar fotos, vídeos y archivos. Los mensajes se eliminan automáticamente a los 7 días.",
     h_empty: "Savol yoki taklifingizni yozing, dasturchi javob beradi|Савол ёки таклифингизни ёзинг, дастурчи жавоб беради|Напишите вопрос или предложение — разработчик ответит|Write your question or idea and the developer will reply|اكتب سؤالك أو اقتراحك وسيرد عليك المطوّر|Sorunuzu veya önerinizi yazın, geliştirici yanıtlayacak|Tulis pertanyaan atau saran Anda, pengembang akan membalas|写下您的问题或建议，开发者会回复|अपना सवाल या सुझाव लिखें, डेवलपर जवाब देगा|Escribe tu pregunta o idea y el desarrollador responderá",
     h_new: "Dasturchidan yangi xabar|Дастурчидан янги хабар|Новое сообщение от разработчика|New message from the developer|رسالة جديدة من المطوّر|Geliştiriciden yeni mesaj|Pesan baru dari pengembang|开发者的新消息|डेवलपर का नया संदेश|Nuevo mensaje del desarrollador",
     h_none: "Bildirishnomalar yo'q|Билдиришномалар йўқ|Уведомлений нет|No notifications|لا توجد إشعارات|Bildirim yok|Tidak ada notifikasi|暂无通知|कोई सूचना नहीं|Sin notificaciones",
@@ -1975,17 +1980,27 @@
       if (U.more === "help") { if (U.hcUid && !document.getElementById("chatTx")) render(); else chatPaint() } else if (U.more === "notif") notifPaint()
     }).catch(function () { HCH.busy = 0 })
   }
+  function hFSize(n) { return n >= 1048576 ? (n / 1048576).toFixed(1) + " MB" : Math.max(1, Math.round(n / 1024)) + " KB" }
+  function hFUrl(m, dl) { return hBase() + "/chat/f?d=" + encodeURIComponent(tg && tg.initData || "") + "&id=" + m.id + (dl ? "&dl=1" : "") }
   function chatPaint(force) {
     var el = document.getElementById("chatMsgs")
     if (!el) return
     var near = window.innerHeight + (window.pageYOffset || 0) >= document.documentElement.scrollHeight - 180
     var me = HCH.admin ? "a" : "u", list = HCH.msgs.concat(HCH.pend), h = "", last = ""
-    if (!list.length) h = '<p class="hempty">' + esc(tr(HCH.admin ? "h_noc" : "h_empty")) + "</p>"
+    var ib = document.getElementById("hinfoBtn"); if (ib) ib.classList.toggle("on", list.length > 0)
+    el.classList.toggle("empty", !list.length)
+    if (!list.length) h = '<div class="hinfo">' + (HCH.admin ? "" : '<span class="hii">' + ic("info") + "</span>") + "<p>" + esc(tr(HCH.admin ? "h_noc" : "h_info")) + "</p></div>"
+    else if (U.hinfo && !HCH.admin) h = '<div class="hinfo top" data-act="hinfo"><span class="hii">' + ic("info") + "</span><p>" + esc(tr("h_info")) + "</p></div>"
     for (var i = 0; i < list.length; i++) {
       var m = list[i], ds = hDay(m.ts), mine = m.f === me
       if (ds !== last) { h += '<div class="hday">' + esc(ds) + "</div>"; last = ds }
       var tk = !mine ? "" : (m.pending || (!m.dts && !m.rts)) ? '<span class="tks">' + CK1 + "</span>" : '<span class="tks' + (m.rts ? " rd" : "") + '">' + CK2 + "</span>"
-      h += '<div class="hm ' + (mine ? "me" : "th") + '"><div class="hb">' + esc(m.t).replace(/\n/g, "<br>") + '<span class="hmeta">' + hHM(m.ts) + tk + "</span></div></div>"
+      var md = "", u = m.lurl || (m.id ? hFUrl(m, 0) : "")
+      if (m.k === "i" && u) md = '<img class="hmi" data-act="chImg" data-v="' + esc(u) + '" data-id="' + (m.id || 0) + '" src="' + esc(u) + '" alt="">'
+      else if (m.k === "v" && u) md = '<video class="hmv" controls playsinline preload="metadata" src="' + esc(u) + '"></video>'
+      else if (m.k) md = '<button class="hmf" data-act="chDl" data-v="' + (m.id || 0) + '"><span class="hfi">' + ic("description") + '</span><span class="hfn"><b>' + esc(m.fn || "file") + "</b><em>" + hFSize(m.fs || 0) + '</em></span><span class="hfd">' + ic("download") + "</span></button>"
+      var tx = m.t ? '<div class="hbt">' + esc(m.t).replace(/\n/g, "<br>") + "</div>" : ""
+      h += '<div class="hm ' + (mine ? "me" : "th") + '"><div class="hb' + (m.pending ? " pend" : "") + (md ? " hasm" : "") + '">' + md + tx + '<span class="hmeta">' + hHM(m.ts) + tk + "</span></div></div>"
     }
     el.innerHTML = h
     if (force || near) window.scrollTo(0, document.documentElement.scrollHeight)
@@ -2015,12 +2030,12 @@
     el.innerHTML = h || '<p class="hempty">' + esc(tr("h_none")) + "</p>"
   }
   function helpHtml() {
-    var adm = HCH.admin, inChat = !adm || U.hcUid, title = adm && U.hcUid ? (HCH.name || "ID " + U.hcUid) : tr("help")
-    var h = '<div class="shead"><button class="btn small back circ" data-act="moreBack" aria-label="back">' + ic("arrow_back") + "</button><h1>" + (adm && U.hcUid ? "" : SUPI + " ") + esc(title) + "</h1>" +
-      (adm && U.hcUid ? '<button class="btn small circ" data-act="chatDel" aria-label="delete">' + ic("delete") + "</button>" : "<span></span>") + "</div>"
+    var adm = HCH.admin, inChat = !adm || U.hcUid, title = adm && U.hcUid ? (HCH.name || "ID " + U.hcUid) : adm ? tr("help") : tr("h_dev")
+    var right = adm && U.hcUid ? '<button class="btn small circ" data-act="chatDel" aria-label="delete">' + ic("delete") + "</button>" : (!adm ? '<button id="hinfoBtn" class="btn small circ hinfob" data-act="hinfo" aria-label="info">' + ic("info") + "</button>" : "<span></span>")
+    var h = '<div class="shead"><button class="btn small back circ" data-act="moreBack" aria-label="back">' + ic("arrow_back") + "</button><h1>" + (adm && U.hcUid ? "" : SUPI + " ") + esc(title) + "</h1>" + right + "</div>"
     if (!inChat) return h + '<div id="hlist" class="hl"></div>'
-    return h + (adm ? "" : '<p class="sub">' + esc(tr("h_dev")) + "</p>") + '<div id="chatMsgs" class="chat"></div>' +
-      '<div class="chatin"><textarea id="chatTx" rows="1" maxlength="1500" placeholder="' + esc(tr("h_ph")) + '"></textarea><button class="send" data-act="chatSend" aria-label="send">' + ic("send") + "</button></div>"
+    return h + '<div id="chatMsgs" class="chat empty"></div>' +
+      '<div class="chatin"><div id="chStage" class="chstage"></div><div class="chrow"><button class="att" data-act="chAtt" aria-label="attach">' + ic("attach_file") + '</button><div class="chw"><span id="chPh" class="chph">' + esc(tr("h_ph")) + '</span><textarea id="chatTx" rows="1" maxlength="1500"></textarea></div><button class="send" data-act="chatSend" aria-label="send">' + ic("send") + '</button></div><input id="chFile" type="file" hidden></div>'
   }
   function notifHtml() {
     return '<div class="shead"><button class="btn small back circ" data-act="moreBack" aria-label="back">' + ic("arrow_back") + "</button><h1>" + ic("notifications") + " " + esc(tr("notif")) + '</h1><span></span></div><div id="nlist" class="hl"></div>'
@@ -2044,6 +2059,65 @@
       chatPaint(true)
     })
   }
+  function hUpload(file, cap) {
+    if (!hBase() || !tg || !tg.initData || !window.fetch) { toast(tr("h_err")); return }
+    if (file.size > 20 * 1048576) { toast(tr("h_big")); return }
+    var me = HCH.admin ? "a" : "u", mt = file.type || "", k = mt.indexOf("image/") === 0 ? "i" : mt.indexOf("video/") === 0 ? "v" : "f", url = ""
+    try { url = URL.createObjectURL(file) } catch (e) {}
+    var pm = { id: 0, f: me, t: cap, ts: Date.now(), pending: 1, k: k, fn: file.name, fs: file.size, mt: mt, lurl: url }
+    HCH.pend = HCH.pend.concat([pm]); chatPaint(true)
+    var fd = new FormData(); fd.append("initData", tg.initData); fd.append("uid", String(U.hcUid || 0)); fd.append("caption", cap || ""); fd.append("file", file, file.name || "file")
+    function fail(msg) { HCH.pend = HCH.pend.filter(function (x) { return x !== pm }); toast(msg || tr("h_err")); chatPaint(true) }
+    fetch(hBase() + "/chat/file", { method: "POST", body: fd }).then(function (r) { if (!r.ok) throw new Error("http"); return r.json() }).then(function (j) {
+      if (!j || !j.ok) return fail(j && j.err === "big" ? tr("h_big") : "")
+      HCH.pend = HCH.pend.filter(function (x) { return x !== pm })
+      HCH.msgs.push({ id: j.id, f: me, t: cap || "", ts: j.ts || Date.now(), dts: null, rts: null, k: j.k, fn: j.fn, fs: j.fs, mt: j.mt, lurl: url })
+      chatPaint(true)
+    }).catch(function () { fail("") })
+  }
+  function chStagePaint() {
+    var el = document.getElementById("chStage"); if (!el) return
+    var f = U.hfile
+    if (!f) { el.innerHTML = ""; el.classList.remove("on"); return }
+    var im = (f.type || "").indexOf("image/") === 0, th = ""
+    if (im) { try { th = '<img src="' + U.hfileUrl + '" alt="">' } catch (e) {} } else th = ic((f.type || "").indexOf("video/") === 0 ? "movie" : "description")
+    el.innerHTML = '<span class="cst">' + th + '</span><span class="csn"><b>' + esc(f.name || "file") + "</b><em>" + hFSize(f.size) + '</em></span><button data-act="chRm" aria-label="remove">' + ic("close") + "</button>"
+    el.classList.add("on")
+  }
+  function chPhStep() {
+    var p = document.getElementById("chPh"); if (!p) return
+    var ks = ["h_ph", "h_ph2", "h_ph3", "h_ph4"]
+    U.hphi = ((U.hphi | 0) + 1) % ks.length
+    p.classList.add("out")
+    setTimeout(function () { var q = document.getElementById("chPh"); if (!q) return; q.textContent = tr(ks[U.hphi]); q.classList.remove("out") }, 260)
+  }
+  setInterval(function () { if (!document.hidden) chPhStep() }, 3400)
+  document.addEventListener("input", function (e) {
+    var t = e.target
+    if (t && t.id === "chatTx") { var p = document.getElementById("chPh"); if (p) p.classList.toggle("hid", !!t.value) }
+  })
+  document.addEventListener("change", function (e) {
+    var t = e.target
+    if (t && t.id === "chFile" && t.files && t.files[0]) {
+      var f = t.files[0]; t.value = ""
+      if (f.size > 20 * 1048576) { toast(tr("h_big")); return }
+      if (U.hfileUrl) { try { URL.revokeObjectURL(U.hfileUrl) } catch (e2) {} }
+      U.hfile = f; U.hfileUrl = ""; try { U.hfileUrl = URL.createObjectURL(f) } catch (e3) {}
+      chStagePaint()
+    }
+  })
+  function hKb() {
+    var vv = window.visualViewport, kb = vv ? Math.max(0, Math.round(window.innerHeight - vv.height - vv.offsetTop)) : 0
+    document.documentElement.style.setProperty("--kb", (kb > 60 ? kb : 0) + "px")
+    if (document.documentElement.classList.contains("tying") && kb > 60) window.scrollTo(0, document.documentElement.scrollHeight)
+  }
+  if (window.visualViewport) { window.visualViewport.addEventListener("resize", hKb); window.visualViewport.addEventListener("scroll", hKb) }
+  document.addEventListener("focusin", function (e) {
+    if (e.target && e.target.id === "chatTx") { document.documentElement.classList.add("tying"); hKb(); setTimeout(function () { hKb(); window.scrollTo(0, document.documentElement.scrollHeight) }, 320) }
+  })
+  document.addEventListener("focusout", function (e) {
+    if (e.target && e.target.id === "chatTx") setTimeout(function () { if (!document.activeElement || document.activeElement.id !== "chatTx") { document.documentElement.classList.remove("tying"); document.documentElement.style.setProperty("--kb", "0px") } }, 120)
+  })
   document.addEventListener("input", function (e) {
     var t = e.target
     if (t && t.id === "chatTx") { t.style.height = "auto"; t.style.height = Math.min(120, t.scrollHeight) + "px" }
@@ -3165,7 +3239,9 @@
     for (var j = 0; j < 40; j++) h += '<circle class="tw" style="animation-delay:-' + (rn() * 3).toFixed(2) + 's" cx="' + (rn() * 400).toFixed(1) + '" cy="' + (650 + rn() * 140).toFixed(1) + '" r="' + (0.5 + rn() * 0.8).toFixed(2) + '" fill="#fff" opacity="' + (night ? 0.7 : 0.9) + '"/>'
     return h + "</svg>"
   }
-    function aTree(rn, x0, y0, night, pl) {
+    var TREEPTS = []
+  function aTree(rn, x0, y0, night, pl, dens) {
+    TREEPTS = []
     var segs = []
     function br(x, y, a, len, w, d) {
       var x2 = x + len * Math.sin(a), y2 = y - len * Math.cos(a)
@@ -3182,7 +3258,7 @@
     for (i = 0; i < segs.length; i++) {
       var q = segs[i]
       h += '<path d="M' + q[0].toFixed(1) + " " + q[1].toFixed(1) + "L" + q[2].toFixed(1) + " " + q[3].toFixed(1) + '" stroke-width="' + q[4].toFixed(2) + '"/>'
-      if (q[5] >= 4 && rn() < 0.78) {
+      if (q[5] >= 4 && TREEPTS.push([q[2], q[3], q[5]]) && rn() < (dens || 0.78)) {
         var cnt = q[5] >= 6 ? 5 : 3
         for (j = 0; j < cnt; j++) lv += '<ellipse cx="' + (q[2] + (rn() - 0.5) * 16).toFixed(1) + '" cy="' + (q[3] + (rn() - 0.5) * 14).toFixed(1) + '" rx="' + (3 + rn() * 2.4).toFixed(1) + '" ry="' + (1.7 + rn() * 1.2).toFixed(1) + '" transform="rotate(' + Math.round(rn() * 180) + " " + q[2].toFixed(1) + " " + q[3].toFixed(1) + ')" fill="' + pal[Math.floor(rn() * pal.length)] + '"/>'
       }
@@ -3218,6 +3294,83 @@
     for (k = 0; k < 5; k++) { t = k / 4; g.beginPath(); g.arc(22 + t * 40, 40 - Math.sin(t * 3.14) * 3 - t * 6 + 0, 1.6, 0, 6.2832); g.fill() }
     return (BFSP[i] = c)
   }
+  function springScene(night) {
+    var rn = rng32(51917), C = night ?
+      { s1: "#050c1d", s2: "#17304f", s3: "#3a5a6a", m1: "#26405c", g1: "#245a2f", g2: "#0e2a18", hl: "#1a4a2c", sn: "#9fb7cc" } :
+      { s1: "#69b4e6", s2: "#c9e9f0", s3: "#f7fae6", m1: "#9bb9cf", g1: "#95d35b", g2: "#4a9a3b", hl: "#6cbb4e", sn: "#ffffff" }
+    var pal = night ? ["#2f7a3c", "#3b8c45", "#2a6b36", "#1f5a2e", "#a07a90"] : ["#9ad06a", "#7fc15a", "#b6e07c", "#6bb34f", "#f4c3d6"]
+    var far = wRidge(rn, 500, 110, 20, 0.9), mid = wRidge(rn, 565, 80, 16, 2.7), h = "", i, x
+    h = '<svg viewBox="0 0 400 800" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg"><defs>' +
+      '<linearGradient id="psk" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="' + C.s1 + '"/><stop offset=".6" stop-color="' + C.s2 + '"/><stop offset="1" stop-color="' + C.s3 + '"/></linearGradient>' +
+      '<linearGradient id="pgr" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="' + C.g1 + '"/><stop offset="1" stop-color="' + C.g2 + '"/></linearGradient>' +
+      '<linearGradient id="prb" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#ff6b6b"/><stop offset=".25" stop-color="#ffb84d"/><stop offset=".5" stop-color="#f6f26b"/><stop offset=".75" stop-color="#5fd38d"/><stop offset="1" stop-color="#5b8cff"/></linearGradient>' +
+      '<linearGradient id="pfg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="' + (night ? "#8fb0c4" : "#ffffff") + '" stop-opacity="' + (night ? ".25" : ".55") + '"/></linearGradient>' +
+      '<filter id="pcb" x="-30%" y="-60%" width="160%" height="220%"><feGaussianBlur stdDeviation="9"/></filter></defs>' +
+      '<rect width="400" height="800" fill="url(#psk)"/>'
+    if (night) {
+      for (i = 0; i < 40; i++) h += '<circle cx="' + (rn() * 400).toFixed(0) + '" cy="' + (rn() * 380).toFixed(0) + '" r="' + (0.5 + rn()).toFixed(1) + '" fill="#fff" opacity="' + (0.3 + rn() * 0.5).toFixed(2) + '"/>'
+      h += '<circle cx="300" cy="140" r="22" fill="#eef0dc" opacity=".9"/>'
+    } else {
+      h += '<path d="M-20 520C60 260 340 260 420 520" fill="none" stroke="url(#prb)" stroke-width="22" opacity=".22" filter="url(#pcb)"/>'
+    }
+    for (i = 0; i < 6; i++) h += '<ellipse cx="' + (rn() * 420 - 10).toFixed(0) + '" cy="' + (60 + rn() * 320).toFixed(0) + '" rx="' + (70 + rn() * 80).toFixed(0) + '" ry="' + (14 + rn() * 14).toFixed(0) + '" fill="' + (night ? "#1a2c44" : "#ffffff") + '" opacity="' + (night ? 0.5 : 0.7) + '" filter="url(#pcb)"/>'
+    h += '<path d="' + wPoly(far, 800) + '" fill="' + C.m1 + '"/>'
+    h += '<path d="' + wCap(far, 425, rn) + '" fill="' + C.sn + '" opacity="' + (night ? ".5" : ".85") + '"/>'
+    h += '<rect x="0" y="430" width="400" height="190" fill="url(#pfg)"/>'
+    h += '<path d="' + wPoly(mid, 800) + '" fill="' + C.hl + '"/>'
+    for (i = 0; i < mid.length; i++) for (x = 0; x < 3; x++) h += '<circle cx="' + (mid[i][0] + (rn() - 0.5) * 14).toFixed(1) + '" cy="' + (mid[i][1] + 3 + rn() * 22).toFixed(1) + '" r="' + (6 + rn() * 7).toFixed(1) + '" fill="' + pal[Math.floor(rn() * 4)] + '" opacity=".85"/>'
+    h += '<path d="M-20 640C60 604 140 616 210 636S340 652 430 616V800H-20Z" fill="url(#pgr)"/>'
+    h += '<path d="M-20 692C80 658 170 670 250 692S380 702 430 678V800H-20Z" fill="' + C.g1 + '" opacity=".9"/>'
+    for (i = 0; i < 4; i++) { var px = 20 + rn() * 340, py = 700 + rn() * 80; h += '<ellipse cx="' + px.toFixed(0) + '" cy="' + py.toFixed(0) + '" rx="' + (22 + rn() * 26).toFixed(0) + '" ry="' + (4 + rn() * 3).toFixed(0) + '" fill="' + (night ? "#38566e" : "#a9d6ee") + '" opacity=".85"/>' }
+    h += aTree(rn, 296, 690, night, pal, 0.55)
+    for (i = 0; i < 70; i++) { var gx = rn() * 400, gy = 655 + rn() * 140; h += '<path d="M' + gx.toFixed(1) + " " + gy.toFixed(1) + "l-1.4 -" + (4 + rn() * 4).toFixed(1) + "M" + gx.toFixed(1) + " " + gy.toFixed(1) + "l1.4 -" + (4 + rn() * 4).toFixed(1) + '" stroke="' + (night ? "#3f8a48" : "#5fb046") + '" stroke-width="1.4" stroke-linecap="round"/>' }
+    return h + "</svg>"
+  }
+  function springStart(host, night) {
+    snowStop()
+    var cv = document.createElement("canvas"); cv.className = "snw"; host.appendChild(cv)
+    var g = cv.getContext("2d"), W = 0, H = 0, dpr = Math.min(2, window.devicePixelRatio || 1), pt = [], rn = [], i
+    var red = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    var NP = red ? 8 : (window.innerWidth < 500 ? 22 : 32), NR = red ? 0 : (window.innerWidth < 500 ? 46 : 70)
+    function fit() { W = host.clientWidth || window.innerWidth; H = host.clientHeight || window.innerHeight; cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr) }
+    function mkP(first) {
+      var z = Math.pow(Math.random(), 1.1), lf = Math.random() < 0.4
+      return { x: Math.random() * W, y: first ? Math.random() * H : -20 - Math.random() * 60, z: z, lf: lf, sz: lf ? 9 + z * 8 : 8 + z * 9, vy: 22 + z * 40, ph: Math.random() * 6.28, fr: 0.5 + Math.random() * 0.8, am: 12 + z * 22, rot: Math.random() * 6.28, rs: (Math.random() - 0.5) * 3, tf: 1 + Math.random() * 2, c: lf ? (night ? "#4f9a52" : "#7cc65a") : (night ? "#d9b9c9" : (Math.random() < 0.5 ? "#ffffff" : "#f7c6d9")) }
+    }
+    function mkR(first) { var z = Math.random(); return { x: Math.random() * (W + 60) - 30, y: first ? Math.random() * H : -30, z: z, vy: 420 + z * 380, l: 8 + z * 12 } }
+    fit()
+    for (i = 0; i < NP; i++) pt.push(mkP(true))
+    for (i = 0; i < NR; i++) rn.push(mkR(true))
+    var t0 = 0
+    SNOW.el = host
+    function frame(ts) {
+      if (!host.isConnected || SNOW.el !== host) return
+      SNOW.raf = requestAnimationFrame(frame)
+      if (document.hidden) { t0 = 0; return }
+      var dt = t0 ? Math.min(0.05, (ts - t0) / 1000) : 0.016, tm = ts / 1000, k, d, f, wind = 18 + Math.sin(tm * 0.23) * 14 + Math.sin(tm * 0.7) * 6
+      t0 = ts
+      if (host.clientWidth !== W || host.clientHeight !== H) fit()
+      g.setTransform(dpr, 0, 0, dpr, 0, 0); g.clearRect(0, 0, W, H)
+      g.strokeStyle = night ? "rgb(190,210,240)" : "rgb(95,120,150)"; g.lineCap = "round"
+      for (k = 0; k < rn.length; k++) {
+        d = rn[k]; d.y += d.vy * dt
+        if (d.y > H + 30) { d.y = -30; d.x = Math.random() * (W + 60) - 30 }
+        g.globalAlpha = 0.1 + 0.2 * d.z; g.lineWidth = 0.6 + d.z * 0.6
+        g.beginPath(); g.moveTo(d.x, d.y); g.lineTo(d.x - d.l * (0.12 + wind / 300), d.y - d.l); g.stroke()
+      }
+      for (k = 0; k < pt.length; k++) {
+        f = pt[k]; f.y += f.vy * dt; f.x += (wind * (0.4 + f.z) + Math.cos(tm * f.fr + f.ph) * f.am) * dt; f.rot += f.rs * dt
+        if (f.y > H + 30 || f.x > W + 40) { pt[k] = mkP(false); pt[k].x = f.x > W + 40 ? -20 : Math.random() * W; continue }
+        g.globalAlpha = 0.9; g.save(); g.translate(f.x, f.y); g.rotate(f.rot); g.scale(0.35 + 0.65 * Math.abs(Math.cos(tm * f.tf + f.ph)), 1)
+        g.fillStyle = f.c; g.beginPath()
+        if (f.lf) { g.moveTo(0, -f.sz * 0.6); g.bezierCurveTo(f.sz * 0.5, -f.sz * 0.3, f.sz * 0.4, f.sz * 0.4, 0, f.sz * 0.6); g.bezierCurveTo(-f.sz * 0.4, f.sz * 0.4, -f.sz * 0.5, -f.sz * 0.3, 0, -f.sz * 0.6) }
+        else { g.ellipse(0, 0, f.sz * 0.3, f.sz * 0.5, 0, 0, 6.2832) }
+        g.fill(); g.restore()
+      }
+      g.globalAlpha = 1
+    }
+    SNOW.raf = requestAnimationFrame(frame)
+  }
   function summerScene(night) {
     var rn = rng32(7771), C = night ?
       { s1: "#030818", s2: "#0f2147", s3: "#27405f", m1: "#1c3150", g1: "#1b4426", g2: "#0b2414", hl: "#123a22" } :
@@ -3252,7 +3405,7 @@
     var cv = document.createElement("canvas"); cv.className = "snw"; host.appendChild(cv)
     var g = cv.getContext("2d"), W = 0, H = 0, dpr = Math.min(2, window.devicePixelRatio || 1), ps = [], bf = [], i
     var red = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches
-    var NP = red ? 10 : (night ? 34 : 46), NB = night || red ? 0 : 4
+    var NP = red ? 10 : (night ? 34 : 46), NB = night || red ? 0 : 5
     function fit() { W = host.clientWidth || window.innerWidth; H = host.clientHeight || window.innerHeight; cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr) }
     function mkP() {
       var z = Math.random()
@@ -3260,7 +3413,7 @@
     }
     function mkB() {
       var cs = [["#ff8c1a", "#2b1a0a"], ["#ffd23f", "#3a2a0a"], ["#4fa3ff", "#0f1e3a"], ["#ff6fa5", "#3a0f22"]]
-      return { x: Math.random() * W, y: H * (0.45 + Math.random() * 0.4), h: Math.random() * 6.28, ph: Math.random() * 6.28, ci: Math.floor(Math.random() * 4), sz: 38 + Math.random() * 16 }
+      return { x: Math.random() * W, y: H * (0.45 + Math.random() * 0.4), h: Math.random() * 6.28, ph: Math.random() * 6.28, ci: bf.length % 4, sz: 20 + bf.length * 5, st: 0, tt: 3 + Math.random() * 9, tp: 0 }
     }
     fit()
     for (i = 0; i < NP; i++) ps.push(mkP())
@@ -3292,12 +3445,30 @@
       g.globalCompositeOperation = "source-over"
       for (k = 0; k < bf.length; k++) {
         b = bf[k]
-        b.h += Math.sin(tm * 0.8 + b.ph) * 1.1 * dt + (Math.random() - 0.5) * 1.8 * dt
-        var sp = 30 + Math.sin(tm * 2.2 + b.ph) * 14
-        b.x += Math.cos(b.h) * sp * dt; b.y += Math.sin(b.h) * sp * dt * 0.8 + Math.sin(tm * 5 + b.ph) * 10 * dt
-        if (b.x < -40) b.x = W + 30; if (b.x > W + 40) b.x = -30
-        if (b.y < H * 0.12) b.h = Math.abs(b.h) * 0.5; if (b.y > H * 0.88) b.h = -Math.abs(b.h) * 0.6
-        var fl = Math.cos(tm * 13 + b.ph), kk = b.sz / 100, wf = 0.25 + 0.75 * Math.abs(fl), spr = bfSprite(b.ci), s3 = 3
+        var sc0 = Math.max(W / 400, H / 800), ox = (W - 400 * sc0) / 2, oy = (H - 800 * sc0) / 2, tip, dx, dy, ds, da
+        if (b.st === 0) {
+          b.tt -= dt
+          b.h += Math.sin(tm * 0.8 + b.ph) * 1.1 * dt + (Math.random() - 0.5) * 1.8 * dt
+          var sp = 30 + Math.sin(tm * 2.2 + b.ph) * 14
+          b.x += Math.cos(b.h) * sp * dt; b.y += Math.sin(b.h) * sp * dt * 0.8 + Math.sin(tm * 5 + b.ph) * 10 * dt
+          if (b.x < -40) b.x = W + 30; if (b.x > W + 40) b.x = -30
+          if (b.y < H * 0.12) b.h = Math.abs(b.h) * 0.5; if (b.y > H * 0.88) b.h = -Math.abs(b.h) * 0.6
+          if (b.tt <= 0 && TREEPTS.length) { b.st = 1; b.tp = TREEPTS[Math.floor(Math.random() * TREEPTS.length)] }
+        } else {
+          tip = b.tp; var tx = ox + tip[0] * sc0, ty = oy + tip[1] * sc0
+          if (b.st === 1) {
+            dx = tx - b.x; dy = ty - b.y; ds = Math.sqrt(dx * dx + dy * dy)
+            da = Math.atan2(dy, dx) - b.h; da = Math.atan2(Math.sin(da), Math.cos(da))
+            b.h += da * Math.min(1, dt * 3)
+            var spd = Math.min(36, 10 + ds * 0.7)
+            b.x += Math.cos(b.h) * spd * dt; b.y += Math.sin(b.h) * spd * dt
+            if (ds < 3) { b.st = 2; b.tt = 5 + Math.random() * 9; b.rh = b.h }
+          } else {
+            b.x = tx; b.y = ty; b.h = b.rh; b.tt -= dt
+            if (b.tt <= 0) { b.st = 0; b.tt = 10 + Math.random() * 16; b.h = -1.57 + (Math.random() - 0.5) * 1.4 }
+          }
+        }
+        var fl = Math.cos(tm * 13 + b.ph), kk = b.sz / 100, wf = b.st === 2 ? 0.45 + 0.4 * Math.abs(Math.cos(tm * 1.3 + b.ph)) : 0.25 + 0.75 * Math.abs(fl), spr = bfSprite(b.ci), s3 = 3
         g.save(); g.translate(b.x, b.y); g.rotate(b.h + 1.5708 + Math.sin(tm * 2 + b.ph) * 0.15); g.scale(kk, kk)
         g.globalAlpha = 0.18; g.fillStyle = "#000"; g.beginPath(); g.ellipse(6, 10, 3, 12, 0, 0, 6.2832); g.fill(); g.globalAlpha = 1
         g.save(); g.scale(wf, 1); g.drawImage(spr, -6, -70, 110, 110); g.restore()
@@ -3563,7 +3734,7 @@
     var v = g === "female" ? S.fbg : g === "male" ? S.mbg : ""
     if (!BGV[v] || (isImgBg(v) && !isPrem())) v = ""
     var night = effTheme() === "dark"
-    var seaOn = S.bgmode === "season" && (S.season === "winter" || S.season === "autumn" || S.season === "summer") && isPrem()
+    var seaOn = S.bgmode === "season" && isPrem()
     root.setAttribute("data-bg", seaOn ? "season" : v)
     if (!seaOn && isImgBg(v) && v !== "winter2") root.setAttribute("data-tone", "d"); else root.removeAttribute("data-tone")
     var el = document.getElementById("mbg")
@@ -3572,7 +3743,7 @@
       var sk = "sea-" + S.season + (night ? "n" : "d")
       if (el.getAttribute("data-k") !== sk || SNOW.el !== el) {
         el.setAttribute("data-k", sk)
-        if (S.season === "autumn") { el.innerHTML = autumnScene(night); autumnStart(el, night) } else if (S.season === "summer") { el.innerHTML = summerScene(night); summerStart(el, night) } else { el.innerHTML = winterScene(night); snowStart(el, night) }
+        if (S.season === "autumn") { el.innerHTML = autumnScene(night); autumnStart(el, night) } else if (S.season === "spring") { el.innerHTML = springScene(night); springStart(el, night) } else if (S.season === "summer") { el.innerHTML = summerScene(night); summerStart(el, night) } else { el.innerHTML = winterScene(night); snowStart(el, night) }
       }
       return
     }
@@ -3732,17 +3903,17 @@
     var gcur = fem ? 2 : mal ? 1 : 0
     for (i = 0; i < 3; i++) gc += '<button class="sch' + (i === gcur ? " on" : "") + '" data-act="sgen" data-v="' + i + '">' + ic(TICONS[i]) + esc(tr(TLAB[i])) + "</button>"
     var out = '<div class="srows">' + sRow(tr("t_gen"), gc)
-    if (!fem && !mal) return out + fontRow() + "</div>"
+    var sea = S.bgmode === "season" && isPrem(), sc2 = ""
+    var SEA = [["spring", "s_spr"], ["summer", "s_sum"], ["autumn", "s_aut"], ["winter", "t_bg4"]]
+    for (i = 0; i < SEA.length; i++) sc2 += '<button class="sch' + (S.season === SEA[i][0] ? " on" : "") + '" data-act="sseason" data-v="' + SEA[i][0] + '">' + esc(tr(SEA[i][1])) + "</button>"
+    var stg = '<div class="hptg stg" role="group"><button data-act="bgmode" data-v="plain" class="' + (sea ? "" : "on") + '">' + esc(tr("t_plain")) + '</button><button data-act="bgmode" data-v="season" class="' + (sea ? "on" : "") + '">' + (isPrem() ? "" : ic("lock") + " ") + esc(tr("t_seas")) + "</button></div>"
+    if (!fem && !mal) return out + sRow(tr("t_bgn"), sea ? sc2 : '<button class="sch on" data-act="sbg" data-v=""><i class="bgp d"></i>' + esc(tr("t_bg0")) + "</button>", "hastg", stg) + fontRow() + "</div>"
     var bgc = (fem ? S.fbg : S.mbg) || ""
     if (isImgBg(bgc) && !isPrem()) bgc = ""
     for (i = 0; i < BGK.length; i++) bc += '<button class="sch' + (BGK[i] === bgc ? " on" : "") + (isImgBg(BGK[i]) && !isPrem() ? " lk" : "") + '" data-act="sbg" data-v="' + BGK[i] + '"><i class="bgp ' + BGL[i][1] + '"></i>' + esc(tr(BGL[i][0]) + BGL[i][2]) + "</button>"
     var arr = fem ? PINKS : MALES, cur = (fem ? S.fcolor : S.mcolor) | 0, act = fem ? "fcolor" : "mcolor"
     for (i = 0; i < arr.length; i++) cc += '<button class="sws' + (arr[i].w ? " wh" : "") + (i === cur ? " on" : "") + '" data-act="' + act + '" data-v="' + i + '" style="--c:' + arr[i].a + '" aria-label="color"></button>'
     var on = gOn(), dk = effTheme() === "dark"
-    var sea = S.bgmode === "season" && isPrem(), sc2 = ""
-    var SEA = [["spring", "s_spr"], ["summer", "s_sum"], ["autumn", "s_aut"], ["winter", "t_bg4"]]
-    for (i = 0; i < SEA.length; i++) sc2 += '<button class="sch' + (S.season === SEA[i][0] ? " on" : "") + '" data-act="sseason" data-v="' + SEA[i][0] + '">' + esc(tr(SEA[i][1])) + "</button>"
-    var stg = '<div class="hptg stg" role="group"><button data-act="bgmode" data-v="plain" class="' + (sea ? "" : "on") + '">' + esc(tr("t_plain")) + '</button><button data-act="bgmode" data-v="season" class="' + (sea ? "on" : "") + '">' + (isPrem() ? "" : ic("lock") + " ") + esc(tr("t_seas")) + "</button></div>"
     out += sRow(tr("t_bgn"), sea ? sc2 : bc, "hastg", stg) + sRow(tr("t_color"), cc) + fontRow() + "</div>" +
       '<div class="card tpill col"><div class="tl"><span>' + esc(tr("t_gon")) + '</span><button class="tgl' + (on ? " on" : "") + '" data-act="gtoggle" aria-label="glass"><i></i></button></div>'
     if (on) {
@@ -4130,7 +4301,19 @@
     else if (act === "rateApp") { S.rate = +v; save(); rateSync(true); render() }
     else if (act === "rmt") { if (v === "all") S.remind = S.remind === false; else { var rq = rmGet(); rq[v] = rq[v] ? 0 : 1; S.rm = rq } save(); render() }
     else if (act === "likeApp") { S.appLike = !S.appLike; save(); rateSync(true); render() }
-    else if (act === "chatSend") { var ctx = document.getElementById("chatTx"), ct = ctx ? ctx.value.trim() : ""; if (ct) { ctx.value = ""; ctx.style.height = "auto"; hSend(ct) } }
+    else if (act === "chatSend") {
+      var ctx = document.getElementById("chatTx"), ct = ctx ? ctx.value.trim() : ""
+      if (U.hfile) { var hf = U.hfile; U.hfile = null; U.hfileUrl = ""; if (ctx) { ctx.value = ""; ctx.style.height = "auto" } var cp = document.getElementById("chPh"); if (cp) cp.classList.remove("hid"); chStagePaint(); hUpload(hf, ct) }
+      else if (ct) { ctx.value = ""; ctx.style.height = "auto"; var cp2 = document.getElementById("chPh"); if (cp2) cp2.classList.remove("hid"); hSend(ct) }
+    }
+    else if (act === "chAtt") { var cf = document.getElementById("chFile"); if (cf) cf.click() }
+    else if (act === "chRm") { U.hfile = null; U.hfileUrl = ""; chStagePaint() }
+    else if (act === "hinfo") { U.hinfo = !U.hinfo; chatPaint(false) }
+    else if (act === "chDl") { var dm = { id: parseInt(v, 10) || 0 }; if (dm.id) { var du = hFUrl(dm, 1); if (tg && tg.openLink) { try { tg.openLink(du) } catch (e4) { window.open(du, "_blank") } } else window.open(du, "_blank") } }
+    else if (act === "chImg") {
+      var lb = document.createElement("div"); lb.className = "lbox"; lb.innerHTML = '<img src="' + v + '" alt=""><button aria-label="close">' + ic("close") + "</button>"
+      lb.addEventListener("click", function () { lb.remove() }); document.body.appendChild(lb)
+    }
     else if (act === "chatOpen") { U.hcUid = parseInt(v, 10) || 0; U.more = "help"; HCH.name = ""; for (var cq = 0; HCH.chats && cq < HCH.chats.length; cq++) if (HCH.chats[cq].uid === U.hcUid) HCH.name = HCH.chats[cq].name; HCH.msgs = []; HCH.pend = []; render(); window.scrollTo(0, 0) }
     else if (act === "chatDel") {
       var cdo = function () { hPost("/chat/del", { uid: U.hcUid }).then(function () { U.hcUid = 0; HCH.msgs = []; render(); window.scrollTo(0, 0) }).catch(function () {}) }
@@ -4167,7 +4350,7 @@
     else if (act === "bgmode") { if (v === "season" && !isPrem()) { pToast(tr("pm_bg")); return } S.bgmode = v === "season" ? "season" : "plain"; save(); applyBg(); tOptsRefresh() }
     else if (act === "sseason") { S.season = v; save(); applyBg(); tOptsRefresh() }
     else if (act === "sgen") { S.gender = TKEYS[+v] || "auto"; applyGender(); save(); tOptsRefresh() }
-    else if (act === "sbg") { if (isImgBg(v) && !isPrem()) { pToast(tr("pm_bg")); return } if (S.gender === "female") S.fbg = v; else S.mbg = v; save(); applyGender(); tOptsRefresh() }
+    else if (act === "sbg") { if (isImgBg(v) && !isPrem()) { pToast(tr("pm_bg")); return } if (S.gender === "female") S.fbg = v; else if (S.gender === "male") S.mbg = v; save(); applyGender(); tOptsRefresh() }
     else if (act === "gsol") { if (S.gender === "female") S.fsol = parseInt(v, 10); else S.msol = parseInt(v, 10); applyGender(); save(); tOptsRefresh() }
     else if (act === "fcolor") { S.fcolor = parseInt(v, 10); applyGender(); save(); tOptsRefresh() }
     else if (act === "mcolor") { S.mcolor = parseInt(v, 10); applyGender(); save(); tOptsRefresh() }
