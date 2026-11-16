@@ -1974,7 +1974,8 @@
       }
       var wasAdmin = HCH.admin
       HCH.admin = !!j.admin; HCH.name = j.name || ""; HCH.un = j.un || ""
-      HCH.msgs = j.msgs || []
+      var old = {}; HCH.msgs.forEach(function (x) { if (x.lurl) old[x.id] = x.lurl })
+      HCH.msgs = (j.msgs || []).map(function (x) { if (old[x.id]) x.lurl = old[x.id]; return x })
       var un2 = 0; if (!HCH.admin) for (var k = 0; k < HCH.msgs.length; k++) if (HCH.msgs[k].f === "a" && !HCH.msgs[k].rts) un2++
       if (!HCH.admin) hSetBadge(open ? 0 : un2)
       if (U.more === "help") { if (U.hcUid && !document.getElementById("chatTx")) render(); else chatPaint() } else if (U.more === "notif") notifPaint()
@@ -1987,6 +1988,7 @@
     if (!el) return
     var near = window.innerHeight + (window.pageYOffset || 0) >= document.documentElement.scrollHeight - 180
     var me = HCH.admin ? "a" : "u", list = HCH.msgs.concat(HCH.pend), h = "", last = ""
+    var seen = {}; list = list.filter(function (x) { if (!x.id) return true; if (seen[x.id]) return false; seen[x.id] = 1; return true })
     var ib = document.getElementById("hinfoBtn"); if (ib) ib.classList.toggle("on", list.length > 0)
     el.classList.toggle("empty", !list.length)
     if (!list.length) h = '<div class="hinfo">' + (HCH.admin ? "" : '<span class="hii">' + ic("info") + "</span>") + "<p>" + esc(tr(HCH.admin ? "h_noc" : "h_info")) + "</p></div>"
@@ -2051,7 +2053,7 @@
     HCH.pend = HCH.pend.concat([pm]); chatPaint(true)
     hPost("/chat/send", { text: t, uid: U.hcUid || 0 }).then(function (j) {
       HCH.pend = HCH.pend.filter(function (x) { return x !== pm })
-      if (j && j.ok) HCH.msgs.push({ id: j.id, f: me, t: t, ts: j.ts || Date.now(), dts: null, rts: null }); else { toast(tr("h_err")); var tx = document.getElementById("chatTx"); if (tx && !tx.value) tx.value = t }
+      if (j && j.ok) hAdd({ id: j.id, f: me, t: t, ts: j.ts || Date.now(), dts: null, rts: null }); else { toast(tr("h_err")); var tx = document.getElementById("chatTx"); if (tx && !tx.value) tx.value = t }
       chatPaint(true)
     }).catch(function () {
       HCH.pend = HCH.pend.filter(function (x) { return x !== pm })
@@ -2059,21 +2061,23 @@
       chatPaint(true)
     })
   }
-  function hUpload(file, cap) {
-    if (!hBase() || !tg || !tg.initData || !window.fetch) { toast(tr("h_err")); return }
-    if (file.size > 20 * 1048576) { toast(tr("h_big")); return }
-    var me = HCH.admin ? "a" : "u", mt = file.type || "", k = mt.indexOf("image/") === 0 ? "i" : mt.indexOf("video/") === 0 ? "v" : "f", url = ""
+  function hAdd(m) { for (var i = 0; i < HCH.msgs.length; i++) if (HCH.msgs[i].id === m.id) { if (m.lurl) HCH.msgs[i].lurl = m.lurl; return } HCH.msgs.push(m) }
+  function hUpload(file, cap, done) {
+    if (!hBase() || !tg || !tg.initData || !window.fetch) { toast(tr("h_err") + " (tg)"); done(false); return }
+    if (file.size > 20 * 1048576) { toast(tr("h_big")); done(false); return }
+    var me = HCH.admin ? "a" : "u", url = ""
     try { url = URL.createObjectURL(file) } catch (e) {}
-    var pm = { id: 0, f: me, t: cap, ts: Date.now(), pending: 1, k: k, fn: file.name, fs: file.size, mt: mt, lurl: url }
-    HCH.pend = HCH.pend.concat([pm]); chatPaint(true)
     var fd = new FormData(); fd.append("initData", tg.initData); fd.append("uid", String(U.hcUid || 0)); fd.append("caption", cap || ""); fd.append("file", file, file.name || "file")
-    function fail(msg) { HCH.pend = HCH.pend.filter(function (x) { return x !== pm }); toast(msg || tr("h_err")); chatPaint(true) }
-    fetch(hBase() + "/chat/file", { method: "POST", body: fd }).then(function (r) { if (!r.ok) throw new Error("http"); return r.json() }).then(function (j) {
-      if (!j || !j.ok) return fail(j && j.err === "big" ? tr("h_big") : "")
-      HCH.pend = HCH.pend.filter(function (x) { return x !== pm })
-      HCH.msgs.push({ id: j.id, f: me, t: cap || "", ts: j.ts || Date.now(), dts: null, rts: null, k: j.k, fn: j.fn, fs: j.fs, mt: j.mt, lurl: url })
-      chatPaint(true)
-    }).catch(function () { fail("") })
+    function fail(c) { toast(tr("h_err") + (c ? " (" + c + ")" : "")); done(false) }
+    fetch(hBase() + "/chat/file", { method: "POST", body: fd }).then(function (r) {
+      if (!r.ok) { fail(r.status); return null }
+      return r.json()
+    }).then(function (j) {
+      if (j === null) return
+      if (!j || !j.ok) { if (j && j.err === "big") { toast(tr("h_big")); done(false) } else fail(j && j.err || "?"); return }
+      hAdd({ id: j.id, f: me, t: cap || "", ts: j.ts || Date.now(), dts: null, rts: null, k: j.k, fn: j.fn, fs: j.fs, mt: j.mt, lurl: url })
+      chatPaint(true); done(true)
+    }).catch(function () { fail("net") })
   }
   function chStagePaint() {
     var el = document.getElementById("chStage"); if (!el) return
@@ -2081,7 +2085,8 @@
     if (!f) { el.innerHTML = ""; el.classList.remove("on"); return }
     var im = (f.type || "").indexOf("image/") === 0, th = ""
     if (im) { try { th = '<img src="' + U.hfileUrl + '" alt="">' } catch (e) {} } else th = ic((f.type || "").indexOf("video/") === 0 ? "movie" : "description")
-    el.innerHTML = '<span class="cst">' + th + '</span><span class="csn"><b>' + esc(f.name || "file") + "</b><em>" + hFSize(f.size) + '</em></span><button data-act="chRm" aria-label="remove">' + ic("close") + "</button>"
+    el.innerHTML = '<span class="cst">' + th + '</span><span class="csn"><b>' + esc(f.name || "file") + "</b><em>" + hFSize(f.size) + '</em></span>' + (U.hup ? '<i class="cspin"></i>' : '<button data-act="chRm" aria-label="remove">' + ic("close") + "</button>")
+    el.classList.toggle("up", !!U.hup)
     el.classList.add("on")
   }
   function chPhStep() {
@@ -4303,7 +4308,15 @@
     else if (act === "likeApp") { S.appLike = !S.appLike; save(); rateSync(true); render() }
     else if (act === "chatSend") {
       var ctx = document.getElementById("chatTx"), ct = ctx ? ctx.value.trim() : ""
-      if (U.hfile) { var hf = U.hfile; U.hfile = null; U.hfileUrl = ""; if (ctx) { ctx.value = ""; ctx.style.height = "auto" } var cp = document.getElementById("chPh"); if (cp) cp.classList.remove("hid"); chStagePaint(); hUpload(hf, ct) }
+      if (U.hfile) {
+        if (U.hup) return
+        U.hup = 1; chStagePaint()
+        hUpload(U.hfile, ct, function (ok) {
+          U.hup = 0
+          if (ok) { U.hfile = null; U.hfileUrl = ""; var cx = document.getElementById("chatTx"); if (cx) { cx.value = ""; cx.style.height = "auto" } var cp = document.getElementById("chPh"); if (cp) cp.classList.remove("hid") }
+          chStagePaint()
+        })
+      }
       else if (ct) { ctx.value = ""; ctx.style.height = "auto"; var cp2 = document.getElementById("chPh"); if (cp2) cp2.classList.remove("hid"); hSend(ct) }
     }
     else if (act === "chAtt") { var cf = document.getElementById("chFile"); if (cf) cf.click() }

@@ -1614,3 +1614,5 @@ html.tying .nav { display: none; }
 @supports not (background: conic-gradient(from 1deg in oklab, red, blue)) { .hb.pend::before { animation-name: hbspin2; } }
 @keyframes hbspin2 { to { transform: rotate(360deg); } }
 html.tying .nav, html.tying #nav, html.tying #navbg { display: none !important; }
+.chstage .cspin { flex: none; width: 26px; height: 26px; margin: 0 3px; border-radius: 50%; border: 3px solid color-mix(in srgb, var(--accent) 25%, transparent); border-top-color: var(--accent); animation: spin .8s linear infinite; }
+.chstage.up { opacity: .95; }
