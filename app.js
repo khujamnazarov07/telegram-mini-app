@@ -34,6 +34,8 @@
     hk6: "Ruhiy tasalli|Руҳий тасалли|Душевное утешение|Spiritual comfort|سلوى الروح|Ruhi teselli|Ketenangan jiwa|心灵安慰|आत्मिक सुकून|Consuelo espiritual",
     hk7: "Rahmat so‘zlari|Раҳмат сўзлари|Слова милосердия|Words of mercy|كلمات الرحمة|Rahmet sözleri|Kata-kata rahmat|慈悯之语|रहमत के शब्द|Palabras de misericordia",
     waq_t: "Voqea challenji|Воқеа челленжи|Челлендж «Аль-Вакиа»|Al-Waqi'ah challenge|تحدي الواقعة|Vâkıa challenge'ı|Tantangan Al-Waqi'ah|瓦吉亚挑战|अल-वाक़िआ चैलेंज|Reto Al-Waqi'ah",
+    waq_s: "Voqea|Воқеа|Аль-Вакиа|Al-Waqi'ah|الواقعة|Vâkıa|Al-Waqi'ah|瓦吉亚|अल-वाक़िआ|Al-Waqi'ah",
+    fx_t: "Effektlar|Эффектлар|Эффекты|Effects|التأثيرات|Efektler|Efek|特效|प्रभाव|Efectos",
     waq_new: "Yangi · boshlash|Янги · бошлаш|Новый · начать|New · start|جديد · ابدأ|Yeni · başla|Baru · mulai|新 · 开始|नया · शुरू करें|Nuevo · empezar",
     waq_lv: "Daraja|Даража|Уровень|Level|المستوى|Seviye|Level|等级|स्तर|Nivel",
     waq_debt: "Qoldirilgan|Қолдирилган|Пропущено|Missed|فائت|Kaçan|Terlewat|待补|छूटा|Pendiente",
@@ -498,6 +500,7 @@
       '<div id="ph" class="ph" aria-hidden="true"><span></span><span></span></div>' +
       '<button class="sgo" data-act="sgo" aria-label="' + esc(tr("search")) + '">' + ic("search") + "</button></div></div>" + fl +
       '<div id="ngrid" class="ngrid' + (open ? " open" : "") + '"><div id="grid">' + nameCards(filterNames()) + "</div></div>" +
+      '<button id="nfab" class="nfab" data-act="namesToggle" aria-label="toggle"' + (searching ? " hidden" : "") + ">" + ic(U.namesOpen ? "expand_less" : "expand_more") + "</button>" +
       '<button id="ntog" class="btn block moodtog" data-act="namesToggle"' + (searching ? " hidden" : "") + ">" + ic(U.namesOpen ? "expand_less" : "expand_more") + " <span>" + esc(tr(U.namesOpen ? "mood_less" : "mood_all")) + "</span></button>" +
       viewHomePanel()
   }
@@ -618,7 +621,7 @@
     var lock = wqLock(w), tabs = [["العربية", 0], [tr("waq_p2"), 1], [tr("waq_p3"), 2]].map(function (t) {
       return '<button class="wqtab' + (t[1] === 0 ? " on" : "") + '" data-act="waqPg" data-v="' + t[1] + '">' + esc(t[0]) + "</button>"
     }).join("")
-    return '<div class="wqtop">' + back + '<div class="wqttl"><div class="wqpill">' + ic("bedtime") + "<b>" + esc(tr("waq_t")) + '</b></div><div class="wqlvb" id="wqlvn" title="' + esc(tr("waq_lv")) + '">' + ic("shield") + "<b>" + w.level + "</b></div></div><span></span></div>" +
+    return '<div class="wqtop">' + back + '<div class="wqttl"><div class="wqpill">' + ic("bedtime") + "<b>" + esc(tr("waq_t")) + '</b></div><div class="wqlvb" id="wqlvn" title="' + esc(tr("waq_lv")) + '">' + ic("military_tech") + "<b>" + w.level + "</b></div></div><span></span></div>" +
       '<div class="waq"><div class="wqbox"><div class="wqtabs">' + tabs + "</div>" +
       '<div class="wqpg" dir="ltr"><section class="wqp p1" dir="rtl" lang="ar">' + p1 + '</section><section class="wqp p2">' + p2 + '</section><section class="wqp p3">' + p3 + "</section></div></div>" +
       '<div id="wqlv" class="wqlv">' + (w.fin ? '<p class="wqg done center">✦ ' + esc(tr("waq_fin")) + "</p>" : wqLv()) + "</div>" +
@@ -637,8 +640,7 @@
     var lay = S.hlay === "list" ? "list" : "grid"
     return '<div class="hpanel"><div class="hptg" role="group"><button data-act="hlay" data-v="grid" class="' + (lay === "grid" ? "on" : "") + '" aria-label="grid">' + ic("grid_view") + '</button><button data-act="hlay" data-v="list" class="' + (lay === "list" ? "on" : "") + '" aria-label="list">' + ic("view_list") + "</button></div>" +
       '<div class="hpg ' + lay + '"><button class="hikrow hcard" data-act="hikmat"><span id="hph" class="hph2" aria-label="' + esc(tr("hikmat")) + '"><span></span><span></span></span>' + ic("chevron_right") + "</button>" +
-      '<button class="hikrow hcard wqc' + (w.on && !w.fin ? " act" : "") + '" data-act="waqOpen"><span class="hct"><b>' + ic("bedtime") + " " + esc(tr("waq_t")) + "</b><small>" +
-      esc(w.on ? tr("waq_lv") + " " + w.level + (w.debt ? " · " + tr("waq_debt") + " " + w.debt : "") : tr("waq_new")) + "</small></span>" + ic("chevron_right") + "</button></div></div>"
+      '<button class="hikrow hcard wqc' + (w.on && !w.fin ? " act" : "") + '" data-act="waqOpen"><span class="hct"><b>' + ic("bedtime") + " " + esc(tr("waq_s")) + "</b></span>" + ic("chevron_right") + "</button></div></div>"
   }
   // umumiy soat: 99 hisobi va header g'ildiraklari bir ritmda (barmoq tegsa to'xtaydi, qo'yilgach 3s dan keyin boshidan)
   var CLK = { tc: 0, block: 0 }
@@ -1834,7 +1836,7 @@
         if (gi === 2) cols += '<span class="dg-comma">,</span>'
       }
       var dm = U.dmode || (ds && ds.mode) || "goal"
-      var seg = '<div class="seg"><button data-act="dmode" data-v="goal" class="' + (dm === "goal" ? "on" : "") + '">' + esc(tr("mode_goal")) + '</button><button data-act="dmode" data-v="free" class="' + (dm === "free" ? "on" : "") + '">' + esc(tr("mode_free")) + "</button></div>"
+      var seg = '<div class="seg"><button data-act="dmode" data-v="goal" class="' + (dm === "goal" ? "on" : "") + '">' + ic("trending_up") + " " + esc(tr("mode_goal")) + '</button><button data-act="dmode" data-v="free" class="' + (dm === "free" ? "on" : "") + '">' + ic("all_inclusive") + " " + esc(tr("mode_free")) + "</button></div>"
       if (dm === "free") return '<div class="card stack goalbox">' + seg + '' + "" + dvSeg + dgRow + '<button class="btn success block" data-act="saveDaily">' + esc(tr("save")) + "</button></div>"
       return '<div class="card stack goalbox">' + seg + '<div class="goalhead"><span>' + esc(tr("target_lbl")) + '</span><b id="goalVal">' + fmtNum(gv) + "</b></div>" +
         '<div class="digits" id="digits" dir="ltr">' + cols + "</div>" +
@@ -1848,7 +1850,7 @@
     dailyTick()
     var target = ds.target, step = ds.step || 1, draft = ds.draft || 0, owed = ds.owedDays || 0
     hgShown = hgFallen(ds)
-    var h = '<div class="daily' + (S.dglass && isPrem() ? " dglass" : "") + '"><div class="dhead"><h1>📿 ' + esc(tr("daily")) + '</h1><button class="gear' + (U.dailyMenu ? " on" : "") + '" data-act="dailyMenu" aria-label="Settings">' + ic("settings") + '</button></div>'
+    var h = '<div class="daily' + (S.dglass && isPrem() ? " dglass" : "") + '"><div class="dhead"><h1>📿 ' + esc(tr("daily")) + ' <span class="dmi">•' + ic(ds.mode === "free" ? "all_inclusive" : "trending_up") + '</span></h1><button class="gear' + (U.dailyMenu ? " on" : "") + '" data-act="dailyMenu" aria-label="Settings">' + ic("settings") + '</button></div>'
     if (U.dailyMenu) h += '<div style="margin-bottom:10px">' + formHtml() + "</div>"
     if (owed > 0) h += '<p class="owed center">' + esc(tr("owed").replace("{n}", owed)) + "</p>"
     var tbv = S.dview === "tb"
@@ -2232,6 +2234,7 @@
         '<button data-act="more" data-v="mode">' + ic("contrast") + " " + esc(tr("mode_t")) + " · " + esc(tr("th_" + S.theme)) + "</button>" +
         '<button data-act="more" data-v="theme">' + ic("palette") + " " + esc(tr("theme_t")) + " · " + esc(tr(cg)) + "</button>" +
         '<button data-act="more" data-v="lang">' + ic("translate") + " " + esc(tr("lang")) + " · " + LANG_NAMES[S.lang] + "</button>" +
+        '<div class="rrow"><span class="fxi">' + ic("auto_awesome") + "</span><span>" + esc(tr("fx_t")) + '</span><button class="tgl' + (S.fx === false ? "" : " on") + '" data-act="fxt" aria-label="fx"><i></i></button></div>' +
         '<div class="rrow" data-act="more" data-v="remind">' + ic("notifications") + "<span>" + esc(tr("remind")) + '</span><button class="tgl' + (S.remind === false ? "" : " on") + '" data-act="rmt" data-v="all" aria-label="remind"><i></i></button></div></div>'
     }
     if (U.more === "pmx") return pmxHtml()
@@ -2579,6 +2582,7 @@
     }
     hpStart(); phStart(); nhStart(); tbInit(); mediaInit(); themeInit(); hswInit(); mdInit(); hlStart()
     nsUpdate()
+    fxLayout()
     miniSync()
     if (U.tab === "more" && U.more === "settings") gText()
     if (U.tab === "more" && U.more === "mode") startGlobe()
@@ -4168,6 +4172,26 @@
     }
   }
 
+  // ===== effektlar soati: 11s yoyiq / 11s qisqa =====
+  var FXP = 11000, FX = { c: false, t: null }
+  function fxOn() { return S.fx !== false && !(window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches) }
+  function fxLayout() {
+    var hd = document.getElementById("hdr"), br = document.getElementById("home")
+    if (hd && br) hd.style.width = FX.c ? (br.offsetWidth + 30) + "px" : ""
+    var sb = document.getElementById("sbox"), nt = document.querySelector(".nh-t")
+    if (sb && nt) {
+      var rtl = document.documentElement.dir === "rtl", a = nt.getBoundingClientRect(), b = sb.getBoundingClientRect()
+      sb.style.setProperty("--sw", Math.round(a.width) + "px")
+      sb.style.setProperty("--sx", Math.round(rtl ? a.right - b.right : a.left - b.left) + "px")
+    }
+  }
+  function fxSet(c) { FX.c = c; document.documentElement.classList.toggle("fxc", c); fxLayout() }
+  function fxLoop() {
+    clearTimeout(FX.t)
+    if (!fxOn()) { fxSet(false); return }
+    FX.t = setTimeout(function () { if (!document.hidden) fxSet(!FX.c); fxLoop() }, FXP)
+  }
+  window.addEventListener("resize", fxLayout)
   function initHeader() {
     var langLabels = []
     var SHORT = { uz: "O'zbek", uz_kr: "Ўзбек", uz_new: "Özbek", ru: "Русский", en: "English", ar: "العربية", tr: "Türkçe", id: "Indonesia", zh: "中文", hi: "हिन्दी", es: "Español" }
@@ -4195,6 +4219,7 @@
       } else if (spinning) { wheels.lang.spinEnd(); wheels.theme.spinEnd(); spinning = false }
     }
     requestAnimationFrame(hs)
+    fxLoop()
   }
 
   // ====================
@@ -4256,7 +4281,9 @@
       U.namesOpen = !U.namesOpen
       var ng2 = document.getElementById("ngrid")
       if (ng2) ng2.classList.toggle("open", U.namesOpen)
-      el.innerHTML = ic(U.namesOpen ? "expand_less" : "expand_more") + " <span>" + esc(tr(U.namesOpen ? "mood_less" : "mood_all")) + "</span>"
+      var nt2 = document.getElementById("ntog"), nf2 = document.getElementById("nfab")
+      if (nt2) nt2.innerHTML = ic(U.namesOpen ? "expand_less" : "expand_more") + " <span>" + esc(tr(U.namesOpen ? "mood_less" : "mood_all")) + "</span>"
+      if (nf2) nf2.innerHTML = ic(U.namesOpen ? "expand_less" : "expand_more")
       nsUpdate(); setTimeout(nsUpdate, 250); setTimeout(nsUpdate, 520)
     }
     else if (act === "hlay") { S.hlay = v === "list" ? "list" : "grid"; save(); render() }
@@ -4308,6 +4335,7 @@
     }
     else if (act === "stDev") { clearTimeout(ST.devT); ST.dev++; ST.devT = setTimeout(function () { ST.dev = 0 }, 1500); if (ST.dev >= 5) { ST.dev = 0; U.tab = "more"; U.more = "pmx"; render(); window.scrollTo(0, 0) } }
     else if (act === "dview") { S.dview = v; save(); render() }
+    else if (act === "fxt") { S.fx = S.fx === false; save(); fxLoop(); render() }
     else if (act === "dglass") { if (!isPrem()) pToast(tr("pm_need")); else { S.dglass = !S.dglass; save(); render() } }
     else if (act === "qbg") { if (isPrem()) { S.qbg = +v; save(); render() } }
     else if (act === "premGo") { document.getElementById("toast").className = "toast"; U.tab = "more"; U.more = "premium"; U.hikBack = false; U.detail = 0; render(); window.scrollTo(0, 0) }
@@ -4438,6 +4466,7 @@
     homeLink.addEventListener("click", function (ev) {
       ev.preventDefault()
       haptic("light")
+      if (FX.c) { fxSet(false); fxLoop(); return }
       U.tab = "names"; U.detail = 0; U.q = ""; U.more = "menu"; U.moodPick = ""; U.dailyMenu = false
       render()
     })
@@ -4550,6 +4579,8 @@
       var sq = !!U.q.trim() || U.nf !== "all", ng = document.getElementById("ngrid"), nt = document.getElementById("ntog"), sbx = document.getElementById("sbox")
       if (ng) ng.classList.toggle("open", U.namesOpen || sq)
       if (nt) nt.hidden = sq
+      var nfb = document.getElementById("nfab"); if (nfb) nfb.hidden = sq
+      fxLayout()
       if (sbx) sbx.classList.toggle("has", !!U.q)
       nsUpdate()
     }

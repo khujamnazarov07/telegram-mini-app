@@ -1661,3 +1661,29 @@ html[data-theme="light"] .nav button { color: #4a4350; }
 html:not(#_) .nav button.on { color: var(--accent-text, #fff); }
 html:not(#_)[data-theme="light"] .daily.dglass .hgstage { --tx: #14302a; --tx2: rgba(20, 48, 42, .8); }
 html:not(#_)[data-theme="light"] .daily.dglass .hgstage .done { color: #14302a; text-shadow: 0 1px 2px rgba(255, 255, 255, .6); }
+
+/* v174 effektlar */
+.hdr { width: 100%; transition: width 1s cubic-bezier(.65,0,.35,1); overflow: hidden; }
+.hdr .tools { max-width: 400px; overflow: hidden; transition: max-width 1s cubic-bezier(.65,0,.35,1), opacity .6s; }
+html.fxc .hdr .tools { max-width: 0; opacity: 0; pointer-events: none; }
+html.fxc .hdr { border-end-end-radius: 22px; border-start-end-radius: 22px; }
+.nhead { position: relative; }
+.nh-t { position: relative; z-index: 2; }
+.nhead .sbox .search { position: relative; z-index: 1; transition: width 1s cubic-bezier(.65,0,.35,1), transform 1s cubic-bezier(.65,0,.35,1); }
+.nhead .sbox .sgo { z-index: 3; }
+html.fxc .nhead .sbox:not(.has):not(:focus-within) .search { width: var(--sw, 40%); transform: translateX(var(--sx, 0)); }
+html.fxc .nhead .sbox:not(.has):not(:focus-within) .ph { opacity: 0; }
+.fchip { transition: padding .8s, gap .8s; }
+.fchip span { display: inline-block; max-width: 140px; overflow: hidden; white-space: nowrap; vertical-align: middle; transition: max-width .8s cubic-bezier(.65,0,.35,1), opacity .6s; }
+html.fxc .flt .fchip span { max-width: 0; opacity: 0; }
+html.fxc .flt .fchip { gap: 0; padding-inline: 11px; }
+.nfab { position: fixed; z-index: 6; left: 50%; transform: translateX(-50%); bottom: calc(var(--nav-h) + env(safe-area-inset-bottom) + 10px); width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center; color: var(--accent); background: color-mix(in srgb, var(--card) 70%, transparent); -webkit-backdrop-filter: blur(14px) saturate(1.4); backdrop-filter: blur(14px) saturate(1.4); border: 1.5px solid color-mix(in srgb, var(--accent) 55%, var(--line)); box-shadow: 0 4px 14px rgba(0,0,0,.18); padding: 0; }
+.nfab:active { transform: translateX(-50%) scale(.92); }
+.nfab[hidden] { display: none; }
+.nfab .msi { font-size: 26px; }
+#ntog { display: none; }
+.dmi { display: inline-flex; align-items: center; gap: 4px; color: var(--accent); font-weight: 400; }
+.dmi .msi { font-size: 22px; }
+.seg button .msi { font-size: 18px; vertical-align: -4px; }
+.rrow .fxi { display: contents; }
+.brand .bt, .brand .b1, .brand .b2 { white-space: nowrap; }
