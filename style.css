@@ -1616,3 +1616,34 @@ html.tying .nav { display: none; }
 html.tying .nav, html.tying #nav, html.tying #navbg { display: none !important; }
 .chstage .cspin { flex: none; width: 26px; height: 26px; margin: 0 3px; border-radius: 50%; border: 3px solid color-mix(in srgb, var(--accent) 25%, transparent); border-top-color: var(--accent); animation: spin .8s linear infinite; }
 .chstage.up { opacity: .95; }
+
+/* v170 iqtibos sozlamalari */
+.qsetw { display: grid; grid-template-rows: 0fr; transition: grid-template-rows .3s ease, opacity .25s; opacity: 0; overflow: hidden; }
+.qsetw.open { grid-template-rows: 1fr; opacity: 1; }
+.qsetin { min-height: 0; overflow: hidden; display: flex; flex-direction: column; gap: 8px; }
+.qsetw.open .qsetin { padding-bottom: 8px; }
+.shead > .btn.circ.on { background: var(--accent) !important; color: #fff; border-color: transparent !important; }
+html[data-theme] body .card.quote.qbg1 .qt, html[data-theme] body .card.quote.qbg2 .qt, html[data-theme] body .card.quote.qbg3 .qt, html[data-theme] body .card.quote.qbg2 strong { text-shadow: 0 1px 3px rgba(0, 0, 0, .5); }
+
+/* v171 yumshoq matnlar */
+.obsoft { margin: 6px 4px 14px; text-align: center; font-size: 15px; line-height: 1.5; color: var(--text); opacity: .92; }
+.obsoft b { color: var(--accent); font-weight: 700; }
+
+/* v171 kontrast: mavsumiy fon + oyna */
+html[data-bg="season"][data-bg="season"][data-bg="season"][data-theme="light"] { --card: rgb(255 255 255 / max(.5, calc(.42 * var(--gk, 1)))); --text: #2a1f26; --hint: #5a4651; }
+html[data-bg="season"][data-bg="season"][data-bg="season"][data-theme="dark"] { --card: rgb(12 16 28 / max(.52, calc(.46 * var(--gk, 1)))); --text: #f6eef1; --hint: #d6c6cd; }
+html[data-bg="season"][data-gender="male"][data-theme="light"][data-theme="light"] { --hint: #55555e; }
+html[data-bg="season"] .num, html[data-bg="season"] .nhn { text-shadow: none; }
+html[data-bg="season"][data-theme="light"] .nhn { color: #a62a52; }
+html[data-bg="season"][data-theme="dark"] .nhn { color: #ffc2d6; }
+html[data-bg="season"][data-bg="season"][data-theme="dark"][data-theme="dark"]:is([data-gender="female"], [data-gender="male"]) { --card: rgb(12 16 28 / max(.58, calc(.5 * var(--gk, 1)))); --text: #f8f0f3; --hint: #e0d2d9; }
+html[data-bg="season"][data-bg="season"][data-theme="light"][data-theme="light"]:is([data-gender="female"], [data-gender="male"]) { --card: rgb(255 255 255 / max(.56, calc(.46 * var(--gk, 1)))); --text: #261b22; --hint: #54424d; }
+html[data-bg="season"][data-theme="dark"] .stabs button.on, html[data-bg="season"][data-theme="dark"] .seg button.on { color: #1a0f13; }
+html[data-bg="season"][data-bg="season"][data-gender][data-theme="dark"][data-theme="dark"] :is(.card, .name-card, .fchip:not(.on), .btn:not(.success):not(.primary), .search, .chip, .mood-card, .list > button, .list > .rrow, .gear, .act, .hikrow, .wheel, .num-btn, .dg) { background: rgb(14 14 26 / max(.56, calc(.5 * var(--gk, 1)))); }
+html[data-bg="season"][data-bg="season"][data-gender][data-theme="light"][data-theme="light"] :is(.card, .name-card, .fchip:not(.on), .btn:not(.success):not(.primary), .search, .chip, .mood-card, .list > button, .list > .rrow, .gear, .act, .hikrow, .wheel, .num-btn, .dg) { background: rgb(255 255 255 / max(.5, calc(.42 * var(--gk, 1)))); }
+html[data-theme="dark"] .daily.dglass .hgstage { background: rgb(8 22 20 / max(.5, calc(.46 * var(--gk, 1)))); }
+.daily.dglass .hgstage { --tx2: rgba(18, 54, 43, .8); }
+html[data-theme="dark"] .daily.dglass .hgstage { --tx2: rgba(226, 255, 242, .88); }
+html[data-gender="female"] .daily .hgstage { --tx2: rgba(58, 40, 48, .82); }
+html[data-gender="female"][data-theme="dark"] .daily .hgstage { --tx2: rgba(247, 232, 236, .88); }
+html[data-gender="female"][data-theme="dark"] :is(.fchip.on, .chip.on, .seg button.on, .stabs button.on, .tabs button.on) { color: #2b1220; }

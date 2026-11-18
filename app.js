@@ -36,16 +36,16 @@
     waq_t: "Voqea challenji|Воқеа челленжи|Челлендж «Аль-Вакиа»|Al-Waqi'ah challenge|تحدي الواقعة|Vâkıa challenge'ı|Tantangan Al-Waqi'ah|瓦吉亚挑战|अल-वाक़िआ चैलेंज|Reto Al-Waqi'ah",
     waq_new: "Yangi · boshlash|Янги · бошлаш|Новый · начать|New · start|جديد · ابدأ|Yeni · başla|Baru · mulai|新 · 开始|नया · शुरू करें|Nuevo · empezar",
     waq_lv: "Daraja|Даража|Уровень|Level|المستوى|Seviye|Level|等级|स्तर|Nivel",
-    waq_debt: "Qarz|Қарз|Долг|Debt|دَين|Borç|Utang|欠|बकाया|Deuda",
+    waq_debt: "Qoldirilgan|Қолдирилган|Пропущено|Missed|فائت|Kaçan|Terlewat|待补|छूटा|Pendiente",
     waq_dw: "kun|кун|дн.|days|يوم|gün|hari|天|दिन|días",
     waq_today: "Bugun|Бугун|Сегодня|Today|اليوم|Bugün|Hari ini|今天|आज|Hoy",
     waq_left: "Qoldi|Қолди|Осталось|Left|المتبقي|Kalan|Sisa|剩余|शेष|Quedan",
     waq_start: "Boshlash|Бошлаш|Начать|Start|ابدأ|Başla|Mulai|开始|शुरू करें|Empezar",
-    waq_rules: "40 kunlik challenj. Daraja = kuniga o'qiladigan marta: 1-kun 1 ta, 2-kun 2 ta … 40-kun 40 ta. O'qilmagan kun qarzga yoziladi va qarz kuni joriy daraja soniga teng. Avval qarz kunlari, oxirida bugun yopiladi. Maqsadga yetgach, ortiqcha aytib bo'lmaydi. Darajaga yetmagan qoldiq kun oxirida o'chadi.|40 кунлик челлендж. Даража = кунига ўқиладиган марта: 1-кун 1 та, 2-кун 2 та … 40-кун 40 та. Ўқилмаган кун қарзга ёзилади ва қарз куни жорий даража сонига тенг. Аввал қарз кунлари, охирида бугун ёпилади. Мақсадга етгач, ортиқча айтиб бўлмайди. Даражага етмаган қолдиқ кун охирида ўчади.|40-дневный челлендж. Уровень = сколько раз читать в день: 1-й день 1, 2-й день 2 … 40-й день 40. Пропущенный день становится долгом, равным текущему уровню. Сначала закрывается долг, последним — сегодняшний день. После цели читать сверх нормы нельзя. Остаток меньше уровня в конце дня сгорает.|A 40-day challenge. Level = readings per day: day 1 is 1, day 2 is 2 … day 40 is 40. A missed day becomes a debt day equal to your current level. Debt days are closed first, today last. Once the goal is reached, extra reading is locked. A remainder below the level is dropped at the end of the day.|تحدٍّ لمدة 40 يومًا. المستوى = عدد مرات القراءة يوميًا: اليوم 1 مرة، اليوم 2 مرتان … اليوم 40 أربعون مرة. اليوم الفائت يصبح دَينًا بقدر المستوى الحالي. يُغلق الدَّين أولًا ثم اليوم الحالي، وبعد بلوغ الهدف لا تُسمح الزيادة. ما نقص عن المستوى يُحذف في نهاية اليوم.|40 günlük meydan okuma. Seviye = günlük okuma sayısı: 1. gün 1, 2. gün 2 … 40. gün 40. Okunmayan gün, mevcut seviye kadar borç olur. Önce borç, en son bugün kapanır. Hedefe ulaşınca fazlası kilitlenir. Seviyeye yetmeyen kalan gün sonunda silinir.|Tantangan 40 hari. Level = jumlah bacaan per hari: hari 1 = 1, hari 2 = 2 … hari 40 = 40. Hari terlewat menjadi utang sebesar level saat ini. Utang ditutup dulu, hari ini terakhir. Setelah target tercapai, tambahan dikunci. Sisa di bawah level dihapus di akhir hari.|40天挑战。等级 = 每天诵读次数：第1天1次，第2天2次……第40天40次。漏掉的一天记为欠天，数量等于当前等级。先还欠天，最后完成今天。达标后不能再多诵。不足等级的余数在当天结束时清零。|40 दिन की चुनौती। स्तर = प्रतिदिन पढ़ने की संख्या: दिन 1 में 1, दिन 2 में 2 … दिन 40 में 40। छूटा दिन मौजूदा स्तर के बराबर बकाया बनता है। पहले बकाया, अंत में आज पूरा होता है। लक्ष्य पूरा होने पर अतिरिक्त पढ़ना बंद हो जाता है। स्तर से कम बचा हिस्सा दिन के अंत में हट जाता है।|Reto de 40 días. Nivel = lecturas por día: día 1 son 1, día 2 son 2 … día 40 son 40. Un día perdido se vuelve deuda igual al nivel actual. Primero se cierra la deuda y al final hoy. Al llegar a la meta, no se permite leer de más. El resto menor al nivel se descarta al final del día.",
-    waq_done: "Bugungi daraja bajarildi|Бугунги даража бажарилди|Сегодняшний уровень выполнен|Today's level completed|اكتمل مستوى اليوم|Bugünün seviyesi tamamlandı|Level hari ini selesai|今日等级已完成|आज का स्तर पूरा हुआ|Nivel de hoy completado",
-    waq_fin: "Challenj yakunlandi! Alloh qabul qilsin|Челлендж якунланди! Аллоҳ қабул қилсин|Челлендж завершён! Да примет Аллах|Challenge complete! May Allah accept|اكتمل التحدي! تقبّل الله|Meydan okuma tamamlandı! Allah kabul etsin|Tantangan selesai! Semoga Allah menerima|挑战完成！愿真主接受|चुनौती पूरी हुई! अल्लाह क़बूल करे|¡Reto completado! Que Allah lo acepte",
+    waq_rules: "40 kunlik challenj. Daraja = kuniga o'qiladigan marta: 1-kun 1 ta, 2-kun 2 ta … 40-kun 40 ta. O'qilmagan kun «qoldirilgan kun» bo'lib saqlanadi va joriy daraja soniga teng bo'ladi — xohlagan paytingizda to'ldirib olasiz. Avval qoldirilgan kunlar, oxirida bugun yopiladi. Maqsadga yetgach, ortig'i kerak emas. Darajaga yetmagan qoldiq kun oxirida o'chadi.|40 кунлик челлендж. Даража = кунига ўқиладиган марта: 1-кун 1 та, 2-кун 2 та … 40-кун 40 та. Ўқилмаган кун «қолдирилган кун» бўлиб сақланади ва жорий даража сонига тенг бўлади — хоҳлаган пайтингизда тўлдириб оласиз. Аввал қолдирилган кунлар, охирида бугун ёпилади. Мақсадга етгач, ортиғи керак эмас. Даражага етмаган қолдиқ кун охирида ўчади.|40-дневный челлендж. Уровень = сколько раз читать в день: 1-й день 1, 2-й день 2 … 40-й день 40. Пропущенный день не пропадает: он сохраняется как «пропущенный» и равен текущему уровню — восполните, когда будет удобно. Сначала закрываются пропущенные дни, последним — сегодняшний. Достигнув цели, читать больше не нужно. Остаток меньше уровня в конце дня сгорает.|A 40-day challenge. Level = readings per day: day 1 is 1, day 2 is 2 … day 40 is 40. A skipped day is simply kept as a missed day equal to your current level; make it up whenever it suits you. Missed days are completed first, today last. Once the goal is reached, there's no need to read more. A remainder below the level is dropped at the end of the day.|تحدٍّ لمدة 40 يومًا. المستوى = عدد مرات القراءة يوميًا: اليوم 1 مرة، اليوم 2 مرتان … اليوم 40 أربعون مرة. اليوم الفائت يُحفظ لك بقدر المستوى الحالي، وتعوّضه متى شئت. تُكمَل الأيام الفائتة أولًا ثم اليوم الحالي، وبعد بلوغ الهدف لا حاجة للمزيد. ما نقص عن المستوى يُحذف في نهاية اليوم.|40 günlük meydan okuma. Seviye = günlük okuma sayısı: 1. gün 1, 2. gün 2 … 40. gün 40. Okunmayan gün, mevcut seviye kadar “kaçan gün” olarak saklanır; dilediğin zaman tamamlayabilirsin. Önce kaçan günler, en son bugün kapanır. Hedefe ulaşınca fazlasına gerek kalmaz. Seviyeye yetmeyen kalan gün sonunda silinir.|Tantangan 40 hari. Level = jumlah bacaan per hari: hari 1 = 1, hari 2 = 2 … hari 40 = 40. Hari yang terlewat disimpan sebesar level saat ini, kapan pun Anda siap bisa dilengkapi. Hari terlewat ditutup dulu, hari ini terakhir. Setelah target tercapai, tidak perlu menambah lagi. Sisa di bawah level dihapus di akhir hari.|40天挑战。等级 = 每天诵读次数：第1天1次，第2天2次……第40天40次。漏掉的一天会保留为“待补天”，数量等于当前等级，您可随时补上。先补待补天，最后完成今天。达标后无需再多诵。不足等级的余数在当天结束时清零。|40 दिन की चुनौती। स्तर = प्रतिदिन पढ़ने की संख्या: दिन 1 में 1, दिन 2 में 2 … दिन 40 में 40। छूटा दिन “छूटे दिन” के रूप में सुरक्षित रहता है, जो मौजूदा स्तर के बराबर होता है। जब चाहें पूरा कर लें। पहले छूटे दिन, अंत में आज पूरा होता है। लक्ष्य पूरा होने पर और पढ़ने की ज़रूरत नहीं। स्तर से कम बचा हिस्सा दिन के अंत में हट जाता है।|Reto de 40 días. Nivel = lecturas por día: día 1 son 1, día 2 son 2 … día 40 son 40. Un día que se pasa queda guardado como día pendiente, igual al nivel actual; puedes ponerlo al día cuando te venga bien. Primero se cierran los pendientes y al final hoy. Al llegar a la meta, no hace falta leer más. El resto menor al nivel se descarta al final del día.",
+    waq_done: "Bugungi daraja yakunlandi, alhamdulillah 🤍|Бугунги даража якунланди, алҳамдулиллаҳ 🤍|Уровень на сегодня завершён, альхамдулиллях 🤍|Today's level is complete, alhamdulillah 🤍|اكتمل مستوى اليوم، الحمد لله 🤍|Bugünün seviyesi tamamlandı, elhamdülillah 🤍|Level hari ini selesai, alhamdulillah 🤍|今日等级已完成，全赞归真主 🤍|आज का स्तर पूरा हुआ, अल्हम्दुलिल्लाह 🤍|El nivel de hoy está completo, alhamdulillah 🤍",
+    waq_fin: "Challenj yakunlandi! Alloh qabul qilsin ✨|Челлендж якунланди! Аллоҳ қабул қилсин ✨|Челлендж завершён! Да примет Аллах ✨|Challenge complete! May Allah accept ✨|اكتمل التحدي! تقبّل الله ✨|Meydan okuma tamamlandı! Allah kabul etsin ✨|Tantangan selesai! Semoga Allah menerima ✨|挑战完成！愿真主接受 ✨|चुनौती पूरी हुई! अल्लाह क़बूल करे ✨|¡Reto completado! Que Allah lo acepte ✨",
     waq_reset: "Qaytadan boshlash|Қайтадан бошлаш|Начать заново|Start over|ابدأ من جديد|Baştan başla|Mulai ulang|重新开始|फिर से शुरू करें|Empezar de nuevo",
-    waq_resetq: "Barcha natija o'chadi. Qaytadan boshlaysizmi?|Барча натижа ўчади. Қайтадан бошлайсизми?|Весь прогресс будет удалён. Начать заново?|All progress will be erased. Start over?|سيتم حذف كل التقدم. هل تبدأ من جديد؟|Tüm ilerleme silinecek. Baştan başlansın mı?|Semua progres akan dihapus. Mulai ulang?|所有进度将被清除。重新开始？|सारी प्रगति मिट जाएगी। फिर से शुरू करें?|Se borrará todo el progreso. ¿Empezar de nuevo?",
+    waq_resetq: "Natijalar tozalanadi. Yangidan boshlaymizmi?|Натижалар тозаланади. Янгидан бошлаймизми?|Прогресс будет очищен. Начнём заново?|Your progress will be cleared. Shall we start fresh?|سيُمسح التقدم. هل نبدأ من جديد؟|İlerleme temizlenecek. Baştan başlayalım mı?|Progres akan dibersihkan. Mulai dari awal?|进度将被清除，要重新开始吗？|प्रगति साफ़ हो जाएगी। क्या नए सिरे से शुरू करें?|Se borrará el progreso. ¿Empezamos de nuevo?",
     t_plain: "Oddiy|Оддий|Обычный|Plain|عادي|Normal|Biasa|普通|सामान्य|Normal",
     t_seas: "Mavsumiy|Мавсумий|Сезонный|Seasonal|موسمي|Mevsimlik|Musiman|季节|मौसमी|Estacional",
     s_spr: "Bahor|Баҳор|Весна|Spring|الربيع|İlkbahar|Musim semi|春季|वसंत|Primavera",
@@ -67,7 +67,7 @@
     hikmat: "Kun hikmati|Кун ҳикмати|Мудрость дня|Wisdom of the day|حكمة اليوم|Günün hikmeti|Hikmah hari ini|每日智慧|आज की हिकमत|Sabiduría del día",
     more_t: "Ko'proq|Кўпроқ|Ещё|More|المزيد|Daha fazla|Selengkapnya|更多|और देखें|Más",
     favs: "Sevimlilar|Севимлилар|Избранное|Favorites|المفضلة|Favoriler|Favorit|收藏|पसंदीदा|Favoritos",
-    favs_empty: "Hali belgilangan ism yo'q|Ҳали белгиланган исм йўқ|Пока нет отмеченных имён|No favorites yet|لا توجد أسماء مفضلة بعد|Henüz favori yok|Belum ada favorit|暂无收藏|अभी कोई पसंदीदा नहीं|Aún no hay favoritos",
+    favs_empty: "Yoqqan ismlaringiz shu yerda yig'iladi 🤍|Ёққан исмларингиз шу ерда йиғилади 🤍|Здесь соберутся имена, которые тронут ваше сердце 🤍|Names that touch your heart will gather here 🤍|هنا تجتمع الأسماء التي تمسّ قلبك 🤍|Gönlüne dokunan isimler burada toplanacak 🤍|Nama-nama yang menyentuh hati Anda akan terkumpul di sini 🤍|触动您心灵的名字会汇集在这里 🤍|जो नाम आपके दिल को छू जाएँ, वे यहाँ जमा होंगे 🤍|Aquí se reunirán los nombres que toquen tu corazón 🤍",
     no_result: "Hech narsa topilmadi|Ҳеч нарса топилмади|Ничего не найдено|Nothing found|لم يتم العثور على شيء|Sonuç yok|Tidak ditemukan|没有结果|कुछ नहीं मिला|Sin resultados",
     note: "Eslatma|Эслатма|Заметка|Note|ملاحظة|Not|Catatan|备注|नोट|Nota",
     note_ph: "Shaxsiy eslatma yozing...|Шахсий эслатма ёзинг...|Напишите личную заметку...|Write a personal note...|اكتب ملاحظة شخصية...|Kişisel not yazın...|Tulis catatan pribadi...|写下个人备注...|व्यक्तिगत नोट लिखें...|Escribe una nota personal...",
@@ -92,11 +92,15 @@
     total_n: "Jami|Жами|Всего|Total|المجموع|Toplam|Total|总计|कुल|Total",
     cycle_n: "Davra|Давра|Цикл|Cycle|الدورة|Döngü|Siklus|循环|चक्र|Ciclo",
     free_hint: "+ bosing yoki qumsoatning past/yuqorisini yonga tortib qo'yib yuboring|+ босинг ёки қумсоатнинг паст/юқорисини ёнга тортиб қўйиб юборинг|Нажимайте + или потяните низ/верх песочных часов вбок и отпустите|Tap + or pull the top/bottom of the hourglass sideways and let go|اضغط + أو اسحب أعلى/أسفل الساعة الرملية جانبًا ثم أفلتها|+ tuşuna basın veya kum saatinin üstünü/altını yana çekip bırakın|Ketuk + atau tarik atas/bawah jam pasir ke samping lalu lepaskan|点按 + 或将沙漏上/下端向侧面拉动后松手|+ दबाएँ या रेतघड़ी का ऊपरी/निचला हिस्सा बगल में खींचकर छोड़ दें|Toca + o tira de la parte superior/inferior del reloj hacia un lado y suelta",
-    needed: "Kerak|Керак|Нужно|Needed|مطلوب|Gerekli|Diperlukan|需要|आवश्यक|Necesario",
-    done_n: "Bajarildi|Бажарилди|Выполнено|Done|تم|Tamamlandı|Selesai|已完成|पूर्ण|Hecho",
+    needed: "Maqsad|Мақсад|Цель|Goal|الهدف|Hedef|Target|目标|लक्ष्य|Meta",
+    done_n: "Aytildi|Айтилди|Прочитано|Said|تمّت|Getirildi|Terbaca|已诵|पढ़ा|Dicho",
     left_n: "Qoldi|Қолди|Осталось|Remaining|متبقي|Kalan|Tersisa|剩余|शेष|Restante",
-    owed: "{n} kunlik qarzingiz bor!|{n} кунлик қарзингиз бор!|У вас долг за {n} дн.!|You have {n} day(s) overdue!|لديك {n} يوم متأخر!|{n} günlük borcunuz var!|Anda memiliki tunggakan {n} hari!|您有 {n} 天的欠款！|आपके पास {n} दिन का बकाया है!|¡Tiene {n} día(s) atrasado(s)!",
-    cong: "Bugungi vazifa bajarildi! Barakalla!|Бугунги вазифа бажарилди! Баракалла!|Сегодня выполнено! Молодец!|Today's task is done! Well done!|تم إنجاز مهمة اليوم! أحسنت!|Bugünkü görev tamamlandı! Aferin!|Tugas hari ini selesai! Kerja bagus!|今天的任务已完成！做得好！|आज का काम पूरा! शाबाश!|¡Tarea de hoy completa! ¡Bien hecho!",
+    owed: "{n} kun qolib ketdi. Xafa bo'lmang, qulay paytda to'ldirib olamiz 🌿|{n} кун қолиб кетди. Хафа бўлманг, қулай пайтда тўлдириб оламиз 🌿|Пропущено дней: {n}. Не переживайте, восполним в удобное время 🌿|{n} day(s) are waiting. No worries, we'll make them up whenever you like 🌿|تبقّى {n} يوم. لا بأس، نعوّضها في الوقت المناسب 🌿|{n} gün bekliyor. Üzülme, uygun olduğunda birlikte tamamlarız 🌿|Ada {n} hari yang tertinggal. Tidak apa-apa, kita lengkapi saat Anda siap 🌿|有 {n} 天还没补上。不用着急，方便时再补就好 🌿|{n} दिन छूटे हैं। कोई बात नहीं, सुविधा से पूरे कर लेंगे 🌿|Quedan {n} día(s) pendientes. Tranquilo, los ponemos al día cuando quieras 🌿",
+    cong: "Alhamdulillah, bugungi salavotlar tugallandi 🤍|Алҳамдулиллаҳ, бугунги салавотлар тугалланди 🤍|Альхамдулиллях, сегодняшние салаваты завершены 🤍|Alhamdulillah, today's salawat are complete 🤍|الحمد لله، تمّت صلواتك على النبي اليوم 🤍|Elhamdülillah, bugünkü salavatlar tamamlandı 🤍|Alhamdulillah, shalawat hari ini sudah selesai 🤍|全赞归真主，今天的赞圣已完成 🤍|अल्हम्दुलिल्लाह, आज की सलावात पूरी हुई 🤍|Alhamdulillah, los salawat de hoy están completos 🤍",
+    cong2: "Ma shaa Alloh, bugun ham sabr bilan davom etdingiz ✨|Маша Аллоҳ, бугун ҳам сабр билан давом этдингиз ✨|Ма шаа Аллах, и сегодня вы продолжили с терпением ✨|Ma shaa Allah, you kept going with patience today ✨|ما شاء الله، واصلت اليوم بصبر ✨|Maşallah, bugün de sabırla devam ettin ✨|Masya Allah, hari ini pun Anda tetap sabar melanjutkan ✨|玛莎安拉，您今天也耐心地坚持了 ✨|माशा अल्लाह, आज भी आपने सब्र के साथ जारी रखा ✨|Masha Allah, hoy también seguiste con paciencia ✨",
+    cong3: "Alloh rozi bo'lsin, salavotlaringiz qabul bo'lsin 🌸|Аллоҳ рози бўлсин, салавотларингиз қабул бўлсин 🌸|Пусть Аллах будет доволен вами, пусть ваши салаваты будут приняты 🌸|May Allah be pleased with you and accept your salawat 🌸|رضي الله عنكم وتقبّل صلواتكم 🌸|Allah razı olsun, salavatların kabul olsun 🌸|Semoga Allah ridha dan menerima shalawat Anda 🌸|愿真主喜悦，并接受您的赞圣 🌸|अल्लाह राज़ी हो, आपकी सलावात क़ुबूल हों 🌸|Que Allah esté complacido contigo y acepte tus salawat 🌸",
+    cong4: "In shaa Alloh, ertaga ham shu nur bilan davom etamiz 🌙|Иншааллоҳ, эртага ҳам шу нур билан давом этамиз 🌙|Ин ша Аллах, и завтра продолжим с этим светом 🌙|In shaa Allah, we'll continue with this light tomorrow 🌙|إن شاء الله، نكمل غدًا بهذا النور 🌙|İnşallah yarın da bu nurla devam ederiz 🌙|Insya Allah, besok kita lanjutkan dengan cahaya yang sama 🌙|若真主意欲，明天我们继续这份光明 🌙|इंशा अल्लाह, कल भी इसी नूर के साथ आगे बढ़ेंगे 🌙|In sha Allah, mañana seguiremos con esta luz 🌙",
+    ob_lang: "Adashmasam, sizga <b>{l}</b> qulay ko'rinadi. Yoki xohlasangiz, quyidagi boshqa tillarga ham moslasha olaman 🌿|Янглишмасам, сизга <b>{l}</b> қулай кўринади. Ёки хоҳласангиз, қуйидаги бошқа тилларга ҳам мослаша оламан 🌿|Если я не ошибаюсь, вам удобен <b>{l}</b>. А если хотите, я могу подстроиться и под другие языки ниже 🌿|If I'm not mistaken, <b>{l}</b> feels right for you. Or, if you prefer, I can adapt to any of the languages below 🌿|إن لم أكن مخطئًا، فاللغة <b>{l}</b> تبدو مناسبة لك. أو إن شئت، يمكنني التكيّف مع اللغات الأخرى أدناه 🌿|Yanılmıyorsam, sana <b>{l}</b> uygun görünüyor. Dilersen aşağıdaki diğer dillere de uyum sağlayabilirim 🌿|Kalau saya tidak salah, <b>{l}</b> tampaknya nyaman untuk Anda. Atau, bila berkenan, saya bisa menyesuaikan dengan bahasa lain di bawah 🌿|如果没猜错，<b>{l}</b> 应该比较适合您。您也可以选择下面的其他语言，我会随之调整 🌿|अगर मैं ग़लत नहीं हूँ, तो आपको <b>{l}</b> सुविधाजनक लगेगी। या चाहें तो नीचे दी गई दूसरी भाषाओं में भी मैं ढल सकता हूँ 🌿|Si no me equivoco, <b>{l}</b> te resultará cómodo. O, si prefieres, puedo adaptarme a cualquiera de los idiomas de abajo 🌿",
     step_lbl: "Bir bosishda|Бир босишда|За одно нажатие|Per tap|لكل نقرة|Tek dokunuşta|Per ketukan|每次点击|प्रति टैप|Por toque",
     target_lbl: "Kunlik maqsad|Кунлик мақсад|Дневная цель|Daily target|الهدف اليومي|Günlük hedef|Target harian|每日目标|दैनिक लक्ष्य|Meta diaria",
     quote: "Iqtibos|Иқтибос|Цитата|Quote|اقتباس|Alıntı|Kutipan|语录|उद्धरण|Cita",
@@ -120,24 +124,24 @@
     st_m: "daq|дақ|мин|m|د|dk|m|分|मि|min",
     st_prem: "Premium|Премиум|Премиум|Premium|بريميوم|Premium|Premium|高级版|प्रीमियम|Premium",
     st_lock: "7 kunlik tarix Premium bilan ochiladi|7 кунлик тарих Премиум билан очилади|История за 7 дней доступна в Премиум|7-day history is available with Premium|سجل 7 أيام متاح مع بريميوم|7 günlük geçmiş Premium ile açılır|Riwayat 7 hari tersedia dengan Premium|高级版可查看7天历史|7 दिन का इतिहास प्रीमियम के साथ|El historial de 7 días está disponible con Premium",
-    st_empty: "Hozircha ma'lumot yo'q|Ҳозирча маълумот йўқ|Пока нет данных|No data yet|لا توجد بيانات بعد|Henüz veri yok|Belum ada data|暂无数据|अभी कोई डेटा नहीं|Aún no hay datos",
+    st_empty: "Birinchi qadamlaringiz shu yerda ko'rinadi 🌱|Биринчи қадамларингиз шу ерда кўринади 🌱|Здесь появятся ваши первые шаги 🌱|Your first steps will appear here 🌱|ستظهر خطواتك الأولى هنا 🌱|İlk adımların burada görünecek 🌱|Langkah pertama Anda akan muncul di sini 🌱|您的第一步会显示在这里 🌱|आपके पहले क़दम यहाँ दिखेंगे 🌱|Tus primeros pasos aparecerán aquí 🌱",
     st_of99: "99 tadan|99 тадан|из 99|of 99|من 99|99 içinden|dari 99|共99|99 में से|de 99",
     pm_active: "Premium faol|Премиум фаол|Премиум активен|Premium active|بريميوم مفعل|Premium aktif|Premium aktif|高级版已开启|प्रीमियम सक्रिय|Premium activo",
-    pm_goal: "7 kun ketma-ket kunlik salavotni bajaring, Premium bepul ochiladi|7 кун кетма-кет кунлик салавотни бажаринг, Премиум бепул очилади|Выполняйте салават 7 дней подряд, и Премиум откроется бесплатно|Complete your daily salawat 7 days in a row to unlock Premium for free|أكمل صلاتك اليومية 7 أيام متتالية لفتح بريميوم مجانًا|7 gün üst üste günlük salavatı tamamlayın, Premium ücretsiz açılsın|Selesaikan selawat harian 7 hari berturut-turut untuk membuka Premium gratis|连续7天完成每日赞圣，免费解锁高级版|लगातार 7 दिन दैनिक सलावत पूरी करें, प्रीमियम मुफ़्त खुलेगा|Completa tu salawat diario 7 días seguidos y desbloquea Premium gratis",
+    pm_goal: "7 kun ketma-ket kunlik salavotni aytsangiz, Premium sovg'a sifatida ochiladi 🎁|7 кун кетма-кет кунлик салавотни айтсангиз, Премиум совға сифатида очилади 🎁|Если читать салават 7 дней подряд, Премиум откроется в подарок 🎁|Say your daily salawat 7 days in a row and Premium opens as a gift 🎁|إن واظبت على صلواتك اليومية 7 أيام متتالية يُفتح لك بريميوم هديةً 🎁|7 gün üst üste günlük salavat getirirsen Premium hediye olarak açılır 🎁|Jika Anda bershalawat 7 hari berturut-turut, Premium terbuka sebagai hadiah 🎁|连续7天完成每日赞圣，高级版将作为礼物开启 🎁|लगातार 7 दिन सलावत पढ़ने पर प्रीमियम उपहार के रूप में खुल जाएगा 🎁|Si dices tu salawat 7 días seguidos, Premium se abre como regalo 🎁",
     pm_days: "kun ketma-ket|кун кетма-кет|дн. подряд|days in a row|أيام متتالية|gün üst üste|hari berturut|天连续|दिन लगातार|días seguidos",
-    pm_grace: "Bugun kunlik salavotni bajaring, aks holda Premium tugaydi|Бугун кунлик салавотни бажаринг, акс ҳолда Премиум тугайди|Выполните сегодня салават, иначе Премиум закончится|Complete today's salawat or Premium ends|أكمل صلاة اليوم وإلا ينتهي بريميوم|Bugün salavatı tamamlayın, yoksa Premium biter|Selesaikan selawat hari ini atau Premium berakhir|今天完成赞圣，否则高级版将结束|आज सलावत पूरी करें, वरना प्रीमियम समाप्त हो जाएगा|Completa hoy el salawat o Premium termina",
+    pm_grace: "Bugun salavot aytsangiz, Premium davom etadi 🌙|Бугун салавот айтсангиз, Премиум давом этади 🌙|Если сегодня прочтёте салават, Премиум продолжится 🌙|Say your salawat today and Premium continues 🌙|إن صلّيت على النبي اليوم يستمر بريميوم 🌙|Bugün salavat getirirsen Premium devam eder 🌙|Jika Anda bershalawat hari ini, Premium berlanjut 🌙|今天诵读赞圣，高级版将继续 🌙|आज सलावत पढ़ लें तो प्रीमियम जारी रहेगा 🌙|Si dices tu salawat hoy, Premium continúa 🌙",
     pm_left: "Qolgan vaqt|Қолган вақт|Осталось|Time left|الوقت المتبقي|Kalan süre|Sisa waktu|剩余时间|शेष समय|Tiempo restante",
     pm_trial: "3 daqiqa sinab ko'rish|3 дақиқа синаб кўриш|Попробовать 3 минуты|Try for 3 minutes|جرّب 3 دقائق|3 dakika dene|Coba 3 menit|试用3分钟|3 मिनट आज़माएँ|Probar 3 minutos",
     pm_trial_on: "Sinov faol|Синов фаол|Пробный режим|Trial active|التجربة مفعّلة|Deneme aktif|Uji coba aktif|试用中|ट्रायल सक्रिय|Prueba activa",
     pm_limit: "Bugun {a}/3 · Hafta {b}/7|Бугун {a}/3 · Ҳафта {b}/7|Сегодня {a}/3 · Неделя {b}/7|Today {a}/3 · Week {b}/7|اليوم {a}/3 · الأسبوع {b}/7|Bugün {a}/3 · Hafta {b}/7|Hari ini {a}/3 · Minggu {b}/7|今天 {a}/3 · 本周 {b}/7|आज {a}/3 · सप्ताह {b}/7|Hoy {a}/3 · Semana {b}/7",
-    pm_nolimit: "Sinov limiti tugadi|Синов лимити тугади|Лимит пробных исчерпан|Trial limit reached|انتهى حد التجارب|Deneme limiti doldu|Batas uji coba habis|试用次数已用完|ट्रायल सीमा समाप्त|Límite de pruebas alcanzado",
+    pm_nolimit: "Bugungi sinov imkoniyatlari tugadi, ertaga yana kutamiz 🌙|Бугунги синов имкониятлари тугади, эртага яна кутамиз 🌙|Пробные попытки на сегодня закончились, ждём вас завтра 🌙|Today's trial attempts are used up; we'll be glad to see you tomorrow 🌙|انتهت محاولات التجربة لهذا اليوم، نراك غدًا 🌙|Bugünkü deneme hakkın doldu, yarın yine bekleriz 🌙|Kesempatan uji coba hari ini sudah habis, kami tunggu besok 🌙|今天的试用次数已用完，明天再见 🌙|आज की ट्रायल कोशिशें पूरी हुईं, कल फिर मिलेंगे 🌙|Los intentos de prueba de hoy se han agotado, te esperamos mañana 🌙",
     pm_got: "Premium ochildi! 🎉|Премиум очилди! 🎉|Премиум открыт! 🎉|Premium unlocked! 🎉|تم فتح بريميوم! 🎉|Premium açıldı! 🎉|Premium terbuka! 🎉|高级版已解锁！🎉|प्रीमियम खुल गया! 🎉|¡Premium desbloqueado! 🎉",
-    pm_end: "Premium tugadi|Премиум тугади|Премиум закончился|Premium ended|انتهى بريميوم|Premium sona erdi|Premium berakhir|高级版已结束|प्रीमियम समाप्त|Premium terminó",
-    pm_trial_end: "Sinov tugadi|Синов тугади|Пробный режим завершён|Trial ended|انتهت التجربة|Deneme bitti|Uji coba selesai|试用结束|ट्रायल समाप्त|Prueba terminada",
+    pm_end: "Premium muddati yakunlandi. Sizni yana kutib qolamiz 🤍|Премиум муддати якунланди. Сизни яна кутиб қоламиз 🤍|Срок Премиума завершился. Будем рады видеть вас снова 🤍|Your Premium has come to an end. We'd be happy to see you again 🤍|انتهت مدة بريميوم. يسعدنا أن نراك مجددًا 🤍|Premium süren sona erdi. Seni tekrar görmekten memnun oluruz 🤍|Masa Premium Anda telah berakhir. Kami senang bila Anda kembali 🤍|您的高级版已到期，期待与您再会 🤍|आपका प्रीमियम पूरा हुआ। आपको फिर देखकर हमें खुशी होगी 🤍|Tu Premium ha finalizado. Nos alegrará verte de nuevo 🤍",
+    pm_trial_end: "Sinov muddati yakunlandi, yoqqan bo'lsa deb umid qilamiz 🌿|Синов муддати якунланди, ёққан бўлса деб умид қиламиз 🌿|Пробный период завершён, надеемся, вам понравилось 🌿|The trial has ended; we hope you enjoyed it 🌿|انتهت التجربة، ونأمل أن تكون قد أعجبتك 🌿|Deneme süresi bitti, umarız beğenmişsindir 🌿|Masa uji coba selesai, semoga Anda menyukainya 🌿|试用已结束，希望您喜欢 🌿|ट्रायल पूरा हुआ, उम्मीद है आपको पसंद आया 🌿|La prueba ha terminado, esperamos que te haya gustado 🌿",
     remind: "Bildirishnomalar|Билдиришномалар|Уведомления|Notifications|الإشعارات|Bildirimler|Notifikasi|通知|सूचनाएँ|Notificaciones",
     rm_daily: "Kunlik eslatma|Кунлик эслатма|Ежедневное напоминание|Daily reminder|تذكير يومي|Günlük hatırlatma|Pengingat harian|每日提醒|दैनिक रिमाइंडर|Recordatorio diario",
     rm_due: "Salavot eslatmasi|Салавот эслатмаси|Напоминание о салавате|Salawat reminder|تذكير الصلاة|Salavat hatırlatması|Pengingat salawat|赞圣提醒|सलावात रिमाइंडर|Recordatorio de salawat",
-    rm_owed: "Qarz haqida ogohlantirish|Қарз ҳақида огоҳлантириш|Предупреждение о долге|Overdue warning|تنبيه التأخير|Borç uyarısı|Peringatan utang|欠款提醒|बकाया चेतावनी|Aviso de atraso",
+    rm_owed: "Qolib ketgan kunlar eslatmasi|Қолиб кетган кунлар эслатмаси|Напоминание о пропущенных днях|Missed-days reminder|تذكير بالأيام الفائتة|Kaçan günler hatırlatması|Pengingat hari terlewat|待补天提醒|छूटे दिनों की याद|Recordatorio de días pendientes",
     ob_later: "(+ keyinroq sozlashingiz ham mumkin)|(+ кейинроқ созлашингиз ҳам мумкин)|(+ позже это можно изменить в настройках)|(+ you can also change this later in settings)|(+ يمكنك تغيير ذلك لاحقاً من الإعدادات)|(+ daha sonra ayarlardan da değiştirebilirsiniz)|(+ Anda juga dapat mengubahnya nanti di pengaturan)|（+ 稍后也可以在设置中更改）|(+ आप इसे बाद में सेटिंग्स में भी बदल सकते हैं)|(+ también puedes cambiarlo más tarde en ajustes)",
     ob_skip: "Keyinroq|Кейинроқ|Позже|Later|لاحقاً|Sonra|Nanti|稍后|बाद में|Más tarde",
     ob_or: "yoki|ёки|или|or|أو|veya|atau|或|या|o",
@@ -158,11 +162,11 @@
     h_info: "Savol, xatolik yoki taklifingizni yozing — dasturchi javob beradi. Rasm, video va fayl yuborish mumkin. Yozishmalar 7 kundan so'ng avtomatik o'chiriladi.|Савол, хато ёки таклифингизни ёзинг — дастурчи жавоб беради. Расм, видео ва файл юбориш мумкин. Ёзишмалар 7 кундан сўнг автоматик ўчирилади.|Напишите вопрос, об ошибке или идею — разработчик ответит. Можно отправлять фото, видео и файлы. Переписка автоматически удаляется через 7 дней.|Write a question, a bug report or an idea and the developer will reply. You can send photos, videos and files. Messages are deleted automatically after 7 days.|اكتب سؤالك أو بلاغ الخطأ أو اقتراحك وسيرد المطوّر. يمكنك إرسال الصور والفيديو والملفات. تُحذف الرسائل تلقائيًا بعد 7 أيام.|Sorunuzu, hatayı veya önerinizi yazın, geliştirici yanıtlar. Fotoğraf, video ve dosya gönderebilirsiniz. Mesajlar 7 gün sonra otomatik silinir.|Tulis pertanyaan, laporan bug, atau ide Anda, pengembang akan membalas. Anda bisa mengirim foto, video, dan file. Pesan dihapus otomatis setelah 7 hari.|写下您的问题、错误或建议，开发者会回复。可发送图片、视频和文件。消息将在 7 天后自动删除。|अपना सवाल, गड़बड़ी या सुझाव लिखें, डेवलपर जवाब देगा। फ़ोटो, वीडियो और फ़ाइल भेज सकते हैं। संदेश 7 दिन बाद अपने आप हट जाते हैं।|Escribe tu pregunta, error o idea y el desarrollador responderá. Puedes enviar fotos, vídeos y archivos. Los mensajes se eliminan automáticamente a los 7 días.",
     h_empty: "Savol yoki taklifingizni yozing, dasturchi javob beradi|Савол ёки таклифингизни ёзинг, дастурчи жавоб беради|Напишите вопрос или предложение — разработчик ответит|Write your question or idea and the developer will reply|اكتب سؤالك أو اقتراحك وسيرد عليك المطوّر|Sorunuzu veya önerinizi yazın, geliştirici yanıtlayacak|Tulis pertanyaan atau saran Anda, pengembang akan membalas|写下您的问题或建议，开发者会回复|अपना सवाल या सुझाव लिखें, डेवलपर जवाब देगा|Escribe tu pregunta o idea y el desarrollador responderá",
     h_new: "Dasturchidan yangi xabar|Дастурчидан янги хабар|Новое сообщение от разработчика|New message from the developer|رسالة جديدة من المطوّر|Geliştiriciden yeni mesaj|Pesan baru dari pengembang|开发者的新消息|डेवलपर का नया संदेश|Nuevo mensaje del desarrollador",
-    h_none: "Bildirishnomalar yo'q|Билдиришномалар йўқ|Уведомлений нет|No notifications|لا توجد إشعارات|Bildirim yok|Tidak ada notifikasi|暂无通知|कोई सूचना नहीं|Sin notificaciones",
+    h_none: "Hozircha yangilik yo'q, hammasi tinch 🌿|Ҳозирча янгилик йўқ, ҳаммаси тинч 🌿|Пока всё тихо, новостей нет 🌿|All quiet for now, nothing new 🌿|كل شيء هادئ الآن ولا جديد 🌿|Şimdilik sessiz, yeni bir şey yok 🌿|Untuk saat ini tenang, belum ada kabar 🌿|暂时一切安静，没有新消息 🌿|अभी सब शांत है, कोई नई सूचना नहीं 🌿|Todo tranquilo por ahora, sin novedades 🌿",
     h_del: "Chatni o'chirish|Чатни ўчириш|Удалить чат|Delete chat|حذف المحادثة|Sohbeti sil|Hapus obrolan|删除聊天|चैट हटाएं|Eliminar chat",
-    h_delq: "Chat butunlay o'chiriladi. Davom etilsinmi?|Чат бутунлай ўчирилади. Давом этилсинми?|Чат будет удалён полностью. Продолжить?|The chat will be deleted permanently. Continue?|ستُحذف المحادثة نهائيًا. هل تتابع؟|Sohbet kalıcı olarak silinecek. Devam edilsin mi?|Obrolan akan dihapus permanen. Lanjutkan?|聊天将被永久删除。继续吗？|चैट हमेशा के लिए हट जाएगी। जारी रखें?|El chat se eliminará de forma permanente. ¿Continuar?",
+    h_delq: "Bu suhbat butunlay o'chiriladi. Davom etamizmi?|Бу суҳбат бутунлай ўчирилади. Давом этамизми?|Эта переписка будет полностью удалена. Продолжим?|This conversation will be deleted completely. Shall we go on?|ستُحذف هذه المحادثة بالكامل. هل نتابع؟|Bu sohbet tamamen silinecek. Devam edelim mi?|Percakapan ini akan dihapus sepenuhnya. Lanjutkan?|此对话将被完全删除，要继续吗？|यह बातचीत पूरी तरह हट जाएगी। आगे बढ़ें?|Esta conversación se eliminará por completo. ¿Seguimos?",
     h_chats: "Chatlar|Чатлар|Чаты|Chats|المحادثات|Sohbetler|Obrolan|聊天|चैट|Chats",
-    h_noc: "Hali xabarlar yo'q|Ҳали хабарлар йўқ|Сообщений пока нет|No messages yet|لا توجد رسائل بعد|Henüz mesaj yok|Belum ada pesan|暂无消息|अभी कोई संदेश नहीं|Aún no hay mensajes",
+    h_noc: "Hozircha xabar yo'q. Birinchi bo'lib yozishingiz mumkin 🌿|Ҳозирча хабар йўқ. Биринчи бўлиб ёзишингиз мумкин 🌿|Сообщений пока нет. Вы можете написать первым 🌿|No messages yet. Feel free to write first 🌿|لا رسائل بعد. يمكنك أن تبدأ أنت 🌿|Henüz mesaj yok. İlk yazan sen olabilirsin 🌿|Belum ada pesan. Silakan tulis lebih dulu 🌿|还没有消息，您可以先开口 🌿|अभी कोई संदेश नहीं। आप पहले लिख सकते हैं 🌿|Aún no hay mensajes. Puedes escribir primero 🌿",
     h_err: "Yuborilmadi|Юборилмади|Не отправлено|Not sent|لم يتم الإرسال|Gönderilemedi|Tidak terkirim|发送失败|भेजा नहीं गया|No enviado",
     ver: "Versiya|Версия|Версия|Version|الإصدار|Sürüm|Versi|版本|संस्करण|Versión",
     rate_my: "Sizning mahsulotimizga bahoyingiz|Сизнинг маҳсулотимизга баҳойингиз|Ваша оценка нашего продукта|Your rating of our product|تقييمك لمنتجنا|Ürünümüze puanınız|Penilaian Anda untuk produk kami|您对我们产品的评分|हमारे उत्पाद को आपकी रेटिंग|Tu valoración de nuestro producto",
@@ -1846,10 +1850,10 @@
     hgShown = hgFallen(ds)
     var h = '<div class="daily' + (S.dglass && isPrem() ? " dglass" : "") + '"><div class="dhead"><h1>📿 ' + esc(tr("daily")) + '</h1><button class="gear' + (U.dailyMenu ? " on" : "") + '" data-act="dailyMenu" aria-label="Settings">' + ic("settings") + '</button></div>'
     if (U.dailyMenu) h += '<div style="margin-bottom:10px">' + formHtml() + "</div>"
-    if (owed > 0) h += '<p class="owed center">⊘ ' + esc(tr("owed").replace("{n}", owed)) + "</p>"
+    if (owed > 0) h += '<p class="owed center">' + esc(tr("owed").replace("{n}", owed)) + "</p>"
     var tbv = S.dview === "tb"
     h += '<div id="hgwrap" class="hgwrap"><div id="hgstage" class="hgstage' + (tbv ? " tbs" : "") + '">' + (tbv ? tbHtml(ds) : hgBg() + '<div id="hgbox" class="hgbox' + (ds.mode === "free" ? " free" : "") + '">' + hgSvg(hgShown) + "</div>")
-    if (ds.todayDone) h += '<div class="done center">✦ ' + esc(tr("cong")) + "</div>"
+    if (ds.todayDone) h += '<div class="done center">' + esc(tr(["cong", "cong2", "cong3", "cong4"][new Date().getDate() % 4])) + "</div>"
     else if (!tbv) h += dBarHtml(ds, target, draft)
     h += "</div></div>"
     h += ds.todayDone ? '<button class="tap-round off" disabled>✓</button>' : '<div class="tapzone"><i class="tb b1"></i><i class="tb b2"></i><i class="tb b3"></i><button class="tap-round" data-act="tap" aria-label="+">' + (ic("add") + (step > 1 ? '<b class="stp">' + step + "</b>" : "")) + "</button></div>"
@@ -1919,11 +1923,64 @@
   }
   window.emErr = function (im) {
     var k = (parseInt(im.getAttribute("data-k"), 10) || 0) + 1, u = emSrc(im.alt, k)
-    if (!u) { im.replaceWith(document.createTextNode(im.alt)); return }
+    if (!u) { var sp = document.createElement("span"); sp.className = "emx"; sp.textContent = im.alt; im.replaceWith(sp); return }
     im.setAttribute("data-k", k); im.src = u
   }
   function emImg(ch) {
     return '<img class="qem" style="display:inline-block;width:1.05em;height:1.05em;max-width:1.05em;vertical-align:-.16em;margin:0 0 0 .1em;pointer-events:none" alt="' + ch + '" draggable="false" data-k="0" src="' + emSrc(ch, 0) + '" onerror="emErr(this)">'
+  }
+  // Oddiy emoji o'rniga Apple (premium uslubidagi) emoji rasmlari
+  var EMRE = null, EMT = null
+  try {
+    var EMP = "(?:[\\u{1F1E6}-\\u{1F1FF}]{2}|(?:\\p{Emoji_Presentation}|\\p{Extended_Pictographic}\\uFE0F)[\\u{1F3FB}-\\u{1F3FF}]?(?:\\u200d(?:\\p{Emoji_Presentation}|\\p{Extended_Pictographic}\\uFE0F?)[\\u{1F3FB}-\\u{1F3FF}]?)*)"
+    EMRE = new RegExp(EMP, "gu"); EMT = new RegExp(EMP, "u")
+  } catch (e) {}
+  function emFix(tn) {
+    var s = tn.nodeValue, fr = document.createDocumentFragment(), last = 0, m, im
+    EMRE.lastIndex = 0
+    while ((m = EMRE.exec(s))) {
+      if (m.index > last) fr.appendChild(document.createTextNode(s.slice(last, m.index)))
+      im = document.createElement("img"); im.className = "qem"; im.alt = m[0]; im.draggable = false; im.setAttribute("data-k", "0"); im.src = emSrc(m[0], 0)
+      im.setAttribute("style", "display:inline-block;width:1.1em;height:1.1em;max-width:1.1em;vertical-align:-.2em;margin:0 .08em;pointer-events:none")
+      im.onerror = function () { window.emErr(this) }
+      fr.appendChild(im); last = m.index + m[0].length
+    }
+    if (last < s.length) fr.appendChild(document.createTextNode(s.slice(last)))
+    if (tn.parentNode) tn.parentNode.replaceChild(fr, tn)
+  }
+  function emOk(n) {
+    var p = n.parentNode
+    if (!p || !EMT.test(n.nodeValue)) return false
+    var t = p.nodeName
+    if (t === "SCRIPT" || t === "STYLE" || t === "TEXTAREA" || t === "INPUT" || t === "OPTION" || t === "TITLE") return false
+    if (p.closest && p.closest("svg,[contenteditable],.msi,.emx")) return false
+    return true
+  }
+  function emojify(root) {
+    if (!EMRE || !root) return
+    if (root.nodeType === 3) { if (emOk(root)) emFix(root); return }
+    if (root.nodeType !== 1) return
+    var w = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, null), list = [], n
+    while ((n = w.nextNode())) if (emOk(n)) list.push(n)
+    for (var i = 0; i < list.length; i++) emFix(list[i])
+  }
+  if (EMRE && window.MutationObserver && document.body) {
+    var emSet = [], emQ = false
+    new MutationObserver(function (ms) {
+      for (var i = 0; i < ms.length; i++) {
+        var m = ms[i]
+        if (m.type === "characterData") emSet.push(m.target)
+        else for (var j = 0; j < m.addedNodes.length; j++) emSet.push(m.addedNodes[j])
+      }
+      if (emQ || !emSet.length) return
+      emQ = true
+      requestAnimationFrame(function () {
+        emQ = false
+        var l = emSet; emSet = []
+        for (var k = 0; k < l.length; k++) if (l[k].isConnected) emojify(l[k])
+      })
+    }).observe(document.body, { childList: true, subtree: true, characterData: true })
+    emojify(document.body)
   }
   function quoteData(i) {
     var q = D.quotes[i]
@@ -2144,7 +2201,7 @@
         for (var qi = 0; qi < 4; qi++) qbs += '<button class="' + (qb === qi ? "on" : "") + '" data-act="qbg" data-v="' + qi + '"><i class="qd' + qi + '"></i>' + esc(tr("qb" + qi)) + "</button>"
         qbs += "</div>"
       }
-      return '<button class="btn small back circ" data-act="moreBack" aria-label="back">' + ic("arrow_back") + "</button>" + hlPill() + qbs +
+      return '<div class="shead"><button class="btn small back circ" data-act="moreBack" aria-label="back">' + ic("arrow_back") + "</button><h1>" + esc(tr("hikmat")) + '</h1><button class="btn small circ' + (U.qset ? " on" : "") + '" data-act="qset" aria-label="settings">' + ic("settings") + '</button></div><div class="qsetw' + (U.qset ? " open" : "") + '"><div class="qsetin">' + hlPill() + qbs + "</div></div>" +
         '<div class="card quote' + (qb ? " qbg" + qb : "") + '"><div class="qin"><strong>' + esc(d.title) + '</strong><div class="qt">' + esc(d.body) + " " + emImg(d.em) + '</div></div><div class="qrefs"><span class="ref">' + ic("verified") + " " + esc(d.src) + '</span><span class="ref">' + ic("smart_toy") + " @" + CFG.BOT + "</span></div></div>" +
         '<div class="qbtns"><button class="btn" data-act="share">' + ic("share") + "<span>" + esc(tr("share")) + '</span></button><button class="btn" data-act="open" data-v="' + d.q.n + '">' + ic("auto_awesome") + "<span>" + esc(D.names[d.q.n - 1].t) + '</span></button><button class="btn" data-act="quoteNext">' + ic("skip_next") + "</button></div>"
     }
@@ -2469,7 +2526,8 @@
         for (var e = 0; e < c.ent.length; e++) if (now >= c.ent[e].s) { k = e; f = Math.min(1, (now - c.ent[e].s) / (c.ent[e].e - c.ent[e].s)) } else break
         g.setTransform(c.dpr, 0, 0, c.dpr, 0, 0); g.clearRect(0, 0, c.CW, c.CH)
         var hci = isPrem() ? (S.hlc | 0) : 0, hc = HLC[hci] || HLC[0], dkm = effTheme() === "dark", wh = hci === 4
-        g.fillStyle = "rgba(" + hc[0] + "," + hc[1] + "," + hc[2] + "," + (wh ? (dkm ? .34 : .9) : hc[3]) + ")"
+        var qbm = isPrem() && (S.qbg | 0) > 0
+        g.fillStyle = "rgba(" + hc[0] + "," + hc[1] + "," + hc[2] + "," + (qbm ? (wh ? .24 : hci === 1 ? .5 : hc[3]) : wh ? (dkm ? .34 : .9) : hc[3]) + ")"
         g.strokeStyle = wh ? (dkm ? "rgba(255,255,255,.4)" : "rgba(0,0,0,.22)") : "rgba(" + (hc[0] * .75 | 0) + "," + (hc[1] * .75 | 0) + "," + (hc[2] * .75 | 0) + ",.4)"
         g.lineWidth = 1; g.lineJoin = "round"
         for (var b = 0; b < c.pieces.length; b++) {
@@ -2913,7 +2971,7 @@
       var codes = ["uz", "uz_kr", "uz_new"], rest = [], i
       for (i = 0; i < LANGS.length; i++) if (codes.indexOf(LANGS[i]) < 0) rest[rest.length] = LANGS[i]
       function lb(c) { return '<button class="btn' + (S.langSet !== false && S.lang === c ? " success" : "") + '" data-act="obLang" data-v="' + c + '">' + esc(LANG_NAMES[c]) + "</button>" }
-      h += '<div class="obbody mid"><div class="obh big">' + ic("translate") + " <span>" + (S.langSet === false ? "Language / Til" : esc(tr("lang"))) + '</span></div><div class="obg"><div class="r3">'
+      h += '<div class="obbody mid"><div class="obh big">' + ic("translate") + " <span>" + esc(tr("lang")) + '</span></div><p class="obsoft">' + esc(tr("ob_lang")).replace("{l}", "\u0001").replace(/&lt;b&gt;(.*?)&lt;\/b&gt;/, "<b>$1</b>").replace("\u0001", esc(LANG_NAMES[S.lang] || "")) + '</p><div class="obg"><div class="r3">'
       for (i = 0; i < codes.length; i++) h += lb(codes[i])
       h += "</div>"
       for (i = 0; i < rest.length; i++) h += lb(rest[i])
@@ -4359,6 +4417,7 @@
     else if (act === "sgo") { var qq = document.getElementById("q"); if (qq) { qq.focus(); if (qq.value) qq.select() } }
     else if (act === "gtoggle") { if (S.gender === "female") S.fgon = !gOn(); else S.mgon = !gOn(); applyGender(); save(); tOptsRefresh() }
     else if (act === "font") { if (v && !isPrem()) { pToast(tr("pm_font")); return } S.font = v; save(); applyFont(); tOptsRefresh() }
+    else if (act === "qset") { U.qset = !U.qset; var qw = document.querySelector(".qsetw"); if (qw) qw.classList.toggle("open", !!U.qset); var qb2 = document.querySelector("[data-act=qset]"); if (qb2) qb2.classList.toggle("on", !!U.qset) }
     else if (act === "hlc") { var hv = parseInt(v, 10); if (hv && !isPrem()) { pToast(tr("pm_hl")); return } S.hlc = hv; save(); if (U.more === "quote") render(); else tOptsRefresh() }
     else if (act === "bgmode") { if (v === "season" && !isPrem()) { pToast(tr("pm_bg")); return } S.bgmode = v === "season" ? "season" : "plain"; save(); applyBg(); tOptsRefresh() }
     else if (act === "sseason") { S.season = v; save(); applyBg(); tOptsRefresh() }
