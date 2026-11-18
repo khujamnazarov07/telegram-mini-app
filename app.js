@@ -4177,7 +4177,7 @@
   function fxOn() { return S.fx !== false && !(window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches) }
   function fxLayout() {
     var hd = document.getElementById("hdr"), br = document.getElementById("home")
-    if (hd && br) hd.style.width = FX.c ? (br.offsetWidth + 30) + "px" : ""
+    if (hd && br) hd.style.width = FX.c ? (br.offsetWidth + 36) + "px" : ""
     var sb = document.getElementById("sbox"), nt = document.querySelector(".nh-t")
     if (sb && nt) {
       var rtl = document.documentElement.dir === "rtl", a = nt.getBoundingClientRect(), b = sb.getBoundingClientRect()
