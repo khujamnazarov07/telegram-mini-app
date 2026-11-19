@@ -1686,3 +1686,5 @@ html.fxc .flt .fchip { gap: 0; padding-inline: 11px; }
 .seg button .msi { font-size: 18px; vertical-align: -4px; }
 .rrow .fxi { display: contents; }
 .brand .bt, .brand .b1, .brand .b2 { white-space: nowrap; }
+html .hdr .brand { flex: none; }
+html .hdr .tools { min-width: 0; flex: 0 1 auto; }

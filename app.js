@@ -4172,7 +4172,7 @@
   }
 
   // ===== effektlar soati: 11s yoyiq / 11s qisqa =====
-  var FXP = 11000, FX = { c: false, t: null }
+  var FXP = 11000, FX = { c: false, t: null, exp: 0, n: 0 }
   function fxOn() { return S.fx !== false && !(window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches) }
   function fxLayout() {
     var hd = document.getElementById("hdr"), br = document.getElementById("home")
@@ -4184,7 +4184,7 @@
       sb.style.setProperty("--sx", Math.round(rtl ? a.right - b.right : a.left - b.left) + "px")
     }
   }
-  function fxSet(c) { FX.c = c; document.documentElement.classList.toggle("fxc", c); fxLayout() }
+  function fxSet(c) { if (!c && FX.c) { FX.exp = performance.now(); FX.n++ } FX.c = c; document.documentElement.classList.toggle("fxc", c); fxLayout() }
   function fxLoop() {
     clearTimeout(FX.t)
     if (!fxOn()) { fxSet(false); return }
@@ -4211,13 +4211,15 @@
       requestAnimationFrame(hs)
       if (reduced) return
       var cs = Math.floor(ts / 10000) * 10000, d = ts - cs, dir = (Math.floor(ts / 10000) % 2) ? 1 : -1
+      if (fxOn()) { cs = FX.exp; d = ts - FX.exp; dir = (FX.n % 2) ? 1 : -1 }
       // barmoq tegsa to'xtaydi; qo'yilgach 3s o'tib, keyingi 99 hisobi boshlanishida birga davom etadi
-      var ok = !document.hidden && CLK.tc === 0 && cs >= CLK.block
+      var ok = !document.hidden && !FX.c && CLK.tc === 0 && cs >= CLK.block
       if (ok && d < 3000) {
         var f = 1 - Math.pow(1 - d / 3000, 2)
         wheels.lang.spin(f, dir); wheels.theme.spin(f, dir); spinning = true
       } else if (spinning) { wheels.lang.spinEnd(); wheels.theme.spinEnd(); spinning = false }
     }
+    FX.exp = performance.now()
     requestAnimationFrame(hs)
     fxLoop()
   }
