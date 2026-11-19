@@ -500,7 +500,6 @@
       '<div id="ph" class="ph" aria-hidden="true"><span></span><span></span></div>' +
       '<button class="sgo" data-act="sgo" aria-label="' + esc(tr("search")) + '">' + ic("search") + "</button></div></div>" + fl +
       '<div id="ngrid" class="ngrid' + (open ? " open" : "") + '"><div id="grid">' + nameCards(filterNames()) + "</div></div>" +
-      '<button id="nfab" class="nfab" data-act="namesToggle" aria-label="toggle"' + (searching ? " hidden" : "") + ">" + ic(U.namesOpen ? "expand_less" : "expand_more") + "</button>" +
       '<button id="ntog" class="btn block moodtog" data-act="namesToggle"' + (searching ? " hidden" : "") + ">" + ic(U.namesOpen ? "expand_less" : "expand_more") + " <span>" + esc(tr(U.namesOpen ? "mood_less" : "mood_all")) + "</span></button>" +
       viewHomePanel()
   }
@@ -4192,6 +4191,7 @@
     FX.t = setTimeout(function () { if (!document.hidden) fxSet(!FX.c); fxLoop() }, FXP)
   }
   window.addEventListener("resize", fxLayout)
+  if (window.ResizeObserver) { var fxRO = new ResizeObserver(function () { fxLayout() }); setInterval(function () { var n = document.querySelector(".nh-t"); if (n && n !== fxRO.__n) { fxRO.disconnect(); fxRO.observe(n); fxRO.__n = n } }, 1000) }
   function initHeader() {
     var langLabels = []
     var SHORT = { uz: "O'zbek", uz_kr: "Ўзбек", uz_new: "Özbek", ru: "Русский", en: "English", ar: "العربية", tr: "Türkçe", id: "Indonesia", zh: "中文", hi: "हिन्दी", es: "Español" }
@@ -4281,9 +4281,8 @@
       U.namesOpen = !U.namesOpen
       var ng2 = document.getElementById("ngrid")
       if (ng2) ng2.classList.toggle("open", U.namesOpen)
-      var nt2 = document.getElementById("ntog"), nf2 = document.getElementById("nfab")
+      var nt2 = document.getElementById("ntog")
       if (nt2) nt2.innerHTML = ic(U.namesOpen ? "expand_less" : "expand_more") + " <span>" + esc(tr(U.namesOpen ? "mood_less" : "mood_all")) + "</span>"
-      if (nf2) nf2.innerHTML = ic(U.namesOpen ? "expand_less" : "expand_more")
       nsUpdate(); setTimeout(nsUpdate, 250); setTimeout(nsUpdate, 520)
     }
     else if (act === "hlay") { S.hlay = v === "list" ? "list" : "grid"; save(); render() }
@@ -4579,7 +4578,6 @@
       var sq = !!U.q.trim() || U.nf !== "all", ng = document.getElementById("ngrid"), nt = document.getElementById("ntog"), sbx = document.getElementById("sbox")
       if (ng) ng.classList.toggle("open", U.namesOpen || sq)
       if (nt) nt.hidden = sq
-      var nfb = document.getElementById("nfab"); if (nfb) nfb.hidden = sq
       fxLayout()
       if (sbx) sbx.classList.toggle("has", !!U.q)
       nsUpdate()
