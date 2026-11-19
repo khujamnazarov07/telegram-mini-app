@@ -740,32 +740,35 @@
     if (WG.path.length) h += wgLine(WG.path, "var(--accent)", "var(--card)", "")
     sv.innerHTML = h
   }
-  function wgChips() {
-    var g = wgS(), el = document.querySelectorAll(".wgw")
-    for (var i = 0; i < el.length; i++) {
-      var idx = +el[i].getAttribute("data-i"), pos = -1
-      for (var k = 0; k < g.f.length; k++) if (g.f[k].i === idx) pos = k
-      el[i].classList.toggle("ok", pos >= 0)
-      if (pos >= 0) el[i].style.setProperty("--wc", WGCOL[pos % WGCOL.length])
+  function wgChipsHtml() {
+    var g = wgS(), L = WG.L, m = L.mode, h = "", i, k, un = [], fd = []
+    for (k = 0; k < g.f.length; k++) fd.push(k)
+    for (i = 0; i < L.words.length; i++) if (!wgFound(g, L.words[i].i)) un.push(L.words[i])
+    if (m === 4) h += '<span class="wgcnt">' + g.f.length + " / " + L.words.length + "</span>"
+    else for (i = 0; i < un.length; i++) {
+      var w = un[i].w, t = m === 2 ? w.slice(0, -1) + "*" : m === 3 ? w.slice(0, -2) + "**" : w
+      h += '<span class="wgw">' + esc(t) + "</span>"
     }
+    for (k = 0; k < g.f.length; k++) h += '<span class="wgw ok" style="--wc:' + WGCOL[k % WGCOL.length] + '">' + ic("check_circle") + " " + esc(D.names[g.f[k].i].t) + " | " + (g.f[k].i + 1) + "</span>"
+    return h
   }
+  function wgChips() { var el = document.getElementById("wgwords"); if (el && WG.L) el.innerHTML = wgChipsHtml() }
   function viewWg() {
     var g = wgS(), lim = wgLim(), prem = isPrem()
-    var top = '<div class="wgtop"><div class="wqpill">' + ic("extension") + " " + esc(tr("wg_t")) + '</div><div class="wqlvb">' + ic("military_tech") + "<b>" + Math.min(g.lv + 1, 40) + "</b></div></div>"
+    var top = '<div class="wqtop"><button class="btn small back circ" data-act="wgClose" aria-label="back">' + ic("arrow_back") + '</button><div class="wqpill wgpill">' + ic("extension") + " " + esc(tr("wg_t")) + '</div><div class="wqlvb">' + ic("military_tech") + "<b>" + Math.min(g.lv + 1, 40) + "</b></div></div>"
     if (g.lv >= 40) return '<div class="wg">' + top + '<div class="card wgmsg">' + ic("military_tech") + "<b>" + esc(tr("wg_all")) + "</b></div></div>"
     if (g.n >= lim) return '<div class="wg">' + top + '<div class="card wgmsg">' + ic("lock_clock") + "<b>" + esc(tr("wg_lim")) + "</b>" + (prem ? "" : '<button class="btn primary" data-act="premGo">' + ic("workspace_premium") + " " + esc(tr("wg_limp")) + "</button>") + "</div></div>"
     var L = wgLevel(g.lv)
     if (!L) return '<div class="wg">' + top + "</div>"
     WG.L = L; WG.path = []; WG.fl = null
-    var wh = "", i
-    for (i = 0; i < L.words.length; i++) wh += '<span class="wgw" data-i="' + L.words[i].i + '">' + esc(L.words[i].w) + "</span>"
+    var i
     // chiplar word.i bo'yicha emas, tartib bo'yicha: indeks sifatida ism raqami
     var cs = ""
     for (i = 0; i < L.n * L.n; i++) cs += "<div class=\"wgc\">" + L.g[i] + "</div>"
     setTimeout(function () { wgDraw(); wgChips() }, 0)
     return '<div class="wg">' + top +
       '<div class="wgmeta"><span>' + esc(tr("wg_m" + L.mode)) + "</span><span>" + esc(tr("wg_today")) + " " + g.n + "/" + lim + "</span></div>" +
-      '<div class="wgwords">' + wh + "</div>" +
+      '<div id="wgwords" class="wgwords">' + wgChipsHtml() + "</div>" +
       '<div class="wgbox"><div id="wgb" class="wgb" style="--n:' + L.n + '"><svg id="wgsv" class="wgsv" viewBox="0 0 ' + L.n + " " + L.n + '"></svg>' + cs + '</div><div id="wgok" class="wgok"><span>' + ic("check_circle") + " " + esc(tr("wg_ok")) + "</span></div></div>" +
       '<p class="wghint">' + esc(tr("wg_help")) + "</p></div>"
   }
@@ -4491,6 +4494,7 @@
       nsUpdate(); setTimeout(nsUpdate, 250); setTimeout(nsUpdate, 520)
     }
     else if (act === "hlay") { S.hlay = v === "list" ? "list" : "grid"; save(); render() }
+    else if (act === "wgClose") goBack()
     else if (act === "wgOpen") { U.wg = true; render(); window.scrollTo(0, 0) }
     else if (act === "waqOpen") { U.waq = true; render(); window.scrollTo(0, 0) }
     else if (act === "waqClose") { U.waq = false; render(); window.scrollTo(0, 0) }

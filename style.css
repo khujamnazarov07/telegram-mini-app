@@ -1681,7 +1681,10 @@ html:not(#_)[data-theme="light"] .daily.dglass .hgstage .done { color: #14302a; 
 .wgmeta { display: flex; justify-content: space-between; gap: 8px; color: var(--hint); font-size: 13px; font-weight: 600; padding: 0 4px; }
 .wgwords { display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; }
 .wgw { padding: 5px 11px; border-radius: 14px; font-size: 13px; font-weight: 700; letter-spacing: .04em; background: var(--card); border: 1.5px solid var(--line); color: var(--text); transition: .3s; }
-.wgw.ok { color: color-mix(in srgb, var(--wc) 80%, var(--text)); border-color: var(--wc); background: color-mix(in srgb, var(--wc) 14%, var(--card)); text-decoration: line-through; opacity: .75; }
+.wgw.ok { color: color-mix(in srgb, var(--wc) 80%, var(--text)); border-color: var(--wc); background: color-mix(in srgb, var(--wc) 14%, var(--card)); }
+.wgw.ok .msi { font-size: 16px; vertical-align: -3px; color: var(--wc); }
+.wgcnt { color: var(--hint); font-weight: 700; font-size: 14px; letter-spacing: .08em; }
+.wgpill { justify-self: center; white-space: nowrap; }
 .wgbox { position: relative; width: min(100%, 440px); margin: 4px auto; padding: 8px; box-sizing: border-box; background: var(--card); border: 1px solid var(--line); border-radius: 22px; box-shadow: 0 6px 22px rgba(0,0,0,.1); }
 .wgb { position: relative; display: grid; grid-template-columns: repeat(var(--n), 1fr); grid-template-rows: repeat(var(--n), 1fr); aspect-ratio: 1; touch-action: none; user-select: none; -webkit-user-select: none; }
 .wgsv { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
