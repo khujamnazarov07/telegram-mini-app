@@ -36,6 +36,17 @@
     waq_t: "Voqea challenji|Воқеа челленжи|Челлендж «Аль-Вакиа»|Al-Waqi'ah challenge|تحدي الواقعة|Vâkıa challenge'ı|Tantangan Al-Waqi'ah|瓦吉亚挑战|अल-वाक़िआ चैलेंज|Reto Al-Waqi'ah",
     waq_s: "Voqea|Воқеа|Аль-Вакиа|Al-Waqi'ah|الواقعة|Vâkıa|Al-Waqi'ah|瓦吉亚|अल-वाक़िआ|Al-Waqi'ah",
     fx_t: "Effektlar|Эффектлар|Эффекты|Effects|التأثيرات|Efektler|Efek|特效|प्रभाव|Efectos",
+    wg_t: "So'z o'yini|Сўз ўйини|Игра слов|Word game|لعبة الكلمات|Kelime oyunu|Permainan kata|文字游戏|शब्द खेल|Juego de palabras",
+    wg_m1: "Gorizontal|Горизонтал|Горизонталь|Horizontal|أفقي|Yatay|Horizontal|水平|क्षैतिज|Horizontal",
+    wg_m2: "Gorizontal va vertikal|Горизонтал ва вертикал|Горизонталь и вертикаль|Horizontal & vertical|أفقي وعمودي|Yatay ve dikey|Horizontal & vertikal|水平和垂直|क्षैतिज और ऊर्ध्वाधर|Horizontal y vertical",
+    wg_m3: "Burchakli|Бурчакли|С поворотом|With a corner|بزاوية|Köşeli|Dengan sudut|带转角|कोने के साथ|Con esquina",
+    wg_m4: "Qiyshiq|Қийшиқ|По диагонали|Diagonal|قطري|Çapraz|Diagonal|对角线|तिरछा|Diagonal",
+    wg_lim: "Bugungi limit tugadi. Ertaga davom eting.|Бугунги лимит тугади. Эртага давом этинг.|Лимит на сегодня исчерпан. Продолжите завтра.|Today's limit is reached. Continue tomorrow.|انتهى حد اليوم. تابع غدًا.|Bugünkü limit doldu. Yarın devam edin.|Batas hari ini tercapai. Lanjutkan besok.|今日次数已用完，明天继续。|आज की सीमा पूरी हुई। कल जारी रखें।|Límite de hoy alcanzado. Continúa mañana.",
+    wg_limp: "Premium: kuniga 10 ta level|Премиум: кунига 10 та левел|Премиум: 10 уровней в день|Premium: 10 levels a day|بريميوم: 10 مستويات يوميًا|Premium: günde 10 seviye|Premium: 10 level per hari|高级版：每天10关|प्रीमियम: प्रतिदिन 10 स्तर|Premium: 10 niveles al día",
+    wg_all: "Barcha 40 level tugadi!|Барча 40 левел тугади!|Все 40 уровней пройдены!|All 40 levels completed!|اكتملت كل المستويات الـ 40!|40 seviyenin hepsi bitti!|Semua 40 level selesai!|40 关全部完成！|सभी 40 स्तर पूरे!|¡Los 40 niveles completados!",
+    wg_ok: "Level tugadi!|Левел тугади!|Уровень пройден!|Level complete!|اكتمل المستوى!|Seviye tamam!|Level selesai!|过关！|स्तर पूरा!|¡Nivel completado!",
+    wg_today: "Bugun|Бугун|Сегодня|Today|اليوم|Bugün|Hari ini|今天|आज|Hoy",
+    wg_help: "Harflarni barmoq bilan surib ismni yig'ing.|Ҳарфларни бармоқ билан суриб исмни йиғинг.|Проведите пальцем по буквам, чтобы собрать имя.|Drag across the letters to find the name.|اسحب على الحروف للعثور على الاسم.|Harflerin üzerinde sürükleyerek ismi bulun.|Geser di atas huruf untuk menemukan nama.|在字母上滑动找出名字。|नाम खोजने के लिए अक्षरों पर उंगली चलाएँ।|Desliza sobre las letras para encontrar el nombre.",
     waq_new: "Yangi · boshlash|Янги · бошлаш|Новый · начать|New · start|جديد · ابدأ|Yeni · başla|Baru · mulai|新 · 开始|नया · शुरू करें|Nuevo · empezar",
     waq_lv: "Daraja|Даража|Уровень|Level|المستوى|Seviye|Level|等级|स्तर|Nivel",
     waq_debt: "Qoldirilgan|Қолдирилган|Пропущено|Missed|فائت|Kaçan|Terlewat|待补|छूटा|Pendiente",
@@ -383,10 +394,10 @@
     }, 30000)
   }
   function goTab(v) {
-    if (v === U.tab && !U.detail && !U.waq && U.more === "menu") { window.scrollTo({ top: 0, behavior: "smooth" }); return }
+    if (v === U.tab && !U.detail && !U.waq && !U.wg && U.more === "menu") { window.scrollTo({ top: 0, behavior: "smooth" }); return }
     var from = navIdx(), to = 0
     for (var i = 0; i < NAVS.length; i++) if (NAVS[i][0] === v) to = i
-    var go = function () { window.scrollTo(0, 0); U.namesOpen = false; U.waq = false; U.tab = v; U.hikBack = false; U.detail = 0; U.more = "menu"; U.moodPick = ""; render() }
+    var go = function () { window.scrollTo(0, 0); U.namesOpen = false; U.waq = false; U.wg = false; U.tab = v; U.hikBack = false; U.detail = 0; U.more = "menu"; U.moodPick = ""; render() }
     if (from === to) return go()
     slidePage(to > from ? 1 : -1, go)
   }
@@ -634,12 +645,203 @@
     var b = document.getElementById("wqplus"), lock = wqLock(w)
     if (b) { b.classList.toggle("off", lock); b.innerHTML = lock ? "✓" : ic("add") }
   }
+  // ===== SO'Z O'YINI (ismlar, inglizcha harflar) =====
+  var WGG = [6, 6, 6, 7, 7, 7, 8, 8, 8, 9], WGK = [3, 3, 4, 4, 5, 5, 5, 6, 6, 7], WGMAX = { 1: 10, 2: 10, 3: 10, 4: 10 }
+  var WGCOL = ["#3fb98a", "#e8706d", "#f0b455", "#5aa8e0", "#a98be0", "#ee8db0", "#4fc0c0", "#8cc152"]
+  var WGP = null, WG = { L: null, path: [], drag: false, fl: null, cache: {}, lk: 0 }
+  function wgRng(a) { return function () { a |= 0; a = a + 0x6D2B79F5 | 0; var t = Math.imul(a ^ a >>> 15, 1 | a); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296 } }
+  function wgPool() {
+    if (WGP) return WGP
+    WGP = []
+    var pre = { al: 1, ar: 1, as: 1, at: 1, ad: 1, an: 1, az: 1, ash: 1, ath: 1, adh: 1, ag: 1 }, seen = {}
+    for (var i = 0; i < D.names.length; i++) {
+      var p = plain(D.names[i].t).split("-")
+      if (p.length > 1 && pre[p[0]]) p.shift()
+      var w = p.join("").replace(/[^a-z]/g, "").toUpperCase()
+      if (w.length >= 4 && w.length <= 9 && !seen[w]) { seen[w] = 1; WGP.push({ w: w, i: i }) }
+    }
+    return WGP
+  }
+  function wgRev(s) { return s.split("").reverse().join("") }
+  function wgSteps(mode, len, rnd) {
+    var H = [0, 1], V = [1, 0], st = [], i
+    if (mode === 3 && len >= 3 && rnd() < 0.7) {
+      var a = 1 + Math.floor(rnd() * (len - 2)), b = len - 1 - a, f = rnd() < 0.5 ? [H, V] : [V, H]
+      for (i = 0; i < a; i++) st.push(f[0])
+      for (i = 0; i < b; i++) st.push(f[1])
+      st.bent = true
+      return st
+    }
+    var ds = mode === 1 ? [H] : mode === 4 ? [H, V, [1, 1], [-1, 1]] : [H, V], d = ds[Math.floor(rnd() * ds.length)]
+    for (i = 0; i < len - 1; i++) st.push(d)
+    return st
+  }
+  function wgGen(lv) {
+    var mode = Math.floor(lv / 10) + 1, l = lv % 10, n = WGG[l], k = WGK[l], P = wgPool()
+    for (var att = 0; att < 120; att++) {
+      var rnd = wgRng(lv * 7919 + att * 104729 + 13), pl = P.filter(function (x) { return x.w.length <= n }), j, q
+      for (j = pl.length - 1; j > 0; j--) { q = Math.floor(rnd() * (j + 1)); var tt = pl[j]; pl[j] = pl[q]; pl[q] = tt }
+      var ch = []
+      for (j = 0; j < pl.length && ch.length < k; j++) {
+        var w = pl[j].w, rv = wgRev(w), bad = false
+        for (q = 0; q < ch.length; q++) { var c = ch[q].w; if (c.indexOf(w) >= 0 || w.indexOf(c) >= 0 || c.indexOf(rv) >= 0 || rv.indexOf(c) >= 0) bad = true }
+        if (!bad) ch.push(pl[j])
+      }
+      if (ch.length < k) continue
+      ch.sort(function (a, b) { return b.w.length - a.w.length })
+      var g = [], i, ok = true, bends = 0, res = []
+      for (i = 0; i < n * n; i++) g.push("")
+      for (j = 0; j < ch.length && ok; j++) {
+        var W = ch[j].w, placed = false
+        for (var t = 0; t < 200 && !placed; t++) {
+          var st = wgSteps(mode, W.length, rnd), r = 0, c2 = 0, mnr = 0, mxr = 0, mnc = 0, mxc = 0
+          for (i = 0; i < st.length; i++) { r += st[i][0]; c2 += st[i][1]; mnr = Math.min(mnr, r); mxr = Math.max(mxr, r); mnc = Math.min(mnc, c2); mxc = Math.max(mxc, c2) }
+          var hr = n - 1 - mxr + mnr, hc = n - 1 - mxc + mnc
+          if (hr < 0 || hc < 0) continue
+          var r0 = -mnr + Math.floor(rnd() * (hr + 1)), c0 = -mnc + Math.floor(rnd() * (hc + 1)), cells = [[r0, c0]], good = true
+          for (i = 0; i < st.length; i++) cells.push([cells[i][0] + st[i][0], cells[i][1] + st[i][1]])
+          for (i = 0; i < cells.length; i++) { var cur = g[cells[i][0] * n + cells[i][1]]; if (cur && cur !== W.charAt(i)) { good = false; break } }
+          if (!good) continue
+          for (i = 0; i < cells.length; i++) g[cells[i][0] * n + cells[i][1]] = W.charAt(i)
+          if (st.bent) bends++
+          res.push({ w: W, i: ch[j].i, p: cells }); placed = true
+        }
+        if (!placed) ok = false
+      }
+      if (!ok || (mode === 3 && bends < Math.ceil(k / 2))) continue
+      var pool = res.map(function (x) { return x.w }).join(""), AL = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+      for (i = 0; i < n * n; i++) if (!g[i]) g[i] = rnd() < 0.55 ? pool.charAt(Math.floor(rnd() * pool.length)) : AL.charAt(Math.floor(rnd() * 26))
+      res.sort(function (a, b) { return a.p[0][0] * 20 + a.p[0][1] - b.p[0][0] * 20 - b.p[0][1] })
+      return { n: n, mode: mode, g: g, words: res }
+    }
+    return null
+  }
+  function wgS() {
+    var g = S.wg
+    if (!g || typeof g.lv !== "number") g = S.wg = { lv: 0, day: "", n: 0, f: [] }
+    if (g.day !== todayStr()) { g.day = todayStr(); g.n = 0 }
+    return g
+  }
+  function wgLim() { return isPrem() ? 10 : 1 }
+  function wgLevel(lv) { return WG.cache[lv] || (WG.cache[lv] = wgGen(lv)) }
+  function wgFound(g, i) { for (var k = 0; k < g.f.length; k++) if (g.f[k].i === i) return true; return false }
+  function wgLine(p, col, inner, cls) {
+    var pts = p.map(function (q) { return (q[1] + .5) + "," + (q[0] + .5) }).join(" ")
+    if (p.length === 1) pts += " " + pts
+    return '<g class="' + (cls || "") + '"><polyline points="' + pts + '" style="stroke:' + col + '" /><polyline class="in" points="' + pts + '" style="stroke:' + inner + '" /></g>'
+  }
+  function wgDraw() {
+    var sv = document.getElementById("wgsv"), g = wgS()
+    if (!sv || !WG.L) return
+    var h = "", k
+    for (k = 0; k < g.f.length; k++) { var c = WGCOL[k % WGCOL.length]; h += wgLine(g.f[k].p, c, "color-mix(in srgb," + c + " 17%,var(--card))", WG.pop === g.f[k].i ? "wgin" : "") }
+    WG.pop = -1
+    if (WG.fl) h += wgLine(WG.fl.p, "#e8706d", "color-mix(in srgb,#e8706d 15%,var(--card))", "wgfl")
+    if (WG.path.length) h += wgLine(WG.path, "var(--accent)", "var(--card)", "")
+    sv.innerHTML = h
+  }
+  function wgChips() {
+    var g = wgS(), el = document.querySelectorAll(".wgw")
+    for (var i = 0; i < el.length; i++) {
+      var idx = +el[i].getAttribute("data-i"), pos = -1
+      for (var k = 0; k < g.f.length; k++) if (g.f[k].i === idx) pos = k
+      el[i].classList.toggle("ok", pos >= 0)
+      if (pos >= 0) el[i].style.setProperty("--wc", WGCOL[pos % WGCOL.length])
+    }
+  }
+  function viewWg() {
+    var g = wgS(), lim = wgLim(), prem = isPrem()
+    var top = '<div class="wgtop"><div class="wqpill">' + ic("extension") + " " + esc(tr("wg_t")) + '</div><div class="wqlvb">' + ic("military_tech") + "<b>" + Math.min(g.lv + 1, 40) + "</b></div></div>"
+    if (g.lv >= 40) return '<div class="wg">' + top + '<div class="card wgmsg">' + ic("military_tech") + "<b>" + esc(tr("wg_all")) + "</b></div></div>"
+    if (g.n >= lim) return '<div class="wg">' + top + '<div class="card wgmsg">' + ic("lock_clock") + "<b>" + esc(tr("wg_lim")) + "</b>" + (prem ? "" : '<button class="btn primary" data-act="premGo">' + ic("workspace_premium") + " " + esc(tr("wg_limp")) + "</button>") + "</div></div>"
+    var L = wgLevel(g.lv)
+    if (!L) return '<div class="wg">' + top + "</div>"
+    WG.L = L; WG.path = []; WG.fl = null
+    var wh = "", i
+    for (i = 0; i < L.words.length; i++) wh += '<span class="wgw" data-i="' + L.words[i].i + '">' + esc(L.words[i].w) + "</span>"
+    // chiplar word.i bo'yicha emas, tartib bo'yicha: indeks sifatida ism raqami
+    var cs = ""
+    for (i = 0; i < L.n * L.n; i++) cs += "<div class=\"wgc\">" + L.g[i] + "</div>"
+    setTimeout(function () { wgDraw(); wgChips() }, 0)
+    return '<div class="wg">' + top +
+      '<div class="wgmeta"><span>' + esc(tr("wg_m" + L.mode)) + "</span><span>" + esc(tr("wg_today")) + " " + g.n + "/" + lim + "</span></div>" +
+      '<div class="wgwords">' + wh + "</div>" +
+      '<div class="wgbox"><div id="wgb" class="wgb" style="--n:' + L.n + '"><svg id="wgsv" class="wgsv" viewBox="0 0 ' + L.n + " " + L.n + '"></svg>' + cs + '</div><div id="wgok" class="wgok"><span>' + ic("check_circle") + " " + esc(tr("wg_ok")) + "</span></div></div>" +
+      '<p class="wghint">' + esc(tr("wg_help")) + "</p></div>"
+  }
+  function wgCell(e) {
+    var b = document.getElementById("wgb")
+    if (!b || !WG.L) return null
+    var r = b.getBoundingClientRect(), n = WG.L.n, x = (e.clientX - r.left) / r.width * n, y = (e.clientY - r.top) / r.height * n, c = Math.floor(x), rr = Math.floor(y)
+    if (c < 0 || rr < 0 || c >= n || rr >= n) return null
+    if (Math.hypot(x - c - .5, y - rr - .5) > .62) return null
+    return [rr, c]
+  }
+  function wgTurns(p) {
+    var t = 0
+    for (var i = 2; i < p.length; i++) if (p[i][0] - p[i - 1][0] !== p[i - 1][0] - p[i - 2][0] || p[i][1] - p[i - 1][1] !== p[i - 1][1] - p[i - 2][1]) t++
+    return t
+  }
+  function wgAdd(cell) {
+    var p = WG.path, m = WG.L.mode, i
+    if (!p.length) { p.push(cell); return true }
+    var last = p[p.length - 1]
+    if (last[0] === cell[0] && last[1] === cell[1]) return false
+    if (p.length > 1 && p[p.length - 2][0] === cell[0] && p[p.length - 2][1] === cell[1]) { p.pop(); return true }
+    for (i = 0; i < p.length; i++) if (p[i][0] === cell[0] && p[i][1] === cell[1]) return false
+    var dr = cell[0] - last[0], dc = cell[1] - last[1], orth = Math.abs(dr) + Math.abs(dc) === 1, dg = Math.abs(dr) === 1 && Math.abs(dc) === 1
+    if (m === 1) { if (dr !== 0 || !orth) return false }
+    else if (m === 4) { if (!orth && !dg) return false }
+    else if (!orth) return false
+    p.push(cell)
+    if (wgTurns(p) > (m === 3 ? 1 : 0)) { p.pop(); return false }
+    return true
+  }
+  function wgEnd() {
+    var p = WG.path, g = wgS()
+    WG.path = []; WG.drag = false
+    if (p.length < 2 || !WG.L) { wgDraw(); return }
+    var s = p.map(function (q) { return WG.L.g[q[0] * WG.L.n + q[1]] }).join(""), rs = wgRev(s), hit = -1, i
+    for (i = 0; i < WG.L.words.length; i++) { var w = WG.L.words[i]; if (hit < 0 && !wgFound(g, w.i) && (w.w === s || w.w === rs)) hit = w.i }
+    if (hit >= 0) {
+      g.f.push({ i: hit, p: p }); save(); haptic("medium"); WG.pop = hit; wgDraw(); wgChips()
+      if (g.f.length === WG.L.words.length) wgDone()
+    } else {
+      WG.fl = { p: p }; haptic("light"); wgDraw()
+      var f = WG.fl
+      setTimeout(function () { if (WG.fl === f) { WG.fl = null; wgDraw() } }, 480)
+    }
+  }
+  function wgDone() {
+    var g = wgS(), ok = document.getElementById("wgok")
+    g.lv++; g.n++; g.f = []; save(); haptic("heavy")
+    if (ok) ok.classList.add("on")
+    var lk = ++WG.lk
+    setTimeout(function () { if (lk === WG.lk && U.waq === undefined) { /* noop */ } if (lk === WG.lk && U.wg) render() }, 1900)
+  }
+  document.addEventListener("pointerdown", function (e) {
+    var b = e.target.closest && e.target.closest("#wgb")
+    if (!b || !WG.L) return
+    var c = wgCell(e)
+    WG.drag = true; WG.path = []
+    try { b.setPointerCapture(e.pointerId) } catch (x) {}
+    if (c) wgAdd(c)
+    wgDraw(); e.preventDefault()
+  })
+  document.addEventListener("pointermove", function (e) {
+    if (!WG.drag) return
+    var c = wgCell(e)
+    if (c && wgAdd(c)) wgDraw()
+  })
+  document.addEventListener("pointerup", function () { if (WG.drag) wgEnd() })
+  document.addEventListener("pointercancel", function () { if (WG.drag) { WG.path = []; WG.drag = false; wgDraw() } })
   function viewHomePanel() {
     var w = wq(); wqRoll()
     var lay = S.hlay === "list" ? "list" : "grid"
     return '<div class="hpanel"><div class="hptg" role="group"><button data-act="hlay" data-v="grid" class="' + (lay === "grid" ? "on" : "") + '" aria-label="grid">' + ic("grid_view") + '</button><button data-act="hlay" data-v="list" class="' + (lay === "list" ? "on" : "") + '" aria-label="list">' + ic("view_list") + "</button></div>" +
       '<div class="hpg ' + lay + '"><button class="hikrow hcard" data-act="hikmat"><span id="hph" class="hph2" aria-label="' + esc(tr("hikmat")) + '"><span></span><span></span></span>' + ic("chevron_right") + "</button>" +
-      '<button class="hikrow hcard wqc' + (w.on && !w.fin ? " act" : "") + '" data-act="waqOpen"><span class="hct"><b>' + ic("bedtime") + " " + esc(tr("waq_s")) + "</b></span>" + ic("chevron_right") + "</button></div></div>"
+      '<button class="hikrow hcard wqc' + (w.on && !w.fin ? " act" : "") + '" data-act="waqOpen"><span class="hct"><b>' + ic("bedtime") + " " + esc(tr("waq_s")) + "</b></span>" + ic("chevron_right") + "</button>" +
+      '<button class="hikrow hcard wgcard" data-act="wgOpen"><span class="hct"><b>' + ic("extension") + " " + esc(tr("wg_t")) + "</b></span>" + ic("chevron_right") + "</button></div></div>"
   }
   // umumiy soat: 99 hisobi va header g'ildiraklari bir ritmda (barmoq tegsa to'xtaydi, qo'yilgach 3s dan keyin boshidan)
   var CLK = { tc: 0, block: 0 }
@@ -2547,11 +2749,12 @@
   function render() {
     document.documentElement.lang = S.lang.slice(0, 2)
     document.documentElement.dir = S.lang === "ar" ? "rtl" : "ltr"
-    var h, sy = window.pageYOffset || 0, vkey = [U.tab, U.more, U.detail, U.waq ? 1 : 0, U.moodPick].join("|"), same = vkey === U.vkey
+    var h, sy = window.pageYOffset || 0, vkey = [U.tab, U.more, U.detail, U.waq ? 1 : 0, U.wg ? 1 : 0, U.moodPick].join("|"), same = vkey === U.vkey
     U.vkey = vkey
     try {
       if (U.detail) h = viewDetail()
       else if (U.waq) h = viewWaq()
+      else if (U.wg) h = viewWg()
       else if (U.tab === "names") h = viewNames()
       else if (U.tab === "media") h = viewMedia()
       else if (U.tab === "mood") h = viewMood()
@@ -2589,12 +2792,13 @@
     renderNav()
     if (wheels.theme) updateThemeLabels()
     if (tg && tg.BackButton) {
-      if (U.detail || U.waq || U.tab !== "names") tg.BackButton.show()
+      if (U.detail || U.waq || U.wg || U.tab !== "names") tg.BackButton.show()
       else tg.BackButton.hide()
     }
     window.scrollTo(0, same ? sy : 0)
   }
   function goBack() {
+    if (U.wg) { U.wg = false; WG.L = null; render(); window.scrollTo(0, 0); return }
     if (U.waq) { U.waq = false; render(); window.scrollTo(0, 0); return }
     if (U.detail) { U.detail = 0; render(); window.scrollTo(0, 0); return }
     if (U.tab === "more" && U.more === "help" && U.hcUid) { U.hcUid = 0; HCH.msgs = []; render(); window.scrollTo(0, 0); return }
@@ -4287,6 +4491,7 @@
       nsUpdate(); setTimeout(nsUpdate, 250); setTimeout(nsUpdate, 520)
     }
     else if (act === "hlay") { S.hlay = v === "list" ? "list" : "grid"; save(); render() }
+    else if (act === "wgOpen") { U.wg = true; render(); window.scrollTo(0, 0) }
     else if (act === "waqOpen") { U.waq = true; render(); window.scrollTo(0, 0) }
     else if (act === "waqClose") { U.waq = false; render(); window.scrollTo(0, 0) }
     else if (act === "waqStart") { var w0 = wq(); S.wq = { on: true, level: 1, debt: 0, dd: [], dd0: [], draft: 0, done: false, last: todayStr(), d0: 0, read: 0, total: 0, bonus: 0, fin: false }; save(); render() }
