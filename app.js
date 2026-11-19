@@ -2233,7 +2233,6 @@
         '<button data-act="more" data-v="mode">' + ic("contrast") + " " + esc(tr("mode_t")) + " · " + esc(tr("th_" + S.theme)) + "</button>" +
         '<button data-act="more" data-v="theme">' + ic("palette") + " " + esc(tr("theme_t")) + " · " + esc(tr(cg)) + "</button>" +
         '<button data-act="more" data-v="lang">' + ic("translate") + " " + esc(tr("lang")) + " · " + LANG_NAMES[S.lang] + "</button>" +
-        '<div class="rrow"><span class="fxi">' + ic("auto_awesome") + "</span><span>" + esc(tr("fx_t")) + '</span><button class="tgl' + (S.fx === false ? "" : " on") + '" data-act="fxt" aria-label="fx"><i></i></button></div>' +
         '<div class="rrow" data-act="more" data-v="remind">' + ic("notifications") + "<span>" + esc(tr("remind")) + '</span><button class="tgl' + (S.remind === false ? "" : " on") + '" data-act="rmt" data-v="all" aria-label="remind"><i></i></button></div></div>'
     }
     if (U.more === "pmx") return pmxHtml()
@@ -4173,7 +4172,7 @@
 
   // ===== effektlar soati: 11s yoyiq / 11s qisqa =====
   var FXP = 11000, FX = { c: false, t: null, exp: 0, n: 0 }
-  function fxOn() { return S.fx !== false && !(window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches) }
+  function fxOn() { return false && S.fx !== false && !(window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches) }
   function fxLayout() {
     var hd = document.getElementById("hdr"), br = document.getElementById("home")
     if (hd && br) hd.style.width = FX.c ? (br.offsetWidth + 36) + "px" : ""
