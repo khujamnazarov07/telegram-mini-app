@@ -53,6 +53,12 @@
     pet_ok: "Alhamdulillah!|Алҳамдулиллаҳ!|Альхамдулиллях!|Alhamdulillah!|الحمد لله!|Elhamdülillah!|Alhamdulillah!|感谢真主！|अल्हम्दुलिल्लाह!|¡Alhamdulillah!",
     pet_love: "Rahmat!|Раҳмат!|Спасибо!|Thank you!|شكرًا!|Teşekkürler!|Terima kasih!|谢谢！|धन्यवाद!|¡Gracias!",
     pet_snow: "Mmm, qor!|Ммм, қор!|Ммм, снег!|Mmm, snow!|همم، ثلج!|Mmm, kar!|Mmm, salju!|嗯，雪！|म्म, बर्फ़!|¡Mmm, nieve!",
+    pet_hot: "Uf, quyosh qizdirib yubordi!|Уф, қуёш қиздириб юборди!|Уф, солнце печёт!|Phew, the sun is scorching!|أوف، الشمس حارقة!|Off, güneş kavuruyor!|Huft, panas sekali!|哎呀，太阳好晒！|उफ़, धूप बहुत तेज़ है!|¡Uf, qué calor!",
+    pet_cold: "Brrr, qanday sovuq!|Бррр, қандай совуқ!|Бррр, как холодно!|Brrr, so cold!|برررر، ما أبرد الجو!|Brrr, ne soğuk!|Brrr, dingin sekali!|好冷啊！|ब्रर्र, कितनी ठंड!|¡Brrr, qué frío!",
+    pet_hide: "Kuk-kuk! Men shu yerdaman|Кук-кук! Мен шу ердаман|Ку-ку! Я тут|Peek-a-boo! I'm here|كو-كو! أنا هنا|Cee-cee! Buradayım|Cilukba! Aku di sini|躲猫猫！我在这儿|कू-कू! मैं यहाँ हूँ|¡Cucú! Aquí estoy",
+    pet_dz: "Boshim aylanyapti…|Бошим айланяпти…|Голова кружится…|I feel dizzy…|رأسي يدور…|Başım dönüyor…|Kepalaku pusing…|我头晕…|चक्कर आ रहा है…|Me mareo…",
+    pet_fly: "Uchyapman!|Учяпман!|Лечу!|Flying!|أطير!|Uçuyorum!|Terbang!|飞起来啦！|उड़ रहा हूँ!|¡Vuelo!",
+    pet_goal: "Maqsadga erishdingiz, Alhamdulillah!|Мақсадга эришдингиз, алҳамдулиллаҳ!|Цель достигнута, альхамдулиллях!|Goal reached, alhamdulillah!|تحقق الهدف، الحمد لله!|Hedefe ulaştınız, elhamdülillah!|Target tercapai, alhamdulillah!|目标达成，感谢真主！|लक्ष्य पूरा, अल्हम्दुलिल्लाह!|¡Meta lograda, alhamdulillah!",
     waq_new: "Yangi · boshlash|Янги · бошлаш|Новый · начать|New · start|جديد · ابدأ|Yeni · başla|Baru · mulai|新 · 开始|नया · शुरू करें|Nuevo · empezar",
     waq_lv: "Daraja|Даража|Уровень|Level|المستوى|Seviye|Level|等级|स्तर|Nivel",
     waq_debt: "Qoldirilgan|Қолдирилган|Пропущено|Missed|فائت|Kaçan|Terlewat|待补|छूटा|Pendiente",
@@ -845,7 +851,7 @@
   document.addEventListener("pointerup", function () { if (WG.drag) wgEnd() })
   document.addEventListener("pointercancel", function () { if (WG.drag) { WG.path = []; WG.drag = false; wgDraw() } })
   // ===== ROBOT (piksel, JS bilan chiziladi) =====
-  var PET = { el: null, cv: null, cx: null, bub: null, x: 70, tx: 70, t: 0, act: "", at: 0, dur: 0, jy: 0, face: "n", gaze: 0, la: "down", ra: "down", by: 0, bt: 0, bl: 0, tm: null, sad: false, seen: false, bubAt: 0, bubT: 0, ph: 0, n: 0, fl: null, lastSad: 0, init: false }
+  var PET = { el: null, cv: null, cx: null, bub: null, x: 70, tx: 70, t: 0, act: "", at: 0, dur: 0, jy: 0, face: "n", gaze: 0, la: "down", ra: "down", by: 0, bt: 0, bl: 0, tm: null, sad: false, seen: false, bubAt: 0, bubT: 0, ph: 0, n: 0, fl: null, lastSad: 0, init: false, oy: 0, toy: 0, fh: 40, sx: 0, fire: false, tint: "", um: false, emo: "", emoUntil: 0, hap: 0, rc: null }
   var PC = { b: "#cfd8ea", s: "#9fb0cf", d: "#27324d", sc: "#0f1a2e", e: "#5eead4", a: "#ff7a8a", t: "#7dd3fc", p: "#ff9db0" }
   var PARM = {
     down: [[1, 17, 2, 5, "b"], [1, 22, 2, 2, "s"]],
@@ -882,51 +888,66 @@
     b.classList.add("on")
     PET.bubAt = PET.t; PET.bubT = ms || 3000
   }
-  function petGo(name, dur) { PET.act = name; PET.at = 0; PET.dur = dur; PET.ph = 0; PET.n = 0; PET.la = "down"; PET.ra = "down"; PET.face = "n"; PET.gaze = 0; PET.by = 0 }
-  var ZK = ["SubhanAllah", "Alhamdulillah", "Allahu Akbar", "La ilaha illAllah", "Astaghfirullah", "In shaa Allah"]
+  var PHR = ["Mashaa Alloh!", "Barakallah!", "Alhamdulillah!", "SubhanAllah!", "Jazakallahu khayran!", "Allohu Akbar!"]
+  function petSeason() { return (S.bgmode === "season" && isPrem()) ? S.season : "" }
+  function petGo(name, dur) { PET.act = name; PET.at = 0; PET.dur = dur; PET.ph = 0; PET.n = 0; PET.la = "down"; PET.ra = "down"; PET.face = "n"; PET.gaze = 0; PET.by = 0; PET.um = false }
+  var ZK = ["SubhanAllah", "Alhamdulillah", "Allahu Akbar", "La ilaha illAllah", "Astaghfirullah", "In shaa Alloh"]
+  function petRnd(a, b) { return a + Math.random() * (b - a) }
   function petPick() {
     var sad = petSad(), r = Math.random()
     if (sad) {
       if (!PET.seen || PET.t - PET.lastSad > 60000) { PET.seen = true; PET.lastSad = PET.t; petGo("think", 4200); return }
-      if (r < .45) petGo("sadidle", 3000 + Math.random() * 2500)
-      else if (r < .75) petGo("wipe", 1900)
-      else if (r < .92) petGo("sigh", 1900)
-      else petGo("peek", 2800)
+      if (r < .4) petGo("sadidle", 3000 + Math.random() * 2500)
+      else if (r < .65) petGo("wipe", 1900)
+      else if (r < .8) petGo("sigh", 1900)
+      else if (r < .9) petGo("peek", 2800)
+      else { PET.tx = petRnd(50, window.innerWidth - 50); petGo("hide", 15000) }
       return
     }
     if (PET.sad) return
-    var snow = petSnow()
-    if (snow && r < .4) { PET.tx = 50 + Math.random() * (window.innerWidth - 100); petGo("snow", 14000); return }
+    var sn = petSeason(), W = window.innerWidth
     r = Math.random()
-    if (r < .3) { PET.tx = 45 + Math.random() * (window.innerWidth - 90); petGo("walk", 9000) }
-    else if (r < .5) petGo("idle", 2500 + Math.random() * 2500)
-    else if (r < .6) petGo("wave", 2400)
-    else if (r < .7) petGo("dance", 3200)
-    else if (r < .79) petGo("jump", 900)
-    else if (r < .86) petGo("yawn", 2600)
-    else if (r < .94) petGo("zikr", 3200)
-    else petGo("peek", 3000)
+    if (sn === "winter" && r < .35) {
+      if (petSnow() && Math.random() < .6) { PET.tx = petRnd(50, W - 50); petGo("snow", 14000) } else petGo("cold", 4600)
+      return
+    }
+    if (sn === "summer" && r < .3) { PET.tx = petRnd(50, W - 50); petGo("sun", 9000); return }
+    r = Math.random()
+    if (r < .22) { PET.tx = petRnd(45, W - 45); petGo("walk", 9000) }
+    else if (r < .34) petGo("idle", 2500 + Math.random() * 2500)
+    else if (r < .41) petGo("wave", 2400)
+    else if (r < .48) petGo("dance", 3200)
+    else if (r < .54) petGo("jump", 900)
+    else if (r < .59) petGo("yawn", 2600)
+    else if (r < .66) petGo("zikr", 3200)
+    else if (r < .71) petGo("peek", 3000)
+    else if (r < .81) { PET.tx = petRnd(45, W - 45); PET.fh = petRnd(32, 56); petGo("fly", 16000) }
+    else if (r < .91) { PET.tx = petRnd(40, W - 40); PET.fh = petRnd(110, Math.max(130, window.innerHeight - 260)); petGo("explore", 20000) }
+    else { PET.tx = petRnd(50, W - 50); petGo("hide", 15000) }
   }
+  function petEmo(face, ms) { PET.emo = face; PET.emoUntil = PET.t + ms }
   function petStep(dt) {
-    var f = PET, a = f.act, p = f.at / f.dur, sec = Math.floor(f.t / 250), W = window.innerWidth
+    var f = PET, a = f.act, p = f.at / f.dur, sec = Math.floor(f.t / 250), W = window.innerWidth, d
     f.t += dt; f.at += dt; f.jy = 0
     if (f.bubT && f.t - f.bubAt > f.bubT) { f.bubT = 0; petBub("") }
     f.bt += dt
     if (f.bt > 3600) { f.bt = 0; f.bl = 140 }
     if (f.bl > 0) f.bl -= dt
     sec = Math.floor(f.t / 250)
-    if (!a) { petPick(); return }
+    f.oy += (f.toy - f.oy) * Math.min(1, dt / 240)
+    f.sx = 0; f.fire = false; f.tint = ""
+    if (!a) { f.toy = 0; petPick(); return }
     f.face = PET.sad ? "teary" : "n"
     if (PET.sad) { f.la = "droop"; f.ra = "droop" }
-    if (a === "idle") { f.gaze = [0, -1, 0, 1][Math.floor(f.at / 1300) % 4]; f.by = Math.floor(f.t / 900) % 2 }
+    if (a === "idle") { f.toy = 0; f.gaze = [0, -1, 0, 1][Math.floor(f.at / 1300) % 4]; f.by = Math.floor(f.t / 900) % 2 }
     else if (a === "walk") {
-      var d = f.tx - f.x; f.gaze = d > 0 ? 1 : -1
+      f.toy = 0; d = f.tx - f.x; f.gaze = d > 0 ? 1 : -1
       f.x += Math.sign(d) * 30 * dt / 1000
       f.by = sec % 2; f.la = sec % 2 ? "mid" : "down"; f.ra = sec % 2 ? "down" : "mid"
       if (Math.abs(d) < 3) f.at = f.dur
     } else if (a === "wave") { f.face = "happy"; f.ra = sec % 2 ? "up" : "up2"; if (f.at < 60) petBub(tr("pet_hi"), 2000) }
     else if (a === "dance") { f.face = "happy"; f.by = sec % 2; f.la = sec % 2 ? "up" : "mid"; f.ra = sec % 2 ? "mid" : "up2"; f.x += Math.sin(f.at / 260) * .4 }
-    else if (a === "jump") { f.face = "happy"; f.la = "up"; f.ra = "up2"; f.jy = Math.abs(Math.sin(Math.PI * p)) * 20 }
+    else if (a === "jump") { f.face = "happy"; f.la = "up"; f.ra = "up2"; f.jy = Math.abs(Math.sin(Math.PI * p)) * 20; if (f.at >= f.dur - 40) petEmo("pant", 1500) }
     else if (a === "yawn") { f.face = f.at > 300 && f.at < 1700 ? "o" : "blink"; f.by = f.at > 300 && f.at < 1700 ? 1 : 0 }
     else if (a === "zikr") { f.face = "happy"; f.la = "mid"; f.ra = "mid"; if (f.at < 60) petBub(ZK[Math.floor(Math.random() * ZK.length)], 2800) }
     else if (a === "peek") { f.gaze = [-1, 1, 0, 1, -1][Math.floor(f.at / 600) % 5]; if (!PET.sad) f.face = "n" }
@@ -941,6 +962,7 @@
     else if (a === "cheer") { f.face = "happy"; f.la = sec % 2 ? "up" : "up2"; f.ra = sec % 2 ? "up2" : "up"; f.by = sec % 2; f.jy = Math.abs(Math.sin(f.at / 190)) * 10 }
     else if (a === "love") { f.face = "love"; f.la = "up"; f.ra = "up2"; f.jy = Math.abs(Math.sin(f.at / 220)) * 6 }
     else if (a === "snow") {
+      f.toy = 0
       if (f.ph === 0) {
         var d2 = f.tx - f.x; f.gaze = d2 > 0 ? 1 : -1; f.x += Math.sign(d2) * 34 * dt / 1000; f.by = sec % 2
         f.la = sec % 2 ? "mid" : "down"; f.ra = sec % 2 ? "down" : "mid"
@@ -948,7 +970,7 @@
       } else if (f.ph === 1) { f.face = "up"; if (f.at > 500) { f.ph = 2; f.at = 0; PET.fl = { y: -12 } } }
       else if (f.ph === 2) {
         f.face = "up"
-        var r0 = PET.el.getBoundingClientRect(), my = r0.top + 8 * 3 + 15, fy = -12 + (my + 12) * Math.min(1, f.at / 1500)
+        var r0 = PET.el.getBoundingClientRect(), my = r0.top + 22, fy = -12 + (my + 12) * Math.min(1, f.at / 1500)
         PET.fl.y = fy
         if (f.at > 1500) { f.ph = 3; f.at = 0; PET.fl = null }
       } else if (f.ph === 3) {
@@ -957,61 +979,134 @@
         if (f.at > 1200) { f.ph = 4; f.n = 0 }
       } else { f.face = "happy"; f.at = f.dur }
     }
+    else if (a === "fly" || a === "explore") {
+      f.la = "out"; f.ra = "out"; f.fire = f.oy > 6; f.face = "happy"
+      if (f.ph === 0) {
+        f.toy = f.fh; d = f.tx - f.x; f.gaze = d > 0 ? 1 : -1; f.x += Math.sign(d) * Math.min(Math.abs(d), 80 * dt / 1000)
+        if (f.at < 80 && a === "fly") petBub(tr("pet_fly"), 1500)
+        if (Math.abs(d) < 4 && Math.abs(f.oy - f.fh) < 5) { f.ph = 1; f.at = 0 }
+      } else if (f.ph === 1) {
+        f.toy = f.fh + Math.sin(f.at / 300) * 3; f.ra = sec % 2 ? "up" : "up2"; f.fire = true
+        if (a === "explore" && !f.n) { f.n = 1; petBub(ZK[Math.floor(Math.random() * ZK.length)], 1800) }
+        if (f.at > (a === "explore" ? 2600 : 900)) { f.ph = 2; f.tx = petRnd(45, W - 45) }
+      } else {
+        f.toy = 0; d = f.tx - f.x; f.gaze = d > 0 ? 1 : -1; f.x += Math.sign(d) * Math.min(Math.abs(d), 70 * dt / 1000); f.fire = f.oy > 6
+        if (Math.abs(d) < 4 && f.oy < 3) { f.at = f.dur; petEmo("dizzy", 2200); petBub(tr("pet_dz"), 2200) }
+      }
+    }
+    else if (a === "hide") {
+      var nb = document.querySelectorAll("#nav button"), bt = nb[nb.length - 1], bx = bt ? bt.getBoundingClientRect() : null
+      if (bx) f.tx = bx.left + bx.width / 2
+      if (f.ph === 0) {
+        f.toy = 0; d = f.tx - f.x; f.gaze = d > 0 ? 1 : -1; f.x += Math.sign(d) * Math.min(Math.abs(d), 60 * dt / 1000); f.by = sec % 2
+        f.la = sec % 2 ? "mid" : "down"; f.ra = sec % 2 ? "down" : "mid"
+        if (Math.abs(d) < 3) { f.ph = 1; f.at = 0 }
+      } else if (f.ph === 1) { f.toy = -30; f.face = "n"; if (f.oy < -27) { f.ph = 2; f.at = 0 } }
+      else if (f.ph === 2) {
+        f.toy = -30 + (Math.sin(f.at / 420) > .55 ? 12 : 0); f.gaze = [-1, 1, 0, 1, -1][Math.floor(f.at / 700) % 5]; f.la = "down"; f.ra = "down"
+        if (f.at > 600 && !f.n) { f.n = 1; petBub(tr("pet_hide"), 1800) }
+        if (f.at > 4200) { f.ph = 3; f.at = 0 }
+      } else { f.toy = 0; f.face = "happy"; f.la = "up"; f.ra = "up2"; if (f.oy > -4) { f.at = f.dur; petEmo("happy", 800) } }
+    }
+    else if (a === "cold") {
+      f.face = "cold"; f.tint = "cold"; f.sx = Math.sin(f.t / 35) * 1.2; f.la = "mid"; f.ra = "mid"; f.by = sec % 2
+      if (f.at < 60) petBub(tr("pet_cold"), 2200)
+      if (f.at > 3000) f.face = "dizzy"
+    }
+    else if (a === "sun") {
+      f.tint = "hot"
+      if (f.ph === 0) {
+        f.face = "hot"; f.ra = sec % 2 ? "up" : "up2"; f.la = "down"; f.um = false
+        if (f.at < 60) petBub(tr("pet_hot"), 2400)
+        if (f.at > 2600) { f.ph = 1; f.at = 0 }
+      } else if (f.ph === 1) {
+        f.face = "hot"; f.um = true; f.la = "mid"; f.ra = "up"; d = f.tx - f.x; f.gaze = d > 0 ? 1 : -1
+        f.x += Math.sign(d) * Math.min(Math.abs(d), 62 * dt / 1000); f.by = sec % 2
+        if (Math.abs(d) < 4) { f.ph = 2; f.at = 0 }
+      } else { f.face = f.at > 1800 ? "happy" : "hot"; f.um = true; f.tint = f.at > 1800 ? "" : "hot"; f.la = "down"; f.ra = "up"; if (f.at > 3200) f.at = f.dur }
+    }
+    if (f.emo && f.t < f.emoUntil && (a !== "think")) { f.face = f.emo; if (f.emo === "dizzy") f.gaze = 0 } else if (f.emo && f.t >= f.emoUntil) f.emo = ""
+    if (f.hap && f.t < f.hap && f.face === "n") f.face = "happy"
     if (PET.sad && a !== "think") { f.la = f.la === "down" ? "droop" : f.la }
-    if (f.at >= f.dur) { PET.fl = null; if (a === "think" && !PET.sad) PET.sad = true; f.act = ""; PET.n = 0 }
-    f.x = Math.max(36, Math.min(W - 36, f.x))
+    if (f.at >= f.dur) { PET.fl = null; PET.um = false; if (a === "think" && !PET.sad) PET.sad = true; f.act = ""; PET.n = 0 }
+    f.x = Math.max(30, Math.min(W - 30, f.x))
   }
+  // harakatlarga ta'sir: salavot, sevimli, o'yin
+  function petReact() {
+    if (!petOn() || !PET.el) return
+    var ds = S.daily, c = ds ? (ds.count || 0) + (ds.draft || 0) : 0, fv = Object.keys(S.favs || {}).length, wf = S.wg && S.wg.f ? S.wg.f.length : 0, wl = S.wg ? S.wg.lv : 0, td = ds ? !!ds.todayDone : false
+    var R = PET.rc
+    if (!R) { PET.rc = { c: c, fv: fv, wf: wf, wl: wl, td: td }; return }
+    var phr = PHR[Math.floor(Math.random() * PHR.length)]
+    if (ds && !R.td && td) { petGo("cheer", 3600); petBub(tr("pet_goal"), 3600) }
+    else if (c > R.c) {
+      PET.hap = PET.t + 1400
+      if (c % 10 === 0 && !PET.sad) { petGo("jump", 900); petBub(phr, 1800) }
+      else if (c % 33 === 0) petBub(phr, 1600)
+    }
+    else if (wl > R.wl) { petGo("cheer", 3200); petBub(tr("pet_ok"), 2600) }
+    else if (wf > R.wf) { petGo("jump", 900); petBub(phr, 1600) }
+    else if (fv > R.fv) { petGo("love", 1700); petBub(phr, 1700) }
+    PET.rc = { c: c, fv: fv, wf: wf, wl: wl, td: td }
+  }
+  var PANG = { down: 8, mid: -18, droop: -3, out: 85, up: 155, up2: 135, wipe: 168 }
   function pR(x, y, w, h, c) { PET.cx.fillStyle = PC[c] || c; PET.cx.fillRect(x, y, w, h) }
   function pP(x, y, c) { pR(x, y, 1, 1, c) }
   function petDraw() {
-    var f = PET, cx = f.cx, hy = 3 + f.by, i, k, fc = f.face
-    cx.clearRect(0, 0, 20, 24)
-    // antenna
-    pR(9, hy - 2, 1, 2, "s"); pR(9, hy - 3, 2, 1, Math.floor(f.t / 500) % 2 ? "a" : "#ffd1d8")
-    // body
-    pR(5, 16, 10, 1, "b"); pR(3, 17, 14, 7, "b"); pR(3, 22, 14, 2, "s"); pR(16, 17, 1, 5, "s")
-    pR(8, 19, 4, 3, "d"); pP(9, 20, Math.floor(f.t / 600) % 2 ? "e" : "#2f8f83"); pP(10, 20, "a")
-    pR(8, hy + 12, 4, 16 - hy - 12, "s")
-    // arms
-    function arm(n, mir) {
-      var q = PARM[n] || PARM.down
-      for (i = 0; i < q.length; i++) { var r = q[i], x = mir ? 20 - r[0] - r[2] : r[0]; pR(x, r[1], r[2], r[3], r[4]) }
-    }
-    arm(f.la, 0); arm(f.ra, 1)
-    // head
-    pR(4, hy, 12, 12, "b"); pR(3, hy + 1, 14, 10, "b"); pR(16, hy + 1, 1, 10, "s"); pR(4, hy + 11, 12, 1, "s")
-    pR(2, hy + 4, 1, 4, "s"); pR(17, hy + 4, 1, 4, "s")
-    pR(5, hy + 2, 10, 8, "sc")
-    var g = f.gaze, y = hy + 4, bl = f.bl > 0
-    if (bl && (fc === "n" || fc === "up" || fc === "o")) fc = "blink"
-    if (fc === "n") { pR(6 + g, y, 2, 3, "e"); pR(12 + g, y, 2, 3, "e"); pR(8, hy + 8, 4, 1, "e"); pP(8, hy + 7, "e"); pP(11, hy + 7, "e") }
-    else if (fc === "blink") { pR(6 + g, y + 1, 2, 1, "e"); pR(12 + g, y + 1, 2, 1, "e"); pR(9, hy + 8, 2, 1, "e") }
+    var f = PET, cx = f.cx, fc = f.face, g = f.gaze, i, y = 2, E = "#67e8f9"
+    cx.clearRect(0, 0, 13, 9)
+    if (f.bl > 0 && (fc === "n" || fc === "up" || fc === "o")) fc = "blink"
+    if (fc === "n") { pR(2 + g, y, 2, 3, E); pR(9 + g, y, 2, 3, E); pP(4, 6, E); pR(5, 7, 3, 1, E); pP(8, 6, E) }
+    else if (fc === "blink") { pR(2 + g, y + 1, 2, 1, E); pR(9 + g, y + 1, 2, 1, E); pP(4, 6, E); pR(5, 7, 3, 1, E); pP(8, 6, E) }
     else if (fc === "happy") {
-      pP(5, y + 1, "e"); pP(6, y, "e"); pP(7, y + 1, "e"); pP(12, y + 1, "e"); pP(13, y, "e"); pP(14, y + 1, "e")
-      pR(8, hy + 7, 4, 1, "e"); pP(7, hy + 6, "e"); pP(12, hy + 6, "e")
-      pP(5, hy + 7, "p"); pP(14, hy + 7, "p")
-    } else if (fc === "up") { pR(6, hy + 3, 2, 3, "e"); pR(12, hy + 3, 2, 3, "e"); pR(8, hy + 7, 4, 2, "p"); pR(9, hy + 8, 2, 1, "#ff6f8a") }
-    else if (fc === "o") { pR(6 + g, y, 2, 2, "e"); pR(12 + g, y, 2, 2, "e"); pR(9, hy + 7, 2, 2, "p") }
+      pP(2, 4, E); pP(3, 3, E); pP(4, 4, E); pP(9, 4, E); pP(10, 3, E); pP(11, 4, E)
+      pR(4, 6, 5, 1, E); pR(5, 7, 3, 1, E); pP(1, 6, "#ff9db0"); pP(11, 6, "#ff9db0")
+    } else if (fc === "up") { pR(2, 1, 2, 3, E); pR(9, 1, 2, 3, E); pR(4, 5, 5, 3, "#ff9db0"); pR(5, 7, 3, 1, "#ff6f8a") }
+    else if (fc === "o") { pR(2 + g, y, 2, 2, E); pR(9 + g, y, 2, 2, E); pR(5, 5, 3, 3, "#ff9db0") }
     else if (fc === "love") {
       var H = [[0, 0], [2, 0], [0, 1], [1, 1], [2, 1], [1, 2]]
-      for (i = 0; i < H.length; i++) { pP(5 + H[i][0], y + H[i][1], "#ff6f9c"); pP(12 + H[i][0], y + H[i][1], "#ff6f9c") }
-      pR(8, hy + 7, 4, 1, "e")
+      for (i = 0; i < H.length; i++) { pP(1 + H[i][0], y + H[i][1], "#ff6f9c"); pP(9 + H[i][0], y + H[i][1], "#ff6f9c") }
+      pR(4, 6, 5, 1, E); pR(5, 7, 3, 1, E)
+    } else if (fc === "dizzy") {
+      var fr = Math.floor(f.t / 200) % 2, X = fr ? [[2, 2], [2, 3], [1, 3], [3, 3], [2, 4]] : [[1, 2], [3, 2], [2, 3], [1, 4], [3, 4]]
+      for (i = 0; i < X.length; i++) { pP(X[i][0], X[i][1], E); pP(X[i][0] + 8, X[i][1], E) }
+      pP(4, 6, E); pP(5, 7, E); pP(6, 6, E); pP(7, 7, E); pP(8, 6, E)
+    } else if (fc === "cold") {
+      pR(1, y, 3, 3, "#e0f2fe"); pR(9, y, 3, 3, "#e0f2fe"); pP(2 + (Math.floor(f.t / 90) % 2), y + 1, "#1b2338"); pP(10 + (Math.floor(f.t / 90) % 2), y + 1, "#1b2338")
+      var tz = Math.floor(f.t / 80) % 2
+      pR(3, 6, 7, 2, "#e0f2fe"); for (i = 0; i < 4; i++) pP(3 + i * 2 + tz, 6, "#1b2338"); pP(2, 4, "#7dd3fc"); pP(11, 5, "#7dd3fc")
+    } else if (fc === "hot") {
+      pR(2, 3, 2, 1, E); pR(9, 3, 2, 1, E); pR(5, 5, 3, 2, "#ff9db0"); pP(6, 7, "#ff6f8a")
+      pP(1, 5, "#ff7a7a"); pP(11, 5, "#ff7a7a")
+      var sd = Math.floor(f.t / 160) % 4
+      pP(0, 1 + sd, "#7dd3fc"); pP(12, 3 + (sd + 2) % 4, "#7dd3fc")
+    } else if (fc === "pant") {
+      pR(2, 3, 2, 1, E); pR(9, 3, 2, 1, E); pR(5, 5, 3, 2, "#ff9db0"); pP(6 + (Math.floor(f.t / 200) % 2), 7, "#ff6f8a"); pP(11, 2 + (Math.floor(f.t / 220) % 4), "#7dd3fc")
     } else if (fc === "teary") {
-      // 🥹: katta yaltiroq ko'zlar, qoshlar, yosh
-      pR(5, y, 3, 3, "e"); pR(12, y, 3, 3, "e"); pP(5, y, "#fff"); pP(12, y, "#fff"); pR(5, y + 2, 3, 1, "t"); pR(12, y + 2, 3, 1, "t")
-      pP(5, y - 1, "e"); pP(6, y - 1, "e"); pP(7, y - 2, "e"); pP(12, y - 2, "e"); pP(13, y - 1, "e"); pP(14, y - 1, "e")
-      pP(9, hy + 8, "e"); pP(10, hy + 8 - (Math.floor(f.t / 350) % 2), "e")
-      var ty = Math.floor(f.t / 200) % 4
-      pP(6, y + 3 + ty % 3, "t"); pP(13, y + 3 + (ty + 1) % 3, "t")
-      if (f.t % 2400 < 1200) { pP(5, y + 3 + (ty + 2) % 3, "#bae6fd"); pP(14, y + 3 + (ty + 1) % 3, "#bae6fd") }
+      // 🥹: katta yaltiroq ko'zlar, ko'tarilgan qoshlar, yosh
+      pR(1, y, 3, 3, E); pR(9, y, 3, 3, E); pP(1, y, "#fff"); pP(9, y, "#fff"); pR(1, y + 2, 3, 1, "#a5f3fc"); pR(9, y + 2, 3, 1, "#a5f3fc")
+      pP(1, 1, E); pP(2, 1, E); pP(3, 0, E); pP(9, 0, E); pP(10, 1, E); pP(11, 1, E)
+      pP(5, 7, E); pR(6, 6 + (Math.floor(f.t / 350) % 2), 2, 1, E); pP(8, 7, E)
+      var ty = Math.floor(f.t / 220) % 4
+      pP(2, 5 + ty % 3, "#7dd3fc"); pP(10, 5 + (ty + 1) % 3, "#7dd3fc")
+      if (f.t % 2400 < 1200) { pP(1, 5 + (ty + 2) % 3, "#bae6fd"); pP(11, 5 + (ty + 2) % 3, "#bae6fd") }
     }
-    PET.el.style.transform = "translate(" + Math.round(f.x - 30) + "px," + Math.round(-f.jy) + "px)"
+    var tilt = fc === "up" ? -10 : f.act === "think" ? 7 : PET.sad ? -3 : (f.act === "walk" || f.act === "snow") ? 3 * f.gaze : f.act === "dance" ? (Math.floor(f.t / 250) % 2 ? 6 : -6) : 0
+    PET.head.style.transform = "translateY(" + (f.by ? 1.5 : 0) + "px) rotate(" + tilt + "deg)"
+    var la = PANG[f.la] == null ? 8 : PANG[f.la], ra = PANG[f.ra] == null ? 8 : PANG[f.ra]
+    PET.al.style.transform = "rotate(" + la + "deg)"; PET.ar.style.transform = "rotate(" + (-ra) + "deg)"
+    PET.ant.style.opacity = Math.floor(f.t / 500) % 2 ? 1 : .55
+    PET.el.classList.toggle("cold", f.tint === "cold"); PET.el.classList.toggle("hot", f.tint === "hot"); PET.el.classList.toggle("fire", !!f.fire); PET.el.classList.toggle("um", !!f.um)
+    var oyv = f.oy + f.jy
+    PET.el.style.transform = "translate(" + (Math.round(f.x - 20 + f.sx)) + "px," + Math.round(-oyv) + "px)"
+    PET.el.style.clipPath = "inset(-90px -90px " + Math.round(2 - f.oy) + "px -90px)"
     if (PET.fl) { var fe = PET.flEl; if (fe) { fe.style.display = "block"; fe.style.left = Math.round(f.x - 2) + "px"; fe.style.top = Math.round(PET.fl.y) + "px" } } else if (PET.flEl) PET.flEl.style.display = "none"
   }
   function petTick() {
     if (!PET.el || document.hidden || !petOn()) return
     var now = Date.now(), dt = Math.min(120, now - (PET.lt || now))
     PET.lt = now
+    if (now - (PET.bt2 || 0) > 800) { PET.bt2 = now; var nv = document.getElementById("nav"); if (nv) PET.el.style.bottom = Math.max(0, window.innerHeight - nv.getBoundingClientRect().top - 2) + "px" }
     petStep(dt); petDraw()
   }
   function petWatch() {
@@ -1026,20 +1121,28 @@
     if (!on) { if (PET.el) PET.el.style.display = "none"; return }
     if (!PET.el) {
       var el = document.createElement("div"); el.id = "pet"; el.className = "pet"
-      el.innerHTML = '<canvas width="20" height="24"></canvas><div class="petb"></div>'
+      el.innerHTML = '<div class="petin">' +
+        '<div class="petfire"></div><div class="petarm l"></div><div class="petarm r"></div>' +
+        '<svg class="petbody" viewBox="0 0 34 26" width="34" height="26"><defs><linearGradient id="pg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#d9e1f0"/></linearGradient></defs><path d="M2 26V13Q2 6 10 6H24Q32 6 32 13V26Z" fill="url(#pg)" stroke="#bcc7de" stroke-width="1.2"/><rect x="12" y="13" width="10" height="7" rx="3" fill="#1b2338"/><circle cx="15.5" cy="16.5" r="1.3" fill="#67e8f9"/><circle cx="19" cy="16.5" r="1.3" fill="#ff8fa3"/></svg>' +
+        '<div class="pethead"><svg viewBox="0 0 46 44" width="46" height="44"><defs><linearGradient id="pg2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#dbe3f1"/></linearGradient></defs>' +
+        '<line x1="23" y1="4" x2="23" y2="10" stroke="#aeb9d3" stroke-width="2" stroke-linecap="round"/><circle class="petant" cx="23" cy="4" r="3" fill="#ff7a8a"/>' +
+        '<rect x="2" y="19" width="7" height="12" rx="3.5" fill="#cfd8ea" stroke="#b3bfd9" stroke-width="1"/><rect x="37" y="19" width="7" height="12" rx="3.5" fill="#cfd8ea" stroke="#b3bfd9" stroke-width="1"/>' +
+        '<rect x="5" y="9" width="36" height="28" rx="14" fill="url(#pg2)" stroke="#bcc7de" stroke-width="1.2"/><rect x="9.5" y="13" width="27" height="19" rx="8.5" fill="#1b2338"/></svg>' +
+        '<canvas width="13" height="9"></canvas></div><svg class="petum" viewBox="0 0 46 24" width="46" height="24"><path d="M2 16Q23 -8 44 16Z" fill="#ff8fa3"/><path d="M2 16Q8 12 12 16Q17 12 23 16Q29 12 34 16Q39 12 44 16" fill="none" stroke="#fff" stroke-width="1.5"/><line x1="23" y1="4" x2="23" y2="24" stroke="#8b6b4a" stroke-width="1.6"/></svg></div><div class="petb"></div>'
       document.body.appendChild(el)
-      PET.el = el; PET.cv = el.firstChild; PET.cx = PET.cv.getContext("2d"); PET.bub = el.lastChild
+      PET.el = el; PET.cv = el.querySelector("canvas"); PET.cx = PET.cv.getContext("2d"); PET.bub = el.querySelector(".petb"); PET.head = el.querySelector(".pethead"); PET.al = el.querySelector(".petarm.l"); PET.ar = el.querySelector(".petarm.r"); PET.ant = el.querySelector(".petant")
       var fl = document.createElement("div"); fl.className = "petfl"; document.body.appendChild(fl); PET.flEl = fl
       PET.x = Math.min(window.innerWidth - 40, 70)
       el.addEventListener("click", function () {
         haptic("light")
         if (PET.sad) { petBub(tr("pet_sal"), 3200); petGo("sigh", 1900) } else { petGo("love", 1600); petBub(tr("pet_love"), 1800) }
       })
-      setInterval(petTick, 66); setInterval(petWatch, 1500)
+      setInterval(petTick, 66); setInterval(petWatch, 1500); setInterval(petReact, 450)
       petGo("wave", 2400)
     }
     PET.el.style.display = ""
   }
+  window._pet = { P: PET, go: petGo }
   setTimeout(petApply, 1400)
   function viewHomePanel() {
     var w = wq(); wqRoll()

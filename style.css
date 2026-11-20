@@ -1711,11 +1711,27 @@ html:not(#_)[data-theme="light"] .daily.dglass .hgstage .done { color: #14302a; 
 button.wgw { font: inherit; font-size: 13px; font-weight: 700; cursor: pointer; }
 
 /* v182 robot */
-.pet { position: fixed; z-index: 5; left: 0; bottom: calc(var(--nav-h, 64px) + env(safe-area-inset-bottom, 0px) + 2px); width: 60px; height: 72px; cursor: pointer; will-change: transform; filter: drop-shadow(0 3px 3px rgba(0,0,0,.35)); -webkit-tap-highlight-color: transparent; }
-.pet canvas { width: 60px; height: 72px; image-rendering: pixelated; display: block; }
-.petb { position: absolute; bottom: 74px; left: 50%; transform: translateX(calc(-50% + var(--sh, 0px))) scale(.6); transform-origin: 50% 100%; opacity: 0; pointer-events: none; transition: .22s; width: max-content; max-width: 190px; padding: 7px 11px; border-radius: 16px; background: #fff; color: #2b3345; font-size: 12.5px; font-weight: 600; line-height: 1.25; text-align: center; box-shadow: 0 4px 14px rgba(0,0,0,.25); }
+.pet { position: fixed; z-index: 5; left: 0; bottom: calc(var(--nav-h, 64px) + env(safe-area-inset-bottom, 0px) + 2px); width: 40px; height: 50px; cursor: pointer; will-change: transform; -webkit-tap-highlight-color: transparent; }
+.petin { position: absolute; left: -3px; bottom: 0; width: 46px; height: 58px; transform: scale(.86); transform-origin: 50% 100%; filter: drop-shadow(0 3px 3px rgba(0,0,0,.3)); }
+.petbody { position: absolute; left: 6px; top: 32px; }
+.petarm { position: absolute; top: 36px; width: 7px; height: 17px; border-radius: 4px; background: linear-gradient(#fff, #d5ddee); border: 1px solid #b7c3dc; box-sizing: border-box; transform-origin: 50% 3px; transition: transform .25s ease-out; }
+.petarm::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 6px; border-radius: 50%; background: #aab7d3; }
+.petarm.l { left: 0; }
+.petarm.r { left: 39px; }
+.pethead { position: absolute; left: 0; top: 0; width: 46px; height: 44px; transform-origin: 50% 90%; transition: transform .25s ease-out; }
+.pethead svg { position: absolute; inset: 0; }
+.pethead canvas { position: absolute; left: 10px; top: 13px; width: 26px; height: 18px; image-rendering: pixelated; filter: drop-shadow(0 0 2px rgba(103,232,249,.75)); }
+.petb { position: absolute; bottom: 52px; left: 50%; transform: translateX(calc(-50% + var(--sh, 0px))) scale(.6); transform-origin: 50% 100%; opacity: 0; pointer-events: none; transition: .22s; width: max-content; max-width: 190px; padding: 7px 11px; border-radius: 16px; background: #fff; color: #2b3345; font-size: 12.5px; font-weight: 600; line-height: 1.25; text-align: center; box-shadow: 0 4px 14px rgba(0,0,0,.25); }
 .petb::after { content: ""; position: absolute; bottom: -5px; left: calc(50% - var(--sh, 0px)); width: 10px; height: 10px; background: #fff; transform: translateX(-50%) rotate(45deg); border-radius: 2px; }
 .petb.on { opacity: 1; transform: translateX(calc(-50% + var(--sh, 0px))) scale(1); }
 .petfl { position: fixed; z-index: 5; display: none; width: 3px; height: 3px; background: #fff; box-shadow: 3px 0 #fff, -3px 0 #fff, 0 3px #fff, 0 -3px #fff; pointer-events: none; }
 html.tying .pet, html.tying .petfl { display: none !important; }
-html.peton #ntog { bottom: calc(var(--nav-h, 64px) + env(safe-area-inset-bottom, 0px) + 84px); }
+html.peton #ntog { bottom: calc(var(--nav-h, 64px) + env(safe-area-inset-bottom, 0px) + 50px); }
+
+.petfire { position: absolute; left: 17px; top: 55px; width: 12px; height: 10px; opacity: 0; transition: opacity .2s; background: radial-gradient(ellipse at 50% 0, #fff6c2 0, #ffb347 45%, rgba(255,90,60,0) 75%); border-radius: 50%; animation: petfl .12s infinite alternate; }
+.pet.fire .petfire { opacity: 1; }
+@keyframes petfl { from { transform: scaleY(.8); } to { transform: scaleY(1.25); } }
+.petum { position: absolute; left: 0; top: -14px; opacity: 0; transform: translateY(6px) scale(.7); transition: .3s; pointer-events: none; z-index: 2; }
+.pet.um .petum { opacity: 1; transform: none; }
+.pet.cold .pethead svg rect:nth-of-type(3), .pet.cold .petbody path { fill: #cfe6ff; }
+.pet.hot .pethead svg rect:nth-of-type(3) { fill: #ffe3dc; }
