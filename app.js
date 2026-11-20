@@ -851,7 +851,7 @@
   document.addEventListener("pointerup", function () { if (WG.drag) wgEnd() })
   document.addEventListener("pointercancel", function () { if (WG.drag) { WG.path = []; WG.drag = false; wgDraw() } })
   // ===== ROBOT (piksel, JS bilan chiziladi) =====
-  var PET = { el: null, cv: null, cx: null, bub: null, x: 70, tx: 70, t: 0, act: "", at: 0, dur: 0, jy: 0, face: "n", gaze: 0, la: "down", ra: "down", by: 0, bt: 0, bl: 0, tm: null, sad: false, seen: false, bubAt: 0, bubT: 0, ph: 0, n: 0, fl: null, lastSad: 0, init: false, oy: 0, toy: 0, fh: 40, sx: 0, fire: false, tint: "", um: false, emo: "", emoUntil: 0, hap: 0, rc: null }
+  var PET = { el: null, cv: null, cx: null, bub: null, x: 70, tx: 70, t: 0, act: "", at: 0, dur: 0, jy: 0, face: "n", gaze: 0, la: "down", ra: "down", by: 0, bt: 0, bl: 0, tm: null, sad: false, seen: false, bubAt: 0, bubT: 0, ph: 0, n: 0, fl: null, lastSad: 0, init: false, oy: 0, toy: 0, fh: 40, sx: 0, fire: false, tint: "", um: false, emo: "", emoUntil: 0, hap: 0, rc: null, rest: 0 }
   var PC = { b: "#cfd8ea", s: "#9fb0cf", d: "#27324d", sc: "#0f1a2e", e: "#5eead4", a: "#ff7a8a", t: "#7dd3fc", p: "#ff9db0" }
   var PARM = {
     down: [[1, 17, 2, 5, "b"], [1, 22, 2, 2, "s"]],
@@ -915,11 +915,11 @@
     r = Math.random()
     if (r < .22) { PET.tx = petRnd(45, W - 45); petGo("walk", 9000) }
     else if (r < .34) petGo("idle", 2500 + Math.random() * 2500)
-    else if (r < .41) petGo("wave", 2400)
-    else if (r < .48) petGo("dance", 3200)
+    else if (r < .41) petGo("wave", 3200)
+    else if (r < .48) petGo("dance", 4200)
     else if (r < .54) petGo("jump", 900)
     else if (r < .59) petGo("yawn", 2600)
-    else if (r < .66) petGo("zikr", 3200)
+    else if (r < .66) petGo("zikr", 4200)
     else if (r < .71) petGo("peek", 3000)
     else if (r < .81) { PET.tx = petRnd(45, W - 45); PET.fh = petRnd(32, 56); petGo("fly", 16000) }
     else if (r < .91) { PET.tx = petRnd(40, W - 40); PET.fh = petRnd(110, Math.max(130, window.innerHeight - 260)); petGo("explore", 20000) }
@@ -936,7 +936,7 @@
     sec = Math.floor(f.t / 250)
     f.oy += (f.toy - f.oy) * Math.min(1, dt / 240)
     f.sx = 0; f.fire = false; f.tint = ""
-    if (!a) { f.toy = 0; petPick(); return }
+    if (!a) { f.toy = 0; if (f.t < f.rest) { petGo("idle", 1500); return } petPick(); return }
     f.face = PET.sad ? "teary" : "n"
     if (PET.sad) { f.la = "droop"; f.ra = "droop" }
     if (a === "idle") { f.toy = 0; f.gaze = [0, -1, 0, 1][Math.floor(f.at / 1300) % 4]; f.by = Math.floor(f.t / 900) % 2 }
@@ -1028,7 +1028,7 @@
     if (f.emo && f.t < f.emoUntil && (a !== "think")) { f.face = f.emo; if (f.emo === "dizzy") f.gaze = 0 } else if (f.emo && f.t >= f.emoUntil) f.emo = ""
     if (f.hap && f.t < f.hap && f.face === "n") f.face = "happy"
     if (PET.sad && a !== "think") { f.la = f.la === "down" ? "droop" : f.la }
-    if (f.at >= f.dur) { PET.fl = null; PET.um = false; if (a === "think" && !PET.sad) PET.sad = true; f.act = ""; PET.n = 0 }
+    if (f.at >= f.dur) { PET.fl = null; PET.um = false; f.rest = f.t + (a === "idle" ? 0 : petRnd(5000, 9000)); if (a === "think" && !PET.sad) PET.sad = true; f.act = ""; PET.n = 0 }
     f.x = Math.max(30, Math.min(W - 30, f.x))
   }
   // harakatlarga ta'sir: salavot, sevimli, o'yin
