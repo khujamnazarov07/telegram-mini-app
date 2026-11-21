@@ -73,6 +73,28 @@
     wx_t3: "Soyabon beraymi?|Соябон берайми?|Дать зонтик?|Shall I lend you an umbrella?|هل أعطيك مظلة؟|Şemsiye vereyim mi?|Mau kupinjamkan payung?|要借你一把伞吗？|छाता दूँ?|¿Te presto un paraguas?",
     wx_t4: "Soyabon beraymi? Issiqroq kiying.|Соябон берайми? Иссиқроқ кийинг.|Дать зонтик? Оденьтесь теплее.|Shall I lend an umbrella? Dress warm.|هل أعطيك مظلة؟ البس دافئًا.|Şemsiye vereyim mi? Sıcak giyinin.|Mau payung? Berpakaianlah hangat.|要伞吗？请穿暖和些。|छाता दूँ? गर्म कपड़े पहनें।|¿Un paraguas? Abrígate.",
     wx_t5: "Uyda qolgan afzal.|Уйда қолган афзал.|Лучше остаться дома.|Better stay indoors.|الأفضل البقاء في البيت.|Evde kalmak daha iyi.|Lebih baik di rumah.|最好待在家里。|घर पर रहना बेहतर है।|Mejor quédate en casa.",
+    tsb_t: "Tasbeh|Тасбеҳ|Чётки|Tasbih|السبحة|Tesbih|Tasbih|念珠|तस्बीह|Tasbih",
+    tsb_help: "Marjonni suring yoki ustiga bosing.|Маржонни суринг ёки устига босинг.|Проведите по чёткам или нажмите на них.|Swipe or tap the beads.|مرّر أو اضغط على الحبات.|Tespihi kaydırın veya dokunun.|Geser atau ketuk tasbih.|滑动或点击念珠。|माला पर स्वाइप या टैप करें।|Desliza o toca las cuentas.",
+    jr_t: "Kunlik yo'l|Кунлик йўл|Путь дня|Daily path|الرحلة اليومية|Günlük yol|Jalan harian|每日之路|दैनिक यात्रा|Camino diario",
+    jr_days: "kun ketma-ket|кун кетма-кет|дней подряд|day streak|أيام متتالية|gün üst üste|hari beruntun|天连续|दिन लगातार|días seguidos",
+    jr_best: "Eng yaxshi:|Энг яхши:|Рекорд:|Best:|الأفضل:|En iyi:|Terbaik:|最佳：|सर्वश्रेष्ठ:|Mejor:",
+    jr_nd: "Kun ismi|Кун исми|Имя дня|Name of the day|اسم اليوم|Günün ismi|Nama hari ini|今日之名|आज का नाम|Nombre del día",
+    jr_q1: "Kun ismini o'qing|Кун исмини ўқинг|Прочитайте имя дня|Read the name of the day|اقرأ اسم اليوم|Günün ismini okuyun|Baca nama hari ini|阅读今日之名|आज का नाम पढ़ें|Lee el nombre del día",
+    jr_q2: "33 ta zikr (tasbeh yoki salavot)|33 та зикр (тасбеҳ ёки салавот)|33 зикра (чётки или салават)|33 dhikr (tasbih or salawat)|33 ذكرًا (سبحة أو صلاة)|33 zikir (tesbih veya salavat)|33 zikir (tasbih atau shalawat)|33次赞念（念珠或赞圣）|33 ज़िक्र (तस्बीह या दरूद)|33 dhikr (tasbih o salawat)",
+    jr_q3: "So'z o'yinida 1 level|Сўз ўйинида 1 левел|1 уровень в игре слов|1 level in the word game|مستوى واحد في لعبة الكلمات|Kelime oyununda 1 seviye|1 level di permainan kata|文字游戏1关|शब्द खेल में 1 स्तर|1 nivel en el juego de palabras",
+    jr_cards: "Kartalar|Карталар|Карточки|Cards|البطاقات|Kartlar|Kartu|卡片|कार्ड|Tarjetas",
+    jr_shop: "Garderob|Гардероб|Гардероб|Wardrobe|الخزانة|Gardırop|Lemari|衣橱|वार्डरोब|Armario",
+    jr_lock: "Nur, kartalar va kiyimlar premium uchun.|Нур, карталар ва кийимлар премиум учун.|Нур, карточки и одежда — для Premium.|Light, cards and outfits are for Premium.|النور والبطاقات والأزياء للمشتركين.|Nur, kartlar ve kıyafetler Premium içindir.|Cahaya, kartu dan pakaian untuk Premium.|光点、卡片和服装仅限高级版。|नूर, कार्ड और पोशाकें प्रीमियम के लिए हैं।|La luz, las tarjetas y la ropa son Premium.",
+    jr_ok: "Barakallah, vazifa bajarildi!|Баракаллоҳ, вазифа бажарилди!|Баракаллах, задание выполнено!|Barakallah, task done!|بارك الله فيك، تمت المهمة!|Barakallah, görev tamam!|Barakallah, tugas selesai!|愿真主祝福你，任务完成！|बारकल्लाह, कार्य पूरा!|¡Barakallah, tarea hecha!",
+    jr_done: "Alhamdulillah! Bugungi yo'l tugadi, yangi kartangiz tayyor!|Алҳамдулиллаҳ! Бугунги йўл тугади, янги картангиз тайёр!|Альхамдулиллях! Путь дня пройден, новая карточка готова!|Alhamdulillah! Today's path is complete, new card unlocked!|الحمد لله! اكتملت رحلة اليوم وحصلت على بطاقة جديدة!|Elhamdülillah! Günün yolu tamam, yeni kartın hazır!|Alhamdulillah! Jalan hari ini selesai, kartu baru terbuka!|感谢真主！今日之路完成，获得新卡片！|अल्हम्दुलिल्लाह! आज की यात्रा पूरी, नया कार्ड मिला!|¡Alhamdulillah! Camino de hoy completo, ¡nueva tarjeta!",
+    jr_rm: "{n} kunlik seriyangiz bor! Bugun hali vazifa bajarilmadi.|{n} кунлик серияингиз бор! Бугун ҳали вазифа бажарилмади.|У вас серия {n} дн.! Сегодня задания ещё не выполнены.|You have a {n}-day streak! Today's tasks aren't done yet.|لديك سلسلة {n} أيام! لم تُنجز مهام اليوم بعد.|{n} günlük serin var! Bugünkü görevler henüz yapılmadı.|Kamu punya {n} hari beruntun! Tugas hari ini belum selesai.|你已连续{n}天！今天的任务还没完成。|आपकी {n} दिन की लकीर है! आज के कार्य बाकी हैं।|¡Tienes una racha de {n} días! Hoy aún no hiciste las tareas.",
+    jr_rm0: "Kunlik yo'lni boshlaymizmi? Bugun 3 ta oson vazifa bor.|Кунлик йўлни бошлаймизми? Бугун 3 та осон вазифа бор.|Начнём путь дня? Сегодня 3 лёгких задания.|Shall we start the daily path? 3 easy tasks today.|هل نبدأ الرحلة اليومية؟ ثلاث مهام سهلة اليوم.|Günlük yola başlayalım mı? Bugün 3 kolay görev var.|Mulai jalan harian? Ada 3 tugas mudah hari ini.|开始今日之路吧？今天有3个简单任务。|दैनिक यात्रा शुरू करें? आज 3 आसान कार्य हैं।|¿Empezamos el camino diario? Hoy hay 3 tareas fáciles.",
+    jr_cap: "Do'ppi|Дўппи|Тюбетейка|Skullcap|طاقية|Takke|Peci|小圆帽|टोपी|Gorro",
+    jr_scarf: "Ro'mol|Рўмол|Шарф|Scarf|وشاح|Atkı|Syal|围巾|स्कार्फ़|Bufanda",
+    jr_glass: "Ko'zoynak|Кўзойнак|Очки|Glasses|نظارات|Gözlük|Kacamata|眼镜|चश्मा|Gafas",
+    jr_crown: "Toj|Тож|Корона|Crown|تاج|Taç|Mahkota|王冠|ताज|Corona",
+    jr_eq: "Kiyish|Кийиш|Надеть|Wear|ارتداء|Giy|Pakai|穿上|पहनें|Poner",
+    jr_off: "Yechish|Ечиш|Снять|Take off|خلع|Çıkar|Lepas|脱下|उतारें|Quitar",
     waq_new: "Yangi · boshlash|Янги · бошлаш|Новый · начать|New · start|جديد · ابدأ|Yeni · başla|Baru · mulai|新 · 开始|नया · शुरू करें|Nuevo · empezar",
     waq_lv: "Daraja|Даража|Уровень|Level|المستوى|Seviye|Level|等级|स्तर|Nivel",
     waq_debt: "Qoldirilgan|Қолдирилган|Пропущено|Missed|فائت|Kaçan|Terlewat|待补|छूटा|Pendiente",
@@ -420,10 +442,10 @@
     }, 30000)
   }
   function goTab(v) {
-    if (v === U.tab && !U.detail && !U.waq && !U.wg && U.more === "menu") { window.scrollTo({ top: 0, behavior: "smooth" }); return }
+    if (v === U.tab && !U.detail && !U.waq && !U.wg && !U.tsb && !U.jr && U.more === "menu") { window.scrollTo({ top: 0, behavior: "smooth" }); return }
     var from = navIdx(), to = 0
     for (var i = 0; i < NAVS.length; i++) if (NAVS[i][0] === v) to = i
-    var go = function () { window.scrollTo(0, 0); U.namesOpen = false; U.waq = false; U.wg = false; U.tab = v; U.hikBack = false; U.detail = 0; U.more = "menu"; U.moodPick = ""; render() }
+    var go = function () { window.scrollTo(0, 0); U.namesOpen = false; U.waq = false; U.wg = false; U.tsb = false; U.jr = ""; U.tab = v; U.hikBack = false; U.detail = 0; U.more = "menu"; U.moodPick = ""; render() }
     if (from === to) return go()
     slidePage(to > from ? 1 : -1, go)
   }
@@ -843,7 +865,7 @@
   }
   function wgDone() {
     var g = wgS(), ok = document.getElementById("wgok")
-    g.lv++; g.n++; g.f = []; save(); haptic("heavy")
+    g.lv++; g.n++; g.f = []; save(); haptic("heavy"); jrMark("g")
     if (ok) ok.classList.add("on")
     var lk = ++WG.lk
     setTimeout(function () { if (lk === WG.lk && U.waq === undefined) { /* noop */ } if (lk === WG.lk && U.wg) render() }, 1900)
@@ -1072,6 +1094,7 @@
     var phr = PHR[Math.floor(Math.random() * PHR.length)]
     if (ds && !R.td && td) { petGo("cheer", 3600); petBub(tr("pet_goal"), 3600) }
     else if (c > R.c) {
+      if (c - R.c <= 5) jrZ(c - R.c)
       PET.hap = PET.t + 1400
       if (c % 10 === 0 && !PET.sad) { petGo("jump", 900); petBub(phr, 1800) }
       else if (c % 33 === 0) petBub(phr, 1600)
@@ -1131,7 +1154,7 @@
     PET.el.classList.toggle("cold", f.tint === "cold"); PET.el.classList.toggle("hot", f.tint === "hot"); PET.el.classList.toggle("fire", !!f.fire); PET.el.classList.toggle("um", !!f.um)
     var oyv = f.oy + f.jy
     PET.el.style.transform = "translate(" + (Math.round(f.x - 20 + f.sx)) + "px," + Math.round(-oyv) + "px)"
-    PET.el.style.clipPath = "inset(-90px -90px " + Math.round(2 - f.oy) + "px -90px)"
+    PET.el.style.clipPath = "inset(-260px -260px " + Math.round(2 - f.oy) + "px -260px)"
     if (PET.fl) { var fe = PET.flEl; if (fe) { fe.style.display = "block"; fe.style.left = Math.round(PET.fl.x) + "px"; fe.style.top = Math.round(PET.fl.y) + "px"; fe.style.transform = "scale(" + PET.fl.k.toFixed(2) + ") rotate(" + Math.round(f.t / 12) + "deg)" } } else if (PET.flEl) PET.flEl.style.display = "none"
   }
   function petTick() {
@@ -1155,11 +1178,14 @@
       var el = document.createElement("div"); el.id = "pet"; el.className = "pet"
       el.innerHTML = '<div class="petin">' +
         '<div class="petfire"></div><div class="petarm l"></div><div class="petarm r"></div>' +
-        '<svg class="petbody" viewBox="0 0 34 26" width="34" height="26"><defs><linearGradient id="pg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#d9e1f0"/></linearGradient></defs><path d="M2 26V13Q2 6 10 6H24Q32 6 32 13V26Z" fill="url(#pg)" stroke="#bcc7de" stroke-width="1.2"/><rect x="12" y="13" width="10" height="7" rx="3" fill="#1b2338"/><circle cx="15.5" cy="16.5" r="1.3" fill="#67e8f9"/><circle cx="19" cy="16.5" r="1.3" fill="#ff8fa3"/></svg>' +
+        '<svg class="petbody" viewBox="0 0 34 26" width="34" height="26"><defs><linearGradient id="pg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#d9e1f0"/></linearGradient></defs><path d="M2 26V13Q2 6 10 6H24Q32 6 32 13V26Z" fill="url(#pg)" stroke="#bcc7de" stroke-width="1.2"/><rect x="12" y="13" width="10" height="7" rx="3" fill="#1b2338"/><circle cx="15.5" cy="16.5" r="1.3" fill="#67e8f9"/><circle cx="19" cy="16.5" r="1.3" fill="#ff8fa3"/><path class="pa pa-scarf" d="M3 8Q17 16 31 8L32 13Q17 21 2 13Z" fill="#e8504f"/><rect class="pa pa-scarf" x="21" y="12" width="5" height="11" rx="2" fill="#d23c3b"/></svg>' +
         '<div class="pethead"><svg viewBox="0 0 46 44" width="46" height="44"><defs><linearGradient id="pg2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#dbe3f1"/></linearGradient></defs>' +
         '<line x1="23" y1="4" x2="23" y2="10" stroke="#aeb9d3" stroke-width="2" stroke-linecap="round"/><circle class="petant" cx="23" cy="4" r="3" fill="#ff7a8a"/>' +
         '<rect x="2" y="19" width="7" height="12" rx="3.5" fill="#cfd8ea" stroke="#b3bfd9" stroke-width="1"/><rect x="37" y="19" width="7" height="12" rx="3.5" fill="#cfd8ea" stroke="#b3bfd9" stroke-width="1"/>' +
-        '<rect x="5" y="9" width="36" height="28" rx="14" fill="url(#pg2)" stroke="#bcc7de" stroke-width="1.2"/><rect x="9.5" y="13" width="27" height="19" rx="8.5" fill="#1b2338"/></svg>' +
+        '<rect x="5" y="9" width="36" height="28" rx="14" fill="url(#pg2)" stroke="#bcc7de" stroke-width="1.2"/><rect x="9.5" y="13" width="27" height="19" rx="8.5" fill="#1b2338"/>' +
+        '<path class="pa pa-cap" d="M8 17Q8 6 23 6Q38 6 38 17Q23 12 8 17Z" fill="#fff" stroke="#b8c4dc" stroke-width="1"/><path class="pa pa-cap" d="M13 14Q23 9.5 33 14" fill="none" stroke="#3fb98a" stroke-width="1.5"/>' +
+        '<g class="pa pa-glass" fill="none" stroke="#caa24a" stroke-width="1.6"><circle cx="16" cy="21" r="5.5"/><circle cx="30" cy="21" r="5.5"/><path d="M21.5 21H24.5"/></g>' +
+        '<path class="pa pa-crown" d="M13 10L15 2L19 8L23 0L27 8L31 2L33 10Z" fill="#f6c453" stroke="#b9822a" stroke-width="1"/></svg>' +
         '<canvas width="13" height="9"></canvas></div><svg class="petum" viewBox="0 0 46 24" width="46" height="24"><path d="M2 16Q23 -8 44 16Z" fill="#ff8fa3"/><path d="M2 16Q8 12 12 16Q17 12 23 16Q29 12 34 16Q39 12 44 16" fill="none" stroke="#fff" stroke-width="1.5"/><line x1="23" y1="4" x2="23" y2="24" stroke="#8b6b4a" stroke-width="1.6"/></svg></div><div class="petb"></div>'
       document.body.appendChild(el)
       PET.el = el; PET.cv = el.querySelector("canvas"); PET.cx = PET.cv.getContext("2d"); PET.bub = el.querySelector(".petb"); PET.head = el.querySelector(".pethead"); PET.al = el.querySelector(".petarm.l"); PET.ar = el.querySelector(".petarm.r"); PET.ant = el.querySelector(".petant")
@@ -1205,13 +1231,217 @@
   }, 2000)
   window._pet = { P: PET, go: petGo, pli: function () { return Date.now() - PLI } }
   setTimeout(petApply, 1400)
+  // ===== TASBEH (premium, 3D marjon) =====
+  var TSP = [["سُبْحَانَ ٱللَّٰهِ", "SubhanAllah"], ["ٱلْحَمْدُ لِلَّٰهِ", "Alhamdulillah"], ["ٱللَّٰهُ أَكْبَرُ", "Allahu Akbar"], ["أَسْتَغْفِرُ ٱللَّٰهَ", "Astaghfirullah"], ["لَا إِلَٰهَ إِلَّا ٱللَّٰهُ", "La ilaha illAllah"], ["ٱللَّٰهُمَّ صَلِّ عَلَىٰ مُحَمَّدٍ", "Allohumma solli ala Muhammad"]]
+  var TSM = [["#2fbf8f", "#0b5d45"], ["#f0b35a", "#8a4b10"], ["#ef6b7a", "#7d1f33"], ["#f2eee6", "#a89f8f"], ["#7a5a45", "#2a1a12"]]
+  var TS = { rot: 0, rt: 0, raf: 0, lt: 0, dy: 0, down: false, fl: 0, ac: null, sv: 0, pop: 0 }
+  function tsS() {
+    var t = S.tsb
+    if (!t) t = S.tsb = { ph: 0, n: 0, tg: 33, th: 0, snd: 1, rd: 0, tot: 0 }
+    return t
+  }
+  function tsClick(big) {
+    var t = tsS()
+    if (!t.snd) return
+    try {
+      TS.ac = TS.ac || new (window.AudioContext || window.webkitAudioContext)()
+      var c = TS.ac, o = c.createOscillator(), g = c.createGain(), n = c.currentTime
+      o.type = "triangle"; o.frequency.setValueAtTime(big ? 620 : 1500, n); o.frequency.exponentialRampToValueAtTime(big ? 300 : 700, n + .06)
+      g.gain.setValueAtTime(big ? .22 : .12, n); g.gain.exponentialRampToValueAtTime(.001, n + (big ? .35 : .07))
+      o.connect(g); g.connect(c.destination); o.start(n); o.stop(n + (big ? .4 : .09))
+    } catch (e) {}
+  }
+  function tsStep() {
+    var t = tsS()
+    jrZ(1); t.n++; t.tot++; TS.rt += 2 * Math.PI / 33; TS.pop = 1
+    var done = t.tg > 0 && t.n >= t.tg
+    if (done) { t.n = 0; t.rd++; TS.fl = 1; haptic("heavy"); tsClick(true) }
+    else if (t.n % 33 === 0) { haptic("medium"); tsClick(true); TS.fl = .6 }
+    else { haptic("light"); tsClick(false) }
+    clearTimeout(TS.sv); TS.sv = setTimeout(save, 500)
+    var ne = document.getElementById("tsn"); if (ne) ne.textContent = t.n
+    var re = document.getElementById("tsr"); if (re) re.textContent = (t.tg > 0 ? "/ " + t.tg : "∞") + (t.rd ? "  ·  ×" + t.rd : "")
+  }
+  function viewTsb() {
+    var t = tsS(), i, h
+    h = '<div class="tsb"><div class="wqtop"><button class="btn small back circ" data-act="tsbClose" aria-label="back">' + ic("arrow_back") + '</button><div class="wqpill wgpill">' + ic("bubble_chart") + " " + esc(tr("tsb_t")) + '</div><div class="wqlvb">' + ic("workspace_premium") + "</div></div>"
+    h += '<div class="tsph">'
+    for (i = 0; i < TSP.length; i++) h += '<button class="tsp' + (t.ph === i ? " on" : "") + '" data-act="tsbPh" data-v="' + i + '"><span class="ar">' + TSP[i][0] + "</span></button>"
+    h += '</div><div class="tsname">' + esc(TSP[t.ph][1]) + '</div>'
+    h += '<div class="tsbox"><canvas id="tsbc" class="tsbc"></canvas><div class="tscn"><b id="tsn">' + t.n + '</b><small id="tsr">' + (t.tg > 0 ? "/ " + t.tg : "∞") + (t.rd ? "  ·  ×" + t.rd : "") + "</small></div></div>"
+    h += '<div class="tstg">'
+    var G = [33, 99, 100, 0]
+    for (i = 0; i < G.length; i++) h += '<button class="tsp sm' + (t.tg === G[i] ? " on" : "") + '" data-act="tsbTg" data-v="' + G[i] + '">' + (G[i] ? G[i] : ic("all_inclusive")) + "</button>"
+    h += '</div><div class="tsact"><button class="tsi" data-act="tsbTh" aria-label="theme">' + ic("palette") + '</button><button class="tsi" data-act="tsbSnd" aria-label="sound">' + ic(t.snd ? "volume_up" : "volume_off") + '</button><button class="tsi" data-act="tsbRs" aria-label="reset">' + ic("restart_alt") + "</button></div>"
+    h += '<p class="wghint">' + esc(tr("tsb_help")) + "</p></div>"
+    setTimeout(tsInit, 0)
+    return h
+  }
+  function tsInit() {
+    var cv = document.getElementById("tsbc")
+    if (!cv) return
+    var w = Math.min(window.innerWidth - 32, 400), dpr = Math.min(2, window.devicePixelRatio || 1)
+    cv.style.width = w + "px"; cv.style.height = Math.round(w * 1.02) + "px"; cv.width = Math.round(w * dpr); cv.height = Math.round(w * 1.02 * dpr)
+    TS.w = w; TS.h = w * 1.02; TS.dpr = dpr; TS.cv = cv
+    if (!TS.raf) { TS.lt = 0; TS.raf = requestAnimationFrame(tsFrame) }
+  }
+  function tsBead(g, x, y, r, c0, c1, glow) {
+    g.save()
+    g.shadowColor = "rgba(0,0,0,.35)"; g.shadowBlur = r * .5; g.shadowOffsetY = r * .25
+    var gr = g.createRadialGradient(x - r * .35, y - r * .4, r * .1, x, y, r)
+    gr.addColorStop(0, "#fff"); gr.addColorStop(.18, c0); gr.addColorStop(1, c1)
+    g.fillStyle = gr; g.beginPath(); g.arc(x, y, r, 0, 7); g.fill()
+    g.shadowColor = "transparent"
+    g.fillStyle = "rgba(255,255,255,.55)"; g.beginPath(); g.ellipse(x - r * .32, y - r * .4, r * .22, r * .13, -.6, 0, 7); g.fill()
+    if (glow) { g.strokeStyle = "rgba(255,215,120," + glow + ")"; g.lineWidth = r * .22; g.beginPath(); g.arc(x, y, r * 1.12, 0, 7); g.stroke() }
+    g.restore()
+  }
+  function tsFrame(ts) {
+    var cv = document.getElementById("tsbc")
+    if (!cv || !U.tsb) { TS.raf = 0; return }
+    TS.raf = requestAnimationFrame(tsFrame)
+    if (document.hidden) { TS.lt = 0; return }
+    var dt = TS.lt ? Math.min(.05, (ts - TS.lt) / 1000) : .016
+    TS.lt = ts
+    TS.rot += (TS.rt - TS.rot) * Math.min(1, dt * 12)
+    TS.pop = Math.max(0, TS.pop - dt * 4); TS.fl = Math.max(0, TS.fl - dt * 1.3)
+    var g = cv.getContext("2d"), W = TS.w, H = TS.h, t = tsS(), m = TSM[t.th % TSM.length], N = 33, cx = W / 2, cy = H * .47, Rx = W * .36, Ry = W * .33, i, L = []
+    g.setTransform(TS.dpr, 0, 0, TS.dpr, 0, 0); g.clearRect(0, 0, W, H)
+    // yaltiroq halqa soyasi
+    var bg = g.createRadialGradient(cx, cy, W * .1, cx, cy, W * .55); bg.addColorStop(0, "rgba(255,215,120," + (.1 + TS.fl * .3) + ")"); bg.addColorStop(1, "rgba(255,215,120,0)")
+    g.fillStyle = bg; g.fillRect(0, 0, W, H)
+    for (i = 0; i < N; i++) {
+      var th = TS.rot + i * 2 * Math.PI / N + Math.PI / 2, z = Math.sin(th), s = .5 + .5 * (z + 1) / 2
+      L.push({ i: i, x: cx + Rx * Math.cos(th), y: cy + Ry * z * .92 - Ry * .08 * (1 - z) , z: z, s: s })
+    }
+    // ip
+    g.strokeStyle = "rgba(120,100,80,.55)"; g.lineWidth = 2; g.beginPath()
+    for (i = 0; i <= 64; i++) { var a = i / 64 * 2 * Math.PI, zz = Math.sin(a); g.lineTo(cx + Rx * Math.cos(a), cy + Ry * zz * .92 - Ry * .08 * (1 - zz)) }
+    g.stroke()
+    L.sort(function (p, q) { return p.z - q.z })
+    for (i = 0; i < L.length; i++) {
+      var b = L[i], r = W * .037 * b.s * (b.i === 0 ? 1.28 : 1), front = b.z > .994
+      if (b.i === 0) {
+        // imom munchoq + popuk
+        if (b.z > -.2) { g.save(); g.strokeStyle = "#e0b04a"; g.lineWidth = 3; g.beginPath(); g.moveTo(b.x, b.y + r); g.lineTo(b.x, b.y + r * 3.2); g.stroke(); var tg2 = g.createLinearGradient(0, b.y + r * 2.6, 0, b.y + r * 6.2); tg2.addColorStop(0, "#f6d27a"); tg2.addColorStop(1, "#b9822a"); g.fillStyle = tg2; g.beginPath(); g.moveTo(b.x - r * .7, b.y + r * 3); g.lineTo(b.x + r * .7, b.y + r * 3); g.lineTo(b.x + r * 1.1, b.y + r * 6.2); g.lineTo(b.x - r * 1.1, b.y + r * 6.2); g.closePath(); g.fill(); g.restore() }
+        tsBead(g, b.x, b.y, r, "#f6d27a", "#a8741f", 0)
+      } else tsBead(g, b.x, b.y, r * (front ? 1 + TS.pop * .12 : 1), m[0], m[1], front ? .55 + TS.fl * .4 : 0)
+    }
+  }
+  function tsPtr() {
+    document.addEventListener("pointerdown", function (e) {
+      var c = e.target.closest && e.target.closest("#tsbc")
+      if (!c) return
+      TS.down = true; TS.dy = 0; TS.sy = e.clientY; TS.mv = 0
+      try { c.setPointerCapture(e.pointerId) } catch (x) {}
+      e.preventDefault()
+    })
+    document.addEventListener("pointermove", function (e) {
+      if (!TS.down) return
+      var d = e.clientY - TS.sy; TS.sy = e.clientY; TS.mv += Math.abs(d); TS.dy += Math.abs(d)
+      while (TS.dy >= 34) { TS.dy -= 34; tsStep() }
+    })
+    document.addEventListener("pointerup", function () { if (!TS.down) return; TS.down = false; if (TS.mv < 8) tsStep() })
+    document.addEventListener("pointercancel", function () { TS.down = false })
+  }
+  tsPtr()
+  // ===== KUNLIK YO'L (seriya, vazifalar, kartalar, garderob) =====
+  var JRA = [["cap", "jr_cap", 60, "school"], ["scarf", "jr_scarf", 90, "checkroom"], ["glass", "jr_glass", 120, "visibility"], ["crown", "jr_crown", 250, "workspace_premium"]]
+  function jrS() { var j = S.jr; if (!j) j = S.jr = { d: {}, st: 0, bs: 0, last: "", nur: 0, cards: [], own: [], eq: {} }; return j }
+  function jrKey(off) { var d = new Date(); d.setDate(d.getDate() + off); return d.getFullYear() + "-" + ("0" + (d.getMonth() + 1)).slice(-2) + "-" + ("0" + d.getDate()).slice(-2) }
+  function jrDay() { var j = jrS(), k = todayStr(); return j.d[k] || (j.d[k] = { a: 0, z: 0, g: 0, zn: 0 }) }
+  function jrName() { var d = new Date(), s = Math.floor((Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()) - Date.UTC(d.getFullYear(), 0, 0)) / 864e5); return s % 99 }
+  function jrCnt() { var x = jrDay(); return x.a + x.z + x.g }
+  function jrStreak() { var j = jrS(); return (j.last === todayStr() || j.last === jrKey(-1)) ? j.st : 0 }
+  function jrMark(k) {
+    var j = jrS(), x = jrDay()
+    if (x[k]) return
+    var was = jrCnt(), all = false
+    x[k] = 1
+    if (was === 0) { j.st = j.last === jrKey(-1) ? j.st + 1 : 1; j.last = todayStr(); if (j.st > j.bs) j.bs = j.st }
+    if (isPrem()) {
+      j.nur += 10
+      if (jrCnt() === 3) {
+        all = true; j.nur += 20; x.c = 1
+        var ni = jrName()
+        if (j.cards.indexOf(ni) < 0) j.cards.push(ni); else for (var i = 0; i < 99; i++) if (j.cards.indexOf(i) < 0) { j.cards.push(i); break }
+        if (j.st % 7 === 0) j.nur += 50
+      }
+    } else if (jrCnt() === 3) all = true
+    save()
+    setTimeout(function () {
+      if (PET.el && petOn()) { petGo("cheer", 3400); petBub(tr(all ? "jr_done" : "jr_ok"), 3600) }
+      if (U.jr && !U.detail) render()
+    }, 50)
+  }
+  function jrZ(n) { var x = jrDay(); x.zn = (x.zn || 0) + n; if (x.zn >= 33) jrMark("z") }
+  function viewJr() {
+    if (U.jr === "cards") return viewJrCards()
+    if (U.jr === "shop") return viewJrShop()
+    var j = jrS(), prem = isPrem(), x = jrDay(), ni = jrName(), i, h, st = jrStreak(), nm = D.names[ni]
+    h = '<div class="jr"><div class="wqtop"><button class="btn small back circ" data-act="jrClose" aria-label="back">' + ic("arrow_back") + '</button><div class="wqpill wgpill">' + ic("local_fire_department") + " " + esc(tr("jr_t")) + '</div><div class="wqlvb">' + ic("star") + "<b>" + j.nur + "</b></div></div>"
+    h += '<div class="card jrhero"><div class="jrfl">' + ic("local_fire_department") + "</div><b class=\"jrn\">" + st + "</b><span>" + esc(tr("jr_days")) + "</span><small>" + esc(tr("jr_best")) + " " + j.bs + "</small></div>"
+    h += '<div class="jrwk">'
+    for (i = 6; i >= 0; i--) {
+      var k = jrKey(-i), dd = j.d[k], on = dd && (dd.a + dd.z + dd.g) > 0, dt = new Date(); dt.setDate(dt.getDate() - i)
+      h += '<div class="jrd' + (on ? " on" : "") + (i === 0 ? " now" : "") + '"><i>' + (on ? ic("check") : "") + "</i><small>" + esc(dt.toLocaleDateString(S.lang === "uz_kr" ? "uz" : (S.lang || "uz"), { weekday: "narrow" })) + "</small></div>"
+    }
+    h += "</div>"
+    h += '<div class="card jrname"><small>' + esc(tr("jr_nd")) + '</small><div class="ar">' + esc(nm.a) + "</div><b>" + (ni + 1) + ". " + esc(nm.t) + "</b></div>"
+    var Q = [["a", "jr_q1", "menu_book", "jrQ"], ["z", "jr_q2", "bubble_chart", "jrQ"], ["g", "jr_q3", "extension", "jrQ"]]
+    h += '<div class="jrq">'
+    for (i = 0; i < Q.length; i++) {
+      var dn = x[Q[i][0]]
+      h += '<button class="jrr' + (dn ? " ok" : "") + '" data-act="jrQ" data-v="' + Q[i][0] + '"><span class="jri">' + ic(Q[i][2]) + "</span><span class=\"jrt\">" + esc(tr(Q[i][1])) + (Q[i][0] === "z" && !dn ? " · " + Math.min(33, x.zn || 0) + "/33" : "") + '</span><span class="jrc">' + ic(dn ? "check_circle" : "chevron_right") + "</span></button>"
+    }
+    h += "</div>"
+    if (!prem) h += '<div class="card jrlock">' + ic("lock") + "<span>" + esc(tr("jr_lock")) + '</span><button class="btn primary" data-act="premGo">' + ic("workspace_premium") + " Premium</button></div>"
+    h += '<div class="jrbt"><button class="btn" data-act="jrCards">' + ic("collections_bookmark") + " " + esc(tr("jr_cards")) + " " + j.cards.length + "/99</button><button class=\"btn\" data-act=\"jrShop\">" + ic("checkroom") + " " + esc(tr("jr_shop")) + "</button></div></div>"
+    return h
+  }
+  function viewJrCards() {
+    var j = jrS(), i, h = '<div class="jr"><div class="wqtop"><button class="btn small back circ" data-act="jrClose" aria-label="back">' + ic("arrow_back") + '</button><div class="wqpill wgpill">' + ic("collections_bookmark") + " " + esc(tr("jr_cards")) + '</div><div class="wqlvb"><b>' + j.cards.length + "/99</b></div></div><div class=\"jrgrid\">"
+    for (i = 0; i < 99; i++) {
+      var on = j.cards.indexOf(i) >= 0
+      h += on ? '<button class="jrk on" data-act="jrCard" data-v="' + (i + 1) + '"><span class="ar">' + esc(D.names[i].a) + "</span><small>" + (i + 1) + "</small></button>" : '<div class="jrk"><span>' + ic("lock") + "</span><small>" + (i + 1) + "</small></div>"
+    }
+    return h + "</div></div>"
+  }
+  function viewJrShop() {
+    var j = jrS(), prem = isPrem(), i, h = '<div class="jr"><div class="wqtop"><button class="btn small back circ" data-act="jrClose" aria-label="back">' + ic("arrow_back") + '</button><div class="wqpill wgpill">' + ic("checkroom") + " " + esc(tr("jr_shop")) + '</div><div class="wqlvb">' + ic("star") + "<b>" + j.nur + "</b></div></div><div class=\"jrshop\">"
+    for (i = 0; i < JRA.length; i++) {
+      var a = JRA[i], own = j.own.indexOf(a[0]) >= 0, eq = !!j.eq[a[0]]
+      h += '<div class="card jrit"><span class="jri">' + ic(a[3]) + "</span><b>" + esc(tr(a[1])) + "</b>" +
+        (own ? '<button class="btn small' + (eq ? " primary" : "") + '" data-act="jrEq" data-v="' + a[0] + '">' + esc(tr(eq ? "jr_off" : "jr_eq")) + "</button>" :
+          '<button class="btn small" data-act="jrBuy" data-v="' + a[0] + '"' + (prem && j.nur >= a[2] ? "" : " disabled") + ">" + ic("star") + " " + a[2] + "</button>") + "</div>"
+    }
+    if (!prem) h += '<div class="card jrlock">' + ic("lock") + "<span>" + esc(tr("jr_lock")) + '</span><button class="btn primary" data-act="premGo">' + ic("workspace_premium") + " Premium</button></div>"
+    return h + "</div></div>"
+  }
+  function jrApply() {
+    if (!PET.el) return
+    var j = jrS(), p = isPrem()
+    JRA.forEach(function (a) { PET.el.classList.toggle("a-" + a[0], !!(p && j.eq[a[0]])) })
+  }
+  setInterval(jrApply, 1500)
+  setInterval(function () {
+    if (!petOn() || !PET.el || document.hidden || Date.now() - PLI < 10000 || PET.sad || PET.act === "talk") return
+    var j = jrS(), st = jrStreak()
+    if (jrCnt() === 0 && Date.now() - (PET.jrSpoke || 0) > 1800000 && Date.now() - (PET.wxSpoke || 0) > 20000) {
+      PET.jrSpoke = Date.now()
+      PET.wxText = st > 0 ? tr("jr_rm").replace("{n}", st) : tr("jr_rm0"); PET.wxCat = 0
+      petGo("talk", 8000)
+    }
+  }, 3000)
   function viewHomePanel() {
     var w = wq(); wqRoll()
     var lay = S.hlay === "list" ? "list" : "grid"
     return '<div class="hpanel"><div class="hptg" role="group"><button data-act="hlay" data-v="grid" class="' + (lay === "grid" ? "on" : "") + '" aria-label="grid">' + ic("grid_view") + '</button><button data-act="hlay" data-v="list" class="' + (lay === "list" ? "on" : "") + '" aria-label="list">' + ic("view_list") + "</button></div>" +
       '<div class="hpg ' + lay + '"><button class="hikrow hcard" data-act="hikmat"><span id="hph" class="hph2" aria-label="' + esc(tr("hikmat")) + '"><span></span><span></span></span>' + ic("chevron_right") + "</button>" +
       '<button class="hikrow hcard wqc' + (w.on && !w.fin ? " act" : "") + '" data-act="waqOpen"><span class="hct"><b>' + ic("bedtime") + " " + esc(tr("waq_s")) + "</b></span>" + ic("chevron_right") + "</button>" +
-      '<button class="hikrow hcard wgcard" data-act="wgOpen"><span class="hct"><b>' + ic("extension") + " " + esc(tr("wg_t")) + "</b></span>" + ic("chevron_right") + "</button></div></div>"
+      '<button class="hikrow hcard wgcard" data-act="wgOpen"><span class="hct"><b>' + ic("extension") + " " + esc(tr("wg_t")) + "</b></span>" + ic("chevron_right") + "</button>" +
+      '<button class="hikrow hcard tsbcard" data-act="tsbOpen"><span class="hct"><b>' + ic("bubble_chart") + " " + esc(tr("tsb_t")) + "</b></span>" + ic(isPrem() ? "chevron_right" : "lock") + "</button>" +
+      '<button class="hikrow hcard jrcard" data-act="jrOpen"><span class="hct"><b>' + ic("local_fire_department") + " " + esc(tr("jr_t")) + "</b><small>" + jrStreak() + " " + esc(tr("jr_days")) + "</small></span>" + ic("chevron_right") + "</button></div></div>"
   }
   // umumiy soat: 99 hisobi va header g'ildiraklari bir ritmda (barmoq tegsa to'xtaydi, qo'yilgach 3s dan keyin boshidan)
   var CLK = { tc: 0, block: 0 }
@@ -3120,12 +3350,14 @@
   function render() {
     document.documentElement.lang = S.lang.slice(0, 2)
     document.documentElement.dir = S.lang === "ar" ? "rtl" : "ltr"
-    var h, sy = window.pageYOffset || 0, vkey = [U.tab, U.more, U.detail, U.waq ? 1 : 0, U.wg ? 1 : 0, U.moodPick].join("|"), same = vkey === U.vkey
+    var h, sy = window.pageYOffset || 0, vkey = [U.tab, U.more, U.detail, U.waq ? 1 : 0, U.wg ? 1 : 0, U.tsb ? 1 : 0, U.jr || 0, U.moodPick].join("|"), same = vkey === U.vkey
     U.vkey = vkey
     try {
-      if (U.detail) h = viewDetail()
+      if (U.detail) { if (U.detail === jrName() + 1) jrMark("a"); h = viewDetail() }
       else if (U.waq) h = viewWaq()
       else if (U.wg) h = viewWg()
+      else if (U.tsb) h = viewTsb()
+      else if (U.jr) h = viewJr()
       else if (U.tab === "names") h = viewNames()
       else if (U.tab === "media") h = viewMedia()
       else if (U.tab === "mood") h = viewMood()
@@ -3163,13 +3395,15 @@
     renderNav()
     if (wheels.theme) updateThemeLabels()
     if (tg && tg.BackButton) {
-      if (U.detail || U.waq || U.wg || U.tab !== "names") tg.BackButton.show()
+      if (U.detail || U.waq || U.wg || U.tsb || U.jr || U.tab !== "names") tg.BackButton.show()
       else tg.BackButton.hide()
     }
     window.scrollTo(0, same ? sy : 0)
   }
   function goBack() {
     if (U.detail) { U.detail = 0; render(); window.scrollTo(0, 0); return }
+    if (U.jr) { U.jr = U.jr !== "main" ? "main" : ""; render(); window.scrollTo(0, 0); return }
+    if (U.tsb) { U.tsb = false; render(); window.scrollTo(0, 0); return }
     if (U.wg) { U.wg = false; WG.L = null; render(); window.scrollTo(0, 0); return }
     if (U.waq) { U.waq = false; render(); window.scrollTo(0, 0); return }
     if (U.detail) { U.detail = 0; render(); window.scrollTo(0, 0); return }
@@ -4866,6 +5100,21 @@
     else if (act === "hlay") { S.hlay = v === "list" ? "list" : "grid"; save(); render() }
     else if (act === "wgClose") goBack()
     else if (act === "wgName") { U.detail = parseInt(v, 10); U.dpanel = ""; U.dir = ""; U.mexp = false; render(); window.scrollTo(0, 0) }
+    else if (act === "tsbOpen") { if (!isPrem()) pToast(tr("pm_need")); else { U.tsb = true; render(); window.scrollTo(0, 0) } }
+    else if (act === "tsbClose") goBack()
+    else if (act === "tsbPh") { var t1 = tsS(); t1.ph = parseInt(v, 10); t1.n = 0; save(); render() }
+    else if (act === "tsbTg") { var t2 = tsS(); t2.tg = parseInt(v, 10); t2.n = 0; save(); render() }
+    else if (act === "tsbTh") { var t3 = tsS(); t3.th = (t3.th + 1) % TSM.length; save() }
+    else if (act === "tsbSnd") { var t4 = tsS(); t4.snd = t4.snd ? 0 : 1; save(); render() }
+    else if (act === "tsbRs") { var t5 = tsS(); t5.n = 0; t5.rd = 0; TS.rt = TS.rot = 0; save(); render() }
+    else if (act === "jrOpen") { U.jr = "main"; render(); window.scrollTo(0, 0) }
+    else if (act === "jrClose") goBack()
+    else if (act === "jrCards") { U.jr = "cards"; render(); window.scrollTo(0, 0) }
+    else if (act === "jrShop") { U.jr = "shop"; render(); window.scrollTo(0, 0) }
+    else if (act === "jrCard") { U.detail = parseInt(v, 10); U.dpanel = ""; U.dir = ""; U.mexp = false; render(); window.scrollTo(0, 0) }
+    else if (act === "jrQ") { if (v === "a") { U.detail = jrName() + 1; U.dpanel = ""; U.dir = ""; U.mexp = false; render(); window.scrollTo(0, 0) } else if (v === "g") { U.jr = ""; U.wg = true; render(); window.scrollTo(0, 0) } else if (isPrem()) { U.jr = ""; U.tsb = true; render(); window.scrollTo(0, 0) } else { U.jr = ""; U.tab = "daily"; render(); window.scrollTo(0, 0) } }
+    else if (act === "jrBuy") { var j1 = jrS(), a1 = JRA.filter(function (q) { return q[0] === v })[0]; if (a1 && isPrem() && j1.nur >= a1[2] && j1.own.indexOf(v) < 0) { j1.nur -= a1[2]; j1.own.push(v); j1.eq[v] = 1; save(); jrApply(); render() } }
+    else if (act === "jrEq") { var j2 = jrS(); j2.eq[v] = j2.eq[v] ? 0 : 1; save(); jrApply(); render() }
     else if (act === "wgOpen") { U.wg = true; render(); window.scrollTo(0, 0) }
     else if (act === "waqOpen") { U.waq = true; render(); window.scrollTo(0, 0) }
     else if (act === "waqClose") { U.waq = false; render(); window.scrollTo(0, 0) }
