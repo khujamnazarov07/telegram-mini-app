@@ -51,7 +51,7 @@
     pet_sal: "Bugun salavot aytilmadi shekilli…|Бугун салавот айтилмади шекилли…|Кажется, сегодня салават не читали…|Looks like no salawat today…|يبدو أنه لم يُصلَّ على النبي اليوم…|Galiba bugün salavat getirilmedi…|Sepertinya hari ini belum bershalawat…|今天好像还没念赞圣词…|लगता है आज दरूद नहीं पढ़ा गया…|Parece que hoy no se dijo salawat…",
     pet_hi: "Assalomu alaykum!|Ассалому алайкум!|Ассаляму алейкум!|Assalamu alaykum!|السلام عليكم!|Selamün aleyküm!|Assalamu'alaikum!|愿平安！|अस्सलामु अलैकुम!|¡Assalamu alaykum!",
     pet_ok: "Alhamdulillah!|Алҳамдулиллаҳ!|Альхамдулиллях!|Alhamdulillah!|الحمد لله!|Elhamdülillah!|Alhamdulillah!|感谢真主！|अल्हम्दुलिल्लाह!|¡Alhamdulillah!",
-    pet_love: "Rahmat!|Раҳмат!|Спасибо!|Thank you!|شكرًا!|Teşekkürler!|Terima kasih!|谢谢！|धन्यवाद!|¡Gracias!",
+    pet_love: "Hihi, qitiqlayapsiz!|Хихи, қитиқлаяпсиз!|Хи-хи, щекотно!|Hehe, that tickles!|هههه، تدغدغني!|Hihi, gıdıklıyorsun!|Hihi, geli!|嘻嘻，好痒！|हिही, गुदगुदी हो रही है!|¡Jiji, me haces cosquillas!",
     pet_snow: "Mmm, qor!|Ммм, қор!|Ммм, снег!|Mmm, snow!|همم، ثلج!|Mmm, kar!|Mmm, salju!|嗯，雪！|म्म, बर्फ़!|¡Mmm, nieve!",
     pet_hot: "Uf, quyosh qizdirib yubordi!|Уф, қуёш қиздириб юборди!|Уф, солнце печёт!|Phew, the sun is scorching!|أوف، الشمس حارقة!|Off, güneş kavuruyor!|Huft, panas sekali!|哎呀，太阳好晒！|उफ़, धूप बहुत तेज़ है!|¡Uf, qué calor!",
     pet_cold: "Brrr, qanday sovuq!|Бррр, қандай совуқ!|Бррр, как холодно!|Brrr, so cold!|برررر، ما أبرد الجو!|Brrr, ne soğuk!|Brrr, dingin sekali!|好冷啊！|ब्रर्र, कितनी ठंड!|¡Brrr, qué frío!",
@@ -59,6 +59,20 @@
     pet_dz: "Boshim aylanyapti…|Бошим айланяпти…|Голова кружится…|I feel dizzy…|رأسي يدور…|Başım dönüyor…|Kepalaku pusing…|我头晕…|चक्कर आ रहा है…|Me mareo…",
     pet_fly: "Uchyapman!|Учяпман!|Лечу!|Flying!|أطير!|Uçuyorum!|Terbang!|飞起来啦！|उड़ रहा हूँ!|¡Vuelo!",
     pet_goal: "Maqsadga erishdingiz, Alhamdulillah!|Мақсадга эришдингиз, алҳамдулиллаҳ!|Цель достигнута, альхамдулиллях!|Goal reached, alhamdulillah!|تحقق الهدف، الحمد لله!|Hedefe ulaştınız, elhamdülillah!|Target tercapai, alhamdulillah!|目标达成，感谢真主！|लक्ष्य पूरा, अल्हम्दुलिल्लाह!|¡Meta lograda, alhamdulillah!",
+    pet_ay: "Ay!|Ай!|Ай!|Ouch!|آخ!|Ay!|Aduh!|哎呀！|आह!|¡Ay!",
+    pet_wx: "Hozir {c} shahrida ob-havo {w}, {t}°. {x}|Ҳозир {c} шаҳрида об-ҳаво {w}, {t}°. {x}|Сейчас в городе {c}: {w}, {t}°. {x}|Right now in {c}: {w}, {t}°. {x}|الآن في {c}: الطقس {w}، {t}°. {x}|Şu an {c} şehrinde hava {w}, {t}°. {x}|Saat ini di {c} cuaca {w}, {t}°. {x}|{c}现在天气{w}，{t}°。{x}|अभी {c} में मौसम {w}, {t}° है। {x}|Ahora en {c}: {w}, {t}°. {x}",
+    wx_c0: "ochiq|очиқ|ясно|clear|صافٍ|açık|cerah|晴|साफ़|despejado",
+    wx_c1: "bulutli|булутли|облачно|cloudy|غائم|bulutlu|berawan|多云|बादल|nublado",
+    wx_c2: "tumanli|туманли|туман|foggy|ضبابي|sisli|berkabut|有雾|धुंध|con niebla",
+    wx_c3: "yomg'irli|ёмғирли|дождь|rainy|ممطر|yağmurlu|hujan|下雨|बारिश|lluvioso",
+    wx_c4: "qorli|қорли|снег|snowy|مثلج|karlı|bersalju|下雪|बर्फ़बारी|nevado",
+    wx_c5: "momaqaldiroqli|момақалдироқли|гроза|stormy|عاصف|fırtınalı|badai petir|雷暴|आंधी-तूफ़ान|tormentoso",
+    wx_t0: "Kun yaxshi, sayrga chiqsangiz bo'ladi.|Кун яхши, сайрга чиқсангиз бўлади.|Хороший день для прогулки.|Nice day for a walk.|يوم جميل للتنزه.|Yürüyüş için güzel bir gün.|Hari yang bagus untuk jalan-jalan.|适合散步的好天气。|टहलने के लिए अच्छा दिन।|Buen día para pasear.",
+    wx_t1: "Yengil kiyim yetarli.|Енгил кийим етарли.|Хватит лёгкой одежды.|Light clothes will do.|يكفي لباس خفيف.|Hafif giysiler yeter.|Pakaian tipis cukup.|穿轻便衣服就行。|हल्के कपड़े काफ़ी हैं।|Basta con ropa ligera.",
+    wx_t2: "Ehtiyot bo'ling, ko'rinish yomon.|Эҳтиёт бўлинг, кўриниш ёмон.|Осторожно, плохая видимость.|Be careful, visibility is low.|احذر، الرؤية ضعيفة.|Dikkat, görüş düşük.|Hati-hati, jarak pandang rendah.|小心，能见度低。|सावधान रहें, दृश्यता कम है।|Cuidado, poca visibilidad.",
+    wx_t3: "Soyabon beraymi?|Соябон берайми?|Дать зонтик?|Shall I lend you an umbrella?|هل أعطيك مظلة؟|Şemsiye vereyim mi?|Mau kupinjamkan payung?|要借你一把伞吗？|छाता दूँ?|¿Te presto un paraguas?",
+    wx_t4: "Soyabon beraymi? Issiqroq kiying.|Соябон берайми? Иссиқроқ кийинг.|Дать зонтик? Оденьтесь теплее.|Shall I lend an umbrella? Dress warm.|هل أعطيك مظلة؟ البس دافئًا.|Şemsiye vereyim mi? Sıcak giyinin.|Mau payung? Berpakaianlah hangat.|要伞吗？请穿暖和些。|छाता दूँ? गर्म कपड़े पहनें।|¿Un paraguas? Abrígate.",
+    wx_t5: "Uyda qolgan afzal.|Уйда қолган афзал.|Лучше остаться дома.|Better stay indoors.|الأفضل البقاء في البيت.|Evde kalmak daha iyi.|Lebih baik di rumah.|最好待在家里。|घर पर रहना बेहतर है।|Mejor quédate en casa.",
     waq_new: "Yangi · boshlash|Янги · бошлаш|Новый · начать|New · start|جديد · ابدأ|Yeni · başla|Baru · mulai|新 · 开始|नया · शुरू करें|Nuevo · empezar",
     waq_lv: "Daraja|Даража|Уровень|Level|المستوى|Seviye|Level|等级|स्तर|Nivel",
     waq_debt: "Qoldirilgan|Қолдирилган|Пропущено|Missed|فائت|Kaçan|Terlewat|待补|छूटा|Pendiente",
@@ -890,7 +904,8 @@
   }
   var PHR = ["Mashaa Alloh!", "Barakallah!", "Alhamdulillah!", "SubhanAllah!", "Jazakallahu khayran!", "Allohu Akbar!"]
   function petSeason() { return (S.bgmode === "season" && isPrem()) ? S.season : "" }
-  function petGo(name, dur) { PET.act = name; PET.at = 0; PET.dur = dur; PET.ph = 0; PET.n = 0; PET.la = "down"; PET.ra = "down"; PET.face = "n"; PET.gaze = 0; PET.by = 0; PET.um = false }
+  function petRelease() { var c = SNOW.cap; if (c && SNOW.fl) { var n = SNOW.mk(false); for (var i = 0; i < SNOW.fl.length; i++) if (SNOW.fl[i] === c) SNOW.fl[i] = n }; SNOW.cap = null; PET.cap = null; PET.fl = null }
+  function petGo(name, dur) { if (PET.cap) petRelease(); PET.act = name; PET.at = 0; PET.dur = dur; PET.ph = 0; PET.n = 0; PET.la = "down"; PET.ra = "down"; PET.face = "n"; PET.gaze = 0; PET.by = 0; PET.um = false }
   var ZK = ["SubhanAllah", "Alhamdulillah", "Allahu Akbar", "La ilaha illAllah", "Astaghfirullah", "In shaa Alloh"]
   function petRnd(a, b) { return a + Math.random() * (b - a) }
   function petPick() {
@@ -908,7 +923,7 @@
     var sn = petSeason(), W = window.innerWidth
     r = Math.random()
     if (sn === "winter" && r < .35) {
-      if (petSnow() && Math.random() < .6) { PET.tx = petRnd(50, W - 50); petGo("snow", 14000) } else petGo("cold", 4600)
+      if (SNOW.fl && Math.random() < .65) { PET.tx = petRnd(50, W - 50); petGo("snow", 14000) } else petGo("cold", 4600)
       return
     }
     if (sn === "summer" && r < .3) { PET.tx = petRnd(50, W - 50); petGo("sun", 9000); return }
@@ -959,6 +974,14 @@
     } else if (a === "sadidle") { f.face = "teary"; f.la = "droop"; f.ra = "droop"; f.gaze = 0; f.by = 0 }
     else if (a === "wipe") { f.face = f.at > 500 && f.at < 1300 ? "blink" : "teary"; f.la = "droop"; f.ra = "wipe"; f.by = 0 }
     else if (a === "sigh") { f.face = "teary"; f.la = "droop"; f.ra = "droop"; f.by = f.at > 400 && f.at < 1400 ? 1 : 0; if (f.at < 60) petBub("…", 1500) }
+    else if (a === "talk") {
+      f.toy = 0; f.face = "happy"; f.gaze = 0; f.la = "mid"; f.um = f.wxCat === 3 || f.wxCat === 4; f.ra = f.um ? "up" : (sec % 2 ? "up" : "up2"); f.by = sec % 2
+      if (f.at < 80 && !f.n) { f.n = 1; petBub(f.wxText, 8500) }
+    }
+    else if (a === "hit") {
+      f.toy = 0; f.face = f.at < 250 ? "o" : "dizzy"; f.gaze = 0; f.sx = f.at < 500 ? Math.sin(f.at / 28) * 2.2 : Math.sin(f.at / 120) * .8
+      f.la = "out"; f.ra = "out"; f.jy = f.at < 220 ? Math.sin(Math.PI * f.at / 220) * 5 : 0
+    }
     else if (a === "cheer") { f.face = "happy"; f.la = sec % 2 ? "up" : "up2"; f.ra = sec % 2 ? "up2" : "up"; f.by = sec % 2; f.jy = Math.abs(Math.sin(f.at / 190)) * 10 }
     else if (a === "love") { f.face = "love"; f.la = "up"; f.ra = "up2"; f.jy = Math.abs(Math.sin(f.at / 220)) * 6 }
     else if (a === "snow") {
@@ -967,12 +990,21 @@
         var d2 = f.tx - f.x; f.gaze = d2 > 0 ? 1 : -1; f.x += Math.sign(d2) * 34 * dt / 1000; f.by = sec % 2
         f.la = sec % 2 ? "mid" : "down"; f.ra = sec % 2 ? "down" : "mid"
         if (Math.abs(d2) < 3) { f.ph = 1; f.at = 0 }
-      } else if (f.ph === 1) { f.face = "up"; if (f.at > 500) { f.ph = 2; f.at = 0; PET.fl = { y: -12 } } }
-      else if (f.ph === 2) {
+      } else if (f.ph === 1) {
         f.face = "up"
-        var r0 = PET.el.getBoundingClientRect(), my = r0.top + 22, fy = -12 + (my + 12) * Math.min(1, f.at / 1500)
-        PET.fl.y = fy
-        if (f.at > 1500) { f.ph = 3; f.at = 0; PET.fl = null }
+        if (f.at > 500) {
+          var cand = (SNOW.fl || []).filter(function (q) { return q.z > .4 && q.y > innerHeight * .15 && q.y < innerHeight * .6 && q.x > 20 && q.x < innerWidth - 20 })
+          if (!cand.length) { f.at = f.dur; f.ph = 5; return }
+          var cf = cand[Math.floor(Math.random() * cand.length)]
+          SNOW.cap = cf; PET.cap = cf; PET.fl = { x: cf.x, y: cf.y, k: cf.sz / 40, b: 0 }; f.fx0 = cf.x; f.fy0 = cf.y; f.fk0 = cf.sz / 40; f.ph = 2; f.at = 0
+          var cx2 = PET.flEl.getContext("2d"), fi = flakeTinted(SNOW.night); cx2.clearRect(0, 0, 40, 40); if (fi) cx2.drawImage(fi, 0, 0, 40, 40)
+        }
+      } else if (f.ph === 2) {
+        f.face = "up"
+        var r0 = PET.el.getBoundingClientRect(), my = r0.top + 22, T1 = 1400, T2 = 1000, fl = PET.fl
+        if (f.at < T1) { var q = f.at / T1; fl.k = f.fk0 + (1.4 - f.fk0) * q; fl.x = f.fx0 + Math.sin(f.at / 260) * 14 * q; fl.y = f.fy0 + 26 * q; fl.b = 0 }
+        else { var q2 = Math.min(1, (f.at - T1) / T2), e2 = q2 * q2, ax = f.fx0 + Math.sin(T1 / 260) * 14; fl.k = 1.4 - 1.05 * e2; fl.x = ax * (1 - e2) + f.x * e2; fl.y = (f.fy0 + 26) * (1 - e2) + my * e2; fl.b = 0 }
+        if (f.at > T1 + T2) { f.ph = 3; f.at = 0; petRelease() }
       } else if (f.ph === 3) {
         f.face = f.at < 450 ? (Math.floor(f.at / 150) % 2 ? "up" : "o") : "happy"
         if (f.at > 450 && !f.n) { f.n = 1; petBub(tr("pet_snow"), 1800) }
@@ -1028,7 +1060,7 @@
     if (f.emo && f.t < f.emoUntil && (a !== "think")) { f.face = f.emo; if (f.emo === "dizzy") f.gaze = 0 } else if (f.emo && f.t >= f.emoUntil) f.emo = ""
     if (f.hap && f.t < f.hap && f.face === "n") f.face = "happy"
     if (PET.sad && a !== "think") { f.la = f.la === "down" ? "droop" : f.la }
-    if (f.at >= f.dur) { PET.fl = null; PET.um = false; f.rest = f.t + (a === "idle" ? 0 : petRnd(5000, 9000)); if (a === "think" && !PET.sad) PET.sad = true; f.act = ""; PET.n = 0 }
+    if (f.at >= f.dur) { if (PET.cap) petRelease(); PET.fl = null; PET.um = false; f.rest = f.t + (a === "idle" ? 0 : petRnd(5000, 9000)); if (a === "think" && !PET.sad) PET.sad = true; f.act = ""; PET.n = 0 }
     f.x = Math.max(30, Math.min(W - 30, f.x))
   }
   // harakatlarga ta'sir: salavot, sevimli, o'yin
@@ -1100,7 +1132,7 @@
     var oyv = f.oy + f.jy
     PET.el.style.transform = "translate(" + (Math.round(f.x - 20 + f.sx)) + "px," + Math.round(-oyv) + "px)"
     PET.el.style.clipPath = "inset(-90px -90px " + Math.round(2 - f.oy) + "px -90px)"
-    if (PET.fl) { var fe = PET.flEl; if (fe) { fe.style.display = "block"; fe.style.left = Math.round(f.x - 2) + "px"; fe.style.top = Math.round(PET.fl.y) + "px" } } else if (PET.flEl) PET.flEl.style.display = "none"
+    if (PET.fl) { var fe = PET.flEl; if (fe) { fe.style.display = "block"; fe.style.left = Math.round(PET.fl.x) + "px"; fe.style.top = Math.round(PET.fl.y) + "px"; fe.style.transform = "scale(" + PET.fl.k.toFixed(2) + ") rotate(" + Math.round(f.t / 12) + "deg)" } } else if (PET.flEl) PET.flEl.style.display = "none"
   }
   function petTick() {
     if (!PET.el || document.hidden || !petOn()) return
@@ -1131,18 +1163,47 @@
         '<canvas width="13" height="9"></canvas></div><svg class="petum" viewBox="0 0 46 24" width="46" height="24"><path d="M2 16Q23 -8 44 16Z" fill="#ff8fa3"/><path d="M2 16Q8 12 12 16Q17 12 23 16Q29 12 34 16Q39 12 44 16" fill="none" stroke="#fff" stroke-width="1.5"/><line x1="23" y1="4" x2="23" y2="24" stroke="#8b6b4a" stroke-width="1.6"/></svg></div><div class="petb"></div>'
       document.body.appendChild(el)
       PET.el = el; PET.cv = el.querySelector("canvas"); PET.cx = PET.cv.getContext("2d"); PET.bub = el.querySelector(".petb"); PET.head = el.querySelector(".pethead"); PET.al = el.querySelector(".petarm.l"); PET.ar = el.querySelector(".petarm.r"); PET.ant = el.querySelector(".petant")
-      var fl = document.createElement("div"); fl.className = "petfl"; document.body.appendChild(fl); PET.flEl = fl
+      var fl = document.createElement("canvas"); fl.width = 40; fl.height = 40; fl.className = "petfl"; document.body.appendChild(fl); PET.flEl = fl
       PET.x = Math.min(window.innerWidth - 40, 70)
       el.addEventListener("click", function () {
         haptic("light")
-        if (PET.sad) { petBub(tr("pet_sal"), 3200); petGo("sigh", 1900) } else { petGo("love", 1600); petBub(tr("pet_love"), 1800) }
+        petGo("hit", 2400); petBub(tr("pet_ay"), 1100)
       })
       setInterval(petTick, 66); setInterval(petWatch, 1500); setInterval(petReact, 450)
       petGo("wave", 2400)
     }
     PET.el.style.display = ""
   }
-  window._pet = { P: PET, go: petGo }
+  // ob-havo: 10 soniya e'tiborsiz qolsa gapiradi (IP bo'yicha shahar + Open-Meteo)
+  var PLI = Date.now()
+  ;["pointerdown", "touchstart", "keydown", "wheel", "scroll"].forEach(function (ev) { window.addEventListener(ev, function (e) { if (ev === "scroll" && e.target !== document) return; PLI = Date.now() }, { passive: true, capture: true }) })
+  function petWxCat(c) { return c <= 1 ? 0 : c <= 3 ? 1 : (c === 45 || c === 48) ? 2 : ((c >= 71 && c <= 77) || c === 85 || c === 86) ? 4 : c >= 95 ? 5 : 3 }
+  function petWx(cb) {
+    var w = S.petWx
+    if (w && Date.now() - w.at < 1800000) { cb(w); return }
+    if (PET.wxBusy || Date.now() - (PET.wxFail || 0) < 120000) return
+    PET.wxBusy = true
+    fetch("https://ipwho.is/").then(function (r) { return r.json() }).then(function (g) {
+      if (!g || g.success === false) throw 0
+      return fetch("https://api.open-meteo.com/v1/forecast?latitude=" + g.latitude + "&longitude=" + g.longitude + "&current=temperature_2m,weather_code&timezone=auto").then(function (r) { return r.json() }).then(function (m) {
+        var c = m.current
+        PET.wxBusy = false
+        S.petWx = { at: Date.now(), city: g.city || g.region || "", t: Math.round(c.temperature_2m), cat: petWxCat(c.weather_code) }
+        save(); cb(S.petWx)
+      })
+    }).catch(function () { PET.wxBusy = false; PET.wxFail = Date.now() })
+  }
+  setInterval(function () {
+    if (!petOn() || !PET.el || document.hidden || PET.sad || Date.now() - PLI < 10000 || Date.now() - (PET.wxSpoke || 0) < 900000) return
+    petWx(function (w) {
+      if (Date.now() - PLI < 10000 || !w.city) return
+      PET.wxSpoke = Date.now()
+      PET.wxText = tr("pet_wx").replace("{c}", w.city).replace("{w}", tr("wx_c" + w.cat)).replace("{t}", w.t).replace("{x}", tr("wx_t" + w.cat))
+      PET.wxCat = w.cat
+      petGo("talk", 9000)
+    })
+  }, 2000)
+  window._pet = { P: PET, go: petGo, pli: function () { return Date.now() - PLI } }
   setTimeout(petApply, 1400)
   function viewHomePanel() {
     var w = wq(); wqRoll()
@@ -4281,7 +4342,7 @@
     for (i = 0; i < N; i++) fl.push(mk(true))
     fl.sort(function (p, q) { return p.z - q.z })
     var t0 = 0
-    SNOW.el = host
+    SNOW.el = host; SNOW.fl = fl; SNOW.night = night; SNOW.cap = null; SNOW.mk = mk
     function frame(ts) {
       if (!host.isConnected || SNOW.el !== host) return
       SNOW.raf = requestAnimationFrame(frame)
@@ -4294,6 +4355,7 @@
       g.clearRect(0, 0, W, H)
       for (var k = 0; k < fl.length; k++) {
         var f = fl[k]
+        if (SNOW.cap === f) continue
         f.y += f.vy * dt * (red ? 0.5 : 1)
         f.x += (wind * (0.4 + f.z) + Math.cos(tm * f.fr + f.ph) * f.am * f.fr) * dt
         f.rot += f.rs * dt
@@ -4308,7 +4370,7 @@
     }
     SNOW.raf = requestAnimationFrame(frame)
   }
-  function snowStop() { if (SNOW.raf) cancelAnimationFrame(SNOW.raf); SNOW.raf = 0; SNOW.el = null }
+  function snowStop() { if (SNOW.raf) cancelAnimationFrame(SNOW.raf); SNOW.raf = 0; SNOW.el = null; SNOW.fl = null; SNOW.cap = null }
   function applyBg() {
     var root = document.documentElement, g = S.gender
     var v = g === "female" ? S.fbg : g === "male" ? S.mbg : ""
