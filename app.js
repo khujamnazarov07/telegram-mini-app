@@ -89,6 +89,14 @@
     jr_done: "Alhamdulillah! Bugungi yo'l tugadi, yangi kartangiz tayyor!|Алҳамдулиллаҳ! Бугунги йўл тугади, янги картангиз тайёр!|Альхамдулиллях! Путь дня пройден, новая карточка готова!|Alhamdulillah! Today's path is complete, new card unlocked!|الحمد لله! اكتملت رحلة اليوم وحصلت على بطاقة جديدة!|Elhamdülillah! Günün yolu tamam, yeni kartın hazır!|Alhamdulillah! Jalan hari ini selesai, kartu baru terbuka!|感谢真主！今日之路完成，获得新卡片！|अल्हम्दुलिल्लाह! आज की यात्रा पूरी, नया कार्ड मिला!|¡Alhamdulillah! Camino de hoy completo, ¡nueva tarjeta!",
     jr_rm: "{n} kunlik seriyangiz bor! Bugun hali vazifa bajarilmadi.|{n} кунлик серияингиз бор! Бугун ҳали вазифа бажарилмади.|У вас серия {n} дн.! Сегодня задания ещё не выполнены.|You have a {n}-day streak! Today's tasks aren't done yet.|لديك سلسلة {n} أيام! لم تُنجز مهام اليوم بعد.|{n} günlük serin var! Bugünkü görevler henüz yapılmadı.|Kamu punya {n} hari beruntun! Tugas hari ini belum selesai.|你已连续{n}天！今天的任务还没完成。|आपकी {n} दिन की लकीर है! आज के कार्य बाकी हैं।|¡Tienes una racha de {n} días! Hoy aún no hiciste las tareas.",
     jr_rm0: "Kunlik yo'lni boshlaymizmi? Bugun 3 ta oson vazifa bor.|Кунлик йўлни бошлаймизми? Бугун 3 та осон вазифа бор.|Начнём путь дня? Сегодня 3 лёгких задания.|Shall we start the daily path? 3 easy tasks today.|هل نبدأ الرحلة اليومية؟ ثلاث مهام سهلة اليوم.|Günlük yola başlayalım mı? Bugün 3 kolay görev var.|Mulai jalan harian? Ada 3 tugas mudah hari ini.|开始今日之路吧？今天有3个简单任务。|दैनिक यात्रा शुरू करें? आज 3 आसान कार्य हैं।|¿Empezamos el camino diario? Hoy hay 3 tareas fáciles.",
+    jr_wk: "Haftalik|Ҳафталик|За неделю|Weekly",
+    jr_td: "Bugungi vazifalar|Бугунги вазифалар|Задания на сегодня|Today's tasks",
+    jr_dn: "bajarildi|бажарилди|выполнено|done",
+    jr_got: "olindi|олинди|получено|earned",
+    jr_rw: "mukofot|мукофот|награда|reward",
+    dv_mj: "Marjon 3D|Маржон 3D|Чётки 3D|Beads 3D",
+    mj_mat: "Marjon rangi|Маржон ранги|Цвет чёток|Bead colour",
+    mj_snd: "Tovush|Товуш|Звук|Sound",
     jr_cap: "Do'ppi|Дўппи|Тюбетейка|Skullcap|طاقية|Takke|Peci|小圆帽|टोपी|Gorro",
     jr_scarf: "Ro'mol|Рўмол|Шарф|Scarf|وشاح|Atkı|Syal|围巾|स्कार्फ़|Bufanda",
     jr_glass: "Ko'zoynak|Кўзойнак|Очки|Glasses|نظارات|Gözlük|Kacamata|眼镜|चश्मा|Gafas",
@@ -445,7 +453,7 @@
     if (v === U.tab && !U.detail && !U.waq && !U.wg && !U.tsb && !U.jr && U.more === "menu") { window.scrollTo({ top: 0, behavior: "smooth" }); return }
     var from = navIdx(), to = 0
     for (var i = 0; i < NAVS.length; i++) if (NAVS[i][0] === v) to = i
-    var go = function () { window.scrollTo(0, 0); U.namesOpen = false; U.waq = false; U.wg = false; U.tsb = false; U.jr = ""; U.tab = v; U.hikBack = false; U.detail = 0; U.more = "menu"; U.moodPick = ""; render() }
+    var go = function () { window.scrollTo(0, 0); U.namesOpen = false; U.waq = false; U.wg = false; U.tsb = false; U.jr = ""; U.jrRet = false; U.wgOne = false; U.tab = v; U.hikBack = false; U.detail = 0; U.more = "menu"; U.moodPick = ""; render() }
     if (from === to) return go()
     slidePage(to > from ? 1 : -1, go)
   }
@@ -868,7 +876,7 @@
     g.lv++; g.n++; g.f = []; save(); haptic("heavy"); jrMark("g")
     if (ok) ok.classList.add("on")
     var lk = ++WG.lk
-    setTimeout(function () { if (lk === WG.lk && U.waq === undefined) { /* noop */ } if (lk === WG.lk && U.wg) render() }, 1900)
+    setTimeout(function () { if (lk === WG.lk && U.waq === undefined) { /* noop */ } if (lk === WG.lk && U.wg) { if (U.wgOne) { U.wg = false; U.wgOne = false; WG.L = null; window.scrollTo(0, 0) } render() } }, 1900)
   }
   document.addEventListener("pointerdown", function (e) {
     var b = e.target.closest && e.target.closest("#wgb")
@@ -1252,6 +1260,15 @@
     } catch (e) {}
   }
   function tsStep() {
+    if (!U.tsb) {
+      var dd = S.daily
+      if (!dd || !dd.target || dd.todayDone) return
+      TS.rt += 2 * Math.PI / 33; TS.pop = 1
+      var nn = (dd.draft || 0) + (dd.step || 1)
+      if (nn >= dd.target) { haptic("heavy"); tsClick(true); TS.fl = 1 } else if (nn % 33 === 0) { haptic("medium"); tsClick(true); TS.fl = .6 } else { haptic("light"); tsClick(false) }
+      var mb = document.getElementById("mjtap"); if (mb) mb.click()
+      return
+    }
     var t = tsS()
     jrZ(1); t.n++; t.tot++; TS.rt += 2 * Math.PI / 33; TS.pop = 1
     var done = t.tg > 0 && t.n >= t.tg
@@ -1298,7 +1315,7 @@
   }
   function tsFrame(ts) {
     var cv = document.getElementById("tsbc")
-    if (!cv || !U.tsb) { TS.raf = 0; return }
+    if (!cv) { TS.raf = 0; return }
     TS.raf = requestAnimationFrame(tsFrame)
     if (document.hidden) { TS.lt = 0; return }
     var dt = TS.lt ? Math.min(.05, (ts - TS.lt) / 1000) : .016
@@ -1346,7 +1363,8 @@
   }
   tsPtr()
   // ===== KUNLIK YO'L (seriya, vazifalar, kartalar, garderob) =====
-  var JRA = [["cap", "jr_cap", 60, "school"], ["scarf", "jr_scarf", 90, "checkroom"], ["glass", "jr_glass", 120, "visibility"], ["crown", "jr_crown", 250, "workspace_premium"]]
+  var JRA = [["cap", "jr_cap", 120, "school"], ["scarf", "jr_scarf", 200, "checkroom"], ["glass", "jr_glass", 300, "visibility"], ["crown", "jr_crown", 600, "workspace_premium"]]
+  var JRP = { a: 10, z: 15, g: 20 }
   function jrS() { var j = S.jr; if (!j) j = S.jr = { d: {}, st: 0, bs: 0, last: "", nur: 0, cards: [], own: [], eq: {} }; return j }
   function jrKey(off) { var d = new Date(); d.setDate(d.getDate() + off); return d.getFullYear() + "-" + ("0" + (d.getMonth() + 1)).slice(-2) + "-" + ("0" + d.getDate()).slice(-2) }
   function jrDay() { var j = jrS(), k = todayStr(); return j.d[k] || (j.d[k] = { a: 0, z: 0, g: 0, zn: 0 }) }
@@ -1360,18 +1378,18 @@
     x[k] = 1
     if (was === 0) { j.st = j.last === jrKey(-1) ? j.st + 1 : 1; j.last = todayStr(); if (j.st > j.bs) j.bs = j.st }
     if (isPrem()) {
-      j.nur += 10
+      j.nur += JRP[k]
       if (jrCnt() === 3) {
-        all = true; j.nur += 20; x.c = 1
+        all = true; j.nur += 15; x.c = 1
         var ni = jrName()
         if (j.cards.indexOf(ni) < 0) j.cards.push(ni); else for (var i = 0; i < 99; i++) if (j.cards.indexOf(i) < 0) { j.cards.push(i); break }
-        if (j.st % 7 === 0) j.nur += 50
+        if (j.st % 30 === 0) j.nur += 200; else if (j.st % 7 === 0) j.nur += 70
       }
     } else if (jrCnt() === 3) all = true
     save()
     setTimeout(function () {
       if (PET.el && petOn()) { petGo("cheer", 3400); petBub(tr(all ? "jr_done" : "jr_ok"), 3600) }
-      if (U.jr && !U.detail) render()
+      if (U.jr && !U.detail && !U.wg && !U.tsb) render()
     }, 50)
   }
   function jrZ(n) { var x = jrDay(); x.zn = (x.zn || 0) + n; if (x.zn >= 33) jrMark("z") }
@@ -1379,31 +1397,34 @@
     if (U.jr === "cards") return viewJrCards()
     if (U.jr === "shop") return viewJrShop()
     var j = jrS(), prem = isPrem(), x = jrDay(), ni = jrName(), i, h, st = jrStreak(), nm = D.names[ni]
-    h = '<div class="jr"><div class="wqtop"><button class="btn small back circ" data-act="jrClose" aria-label="back">' + ic("arrow_back") + '</button><div class="wqpill wgpill">' + ic("local_fire_department") + " " + esc(tr("jr_t")) + '</div><div class="wqlvb">' + ic("star") + "<b>" + j.nur + "</b></div></div>"
-    h += '<div class="card jrhero"><div class="jrfl">' + ic("local_fire_department") + "</div><b class=\"jrn\">" + st + "</b><span>" + esc(tr("jr_days")) + "</span><small>" + esc(tr("jr_best")) + " " + j.bs + "</small></div>"
-    h += '<div class="jrwk">'
+    h = '<div class="jr"><div class="wqtop"><button class="btn small back circ" data-act="jrClose" aria-label="back">' + ic("arrow_back") + '</button><div class="wqpill wgpill">' + ic("local_fire_department") + " " + esc(tr("jr_t")) + '</div><div class="wqlvb"><b>' + j.nur + "</b>" + ic("star") + "</div></div>"
+    var wkn = 0, INI = ["Y", "D", "S", "C", "P", "J", "S"], wd = ""
     for (i = 6; i >= 0; i--) {
       var k = jrKey(-i), dd = j.d[k], on = dd && (dd.a + dd.z + dd.g) > 0, dt = new Date(); dt.setDate(dt.getDate() - i)
-      h += '<div class="jrd' + (on ? " on" : "") + (i === 0 ? " now" : "") + '"><i>' + (on ? ic("check") : "") + "</i><small>" + esc(dt.toLocaleDateString(S.lang === "uz_kr" ? "uz" : (S.lang || "uz"), { weekday: "narrow" })) + "</small></div>"
+      if (on) wkn++
+      var lb = S.lang === "uz" ? INI[dt.getDay()] : dt.toLocaleDateString(S.lang === "uz_kr" || S.lang === "uz_new" ? "uz" : (S.lang || "uz"), { weekday: "narrow" })
+      wd += '<div class="jrd' + (on ? " on" : "") + (i === 0 ? " now" : "") + '"><i>' + (on ? ic("check") : "") + "</i><small>" + esc(lb) + "</small></div>"
     }
-    h += "</div>"
-    h += '<div class="card jrname"><small>' + esc(tr("jr_nd")) + '</small><div class="ar">' + esc(nm.a) + "</div><b>" + (ni + 1) + ". " + esc(nm.t) + "</b></div>"
-    var Q = [["a", "jr_q1", "menu_book", "jrQ"], ["z", "jr_q2", "bubble_chart", "jrQ"], ["g", "jr_q3", "extension", "jrQ"]]
-    h += '<div class="jrq">'
+    h += '<div class="card jrhero2"><div class="jrh1"><span class="jrfb">' + ic("local_fire_department") + '</span><div class="jrhm"><div><b>' + st + "</b> " + esc(tr("jr_days")) + "</div><small>" + esc(tr("jr_best")) + " <em>" + j.bs + " " + esc(tr("jr_days").split(" ")[0]) + '</em></small></div><div class="jrwkc"><small>' + esc(tr("jr_wk")) + "</small><b>" + wkn + "/7</b></div></div>"
+    h += '<div class="jrwk">' + wd + "</div></div>"
+    var mn = meaningOf(ni + 1)
+    h += '<button class="jrname2" data-act="jrQ" data-v="a"><span class="jrnl"><small><i></i>' + esc(tr("jr_nd")) + "</small><b>" + (ni + 1) + ". " + esc(nm.t) + "</b><em>" + esc(mn) + '</em></span><span class="ar">' + esc(nm.a) + '</span><span class="jrch">' + ic("chevron_right") + "</span></button>"
+    var Q = [["a", "jr_q1", "menu_book"], ["z", "jr_q2", "bubble_chart"], ["g", "jr_q3", "extension"]], nd = jrCnt()
+    h += '<div class="jrqh"><span>' + esc(tr("jr_td")) + "</span><em>" + nd + "/3 " + esc(tr("jr_dn")) + "</em></div><div class=\"jrq\">"
     for (i = 0; i < Q.length; i++) {
-      var dn = x[Q[i][0]]
-      h += '<button class="jrr' + (dn ? " ok" : "") + '" data-act="jrQ" data-v="' + Q[i][0] + '"><span class="jri">' + ic(Q[i][2]) + "</span><span class=\"jrt\">" + esc(tr(Q[i][1])) + (Q[i][0] === "z" && !dn ? " · " + Math.min(33, x.zn || 0) + "/33" : "") + '</span><span class="jrc">' + ic(dn ? "check_circle" : "chevron_right") + "</span></button>"
+      var dn = x[Q[i][0]], sub = "+" + JRP[Q[i][0]] + " \u2605 " + esc(tr(dn && prem ? "jr_got" : "jr_rw"))
+      h += '<button class="jrr' + (dn ? " ok" : "") + '" data-act="jrQ" data-v="' + Q[i][0] + '"><span class="jri">' + ic(Q[i][2]) + '</span><span class="jrt"><b>' + esc(tr(Q[i][1])) + (Q[i][0] === "z" && !dn ? " \u00b7 " + Math.min(33, x.zn || 0) + "/33" : "") + "</b><small>" + sub + '</small></span><span class="jrc' + (dn ? " d" : "") + '">' + (dn ? ic("check") : "") + "</span></button>"
     }
     h += "</div>"
     if (!prem) h += '<div class="card jrlock">' + ic("lock") + "<span>" + esc(tr("jr_lock")) + '</span><button class="btn primary" data-act="premGo">' + ic("workspace_premium") + " Premium</button></div>"
-    h += '<div class="jrbt"><button class="btn" data-act="jrCards">' + ic("collections_bookmark") + " " + esc(tr("jr_cards")) + " " + j.cards.length + "/99</button><button class=\"btn\" data-act=\"jrShop\">" + ic("checkroom") + " " + esc(tr("jr_shop")) + "</button></div></div>"
+    h += '<div class="jrbt"><button class="btn" data-act="jrCards">' + ic("layers") + " " + esc(tr("jr_cards")) + " <span>(" + j.cards.length + "/99)</span></button><button class=\"btn\" data-act=\"jrShop\">" + ic("checkroom") + " " + esc(tr("jr_shop")) + "</button></div></div>"
     return h
   }
   function viewJrCards() {
     var j = jrS(), i, h = '<div class="jr"><div class="wqtop"><button class="btn small back circ" data-act="jrClose" aria-label="back">' + ic("arrow_back") + '</button><div class="wqpill wgpill">' + ic("collections_bookmark") + " " + esc(tr("jr_cards")) + '</div><div class="wqlvb"><b>' + j.cards.length + "/99</b></div></div><div class=\"jrgrid\">"
     for (i = 0; i < 99; i++) {
       var on = j.cards.indexOf(i) >= 0
-      h += on ? '<button class="jrk on" data-act="jrCard" data-v="' + (i + 1) + '"><span class="ar">' + esc(D.names[i].a) + "</span><small>" + (i + 1) + "</small></button>" : '<div class="jrk"><span>' + ic("lock") + "</span><small>" + (i + 1) + "</small></div>"
+      h += on ? '<button class="jrk on" data-act="jrCard" data-v="' + (i + 1) + '"><span class="ar">' + esc(D.names[i].a) + "</span><em>" + esc(D.names[i].t) + "</em><small>" + (i + 1) + "</small></button>" : '<div class="jrk lk"><span class="jrki"><span class="ar">' + esc(D.names[i].a) + "</span><em>" + esc(D.names[i].t) + '</em></span><span class="jrlk">' + ic("lock") + "</span><small>" + (i + 1) + "</small></div>"
     }
     return h + "</div></div>"
   }
@@ -1439,9 +1460,8 @@
     return '<div class="hpanel"><div class="hptg" role="group"><button data-act="hlay" data-v="grid" class="' + (lay === "grid" ? "on" : "") + '" aria-label="grid">' + ic("grid_view") + '</button><button data-act="hlay" data-v="list" class="' + (lay === "list" ? "on" : "") + '" aria-label="list">' + ic("view_list") + "</button></div>" +
       '<div class="hpg ' + lay + '"><button class="hikrow hcard" data-act="hikmat"><span id="hph" class="hph2" aria-label="' + esc(tr("hikmat")) + '"><span></span><span></span></span>' + ic("chevron_right") + "</button>" +
       '<button class="hikrow hcard wqc' + (w.on && !w.fin ? " act" : "") + '" data-act="waqOpen"><span class="hct"><b>' + ic("bedtime") + " " + esc(tr("waq_s")) + "</b></span>" + ic("chevron_right") + "</button>" +
-      '<button class="hikrow hcard wgcard" data-act="wgOpen"><span class="hct"><b>' + ic("extension") + " " + esc(tr("wg_t")) + "</b></span>" + ic("chevron_right") + "</button>" +
-      '<button class="hikrow hcard tsbcard" data-act="tsbOpen"><span class="hct"><b>' + ic("bubble_chart") + " " + esc(tr("tsb_t")) + "</b></span>" + ic(isPrem() ? "chevron_right" : "lock") + "</button>" +
-      '<button class="hikrow hcard jrcard" data-act="jrOpen"><span class="hct"><b>' + ic("local_fire_department") + " " + esc(tr("jr_t")) + "</b><small>" + jrStreak() + " " + esc(tr("jr_days")) + "</small></span>" + ic("chevron_right") + "</button></div></div>"
+      '<button class="hikrow hcard wgcard" data-act="wgOpen"><span class="hct"><b>' + ic("extension") + " " + esc(tr("wg_t")) + "</b><small>" + (wgS().lv + 1) + " / 40</small></span>" + ic("chevron_right") + "</button>" +
+      '<button class="hikrow hcard jrcard" data-act="jrOpen"><span class="hct"><b>' + ic("local_fire_department") + " " + esc(tr("jr_t")) + "</b><small>" + jrStreak() + " " + esc(tr("jr_days")) + " \u00b7 " + jrCnt() + '/3</small><span class="jrmini"><i class="' + (jrDay().a ? "on" : "") + '"></i><i class="' + (jrDay().z ? "on" : "") + '"></i><i class="' + (jrDay().g ? "on" : "") + '"></i></span></span>' + ic("chevron_right") + "</button></div></div>"
   }
   // umumiy soat: 99 hisobi va header g'ildiraklari bir ritmda (barmoq tegsa to'xtaydi, qo'yilgach 3s dan keyin boshidan)
   var CLK = { tc: 0, block: 0 }
@@ -1664,7 +1684,7 @@
     var mean = meaningOf(n)
     return '<button class="btn small back circ" data-act="closeDetail" aria-label="back">' + ic("arrow_back") + "</button>" +
       '<div class="slidewrap"><div id="slide" class="slide' + dirCls + '" data-n="' + n + '">' +
-      '<div class="card hero"><div class="hnav" dir="ltr"><button class="rb" data-act="step" data-v="-1" aria-label="Previous">' + ic("chevron_left") + '</button><div class="no">' + n + ' / 99</div><button class="rb" data-act="step" data-v="1" aria-label="Next">' + ic("chevron_right") + "</button></div>" +
+      '<div class="card hero"><div class="hnav" dir="ltr">' + (U.dlock ? "" : '<button class="rb" data-act="step" data-v="-1" aria-label="Previous">' + ic("chevron_left") + "</button>") + '<div class="no">' + n + ' / 99</div>' + (U.dlock ? "" : '<button class="rb" data-act="step" data-v="1" aria-label="Next">' + ic("chevron_right") + "</button>") + "</div>" +
       '<div class="ar">' + d.a + '</div><div class="tr">' + esc(d.t) + "</div></div>" +
       (mean ? '<div class="card mean"><strong>' + ic("menu_book") + " " + esc(tr("meaning")) + '</strong><div class="mt clamp' + (U.mexp ? " open" : "") + '">' + rich(mean) + '</div><button class="mtog" data-act="meanTog" hidden>' + ic(U.mexp ? "expand_less" : "expand_more") + " <span>" + esc(tr(U.mexp ? "mood_less" : "more_t")) + "</span></button></div>" : "") +
       '<div class="likepop" aria-hidden="true">' + ic("favorite", "fill") + "</div></div></div>" +
@@ -1714,7 +1734,7 @@
   // keyingi (dir>0, chapga surish) / oldingi (dir<0, o'ngga surish) ism
   var navBusy = false
   function navDetail(dir) {
-    if (!U.detail) return
+    if (!U.detail || U.dlock) return
     var el = document.getElementById("slide"), ghost = null
     if (el) {
       ghost = el.cloneNode(true)
@@ -1753,7 +1773,7 @@
   window.addEventListener("pageshow", function (e) { if (e.persisted) location.reload() })
   var sw = null, swipedAt = 0, lastTap = 0
   document.addEventListener("pointerdown", function (e) {
-    var el = U.detail && e.target.closest && e.target.closest("#app") && !e.target.closest("textarea, audio, input") ? document.getElementById("slide") : null
+    var el = U.detail && !U.dlock && e.target.closest && e.target.closest("#app") && !e.target.closest("textarea, audio, input") ? document.getElementById("slide") : null
     if (!el) { sw = null; return }
     sw = { x: e.clientX, y: e.clientY, dx: 0, t: Date.now(), drag: false, el: el }
   })
@@ -2566,6 +2586,10 @@
   }
   var TB_N = 14, TB_SP = 30, TB_L = 420, tbOffC = 0, tbOffT = 0, tbRaf = 0
   function tbY(x) { var u = (x - 180) / 200; return 66 + 50 * (1 - u * u) }
+  function mjHtml(ds) {
+    setTimeout(tsInit, 0)
+    return '<div class="tsbox mjbox"><canvas id="tsbc" class="tsbc"></canvas><div class="tscn"><b id="tsn">' + (ds.draft || 0) + '</b><small id="tsr">' + (ds.mode === "free" ? "\u221e" : "/ " + ds.target) + '</small></div><button id="mjtap" data-act="tap" hidden aria-hidden="true"></button></div>'
+  }
   function tbHtml(ds) {
     var p = "", i, x
     for (i = 0; i <= 24; i++) { x = -20 + i * 16.7; p += (i ? "L" : "M") + x.toFixed(1) + " " + tbY(x).toFixed(1) }
@@ -2628,7 +2652,9 @@
   function viewDaily() {
     var ds = S.daily
     var dgRow = '<div class="topt"><div class="tl"><span>' + esc(tr("dglass")) + '</span><button class="tgl pr' + (isPrem() ? " pm" : "") + (S.dglass && isPrem() ? " on" : "") + '" data-act="dglass" aria-label="glass"><i>' + ic(isPrem() ? "lock_open" : "lock") + "</i></button></div></div>"
-    var dvSeg = '<div class="seg"><button data-act="dview" data-v="hg" class="' + (S.dview === "tb" ? "" : "on") + '">' + esc(tr("dv_hg")) + '</button><button data-act="dview" data-v="tb" class="' + (S.dview === "tb" ? "on" : "") + '">' + esc(tr("dv_tb")) + "</button></div>"
+    var mjOn = S.dview === "mj" && isPrem()
+    var dvSeg = '<div class="seg"><button data-act="dview" data-v="hg" class="' + (S.dview === "tb" || mjOn ? "" : "on") + '">' + esc(tr("dv_hg")) + '</button><button data-act="dview" data-v="tb" class="' + (S.dview === "tb" ? "on" : "") + '">' + esc(tr("dv_tb")) + '</button><button data-act="dview" data-v="mj" class="' + (mjOn ? "on" : "") + '">' + (isPrem() ? "" : ic("lock") + " ") + esc(tr("dv_mj")) + "</button></div>"
+    if (isPrem()) dgRow += '<div class="topt"><div class="tl"><span>' + esc(tr("mj_mat")) + '</span><button class="tsi" data-act="tsbTh" aria-label="theme">' + ic("palette") + '</button></div></div><div class="topt"><div class="tl"><span>' + esc(tr("mj_snd")) + '</span><button class="tsi" data-act="tsbSnd" aria-label="sound">' + ic(tsS().snd ? "volume_up" : "volume_off") + "</button></div></div>"
     var formHtml = function () {
       var gv = ds && ds.target ? Math.min(ds.target, 999999) : 0, cols = ""
       var pad = ("000000" + gv).slice(-6)
@@ -2654,8 +2680,8 @@
     var h = '<div class="daily' + (S.dglass && isPrem() ? " dglass" : "") + '"><div class="dhead"><h1>📿 ' + esc(tr("daily")) + ' <span class="dmi">•' + ic(ds.mode === "free" ? "all_inclusive" : "trending_up") + '</span></h1><button class="gear' + (U.dailyMenu ? " on" : "") + '" data-act="dailyMenu" aria-label="Settings">' + ic("settings") + '</button></div>'
     if (U.dailyMenu) h += '<div style="margin-bottom:10px">' + formHtml() + "</div>"
     if (owed > 0) h += '<p class="owed center">' + esc(tr("owed").replace("{n}", owed)) + "</p>"
-    var tbv = S.dview === "tb"
-    h += '<div id="hgwrap" class="hgwrap"><div id="hgstage" class="hgstage' + (tbv ? " tbs" : "") + '">' + (tbv ? tbHtml(ds) : hgBg() + '<div id="hgbox" class="hgbox' + (ds.mode === "free" ? " free" : "") + '">' + hgSvg(hgShown) + "</div>")
+    var tbv = S.dview === "tb", mjv = mjOn
+    h += '<div id="hgwrap" class="hgwrap"><div id="hgstage" class="hgstage' + (tbv ? " tbs" : "") + '">' + (tbv ? tbHtml(ds) : mjv ? mjHtml(ds) : hgBg() + '<div id="hgbox" class="hgbox' + (ds.mode === "free" ? " free" : "") + '">' + hgSvg(hgShown) + "</div>")
     if (ds.todayDone) h += '<div class="done center">' + esc(tr(["cong", "cong2", "cong3", "cong4"][new Date().getDate() % 4])) + "</div>"
     else if (!tbv) h += dBarHtml(ds, target, draft)
     h += "</div></div>"
@@ -3353,6 +3379,7 @@
     var h, sy = window.pageYOffset || 0, vkey = [U.tab, U.more, U.detail, U.waq ? 1 : 0, U.wg ? 1 : 0, U.tsb ? 1 : 0, U.jr || 0, U.moodPick].join("|"), same = vkey === U.vkey
     U.vkey = vkey
     try {
+      if (!U.detail) U.dlock = false
       if (U.detail) { if (U.detail === jrName() + 1) jrMark("a"); h = viewDetail() }
       else if (U.waq) h = viewWaq()
       else if (U.wg) h = viewWg()
@@ -3402,10 +3429,11 @@
   }
   function goBack() {
     if (U.detail) { U.detail = 0; render(); window.scrollTo(0, 0); return }
-    if (U.jr) { U.jr = U.jr !== "main" ? "main" : ""; render(); window.scrollTo(0, 0); return }
+    if (U.jrRet) { U.jrRet = false; U.tab = U.jrTab || "names"; U.jr = "main"; U.dailyMenu = false; render(); window.scrollTo(0, 0); return }
     if (U.tsb) { U.tsb = false; render(); window.scrollTo(0, 0); return }
-    if (U.wg) { U.wg = false; WG.L = null; render(); window.scrollTo(0, 0); return }
+    if (U.wg) { U.wg = false; U.wgOne = false; WG.L = null; render(); window.scrollTo(0, 0); return }
     if (U.waq) { U.waq = false; render(); window.scrollTo(0, 0); return }
+    if (U.jr) { U.jr = U.jr !== "main" ? "main" : ""; render(); window.scrollTo(0, 0); return }
     if (U.detail) { U.detail = 0; render(); window.scrollTo(0, 0); return }
     if (U.tab === "more" && U.more === "help" && U.hcUid) { U.hcUid = 0; HCH.msgs = []; render(); window.scrollTo(0, 0); return }
     if (U.tab === "more" && U.more !== "menu") {
@@ -5112,10 +5140,10 @@
     else if (act === "jrCards") { U.jr = "cards"; render(); window.scrollTo(0, 0) }
     else if (act === "jrShop") { U.jr = "shop"; render(); window.scrollTo(0, 0) }
     else if (act === "jrCard") { U.detail = parseInt(v, 10); U.dpanel = ""; U.dir = ""; U.mexp = false; render(); window.scrollTo(0, 0) }
-    else if (act === "jrQ") { if (v === "a") { U.detail = jrName() + 1; U.dpanel = ""; U.dir = ""; U.mexp = false; render(); window.scrollTo(0, 0) } else if (v === "g") { U.jr = ""; U.wg = true; render(); window.scrollTo(0, 0) } else if (isPrem()) { U.jr = ""; U.tsb = true; render(); window.scrollTo(0, 0) } else { U.jr = ""; U.tab = "daily"; render(); window.scrollTo(0, 0) } }
+    else if (act === "jrQ") { if (v === "a") { U.detail = jrName() + 1; U.dlock = true; U.dpanel = ""; U.dir = ""; U.mexp = false } else if (v === "g") { U.wg = true; U.wgOne = true } else { U.jrRet = true; U.jrTab = U.tab; U.jr = ""; U.tab = "daily" } render(); window.scrollTo(0, 0) }
     else if (act === "jrBuy") { var j1 = jrS(), a1 = JRA.filter(function (q) { return q[0] === v })[0]; if (a1 && isPrem() && j1.nur >= a1[2] && j1.own.indexOf(v) < 0) { j1.nur -= a1[2]; j1.own.push(v); j1.eq[v] = 1; save(); jrApply(); render() } }
     else if (act === "jrEq") { var j2 = jrS(); j2.eq[v] = j2.eq[v] ? 0 : 1; save(); jrApply(); render() }
-    else if (act === "wgOpen") { U.wg = true; render(); window.scrollTo(0, 0) }
+    else if (act === "wgOpen") { U.wg = true; U.wgOne = false; render(); window.scrollTo(0, 0) }
     else if (act === "waqOpen") { U.waq = true; render(); window.scrollTo(0, 0) }
     else if (act === "waqClose") { U.waq = false; render(); window.scrollTo(0, 0) }
     else if (act === "waqStart") { var w0 = wq(); S.wq = { on: true, level: 1, debt: 0, dd: [], dd0: [], draft: 0, done: false, last: todayStr(), d0: 0, read: 0, total: 0, bonus: 0, fin: false }; save(); render() }
@@ -5177,6 +5205,7 @@
       if (ds.todayDone) return
       var cycles = 0
       stDay().sal += ds.step || 1
+      jrZ(ds.step || 1)
       ds.draft = (ds.draft || 0) + (ds.step || 1)
       if (ds.mode === "free") ds.count = (ds.count || 0) + (ds.step || 1)
       while (ds.draft >= ds.target) {
@@ -5198,6 +5227,12 @@
       }
       if (cycles > 0) pmDone()
       save()
+      if (S.dview === "mj" && isPrem()) {
+        hgStats(cycles > 0)
+        var mne = document.getElementById("tsn"); if (mne) mne.textContent = ds.draft || 0
+        if (cycles > 0) { try { tg && tg.HapticFeedback && tg.HapticFeedback.notificationOccurred("success") } catch (e) {} setTimeout(render, 700) }
+        return
+      }
       if (S.dview === "tb") {
         tbTap(cycles); hgStats(false)
         if (cycles > 0) { try { tg && tg.HapticFeedback && tg.HapticFeedback.notificationOccurred("success") } catch (e) {} setTimeout(render, 700) }
