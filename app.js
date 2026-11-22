@@ -97,6 +97,33 @@
     dv_mj: "Marjon 3D|Маржон 3D|Чётки 3D|Beads 3D",
     mj_mat: "Marjon rangi|Маржон ранги|Цвет чёток|Bead colour",
     mj_snd: "Tovush|Товуш|Звук|Sound",
+    pmi_t: "Premium nimalar beradi?|Премиум нималар беради?|Что даёт Premium?|What does Premium give?",
+    pmi_1: "Kunlik yo'l: seriya, nur, kartalar va garderob|Кунлик йўл: серия, нур, карталар ва гардероб|Дневной путь: серия, свет, карточки и гардероб|Daily path: streak, light, cards and wardrobe",
+    pmi_2: "Salavotda Marjon 3D va shisha effekti|Салавотда Маржон 3D ва шиша эффекти|Чётки 3D и стеклянный эффект в салавате|3D beads and glass effect in salawat",
+    pmi_3: "Fasl fonlari va robotcha kiyimlari|Фасл фонлари ва роботча кийимлари|Фоны сезонов и наряды робота|Season backgrounds and robot outfits",
+    pmi_4: "So'z o'yini: kuniga 10 level (bepulda 1)|Сўз ўйини: кунига 10 левел (бепулда 1)|Игра слов: 10 уровней в день (бесплатно 1)|Word game: 10 levels a day (1 for free)",
+    pmi_5: "Iqtiboslar uchun maxsus fonlar|Иқтибослар учун махсус фонлар|Особые фоны для цитат|Special quote backgrounds",
+    pm_goalbtn: "Kunlik maqsadni belgilash|Кунлик мақсадни белгилаш|Задать дневную цель|Set daily goal",
+    nf_new_t: "Yangi funksiyalar|Янги функциялар|Новые функции|New features",
+    nf_new: "Kunlik yo'l, So'z o'yini, Marjon 3D va robotcha tayyor. Sinab ko'ring!|Кунлик йўл, Сўз ўйини, Маржон 3D ва роботча тайёр. Синаб кўринг!|Дневной путь, игра слов, чётки 3D и робот готовы. Попробуйте!|Daily path, word game, 3D beads and the robot are ready. Try them!",
+    nf_pm_t: "Premium haqida|Премиум ҳақида|О Premium|About Premium",
+    nf_pm_long: "Premium bilan kunlik yo'l, nur va kartalar, Marjon 3D, shisha effekti va fasl fonlari ochiladi. Avval kunlik salavot maqsadini belgilang, so'ng premiumni sinab ko'ring.|Премиум билан кунлик йўл, нур ва карталар, Маржон 3D, шиша эффекти ва фасл фонлари очилади. Аввал кунлик салавот мақсадини белгиланг, сўнг премиумни синаб кўринг.|С Premium открываются дневной путь, свет и карточки, чётки 3D, стеклянный эффект и фоны сезонов. Сначала задайте дневную цель салавата, затем попробуйте Premium.|Premium unlocks the daily path, light and cards, 3D beads, glass effect and season backgrounds. First set your daily salawat goal, then try Premium.",
+    nf_pm_short: "Premium faol. Salavot sahifasida Marjon 3D ni sinab ko'ring.|Премиум фаол. Салавот саҳифасида Маржон 3D ни синаб кўринг.|Premium активен. Попробуйте чётки 3D на странице салавата.|Premium is active. Try 3D beads on the salawat page.",
+    tip_mj: "Yangi: Marjon 3D! Salavotni marjon bilan sanang.|Янги: Маржон 3D! Салавотни маржон билан сананг.|Новое: чётки 3D! Считайте салават чётками.|New: 3D beads! Count salawat with beads.",
+    tip_jr: "Yangi: Kunlik yo'l! Seriya, nur va kartalar yig'ing.|Янги: Кунлик йўл! Серия, нур ва карталар йиғинг.|Новое: дневной путь! Копите серию, свет и карточки.|New: Daily path! Collect streaks, light and cards.",
+    tip_wg: "Yangi: So'z o'yini! Yashirin ismlarni toping.|Янги: Сўз ўйини! Яширин исмларни топинг.|Новое: игра слов! Найдите скрытые имена.|New: word game! Find the hidden names.",
+    tip_goal: "Kunlik maqsad belgilaymizmi? Salavotni birga sanaymiz.|Кунлик мақсад белгилаймизми? Салавотни бирга санаймиз.|Зададим дневную цель? Будем считать салават вместе.|Shall we set a daily goal? Let's count together.",
+    tip_prem: "Premium nimalar berishini bilasizmi? Ko'rib chiqing.|Премиум нималар беришини биласизми? Кўриб чиқинг.|Знаете, что даёт Premium? Посмотрите.|Know what Premium gives? Take a look.",
+    bc_new: "Bildirishnoma yaratish|Билдиришнома яратиш|Создать уведомление|Create notification",
+    bc_text: "Matn|Матн|Текст|Text",
+    bc_btn: "Tugma matni|Тугма матни|Текст кнопки|Button text",
+    bc_img: "Rasm tanlash|Расм танлаш|Выбрать картинку|Choose image",
+    bc_go: "Yo'naltiriladigan joy|Йўналтириладиган жой|Куда ведёт|Destination",
+    bc_send: "Hammaga yuborish|Ҳаммага юбориш|Отправить всем|Send to everyone",
+    bc_none: "Yo'naltirmaslik|Йўналтирмаслик|Без перехода|No destination",
+    bc_ok: "Yuborildi|Юборилди|Отправлено|Sent",
+    bc_err: "Xatolik. Matn yoki server tekshirilsin.|Хатолик. Матн ёки сервер текширилсин.|Ошибка. Проверьте текст или сервер.|Error. Check the text or server.",
+    bc_del: "O'chirish|Ўчириш|Удалить|Delete",
     jr_cap: "Do'ppi|Дўппи|Тюбетейка|Skullcap|طاقية|Takke|Peci|小圆帽|टोपी|Gorro",
     jr_scarf: "Ro'mol|Рўмол|Шарф|Scarf|وشاح|Atkı|Syal|围巾|स्कार्फ़|Bufanda",
     jr_glass: "Ko'zoynak|Кўзойнак|Очки|Glasses|نظارات|Gözlük|Kacamata|眼镜|चश्मा|Gafas",
@@ -922,11 +949,12 @@
     return S.petSal !== todayStr() && !ds.todayDone
   }
   function petSnow() { return S.bgmode === "season" && S.season === "winter" && isPrem() && !!document.querySelector("#mbg .snw") }
-  function petBub(txt, ms) {
+  function petBub(txt, ms, act) {
     var b = PET.bub
     if (!b) return
-    if (!txt) { b.classList.remove("on"); return }
-    b.textContent = txt
+    if (!txt) { b.classList.remove("on", "go"); return }
+    if (act) { b.innerHTML = "<span>" + esc(txt) + '</span><button class="petgo" data-act="petTip" data-v="' + act + '" aria-label="open">\u203a</button>'; b.classList.add("go") }
+    else { b.textContent = txt; b.classList.remove("go") }
     var W = window.innerWidth, sh = PET.x < 100 ? 100 - PET.x : PET.x > W - 100 ? (W - 100) - PET.x : 0
     b.style.setProperty("--sh", sh + "px")
     b.classList.add("on")
@@ -1006,7 +1034,7 @@
     else if (a === "sigh") { f.face = "teary"; f.la = "droop"; f.ra = "droop"; f.by = f.at > 400 && f.at < 1400 ? 1 : 0; if (f.at < 60) petBub("…", 1500) }
     else if (a === "talk") {
       f.toy = 0; f.face = "happy"; f.gaze = 0; f.la = "mid"; f.um = f.wxCat === 3 || f.wxCat === 4; f.ra = f.um ? "up" : (sec % 2 ? "up" : "up2"); f.by = sec % 2
-      if (f.at < 80 && !f.n) { f.n = 1; petBub(f.wxText, 8500) }
+      if (f.at < 80 && !f.n) { f.n = 1; petBub(f.wxText, 8500, f.wxAct) }
     }
     else if (a === "hit") {
       f.toy = 0; f.face = f.at < 250 ? "o" : "dizzy"; f.gaze = 0; f.sx = f.at < 500 ? Math.sin(f.at / 28) * 2.2 : Math.sin(f.at / 120) * .8
@@ -1233,7 +1261,7 @@
       if (Date.now() - PLI < 10000 || !w.city) return
       PET.wxSpoke = Date.now()
       PET.wxText = tr("pet_wx").replace("{c}", w.city).replace("{w}", tr("wx_c" + w.cat)).replace("{t}", w.t).replace("{x}", tr("wx_t" + w.cat))
-      PET.wxCat = w.cat
+      PET.wxCat = w.cat; PET.wxAct = null
       petGo("talk", 9000)
     })
   }, 2000)
@@ -1450,8 +1478,17 @@
     var j = jrS(), st = jrStreak()
     if (jrCnt() === 0 && Date.now() - (PET.jrSpoke || 0) > 1800000 && Date.now() - (PET.wxSpoke || 0) > 20000) {
       PET.jrSpoke = Date.now()
-      PET.wxText = st > 0 ? tr("jr_rm").replace("{n}", st) : tr("jr_rm0"); PET.wxCat = 0
+      PET.wxText = st > 0 ? tr("jr_rm").replace("{n}", st) : tr("jr_rm0"); PET.wxCat = 0; PET.wxAct = "jr"
       petGo("talk", 8000)
+    } else if (Date.now() - (PET.tipAt || (PET.tipAt = Date.now() - 540000)) > 600000 && Date.now() - (PET.wxSpoke || 0) > 20000 && Date.now() - (PET.jrSpoke || 0) > 60000) {
+      var TP = [["mj", "tip_mj"], ["jr", "tip_jr"], ["wg", "tip_wg"], ["goal", "tip_goal"], ["prem", "tip_prem"]], q, tp = null
+      for (q = 0; q < TP.length && !tp; q++) {
+        var c = TP[((S.tipI | 0) + q) % TP.length]
+        if ((c[0] === "goal" && hasGoal()) || (c[0] === "prem" && isPrem())) continue
+        tp = c; S.tipI = ((S.tipI | 0) + q + 1) % TP.length
+      }
+      PET.tipAt = Date.now()
+      if (tp) { save(); PET.wxText = tr(tp[1]); PET.wxCat = 0; PET.wxAct = tp[0]; petGo("talk", 9000) }
     }
   }, 3000)
   function viewHomePanel() {
@@ -2551,6 +2588,23 @@
     for (var i = 0; i < 6; i++) if (goalWheels[i]) goalWheels[i].set(parseInt(str.charAt(i), 10))
     showGoal()
   }
+  function goalSpin() {
+    var host = document.getElementById("digits")
+    if (!host) return
+    var tr0 = host.querySelectorAll(".dg-track"), IH = 36, t0 = performance.now(), st = [], i
+    for (i = 0; i < tr0.length; i++) st[i] = tr0[i].scrollTop
+    U.gsp = true
+    function fr(now) {
+      var all = true
+      for (var k = 0; k < tr0.length; k++) {
+        var p = Math.min(1, Math.max(0, (now - t0 - k * 90) / 900)); if (p < 1) all = false
+        var e = p < .5 ? 2 * p * p : 1 - Math.pow(-2 * p + 2, 2) / 2
+        tr0[k].scrollTop = st[k] + e * 10 * IH
+      }
+      if (!all) requestAnimationFrame(fr); else setTimeout(function () { U.gsp = false }, 250)
+    }
+    requestAnimationFrame(fr)
+  }
   function initDigits() {
     goalWheels = []
     var host = document.getElementById("digits")
@@ -2572,7 +2626,7 @@
         goalWheels[idx] = { set: function (d) { goal[idx] = d; last = d; jumpTo(d) } }
         track.addEventListener("scroll", function () {
           var d = digitAt(), p = Math.round(track.scrollTop / IH)
-          if (d !== last) { last = d; haptic("light") }
+          if (d !== last) { last = d; if (!U.gsp) haptic("light") }
           goal[idx] = d
           showGoal()
           if (p < 10 || p > 40) jumpTo(d)
@@ -2909,6 +2963,7 @@
     if (!el) return
     var h = ""
     if (HCH.admin) {
+      h += '<button class="btn primary block" data-act="bcNew">' + ic("campaign") + " " + esc(tr("bc_new")) + "</button>"
       var c = HCH.chats || []
       for (var i = 0; i < c.length; i++) if (c[i].n) h += '<button class="hrow" data-act="chatOpen" data-v="' + c[i].uid + '"><span class="hav">' + ic("notifications") + '</span><span class="hmid"><b>' + esc(c[i].name || ("ID " + c[i].uid)) + "</b><em>" + esc(c[i].t) + '</em></span><span class="hr2"><small>' + hHM(c[i].ts) + '</small><span class="bdg">' + c[i].n + "</span></span></button>"
     } else {
@@ -2925,8 +2980,88 @@
     return h + '<div id="chatMsgs" class="chat empty"></div>' +
       '<div class="chatin"><div id="chStage" class="chstage"></div><div class="chrow"><button class="att" data-act="chAtt" aria-label="attach">' + ic("attach_file") + '</button><div class="chw"><span id="chPh" class="chph">' + esc(tr("h_ph")) + '</span><textarea id="chatTx" rows="1" maxlength="1500"></textarea></div><button class="send" data-act="chatSend" aria-label="send">' + ic("send") + '</button></div><input id="chFile" type="file" hidden></div>'
   }
+  var BC = { items: null }
+  function bcItems() { if (!BC.items) BC.items = (S.bc && S.bc.length ? S.bc : []); return BC.items }
+  function bcUnseen() { var a = bcItems(), n = 0, sn = S.bcSeen || []; for (var i = 0; i < a.length; i++) if (sn.indexOf(a[i].id) < 0) n++; return n }
+  function bcSync() {
+    var b = hBase(); if (!b || !window.fetch) return
+    fetch(b + "/bc/list").then(function (r) { if (!r.ok) throw 0; return r.json() }).then(function (j) {
+      if (!j || !j.items) return
+      BC.items = j.items; S.bc = j.items.slice(0, 20); save()
+      if (U.more === "notif") bcPaint(); else if (U.tab === "more" && U.more === "menu") render()
+    }).catch(function () {})
+  }
+  function bcPick(o) { return (o && (o[S.lang === "uz_new" ? "uz" : S.lang] || o.en || o.uz || "")) || "" }
+  function bcHtml() {
+    var a = bcItems(), h = "", i, sn = S.bcSeen = S.bcSeen || []
+    for (i = 0; i < a.length; i++) {
+      var x = a[i], bt = bcPick(x.b)
+      h += '<div class="card nfc bcc"><button class="bcx" style="' + (HCH.admin ? "" : "display:none") + '" data-act="bcDel" data-v="' + esc(x.id) + '" aria-label="delete">' + ic("delete") + "</button>" +
+        (x.img ? '<img class="nfimg" alt="" src="' + esc(x.img) + '">' : "") + "<p>" + esc(bcPick(x.t)) + "</p>" +
+        (bt ? '<div class="nfb"><button class="btn small primary" data-act="petTip" data-v="' + esc(x.go || "") + '">' + esc(bt) + "</button></div>" : "") + "</div>"
+      if (sn.indexOf(x.id) < 0) sn.push(x.id)
+    }
+    if (sn.length > 60) S.bcSeen = sn.slice(-60)
+    return h
+  }
+  function bcPaint() { var e = document.getElementById("bclist"); if (e) { e.innerHTML = bcHtml(); save() } }
+  var BCG = [["", "bc_none"], ["jr", "jr_t"], ["wg", "wg_t"], ["mj", "dv_mj"], ["goal", "pm_goalbtn"], ["prem", "nf_pm_t"], ["waq", "waq_s"], ["names", "nav_names"], ["media", "nav_media"], ["mood", "nav_mood"], ["daily", "nav_daily"]]
+  function bcForm() {
+    var f = U.bcf = U.bcf || { t: {}, b: {}, img: "", go: "" }, h = '<div class="shead"><button class="btn small back circ" data-act="moreBack" aria-label="back">' + ic("arrow_back") + "</button><h1>" + ic("campaign") + " " + esc(tr("bc_new")) + '</h1><span></span></div><div class="stack bcf">'
+    for (var i = 0; i < TXI.length; i++) {
+      var l = TXI[i]
+      h += '<div class="card nfc"><b>' + esc(LANG_NAMES[l]) + '</b><textarea rows="3" data-bc="t" data-l="' + l + '" placeholder="' + esc(tr("bc_text")) + '">' + esc(f.t[l] || "") + '</textarea><input type="text" data-bc="b" data-l="' + l + '" placeholder="' + esc(tr("bc_btn")) + '" value="' + esc(f.b[l] || "") + '"></div>'
+    }
+    h += '<div class="card nfc"><button class="btn" data-act="bcImg">' + ic("attach_file") + " " + esc(tr("bc_img")) + '</button><input id="bcFile" type="file" accept="image/*" hidden><div id="bcPrev">' + (f.img ? '<img class="nfimg" alt="" src="' + f.img + '">' : "") + "</div>"
+    h += "<b>" + esc(tr("bc_go")) + '</b><select data-bc="go">'
+    for (i = 0; i < BCG.length; i++) h += '<option value="' + BCG[i][0] + '"' + (f.go === BCG[i][0] ? " selected" : "") + ">" + esc(tr(BCG[i][1])) + "</option>"
+    return h + '</select></div><button class="btn primary block" data-act="bcSend">' + ic("campaign") + " " + esc(tr("bc_send")) + "</button></div>"
+  }
+  document.addEventListener("input", function (e) {
+    var t = e.target, k = t && t.getAttribute && t.getAttribute("data-bc"); if (!k || !U.bcf) return
+    if (k === "go") U.bcf.go = t.value; else U.bcf[k][t.getAttribute("data-l")] = t.value
+  })
+  document.addEventListener("change", function (e) {
+    var t = e.target
+    if (t && t.getAttribute && t.getAttribute("data-bc") === "go" && U.bcf) U.bcf.go = t.value
+    if (t && t.id === "bcFile" && t.files && t.files[0]) {
+      var rd = new FileReader()
+      rd.onload = function () {
+        var im = new Image()
+        im.onload = function () {
+          var k = Math.min(1, 800 / Math.max(im.width, im.height)), c = document.createElement("canvas")
+          c.width = Math.round(im.width * k); c.height = Math.round(im.height * k)
+          c.getContext("2d").drawImage(im, 0, 0, c.width, c.height)
+          U.bcf.img = c.toDataURL("image/jpeg", .8)
+          var pv = document.getElementById("bcPrev"); if (pv) pv.innerHTML = '<img class="nfimg" alt="" src="' + U.bcf.img + '">'
+        }
+        im.src = rd.result
+      }
+      rd.readAsDataURL(t.files[0])
+    }
+  })
+  function hasGoal() { return !!(S.daily && S.daily.target) }
+  function nfCards() {
+    if (S.nv !== 1) { S.nv = 1; save() }
+    var nw = !isPrem() && !hasGoal()
+    var h = '<div id="bclist">' + bcHtml() + "</div>" + '<div class="card nfc"><b>' + ic("auto_awesome") + " " + esc(tr("nf_new_t")) + "</b><p>" + esc(tr("nf_new")) + '</p><div class="nfb"><button class="btn small" data-act="petTip" data-v="jr">' + esc(tr("jr_t")) + '</button><button class="btn small" data-act="petTip" data-v="wg">' + esc(tr("wg_t")) + '</button><button class="btn small" data-act="petTip" data-v="mj">' + esc(tr("dv_mj")) + "</button></div></div>"
+    h += '<div class="card nfc' + (nw ? " big" : "") + '"><b>' + ic("workspace_premium") + " " + esc(tr("nf_pm_t")) + "</b><p>" + esc(tr(nw || !isPrem() ? "nf_pm_long" : "nf_pm_short")) + '</p><div class="nfb">' + (isPrem() ? "" : '<button class="btn small primary" data-act="premGo">' + esc(tr("nf_pm_t")) + "</button>") + (hasGoal() ? "" : '<button class="btn small" data-act="goalGo">' + esc(tr("pm_goalbtn")) + "</button>") + "</div></div>"
+    save()
+    return h
+  }
+  function goFeat(v) {
+    U.detail = 0; U.waq = false; U.wg = false; U.tsb = false; U.jr = ""; U.jrRet = false; U.wgOne = false; U.more = "menu"; U.hikBack = false; U.dailyMenu = false
+    if (v === "jr") { U.tab = "names"; U.jr = "main" }
+    else if (v === "wg") { U.tab = "names"; U.wg = true }
+    else if (v === "mj") { if (!isPrem()) { U.tab = "more"; U.more = "premium" } else { S.dview = "mj"; save(); U.tab = "daily" } }
+    else if (v === "goal") { U.tab = "daily"; U.dailyMenu = true; U.dmode = ""; U.goalSpin = true }
+    else if (v === "prem") { U.tab = "more"; U.more = "premium" }
+    else if (v === "waq") { U.tab = "names"; U.waq = true }
+    else if (v === "names" || v === "media" || v === "mood" || v === "daily") U.tab = v
+    render(); window.scrollTo(0, 0)
+  }
   function notifHtml() {
-    return '<div class="shead"><button class="btn small back circ" data-act="moreBack" aria-label="back">' + ic("arrow_back") + "</button><h1>" + ic("notifications") + " " + esc(tr("notif")) + '</h1><span></span></div><div id="nlist" class="hl"></div>'
+    return '<div class="shead"><button class="btn small back circ" data-act="moreBack" aria-label="back">' + ic("arrow_back") + "</button><h1>" + ic("notifications") + " " + esc(tr("notif")) + '</h1><span></span></div>' + nfCards() + '<div id="nlist" class="hl"></div>'
   }
   function hStart() {
     if (!hMore()) return
@@ -3017,9 +3152,10 @@
     if (document.hidden) return
     HCH.tk++
     if (hMore()) { if (U.more === "help" ? HCH.tk % 1 === 0 : HCH.tk % 2 === 0) hSync(U.more === "help" && (!HCH.admin || !!U.hcUid)) }
-    else if (HCH.tk % 15 === 0) hBadge()
+    else if (HCH.tk % 15 === 0) { hBadge(); bcSync() }
   }, 3000)
   setTimeout(hBadge, 2500)
+  setTimeout(bcSync, 3000)
 
   function viewMore() {
     if (U.more === "quote") {
@@ -3066,7 +3202,7 @@
     }
     if (U.more === "pmx") return pmxHtml()
     if (U.more === "premium") {
-      return '<div class="shead"><button class="btn small back circ" data-act="moreBack" aria-label="back">' + ic("arrow_back") + '</button><h1>' + ic("workspace_premium") + " " + esc(tr("st_prem")) + '</h1><span></span></div><div id="pmbody">' + pmHtml() + '</div><p class="pmfree">' + esc(tr("pm_free")) + "</p>"
+      return '<div class="shead"><button class="btn small back circ" data-act="moreBack" aria-label="back">' + ic("arrow_back") + '</button><h1>' + ic("workspace_premium") + " " + esc(tr("st_prem")) + '</h1><span></span></div><div id="pmbody">' + pmHtml() + '</div><div class="card nfc"><b>' + esc(tr("pmi_t")) + '</b><ul class="pmil">' + [1, 2, 3, 4, 5].map(function (q) { return "<li>" + ic("check_circle") + "<span>" + esc(tr("pmi_" + q)) + "</span></li>" }).join("") + '</ul><button class="btn primary block" data-act="goalGo">' + ic("trending_up") + " " + esc(tr("pm_goalbtn")) + '</button></div><p class="pmfree">' + esc(tr("pm_free")) + "</p>"
     }
     if (U.more === "remind") {
       var rp = rmGet(), on0 = S.remind !== false
@@ -3088,13 +3224,14 @@
     }
     if (U.more === "help") return helpHtml()
     if (U.more === "notif") return notifHtml()
+    if (U.more === "bcnew") return bcForm()
     if (U.more === "stats") {
       return '<div class="shead"><button class="btn small back circ" data-act="moreBack" aria-label="back">' + ic("arrow_back") + '</button><h1>' + ic("bar_chart") + " " + esc(tr("st_t")) + '</h1><span></span></div><div id="stbody">' + statsHtml() + "</div>"
     }
     return '<h1>' + ic("auto_awesome") + " " + esc(tr("nav_more")) + '</h1><p class="sub">&nbsp;</p><div class="list">' +
       '<button data-act="more" data-v="settings">' + ic("settings") + " " + esc(tr("settings")) + "</button>" +
       '<button data-act="more" data-v="help">' + SUPI + " " + esc(tr("help")) + (HCH.admin && HCH.n ? '<span class="bdg">' + HCH.n + "</span>" : "") + "</button>" +
-      '<button data-act="more" data-v="notif">' + ic("notifications") + " " + esc(tr("notif")) + (HCH.n ? '<span class="bdg">' + HCH.n + "</span>" : "") + "</button>" +
+      '<button data-act="more" data-v="notif">' + ic("notifications") + " " + esc(tr("notif")) + ((HCH.n + (S.nv !== 1 ? 2 : 0) + bcUnseen()) ? '<span class="bdg">' + (HCH.n + (S.nv !== 1 ? 2 : 0) + bcUnseen()) + "</span>" : "") + "</button>" +
       '<button data-act="more" data-v="stats">' + ic("bar_chart") + " " + esc(tr("st_t")) + "</button>" +
       '<button data-act="more" data-v="about">' + ic("info") + " " + esc(tr("about")) + "</button></div>"
   }
@@ -3399,6 +3536,10 @@
     if (U.tab === "more" && U.more === "quote") { if (U.quoteIdx !== U.lastQ) { stDay().q++; U.lastQ = U.quoteIdx; save() } } else U.lastQ = -1
     document.body.classList.toggle("indetail", !!U.detail)
     initDigits()
+    if (document.getElementById("digits")) {
+      if (!U.gsSeen) { U.gsSeen = true; if (U.goalSpin || !hasGoal()) setTimeout(goalSpin, 200) }
+      U.goalSpin = false
+    } else U.gsSeen = false
     initHours()
     hgAttach()
     meanFit()
@@ -3438,7 +3579,7 @@
     if (U.tab === "more" && U.more === "help" && U.hcUid) { U.hcUid = 0; HCH.msgs = []; render(); window.scrollTo(0, 0); return }
     if (U.tab === "more" && U.more !== "menu") {
       if (U.hikBack) { U.hikBack = false; U.tab = "names" }
-      U.more = (U.more === "lang" || U.more === "theme" || U.more === "mode" || U.more === "remind" || U.more === "premium") ? "settings" : "menu"; render(); window.scrollTo(0, 0); return
+      U.more = U.more === "bcnew" ? "notif" : (U.more === "lang" || U.more === "theme" || U.more === "mode" || U.more === "remind" || U.more === "premium") ? "settings" : "menu"; render(); window.scrollTo(0, 0); return
     }
     if (U.tab === "mood" && U.moodPick) { U.moodPick = ""; render(); window.scrollTo(0, 0); return }
     if (U.tab !== "names") { U.tab = "names"; U.more = "menu"; U.moodPick = ""; U.hikBack = false; render(); window.scrollTo(0, 0); requestAnimationFrame(function () { window.scrollTo(0, 0) }) }
@@ -5196,6 +5337,16 @@
     else if (act === "petT") { S.pet = S.pet === false; save(); petApply(); render() }
     else if (act === "dglass") { if (!isPrem()) pToast(tr("pm_need")); else { S.dglass = !S.dglass; save(); render() } }
     else if (act === "qbg") { if (isPrem()) { S.qbg = +v; save(); render() } }
+    else if (act === "goalGo") goFeat("goal")
+    else if (act === "bcNew") { U.bcf = null; U.more = "bcnew"; render(); window.scrollTo(0, 0) }
+    else if (act === "bcImg") { var bf = document.getElementById("bcFile"); if (bf) bf.click() }
+    else if (act === "bcSend") {
+      var f = U.bcf || {}, any = false; for (var q in f.t) if (String(f.t[q]).trim()) any = true
+      if (!any) { toast(tr("bc_err")); return }
+      hPost("/bc/create", { t: f.t, b: f.b, img: f.img || "", go: f.go || "" }).then(function (j) { if (!j || !j.ok) throw 0; toast(tr("bc_ok")); U.bcf = null; U.more = "notif"; bcSync(); render() }).catch(function () { toast(tr("bc_err")) })
+    }
+    else if (act === "bcDel") { hPost("/bc/del", { id: v }).then(function () { bcSync() }).catch(function () { toast(tr("bc_err")) }) }
+    else if (act === "petTip") { petBub(""); goFeat(v) }
     else if (act === "premGo") { document.getElementById("toast").className = "toast"; U.tab = "more"; U.more = "premium"; U.hikBack = false; U.detail = 0; render(); window.scrollTo(0, 0) }
     else if (act === "dailyMenu") { U.dailyMenu = !U.dailyMenu; U.dmode = ""; render() }
     else if (act === "dmode") { U.dmode = v; render() }
