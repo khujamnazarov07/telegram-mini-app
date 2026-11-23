@@ -1863,3 +1863,49 @@ html:not(#_) .wqlvb b { position: static; inset: auto; display: block; padding: 
 .nfimg { width: 100%; max-height: 260px; object-fit: cover; border-radius: 14px; display: block; }
 .bcf textarea, .bcf input[type=text], .bcf select { width: 100%; box-sizing: border-box; padding: 10px 12px; border-radius: 12px; border: 1.5px solid var(--line); background: var(--card); color: var(--text); font: inherit; }
 .bcf textarea { resize: vertical; }
+
+/* v192 xotira o'yini */
+.mmm { display: grid; gap: 10px; margin-top: 10px; }
+.mmmode { display: flex; align-items: center; justify-content: space-between; gap: 10px; width: 100%; font: inherit; color: var(--text); cursor: pointer; text-align: left; }
+.mmmode b { font-size: 17px; } .mmmode span { color: var(--hint); font-size: 13px; flex: 1; text-align: right; }
+.mmg { display: grid; gap: 10px; margin-top: 14px; grid-template-columns: repeat(3, 1fr); }
+.mmg.c4 { grid-template-columns: repeat(4, 1fr); }
+.mmc { position: relative; aspect-ratio: 3/4; border-radius: 16px; border: 1.5px solid var(--line); background: var(--card); color: var(--text); font: inherit; padding: 4px; cursor: pointer; display: grid; place-items: center; overflow: hidden; transition: transform .25s, border-color .25s, background .25s; }
+.mmc .mmf { color: var(--hint); opacity: .6; }
+.mmc .mmb { position: absolute; inset: 0; display: grid; place-items: center; padding: 4px; text-align: center; font-size: 11px; line-height: 1.2; opacity: 0; transition: opacity .2s; }
+.mmc .mmb.a { font-family: "Amiri", serif; font-size: 22px; color: #3fb98a; }
+.mmg.c4 .mmb { font-size: 10px; } .mmg.c4 .mmb.a { font-size: 18px; }
+.mmc.up { transform: scale(1.04); border-color: var(--accent); background: color-mix(in srgb, var(--accent) 12%, var(--card)); }
+.mmc.up .mmb { opacity: 1; } .mmc.up .mmf { opacity: 0; }
+.mmc.ok { border-color: #f6c453; background: color-mix(in srgb, #f6c453 14%, var(--card)); transform: none; }
+.mmwin { display: grid; gap: 10px; text-align: center; margin-top: 14px; }
+.mmwin b { font-size: 22px; } .mmwin p { margin: 0; color: var(--hint); }
+.mmst { display: flex; justify-content: center; gap: 6px; } .mmst span { color: var(--line); } .mmst span.on { color: #f6c453; } .mmst .msi { font-size: 38px; }
+
+/* v193 yutuqlar */
+.achl { display: grid; gap: 10px; margin-top: 12px; }
+.achr { display: flex; align-items: center; gap: 12px; }
+.achi { width: 44px; height: 44px; border-radius: 14px; display: grid; place-items: center; flex: none; background: color-mix(in srgb, var(--hint) 14%, var(--card)); color: var(--hint); }
+.achr.on { border-color: #f6c453; } .achr.on .achi { background: color-mix(in srgb, #f6c453 22%, var(--card)); color: #f6c453; }
+.acht { flex: 1; min-width: 0; display: grid; gap: 4px; }
+.acht i { display: block; height: 6px; border-radius: 3px; background: var(--line); overflow: hidden; }
+.acht u { display: block; height: 100%; background: #3fb98a; border-radius: 3px; }
+.acht small { color: var(--hint); }
+.achg { color: #3fb98a; }
+
+/* v194 kayfiyat ismi */
+.mnm { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-top: 12px; }
+.mnb { display: flex; align-items: center; gap: 10px; font: inherit; color: var(--text); cursor: pointer; text-align: left; }
+.mnb .msi { color: var(--accent); font-size: 26px; }
+.mnres { display: grid; gap: 8px; text-align: center; margin-top: 14px; }
+.mnres small { color: #3fb98a; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+.mnres .ar { font-family: "Amiri", serif; font-size: 52px; color: #3fb98a; line-height: 1.3; }
+.mnres b { font-size: 20px; } .mnres p { margin: 0; color: var(--hint); }
+.mnres .nfb { justify-content: center; }
+
+/* v194 3D salavot */
+.hgw.h3 { width: 200px; height: 290px; touch-action: pan-y; }
+.hgw.h3 canvas { display: block; width: 100%; height: 100%; filter: drop-shadow(0 14px 14px rgba(0, 50, 40, .3)); pointer-events: none; }
+.tsbc[data-g3] { filter: drop-shadow(0 16px 14px rgba(0, 0, 0, .25)); }
+.mjbox { max-width: 100%; overflow: hidden; background: radial-gradient(ellipse at 50% 30%, #1d4a3d, #08171a 78%) !important; border: 1px solid rgba(255, 255, 255, .14); }
+.mjbox .tscn, .mjbox .tscn b, .mjbox .tscn small { color: #eafff6 !important; text-shadow: 0 2px 10px rgba(0, 0, 0, .5); }

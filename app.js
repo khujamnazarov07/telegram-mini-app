@@ -124,6 +124,27 @@
     bc_ok: "Yuborildi|Юборилди|Отправлено|Sent",
     bc_err: "Xatolik. Matn yoki server tekshirilsin.|Хатолик. Матн ёки сервер текширилсин.|Ошибка. Проверьте текст или сервер.|Error. Check the text or server.",
     bc_del: "O'chirish|Ўчириш|Удалить|Delete",
+    mm_t: "Xotira o'yini|Хотира ўйини|Игра на память|Memory game",
+    mm_sub: "Ism va ma'nosini juftlang|Исм ва маъносини жуфтланг|Соедините имя и смысл|Match the name and meaning",
+    mm_e: "Oson|Осон|Лёгкий|Easy", mm_m: "O'rta|Ўрта|Средний|Medium", mm_h: "Qiyin|Қийин|Сложный|Hard",
+    mm_best: "Eng yaxshi|Энг яхши|Лучший|Best", mm_mv: "yurish|юриш|ходов|moves",
+    mm_win: "Barakalla!|Баракалла!|Барака Аллаh!|Well done!",
+    mm_again: "Qayta o'ynash|Қайта ўйнаш|Играть снова|Play again",
+    mm_nur: "nur olindi|нур олинди|света получено|light earned",
+    mm_cap: "Bugungi mukofot limiti tugadi, o'yin davom etadi|Бугунги мукофот лимити тугади|Лимит наград на сегодня исчерпан|Daily reward limit reached",
+    ac_t: "Yutuqlar|Ютуқлар|Достижения|Achievements",
+    ac_s: "Seriya: {n} kun|Серия: {n} кун|Серия: {n} дн.|Streak: {n} days",
+    ac_c: "Kartalar: {n} ta|Карталар: {n} та|Карточки: {n}|Cards: {n}",
+    ac_w: "So'z o'yini: {n}-level|Сўз ўйини: {n}-левел|Игра слов: уровень {n}|Word game: level {n}",
+    ac_m: "Xotira: {n} o'yin|Хотира: {n} ўйин|Память: {n} игр|Memory: {n} games",
+    ac_get: "Olish|Олиш|Забрать|Claim",
+    ac_got: "Olingan|Олинган|Получено|Claimed",
+    mn_t: "Kayfiyatga mos ism|Кайфиятга мос исм|Имя по настроению|Name for your mood",
+    mn_sub: "Bugun o'zingizni qanday his qilyapsiz?|Бугун ўзингизни қандай ҳис қиляпсиз?|Как вы себя чувствуете сегодня?|How do you feel today?",
+    mn_0: "Xavotir|Хавотир|Тревога|Worry", mn_1: "Qayg'u|Қайғу|Печаль|Sadness", mn_2: "Shukr|Шукр|Благодарность|Gratitude",
+    mn_3: "Tavba|Тавба|Покаяние|Repentance", mn_4: "Rizq|Ризқ|Удел|Provision", mn_5: "Yo'l|Йўл|Путь|Guidance",
+    mn_open: "Ismni ochish|Исмни очиш|Открыть имя|Open name", mn_again: "Boshqasi|Бошқаси|Другое|Another",
+    mn_fav: "Saqlash|Сақлаш|Сохранить|Save", mn_h: "Oxirgi tanlovlar|Охирги танловлар|Последние|Recent",
     jr_cap: "Do'ppi|Дўппи|Тюбетейка|Skullcap|طاقية|Takke|Peci|小圆帽|टोपी|Gorro",
     jr_scarf: "Ro'mol|Рўмол|Шарф|Scarf|وشاح|Atkı|Syal|围巾|स्कार्फ़|Bufanda",
     jr_glass: "Ko'zoynak|Кўзойнак|Очки|Glasses|نظارات|Gözlük|Kacamata|眼镜|चश्मा|Gafas",
@@ -477,10 +498,10 @@
     }, 30000)
   }
   function goTab(v) {
-    if (v === U.tab && !U.detail && !U.waq && !U.wg && !U.tsb && !U.jr && U.more === "menu") { window.scrollTo({ top: 0, behavior: "smooth" }); return }
+    if (v === U.tab && !U.detail && !U.waq && !U.wg && !U.mm && !U.ach && !U.mn && !U.tsb && !U.jr && U.more === "menu") { window.scrollTo({ top: 0, behavior: "smooth" }); return }
     var from = navIdx(), to = 0
     for (var i = 0; i < NAVS.length; i++) if (NAVS[i][0] === v) to = i
-    var go = function () { window.scrollTo(0, 0); U.namesOpen = false; U.waq = false; U.wg = false; U.tsb = false; U.jr = ""; U.jrRet = false; U.wgOne = false; U.tab = v; U.hikBack = false; U.detail = 0; U.more = "menu"; U.moodPick = ""; render() }
+    var go = function () { window.scrollTo(0, 0); U.namesOpen = false; U.waq = false; U.wg = false; U.mm = false; U.ach = false; U.mn = false; MN.m = -1; MM.g = null; U.tsb = false; U.jr = ""; U.jrRet = false; U.wgOne = false; U.tab = v; U.hikBack = false; U.detail = 0; U.more = "menu"; U.moodPick = ""; render() }
     if (from === to) return go()
     slidePage(to > from ? 1 : -1, go)
   }
@@ -1294,6 +1315,7 @@
       TS.rt += 2 * Math.PI / 33; TS.pop = 1
       var nn = (dd.draft || 0) + (dd.step || 1)
       if (nn >= dd.target) { haptic("heavy"); tsClick(true); TS.fl = 1 } else if (nn % 33 === 0) { haptic("medium"); tsClick(true); TS.fl = .6 } else { haptic("light"); tsClick(false) }
+      if (B3 && document.querySelector("#tsbc[data-g3]")) B3.advance(nn >= dd.target ? 2 : nn % 33 === 0 ? 1 : 0)
       var mb = document.getElementById("mjtap"); if (mb) mb.click()
       return
     }
@@ -1376,7 +1398,7 @@
   function tsPtr() {
     document.addEventListener("pointerdown", function (e) {
       var c = e.target.closest && e.target.closest("#tsbc")
-      if (!c) return
+      if (!c || c.getAttribute("data-g3")) return
       TS.down = true; TS.dy = 0; TS.sy = e.clientY; TS.mv = 0
       try { c.setPointerCapture(e.pointerId) } catch (x) {}
       e.preventDefault()
@@ -1491,6 +1513,104 @@
       if (tp) { save(); PET.wxText = tr(tp[1]); PET.wxCat = 0; PET.wxAct = tp[0]; petGo("talk", 9000) }
     }
   }, 3000)
+  // ---- Xotira o'yini (premium)
+  var MM = { g: null }
+  var MMC = [[3, "mm_e", 3], [6, "mm_m", 4], [8, "mm_h", 4]]
+  function mmS() { var m = S.mm; if (!m) m = S.mm = { d: "", n: 0, best: [0, 0, 0] }; if (m.d !== todayStr()) { m.d = todayStr(); m.n = 0 } return m }
+  function mmShort(t) { t = String(t || "").replace(/\s+/g, " ").trim(); var p = t.split(/[.;]/)[0]; return p.length > 38 ? p.slice(0, 36).trim() + "\u2026" : p }
+  function mmShuf(a) { for (var i = a.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)), x = a[i]; a[i] = a[j]; a[j] = x } return a }
+  function mmStart(mode) {
+    var pool = [], i
+    for (i = 1; i <= 99; i++) if (mmShort(meaningOf(i))) pool.push(i)
+    var ids = mmShuf(pool).slice(0, MMC[mode][0]), cards = []
+    for (i = 0; i < ids.length; i++) { cards.push({ k: ids[i], t: "a" }); cards.push({ k: ids[i], t: "m" }) }
+    MM.g = { mode: mode, cards: mmShuf(cards), open: [], done: {}, mv: 0, lock: 0, fin: 0, st: 0, gain: 0 }
+  }
+  function mmEl(i) { return document.querySelector('.mmc[data-i="' + i + '"]') }
+  function mmTap(i) {
+    var g = MM.g
+    if (!g || g.lock || g.fin || g.done[i] || g.open.indexOf(i) >= 0) return
+    g.open.push(i); haptic("light")
+    var e = mmEl(i); if (e) e.classList.add("up")
+    if (g.open.length < 2) return
+    g.mv++
+    var mv = document.getElementById("mmmv"); if (mv) mv.textContent = g.mv
+    var a = g.open[0], b = g.open[1]
+    if (g.cards[a].k === g.cards[b].k) {
+      g.done[a] = g.done[b] = 1; g.open = []; haptic("medium")
+      ;[a, b].forEach(function (x) { var el = mmEl(x); if (el) el.classList.add("ok") })
+      if (Object.keys(g.done).length === g.cards.length) mmWin()
+    } else {
+      g.lock = 1
+      setTimeout(function () { [a, b].forEach(function (x) { var el = mmEl(x); if (el) el.classList.remove("up") }); g.open = []; g.lock = 0 }, 850)
+    }
+  }
+  function mmWin() {
+    var g = MM.g, np = MMC[g.mode][0], m = mmS()
+    m.t = (m.t | 0) + 1
+    g.fin = 1; g.st = g.mv <= np * 1.5 ? 3 : g.mv <= np * 2.3 ? 2 : 1
+    if (!m.best[g.mode] || g.mv < m.best[g.mode]) m.best[g.mode] = g.mv
+    g.capped = m.n >= 3
+    if (!g.capped) { m.n++; g.gain = g.st * (g.mode + 1) * 2; jrS().nur += g.gain }
+    save(); haptic("heavy")
+    setTimeout(function () { if (U.mm && MM.g === g) render() }, 700)
+  }
+  function viewMm() {
+    var g = MM.g, h = '<div class="mm"><div class="wqtop"><button class="btn small back circ" data-act="mmClose" aria-label="back">' + ic("arrow_back") + '</button><div class="wqpill wgpill">' + ic("extension") + " " + esc(tr("mm_t")) + '</div><div class="wqlvb">' + (g && !g.fin ? '<b id="mmmv">' + g.mv + "</b>" + ic("touch_app") : ic("workspace_premium")) + "</div></div>"
+    if (!g) {
+      h += '<p class="sub">' + esc(tr("mm_sub")) + '</p><div class="mmm">'
+      for (var i = 0; i < 3; i++) {
+        var b = mmS().best[i]
+        h += '<button class="card mmmode" data-act="mmStart" data-v="' + i + '"><b>' + esc(tr(MMC[i][1])) + "</b><span>" + MMC[i][0] * 2 + ' <i>\u00b7</i> ' + (b ? esc(tr("mm_best")) + " " + b + " " + esc(tr("mm_mv")) : "") + "</span>" + ic("chevron_right") + "</button>"
+      }
+      return h + "</div></div>"
+    }
+    if (g.fin) {
+      var stars = ""; for (var q = 1; q <= 3; q++) stars += '<span class="' + (q <= g.st ? "on" : "") + '">' + ic("star") + "</span>"
+      return h + '<div class="card mmwin"><div class="mmst">' + stars + "</div><b>" + esc(tr("mm_win")) + "</b><p>" + g.mv + " " + esc(tr("mm_mv")) + "</p>" + (g.gain ? "<p>+" + g.gain + " \u2605 " + esc(tr("mm_nur")) + "</p>" : g.capped ? "<p>" + esc(tr("mm_cap")) + "</p>" : "") + '<button class="btn primary block" data-act="mmStart" data-v="' + g.mode + '">' + esc(tr("mm_again")) + '</button><button class="btn block" data-act="mmMenu">' + esc(tr("mm_t")) + "</button></div></div>"
+    }
+    h += '<div class="mmg c' + MMC[g.mode][2] + '">'
+    for (var k = 0; k < g.cards.length; k++) {
+      var c = g.cards[k], on = g.done[k] ? " up ok" : g.open.indexOf(k) >= 0 ? " up" : ""
+      h += '<button class="mmc' + on + '" data-act="mmTap" data-v="' + k + '" data-i="' + k + '"><span class="mmf">' + ic("help") + '</span><span class="mmb ' + c.t + '">' + (c.t === "a" ? esc(D.names[c.k - 1].a) : esc(mmShort(meaningOf(c.k)))) + "</span></button>"
+    }
+    return h + "</div></div>"
+  }
+  // ---- Yutuqlar (premium)
+  var ACH = [["s", 3, 10, "local_fire_department"], ["s", 7, 30, "local_fire_department"], ["s", 30, 100, "local_fire_department"], ["c", 10, 20, "layers"], ["c", 50, 60, "layers"], ["c", 99, 200, "layers"], ["w", 10, 20, "extension"], ["w", 40, 100, "extension"], ["m", 10, 30, "psychology"]]
+  function achVal(k) { return k === "s" ? Math.max(jrS().bs || 0, jrS().st || 0) : k === "c" ? jrS().cards.length : k === "w" ? wgS().lv : (S.mm && S.mm.t) | 0 }
+  function achDone() { var n = 0; for (var i = 0; i < ACH.length; i++) if (achVal(ACH[i][0]) >= ACH[i][1]) n++; return n }
+  function achClaimable() { var n = 0, c = S.ach || {}; for (var i = 0; i < ACH.length; i++) if (achVal(ACH[i][0]) >= ACH[i][1] && !c[i]) n++; return n }
+  function viewAch() {
+    var c = S.ach || {}, h = '<div class="ach"><div class="wqtop"><button class="btn small back circ" data-act="achClose" aria-label="back">' + ic("arrow_back") + '</button><div class="wqpill wgpill">' + ic("military_tech") + " " + esc(tr("ac_t")) + '</div><div class="wqlvb"><b>' + achDone() + "/" + ACH.length + "</b></div></div><div class=\"achl\">"
+    for (var i = 0; i < ACH.length; i++) {
+      var a = ACH[i], v = achVal(a[0]), ok = v >= a[1], pc = Math.min(100, Math.round(v / a[1] * 100))
+      h += '<div class="card achr' + (ok ? " on" : "") + '"><span class="achi">' + ic(a[3]) + '</span><span class="acht"><b>' + esc(tr("ac_" + a[0]).replace("{n}", a[1])) + '</b><i><u style="width:' + pc + '%"></u></i><small>' + Math.min(v, a[1]) + " / " + a[1] + " \u00b7 +" + a[2] + ' \u2605</small></span>' +
+        (ok ? (c[i] ? '<span class="achg">' + ic("check_circle") + "</span>" : '<button class="btn small primary" data-act="achGet" data-v="' + i + '">' + esc(tr("ac_get")) + "</button>") : "") + "</div>"
+    }
+    return h + "</div></div>"
+  }
+  // ---- Kayfiyatga mos ism (premium)
+  var MNI = [[6, 38, 52, 53], [1, 2, 30, 47], [35, 56, 17, 79], [14, 82, 2, 1], [17, 18, 79, 47], [93, 98, 18, 30]], MNX = ["shield", "cloud", "favorite", "water_drop", "restaurant", "explore"]
+  var MN = { m: -1, n: 0 }
+  function mnPick(m) {
+    var a = MNI[m].filter(function (x) { return x !== MN.n }), n = a[Math.floor(Math.random() * a.length)]
+    MN.m = m; MN.n = n
+    var h = S.mnh = S.mnh || []; h.unshift(n); S.mnh = h.filter(function (x, i) { return h.indexOf(x) === i }).slice(0, 6); save()
+  }
+  function viewMn() {
+    var h = '<div class="mn"><div class="wqtop"><button class="btn small back circ" data-act="mnClose" aria-label="back">' + ic("arrow_back") + '</button><div class="wqpill wgpill">' + ic("favorite") + " " + esc(tr("mn_t")) + '</div><span></span></div>'
+    if (MN.m < 0) {
+      h += '<p class="sub">' + esc(tr("mn_sub")) + '</p><div class="mnm">'
+      for (var i = 0; i < 6; i++) h += '<button class="card mnb" data-act="mnPick" data-v="' + i + '">' + ic(MNX[i]) + "<b>" + esc(tr("mn_" + i)) + "</b></button>"
+      h += "</div>"
+      var hs = S.mnh || []
+      if (hs.length) { h += '<div class="jrqh"><span>' + esc(tr("mn_h")) + '</span></div><div class="nfb">'; for (var k = 0; k < hs.length; k++) h += '<button class="btn small" data-act="mnOpen" data-v="' + hs[k] + '">' + hs[k] + ". " + esc(D.names[hs[k] - 1].t) + "</button>"; h += "</div>" }
+      return h + "</div>"
+    }
+    var n = MN.n, nm = D.names[n - 1], fv = S.favs && S.favs[n]
+    return h + '<div class="card mnres"><small>' + esc(tr("mn_" + MN.m)) + '</small><span class="ar">' + esc(nm.a) + "</span><b>" + n + ". " + esc(nm.t) + "</b><p>" + esc(meaningOf(n)) + '</p><button class="btn primary block" data-act="mnOpen" data-v="' + n + '">' + esc(tr("mn_open")) + '</button><div class="nfb"><button class="btn" data-act="mnFav">' + ic(fv ? "favorite" : "favorite") + " " + esc(tr("mn_fav")) + (fv ? " \u2713" : "") + '</button><button class="btn" data-act="mnPick" data-v="' + MN.m + '">' + ic("restart_alt") + " " + esc(tr("mn_again")) + "</button></div></div></div>"
+  }
   function viewHomePanel() {
     var w = wq(); wqRoll()
     var lay = S.hlay === "list" ? "list" : "grid"
@@ -1498,7 +1618,10 @@
       '<div class="hpg ' + lay + '"><button class="hikrow hcard" data-act="hikmat"><span id="hph" class="hph2" aria-label="' + esc(tr("hikmat")) + '"><span></span><span></span></span>' + ic("chevron_right") + "</button>" +
       '<button class="hikrow hcard wqc' + (w.on && !w.fin ? " act" : "") + '" data-act="waqOpen"><span class="hct"><b>' + ic("bedtime") + " " + esc(tr("waq_s")) + "</b></span>" + ic("chevron_right") + "</button>" +
       '<button class="hikrow hcard wgcard" data-act="wgOpen"><span class="hct"><b>' + ic("extension") + " " + esc(tr("wg_t")) + "</b><small>" + (wgS().lv + 1) + " / 40</small></span>" + ic("chevron_right") + "</button>" +
-      '<button class="hikrow hcard jrcard" data-act="jrOpen"><span class="hct"><b>' + ic("local_fire_department") + " " + esc(tr("jr_t")) + "</b><small>" + jrStreak() + " " + esc(tr("jr_days")) + " \u00b7 " + jrCnt() + '/3</small><span class="jrmini"><i class="' + (jrDay().a ? "on" : "") + '"></i><i class="' + (jrDay().z ? "on" : "") + '"></i><i class="' + (jrDay().g ? "on" : "") + '"></i></span></span>' + ic("chevron_right") + "</button></div></div>"
+      '<button class="hikrow hcard jrcard" data-act="jrOpen"><span class="hct"><b>' + ic("local_fire_department") + " " + esc(tr("jr_t")) + "</b><small>" + jrStreak() + " " + esc(tr("jr_days")) + " \u00b7 " + jrCnt() + '/3</small><span class="jrmini"><i class="' + (jrDay().a ? "on" : "") + '"></i><i class="' + (jrDay().z ? "on" : "") + '"></i><i class="' + (jrDay().g ? "on" : "") + '"></i></span></span>' + ic("chevron_right") + "</button>" +
+      '<button class="hikrow hcard mmcard" data-act="mmOpen"><span class="hct"><b>' + ic("psychology") + " " + esc(tr("mm_t")) + "</b><small>" + esc(tr("mm_sub")) + "</small></span>" + ic(isPrem() ? "chevron_right" : "lock") + "</button>" +
+      '<button class="hikrow hcard achcard" data-act="achOpen"><span class="hct"><b>' + ic("military_tech") + " " + esc(tr("ac_t")) + "</b><small>" + achDone() + "/" + ACH.length + (achClaimable() ? " \u00b7 +" + achClaimable() : "") + "</small></span>" + ic(isPrem() ? "chevron_right" : "lock") + "</button>" +
+      '<button class="hikrow hcard mncard" data-act="mnOpenPage"><span class="hct"><b>' + ic("favorite") + " " + esc(tr("mn_t")) + "</b><small>" + esc(tr("mn_sub")) + "</small></span>" + ic(isPrem() ? "chevron_right" : "lock") + "</button></div></div>"
   }
   // umumiy soat: 99 hisobi va header g'ildiraklari bir ritmda (barmoq tegsa to'xtaydi, qo'yilgach 3s dan keyin boshidan)
   var CLK = { tc: 0, block: 0 }
@@ -2469,6 +2592,7 @@
     HG_CLIP = "-webkit-mask:" + uri + " center/100% 100% no-repeat;mask:" + uri + " center/100% 100% no-repeat"
   }
   function hgSvg(fallen) {
+    if (isPrem() && !H3OFF && g3ok()) { hgFlip = false; setTimeout(h3Mount, 0); return '<div class="hgw h3"><canvas id="h3c"></canvas></div>' }
     if (hgFlip && SIM) hgMirror(SIM, fallen)
     else if (!SIM || SIM.crossed + SIM.allow !== fallen) simBuild(fallen)
     hgFlip = false
@@ -2550,11 +2674,13 @@
     simWake()
   }
   function hgDrop(from, to) {
+    if (H3 && document.getElementById("h3c")) { H3.to(to / 100); return }
     if (!SIM) return
     SIM.allow += Math.max(0, to - from)
     simWake()
   }
   function hgWhenIdle(cb) {
+    if (H3 && document.getElementById("h3c")) { setTimeout(cb, H3.eta()); return }
     if (!SIM || !SIM.els || !SIM.raf) { setTimeout(cb, SIM && SIM.allow > 0 ? 400 : 250); return }
     SIM.onIdle = cb
   }
@@ -2640,8 +2766,24 @@
   }
   var TB_N = 14, TB_SP = 30, TB_L = 420, tbOffC = 0, tbOffT = 0, tbRaf = 0
   function tbY(x) { var u = (x - 180) / 200; return 66 + 50 * (1 - u * u) }
+  var B3 = null, H3 = null, H3OFF = false
+  function g3ok() { return !!(window.S3D && S3D.ok()) }
+  function mjMount() {
+    var cv = document.getElementById("tsbc"); if (!cv) return
+    if (B3) { try { B3.stop() } catch (e) {} B3 = null }
+    if (g3ok()) { try { B3 = S3D.beads(cv, { theme: function () { return tsS().th }, onStep: tsStep }) } catch (e) { B3 = null } }
+    if (B3) cv.setAttribute("data-g3", "1"); else tsInit()
+  }
+  function h3Mount() {
+    var cv = document.getElementById("h3c"); if (!cv) return
+    if (H3) { try { H3.stop() } catch (e) {} H3 = null }
+    try {
+      H3 = S3D.glass(cv, { w: 200, h: 290, p0: hgShown / 100, colors: function () { var st = document.getElementById("hgstage"), c = st ? getComputedStyle(st) : null; return c ? [c.getPropertyValue("--s1") || "#3fcf9c", c.getPropertyValue("--s2") || "#1f9d74"] : null } })
+    } catch (e) { H3 = null }
+    if (!H3) { H3OFF = true; render() }
+  }
   function mjHtml(ds) {
-    setTimeout(tsInit, 0)
+    setTimeout(mjMount, 0)
     return '<div class="tsbox mjbox"><canvas id="tsbc" class="tsbc"></canvas><div class="tscn"><b id="tsn">' + (ds.draft || 0) + '</b><small id="tsr">' + (ds.mode === "free" ? "\u221e" : "/ " + ds.target) + '</small></div><button id="mjtap" data-act="tap" hidden aria-hidden="true"></button></div>'
   }
   function tbHtml(ds) {
@@ -3050,7 +3192,7 @@
     return h
   }
   function goFeat(v) {
-    U.detail = 0; U.waq = false; U.wg = false; U.tsb = false; U.jr = ""; U.jrRet = false; U.wgOne = false; U.more = "menu"; U.hikBack = false; U.dailyMenu = false
+    U.detail = 0; U.waq = false; U.wg = false; U.mm = false; U.ach = false; U.mn = false; MN.m = -1; MM.g = null; U.tsb = false; U.jr = ""; U.jrRet = false; U.wgOne = false; U.more = "menu"; U.hikBack = false; U.dailyMenu = false
     if (v === "jr") { U.tab = "names"; U.jr = "main" }
     else if (v === "wg") { U.tab = "names"; U.wg = true }
     else if (v === "mj") { if (!isPrem()) { U.tab = "more"; U.more = "premium" } else { S.dview = "mj"; save(); U.tab = "daily" } }
@@ -3513,13 +3655,16 @@
   function render() {
     document.documentElement.lang = S.lang.slice(0, 2)
     document.documentElement.dir = S.lang === "ar" ? "rtl" : "ltr"
-    var h, sy = window.pageYOffset || 0, vkey = [U.tab, U.more, U.detail, U.waq ? 1 : 0, U.wg ? 1 : 0, U.tsb ? 1 : 0, U.jr || 0, U.moodPick].join("|"), same = vkey === U.vkey
+    var h, sy = window.pageYOffset || 0, vkey = [U.tab, U.more, U.detail, U.waq ? 1 : 0, U.wg ? 1 : 0, U.ach ? 1 : 0, U.mn ? (MN.m < 0 ? 1 : 2 + MN.n) : 0, U.mm ? (MM.g ? (MM.g.fin ? 3 : 2) : 1) : 0, U.tsb ? 1 : 0, U.jr || 0, U.moodPick].join("|"), same = vkey === U.vkey
     U.vkey = vkey
     try {
       if (!U.detail) U.dlock = false
       if (U.detail) { if (U.detail === jrName() + 1) jrMark("a"); h = viewDetail() }
       else if (U.waq) h = viewWaq()
       else if (U.wg) h = viewWg()
+      else if (U.mm) h = viewMm()
+      else if (U.ach) h = viewAch()
+      else if (U.mn) h = viewMn()
       else if (U.tsb) h = viewTsb()
       else if (U.jr) h = viewJr()
       else if (U.tab === "names") h = viewNames()
@@ -3563,7 +3708,7 @@
     renderNav()
     if (wheels.theme) updateThemeLabels()
     if (tg && tg.BackButton) {
-      if (U.detail || U.waq || U.wg || U.tsb || U.jr || U.tab !== "names") tg.BackButton.show()
+      if (U.detail || U.waq || U.wg || U.mm || U.ach || U.mn || U.tsb || U.jr || U.tab !== "names") tg.BackButton.show()
       else tg.BackButton.hide()
     }
     window.scrollTo(0, same ? sy : 0)
@@ -3572,6 +3717,9 @@
     if (U.detail) { U.detail = 0; render(); window.scrollTo(0, 0); return }
     if (U.jrRet) { U.jrRet = false; U.tab = U.jrTab || "names"; U.jr = "main"; U.dailyMenu = false; render(); window.scrollTo(0, 0); return }
     if (U.tsb) { U.tsb = false; render(); window.scrollTo(0, 0); return }
+    if (U.mn) { if (MN.m >= 0) MN.m = -1; else U.mn = false; render(); window.scrollTo(0, 0); return }
+    if (U.ach) { U.ach = false; render(); window.scrollTo(0, 0); return }
+    if (U.mm) { if (MM.g) MM.g = null; else U.mm = false; render(); window.scrollTo(0, 0); return }
     if (U.wg) { U.wg = false; U.wgOne = false; WG.L = null; render(); window.scrollTo(0, 0); return }
     if (U.waq) { U.waq = false; render(); window.scrollTo(0, 0); return }
     if (U.jr) { U.jr = U.jr !== "main" ? "main" : ""; render(); window.scrollTo(0, 0); return }
@@ -5284,6 +5432,20 @@
     else if (act === "jrQ") { if (v === "a") { U.detail = jrName() + 1; U.dlock = true; U.dpanel = ""; U.dir = ""; U.mexp = false } else if (v === "g") { U.wg = true; U.wgOne = true } else { U.jrRet = true; U.jrTab = U.tab; U.jr = ""; U.tab = "daily" } render(); window.scrollTo(0, 0) }
     else if (act === "jrBuy") { var j1 = jrS(), a1 = JRA.filter(function (q) { return q[0] === v })[0]; if (a1 && isPrem() && j1.nur >= a1[2] && j1.own.indexOf(v) < 0) { j1.nur -= a1[2]; j1.own.push(v); j1.eq[v] = 1; save(); jrApply(); render() } }
     else if (act === "jrEq") { var j2 = jrS(); j2.eq[v] = j2.eq[v] ? 0 : 1; save(); jrApply(); render() }
+    else if (act === "mnOpen" && !v) { }
+    else if (act === "mnOpenPage") { if (!isPrem()) { pToast(tr("pm_need")); return } MN.m = -1; U.mn = true; render(); window.scrollTo(0, 0) }
+    else if (act === "mnClose") { U.mn = false; MN.m = -1; render(); window.scrollTo(0, 0) }
+    else if (act === "mnPick") { mnPick(parseInt(v, 10) || 0); render() }
+    else if (act === "mnFav") { S.favs = S.favs || {}; S.favs[MN.n] = !S.favs[MN.n]; save(); render() }
+    else if (act === "mnOpen") { U.detail = parseInt(v, 10); U.dpanel = ""; U.dir = ""; U.mexp = false; render(); window.scrollTo(0, 0) }
+    else if (act === "achOpen") { if (!isPrem()) { pToast(tr("pm_need")); return } U.ach = true; render(); window.scrollTo(0, 0) }
+    else if (act === "achClose") { U.ach = false; render(); window.scrollTo(0, 0) }
+    else if (act === "achGet") { var ai = parseInt(v, 10); S.ach = S.ach || {}; if (ACH[ai] && !S.ach[ai] && achVal(ACH[ai][0]) >= ACH[ai][1]) { S.ach[ai] = 1; jrS().nur += ACH[ai][2]; save(); haptic("heavy"); render() } }
+    else if (act === "mmOpen") { if (!isPrem()) { pToast(tr("pm_need")); return } MM.g = null; U.mm = true; render(); window.scrollTo(0, 0) }
+    else if (act === "mmClose") { U.mm = false; MM.g = null; render(); window.scrollTo(0, 0) }
+    else if (act === "mmMenu") { MM.g = null; render() }
+    else if (act === "mmStart") { mmStart(parseInt(v, 10) || 0); render() }
+    else if (act === "mmTap") mmTap(parseInt(v, 10))
     else if (act === "wgOpen") { U.wg = true; U.wgOne = false; render(); window.scrollTo(0, 0) }
     else if (act === "waqOpen") { U.waq = true; render(); window.scrollTo(0, 0) }
     else if (act === "waqClose") { U.waq = false; render(); window.scrollTo(0, 0) }
