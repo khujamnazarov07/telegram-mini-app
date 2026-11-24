@@ -139,6 +139,12 @@
     ac_m: "Xotira: {n} o'yin|Хотира: {n} ўйин|Память: {n} игр|Memory: {n} games",
     ac_get: "Olish|Олиш|Забрать|Claim",
     ac_got: "Olingan|Олинган|Получено|Claimed",
+    mn_t: "Kayfiyatga mos ism|Кайфиятга мос исм|Имя по настроению|Name for your mood",
+    mn_sub: "Bugun o'zingizni qanday his qilyapsiz?|Бугун ўзингизни қандай ҳис қиляпсиз?|Как вы себя чувствуете сегодня?|How do you feel today?",
+    mn_0: "Xavotir|Хавотир|Тревога|Worry", mn_1: "Qayg'u|Қайғу|Печаль|Sadness", mn_2: "Shukr|Шукр|Благодарность|Gratitude",
+    mn_3: "Tavba|Тавба|Покаяние|Repentance", mn_4: "Rizq|Ризқ|Удел|Provision", mn_5: "Yo'l|Йўл|Путь|Guidance",
+    mn_open: "Ismni ochish|Исмни очиш|Открыть имя|Open name", mn_again: "Boshqasi|Бошқаси|Другое|Another",
+    mn_fav: "Saqlash|Сақлаш|Сохранить|Save", mn_h: "Oxirgi tanlovlar|Охирги танловлар|Последние|Recent",
     jr_cap: "Do'ppi|Дўппи|Тюбетейка|Skullcap|طاقية|Takke|Peci|小圆帽|टोपी|Gorro",
     jr_scarf: "Ro'mol|Рўмол|Шарф|Scarf|وشاح|Atkı|Syal|围巾|स्कार्फ़|Bufanda",
     jr_glass: "Ko'zoynak|Кўзойнак|Очки|Glasses|نظارات|Gözlük|Kacamata|眼镜|चश्मा|Gafas",
@@ -492,10 +498,10 @@
     }, 30000)
   }
   function goTab(v) {
-    if (v === U.tab && !U.detail && !U.waq && !U.wg && !U.mm && !U.ach && !U.tsb && !U.jr && U.more === "menu") { window.scrollTo({ top: 0, behavior: "smooth" }); return }
+    if (v === U.tab && !U.detail && !U.waq && !U.wg && !U.mm && !U.ach && !U.mn && !U.tsb && !U.jr && U.more === "menu") { window.scrollTo({ top: 0, behavior: "smooth" }); return }
     var from = navIdx(), to = 0
     for (var i = 0; i < NAVS.length; i++) if (NAVS[i][0] === v) to = i
-    var go = function () { window.scrollTo(0, 0); U.namesOpen = false; U.waq = false; U.wg = false; U.mm = false; U.ach = false; MM.g = null; U.tsb = false; U.jr = ""; U.jrRet = false; U.wgOne = false; U.tab = v; U.hikBack = false; U.detail = 0; U.more = "menu"; U.moodPick = ""; render() }
+    var go = function () { window.scrollTo(0, 0); U.namesOpen = false; U.waq = false; U.wg = false; U.mm = false; U.ach = false; U.mn = false; MN.m = -1; MM.g = null; U.tsb = false; U.jr = ""; U.jrRet = false; U.wgOne = false; U.tab = v; U.hikBack = false; U.detail = 0; U.more = "menu"; U.moodPick = ""; render() }
     if (from === to) return go()
     slidePage(to > from ? 1 : -1, go)
   }
@@ -1017,6 +1023,8 @@
   function petStep(dt) {
     var f = PET, a = f.act, p = f.at / f.dur, sec = Math.floor(f.t / 250), W = window.innerWidth, d
     f.t += dt; f.at += dt; f.jy = 0
+    var lo = f.lo == null ? 30 : f.lo, hi = f.hi == null ? W - 30 : f.hi
+    if (f.tx < lo) f.tx = lo; else if (f.tx > hi) f.tx = hi
     if (f.bubT && f.t - f.bubAt > f.bubT) { f.bubT = 0; petBub("") }
     f.bt += dt
     if (f.bt > 3600) { f.bt = 0; f.bl = 140 }
@@ -1085,23 +1093,23 @@
       } else { f.face = "happy"; f.at = f.dur }
     }
     else if (a === "fly" || a === "explore") {
-      f.la = "out"; f.ra = "out"; f.fire = f.oy > 6; f.face = "happy"
+      f.la = "out"; f.ra = "out"; f.face = "happy"
       if (f.ph === 0) {
         f.toy = f.fh; d = f.tx - f.x; f.gaze = d > 0 ? 1 : -1; f.x += Math.sign(d) * Math.min(Math.abs(d), 80 * dt / 1000)
         if (f.at < 80 && a === "fly") petBub(tr("pet_fly"), 1500)
         if (Math.abs(d) < 4 && Math.abs(f.oy - f.fh) < 5) { f.ph = 1; f.at = 0 }
       } else if (f.ph === 1) {
-        f.toy = f.fh + Math.sin(f.at / 300) * 3; f.ra = sec % 2 ? "up" : "up2"; f.fire = true
+        f.toy = f.fh + Math.sin(f.at / 300) * 3; f.ra = sec % 2 ? "up" : "up2"
         if (a === "explore" && !f.n) { f.n = 1; petBub(ZK[Math.floor(Math.random() * ZK.length)], 1800) }
         if (f.at > (a === "explore" ? 2600 : 900)) { f.ph = 2; f.tx = petRnd(45, W - 45) }
       } else {
-        f.toy = 0; d = f.tx - f.x; f.gaze = d > 0 ? 1 : -1; f.x += Math.sign(d) * Math.min(Math.abs(d), 70 * dt / 1000); f.fire = f.oy > 6
+        f.toy = 0; d = f.tx - f.x; f.gaze = d > 0 ? 1 : -1; f.x += Math.sign(d) * Math.min(Math.abs(d), 70 * dt / 1000)
         if (Math.abs(d) < 4 && f.oy < 3) { f.at = f.dur; petEmo("dizzy", 2200); petBub(tr("pet_dz"), 2200) }
       }
     }
     else if (a === "hide") {
       var nb = document.querySelectorAll("#nav button"), bt = nb[nb.length - 1], bx = bt ? bt.getBoundingClientRect() : null
-      if (bx) f.tx = bx.left + bx.width / 2
+      if (bx) f.tx = Math.max(lo, Math.min(hi, bx.left + bx.width / 2))
       if (f.ph === 0) {
         f.toy = 0; d = f.tx - f.x; f.gaze = d > 0 ? 1 : -1; f.x += Math.sign(d) * Math.min(Math.abs(d), 60 * dt / 1000); f.by = sec % 2
         f.la = sec % 2 ? "mid" : "down"; f.ra = sec % 2 ? "down" : "mid"
@@ -1134,7 +1142,7 @@
     if (f.hap && f.t < f.hap && f.face === "n") f.face = "happy"
     if (PET.sad && a !== "think") { f.la = f.la === "down" ? "droop" : f.la }
     if (f.at >= f.dur) { if (PET.cap) petRelease(); PET.fl = null; PET.um = false; f.rest = f.t + (a === "idle" ? 0 : petRnd(5000, 9000)); if (a === "think" && !PET.sad) PET.sad = true; f.act = ""; PET.n = 0 }
-    f.x = Math.max(30, Math.min(W - 30, f.x))
+    f.x = Math.max(lo, Math.min(hi, f.x))
   }
   // harakatlarga ta'sir: salavot, sevimli, o'yin
   function petReact() {
@@ -1202,7 +1210,7 @@
     var la = PANG[f.la] == null ? 8 : PANG[f.la], ra = PANG[f.ra] == null ? 8 : PANG[f.ra]
     PET.al.style.transform = "rotate(" + la + "deg)"; PET.ar.style.transform = "rotate(" + (-ra) + "deg)"
     PET.ant.style.opacity = Math.floor(f.t / 500) % 2 ? 1 : .55
-    PET.el.classList.toggle("cold", f.tint === "cold"); PET.el.classList.toggle("hot", f.tint === "hot"); PET.el.classList.toggle("fire", !!f.fire); PET.el.classList.toggle("um", !!f.um)
+    PET.el.classList.toggle("cold", f.tint === "cold"); PET.el.classList.toggle("hot", f.tint === "hot"); PET.el.classList.toggle("um", !!f.um)
     var oyv = f.oy + f.jy
     PET.el.style.transform = "translate(" + (Math.round(f.x - 20 + f.sx)) + "px," + Math.round(-oyv) + "px)"
     PET.el.style.clipPath = "inset(-260px -260px " + Math.round(2 - f.oy) + "px -260px)"
@@ -1212,7 +1220,7 @@
     if (!PET.el || document.hidden || !petOn()) return
     var now = Date.now(), dt = Math.min(120, now - (PET.lt || now))
     PET.lt = now
-    if (now - (PET.bt2 || 0) > 800) { PET.bt2 = now; var nv = document.getElementById("nav"); if (nv) PET.el.style.bottom = Math.max(0, window.innerHeight - nv.getBoundingClientRect().top - 2) + "px" }
+    if (now - (PET.bt2 || 0) > 800) { PET.bt2 = now; var nv = document.getElementById("nav"); if (nv) { var nr = nv.getBoundingClientRect(), rad = parseFloat(getComputedStyle(nv).borderTopLeftRadius) || 0; PET.el.style.bottom = Math.max(0, window.innerHeight - nr.top - 1) + "px"; PET.lo = Math.max(24, nr.left + rad + 13); PET.hi = Math.min(window.innerWidth - 24, nr.right - rad - 13); if (PET.hi < PET.lo) PET.hi = PET.lo } }
     petStep(dt); petDraw()
   }
   function petWatch() {
@@ -1228,7 +1236,7 @@
     if (!PET.el) {
       var el = document.createElement("div"); el.id = "pet"; el.className = "pet"
       el.innerHTML = '<div class="petin">' +
-        '<div class="petfire"></div><div class="petarm l"></div><div class="petarm r"></div>' +
+        '<div class="petarm l"></div><div class="petarm r"></div>' +
         '<svg class="petbody" viewBox="0 0 34 26" width="34" height="26"><defs><linearGradient id="pg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#d9e1f0"/></linearGradient></defs><path d="M2 26V13Q2 6 10 6H24Q32 6 32 13V26Z" fill="url(#pg)" stroke="#bcc7de" stroke-width="1.2"/><rect x="12" y="13" width="10" height="7" rx="3" fill="#1b2338"/><circle cx="15.5" cy="16.5" r="1.3" fill="#67e8f9"/><circle cx="19" cy="16.5" r="1.3" fill="#ff8fa3"/><path class="pa pa-scarf" d="M3 8Q17 16 31 8L32 13Q17 21 2 13Z" fill="#e8504f"/><rect class="pa pa-scarf" x="21" y="12" width="5" height="11" rx="2" fill="#d23c3b"/></svg>' +
         '<div class="pethead"><svg viewBox="0 0 46 44" width="46" height="44"><defs><linearGradient id="pg2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#dbe3f1"/></linearGradient></defs>' +
         '<line x1="23" y1="4" x2="23" y2="10" stroke="#aeb9d3" stroke-width="2" stroke-linecap="round"/><circle class="petant" cx="23" cy="4" r="3" fill="#ff7a8a"/>' +
@@ -1583,6 +1591,27 @@
     }
     return h + "</div></div>"
   }
+  // ---- Kayfiyatga mos ism (premium)
+  var MNI = [[6, 38, 52, 53], [1, 2, 30, 47], [35, 56, 17, 79], [14, 82, 2, 1], [17, 18, 79, 47], [93, 98, 18, 30]], MNX = ["shield", "cloud", "favorite", "water_drop", "restaurant", "explore"]
+  var MN = { m: -1, n: 0 }
+  function mnPick(m) {
+    var a = MNI[m].filter(function (x) { return x !== MN.n }), n = a[Math.floor(Math.random() * a.length)]
+    MN.m = m; MN.n = n
+    var h = S.mnh = S.mnh || []; h.unshift(n); S.mnh = h.filter(function (x, i) { return h.indexOf(x) === i }).slice(0, 6); save()
+  }
+  function viewMn() {
+    var h = '<div class="mn"><div class="wqtop"><button class="btn small back circ" data-act="mnClose" aria-label="back">' + ic("arrow_back") + '</button><div class="wqpill wgpill">' + ic("favorite") + " " + esc(tr("mn_t")) + '</div><span></span></div>'
+    if (MN.m < 0) {
+      h += '<p class="sub">' + esc(tr("mn_sub")) + '</p><div class="mnm">'
+      for (var i = 0; i < 6; i++) h += '<button class="card mnb" data-act="mnPick" data-v="' + i + '">' + ic(MNX[i]) + "<b>" + esc(tr("mn_" + i)) + "</b></button>"
+      h += "</div>"
+      var hs = S.mnh || []
+      if (hs.length) { h += '<div class="jrqh"><span>' + esc(tr("mn_h")) + '</span></div><div class="nfb">'; for (var k = 0; k < hs.length; k++) h += '<button class="btn small" data-act="mnOpen" data-v="' + hs[k] + '">' + hs[k] + ". " + esc(D.names[hs[k] - 1].t) + "</button>"; h += "</div>" }
+      return h + "</div>"
+    }
+    var n = MN.n, nm = D.names[n - 1], fv = S.favs && S.favs[n]
+    return h + '<div class="card mnres"><small>' + esc(tr("mn_" + MN.m)) + '</small><span class="ar">' + esc(nm.a) + "</span><b>" + n + ". " + esc(nm.t) + "</b><p>" + esc(meaningOf(n)) + '</p><button class="btn primary block" data-act="mnOpen" data-v="' + n + '">' + esc(tr("mn_open")) + '</button><div class="nfb"><button class="btn" data-act="mnFav">' + ic(fv ? "favorite" : "favorite") + " " + esc(tr("mn_fav")) + (fv ? " \u2713" : "") + '</button><button class="btn" data-act="mnPick" data-v="' + MN.m + '">' + ic("restart_alt") + " " + esc(tr("mn_again")) + "</button></div></div></div>"
+  }
   function viewHomePanel() {
     var w = wq(); wqRoll()
     var lay = S.hlay === "list" ? "list" : "grid"
@@ -1592,7 +1621,8 @@
       '<button class="hikrow hcard wgcard" data-act="wgOpen"><span class="hct"><b>' + ic("extension") + " " + esc(tr("wg_t")) + "</b><small>" + (wgS().lv + 1) + " / 40</small></span>" + ic("chevron_right") + "</button>" +
       '<button class="hikrow hcard jrcard" data-act="jrOpen"><span class="hct"><b>' + ic("local_fire_department") + " " + esc(tr("jr_t")) + "</b><small>" + jrStreak() + " " + esc(tr("jr_days")) + " \u00b7 " + jrCnt() + '/3</small><span class="jrmini"><i class="' + (jrDay().a ? "on" : "") + '"></i><i class="' + (jrDay().z ? "on" : "") + '"></i><i class="' + (jrDay().g ? "on" : "") + '"></i></span></span>' + ic("chevron_right") + "</button>" +
       '<button class="hikrow hcard mmcard" data-act="mmOpen"><span class="hct"><b>' + ic("psychology") + " " + esc(tr("mm_t")) + "</b><small>" + esc(tr("mm_sub")) + "</small></span>" + ic(isPrem() ? "chevron_right" : "lock") + "</button>" +
-      '<button class="hikrow hcard achcard" data-act="achOpen"><span class="hct"><b>' + ic("military_tech") + " " + esc(tr("ac_t")) + "</b><small>" + achDone() + "/" + ACH.length + (achClaimable() ? " \u00b7 +" + achClaimable() : "") + "</small></span>" + ic(isPrem() ? "chevron_right" : "lock") + "</button></div></div>"
+      '<button class="hikrow hcard achcard" data-act="achOpen"><span class="hct"><b>' + ic("military_tech") + " " + esc(tr("ac_t")) + "</b><small>" + achDone() + "/" + ACH.length + (achClaimable() ? " \u00b7 +" + achClaimable() : "") + "</small></span>" + ic(isPrem() ? "chevron_right" : "lock") + "</button>" +
+      '<button class="hikrow hcard mncard" data-act="mnOpenPage"><span class="hct"><b>' + ic("favorite") + " " + esc(tr("mn_t")) + "</b><small>" + esc(tr("mn_sub")) + "</small></span>" + ic(isPrem() ? "chevron_right" : "lock") + "</button></div></div>"
   }
   // umumiy soat: 99 hisobi va header g'ildiraklari bir ritmda (barmoq tegsa to'xtaydi, qo'yilgach 3s dan keyin boshidan)
   var CLK = { tc: 0, block: 0 }
@@ -1670,7 +1700,13 @@
     for (j = r * 3 - 1; j >= 0; j--) if (isMile(nums[j]) && nums[j] <= mx) return nums[j]
     return row[0]
   }
+  var nsRaf = 0, nsFirst = true
   function nsUpdate() {
+    if (nsRaf) return
+    if (nsFirst) { nsFirst = false; nsRaf = setTimeout(function () { nsRaf = 0; nsNow() }, 350) }
+    else nsRaf = requestAnimationFrame(function () { nsRaf = 0; nsNow() })
+  }
+  function nsNow() {
     var grid = document.getElementById("grid")
     var docH = document.documentElement.scrollHeight, vh = window.innerHeight
     if (!grid || U.tab !== "names" || U.detail || docH < vh * 1.5) { nsb.style.display = "none"; return }
@@ -3144,7 +3180,7 @@
     return h
   }
   function goFeat(v) {
-    U.detail = 0; U.waq = false; U.wg = false; U.mm = false; U.ach = false; MM.g = null; U.tsb = false; U.jr = ""; U.jrRet = false; U.wgOne = false; U.more = "menu"; U.hikBack = false; U.dailyMenu = false
+    U.detail = 0; U.waq = false; U.wg = false; U.mm = false; U.ach = false; U.mn = false; MN.m = -1; MM.g = null; U.tsb = false; U.jr = ""; U.jrRet = false; U.wgOne = false; U.more = "menu"; U.hikBack = false; U.dailyMenu = false
     if (v === "jr") { U.tab = "names"; U.jr = "main" }
     else if (v === "wg") { U.tab = "names"; U.wg = true }
     else if (v === "mj") { if (!isPrem()) { U.tab = "more"; U.more = "premium" } else { S.dview = "mj"; save(); U.tab = "daily" } }
@@ -3291,7 +3327,7 @@
         '<button data-act="more" data-v="mode">' + ic("contrast") + " " + esc(tr("mode_t")) + " · " + esc(tr("th_" + S.theme)) + "</button>" +
         '<button data-act="more" data-v="theme">' + ic("palette") + " " + esc(tr("theme_t")) + " · " + esc(tr(cg)) + "</button>" +
         '<button data-act="more" data-v="lang">' + ic("translate") + " " + esc(tr("lang")) + " · " + LANG_NAMES[S.lang] + "</button>" +
-        '<div class="rrow"><span>' + esc(tr("pet_t")) + '</span><button class="tgl' + (S.pet === false ? "" : " on") + '" data-act="petT" aria-label="pet"><i></i></button></div>' +
+        '<div class="rrow">' + ic("smart_toy") + "<span>" + esc(tr("pet_t")) + '</span><button class="tgl' + (S.pet === false ? "" : " on") + '" data-act="petT" aria-label="pet"><i></i></button></div>' +
         '<div class="rrow" data-act="more" data-v="remind">' + ic("notifications") + "<span>" + esc(tr("remind")) + '</span><button class="tgl' + (S.remind === false ? "" : " on") + '" data-act="rmt" data-v="all" aria-label="remind"><i></i></button></div></div>'
     }
     if (U.more === "pmx") return pmxHtml()
@@ -3607,7 +3643,7 @@
   function render() {
     document.documentElement.lang = S.lang.slice(0, 2)
     document.documentElement.dir = S.lang === "ar" ? "rtl" : "ltr"
-    var h, sy = window.pageYOffset || 0, vkey = [U.tab, U.more, U.detail, U.waq ? 1 : 0, U.wg ? 1 : 0, U.ach ? 1 : 0, U.mm ? (MM.g ? (MM.g.fin ? 3 : 2) : 1) : 0, U.tsb ? 1 : 0, U.jr || 0, U.moodPick].join("|"), same = vkey === U.vkey
+    var h, sy = window.pageYOffset || 0, vkey = [U.tab, U.more, U.detail, U.waq ? 1 : 0, U.wg ? 1 : 0, U.ach ? 1 : 0, U.mn ? (MN.m < 0 ? 1 : 2 + MN.n) : 0, U.mm ? (MM.g ? (MM.g.fin ? 3 : 2) : 1) : 0, U.tsb ? 1 : 0, U.jr || 0, U.moodPick].join("|"), same = vkey === U.vkey
     U.vkey = vkey
     try {
       if (!U.detail) U.dlock = false
@@ -3616,6 +3652,7 @@
       else if (U.wg) h = viewWg()
       else if (U.mm) h = viewMm()
       else if (U.ach) h = viewAch()
+      else if (U.mn) h = viewMn()
       else if (U.tsb) h = viewTsb()
       else if (U.jr) h = viewJr()
       else if (U.tab === "names") h = viewNames()
@@ -3659,7 +3696,7 @@
     renderNav()
     if (wheels.theme) updateThemeLabels()
     if (tg && tg.BackButton) {
-      if (U.detail || U.waq || U.wg || U.mm || U.ach || U.tsb || U.jr || U.tab !== "names") tg.BackButton.show()
+      if (U.detail || U.waq || U.wg || U.mm || U.ach || U.mn || U.tsb || U.jr || U.tab !== "names") tg.BackButton.show()
       else tg.BackButton.hide()
     }
     window.scrollTo(0, same ? sy : 0)
@@ -3668,6 +3705,7 @@
     if (U.detail) { U.detail = 0; render(); window.scrollTo(0, 0); return }
     if (U.jrRet) { U.jrRet = false; U.tab = U.jrTab || "names"; U.jr = "main"; U.dailyMenu = false; render(); window.scrollTo(0, 0); return }
     if (U.tsb) { U.tsb = false; render(); window.scrollTo(0, 0); return }
+    if (U.mn) { if (MN.m >= 0) MN.m = -1; else U.mn = false; render(); window.scrollTo(0, 0); return }
     if (U.ach) { U.ach = false; render(); window.scrollTo(0, 0); return }
     if (U.mm) { if (MM.g) MM.g = null; else U.mm = false; render(); window.scrollTo(0, 0); return }
     if (U.wg) { U.wg = false; U.wgOne = false; WG.L = null; render(); window.scrollTo(0, 0); return }
@@ -5132,16 +5170,19 @@
     var items = track.querySelectorAll(".w-item")
     var cur = startIdx, quiet = true, timer = null, raf = 0, lastC = -1, busy = false, touching = false, demo = false
 
-    function iw() { return items[0].offsetWidth }
+    var IWc = 0, OL0 = -1
+    function iw() { return IWc || (IWc = items[0].offsetWidth) }
+    function ol0() { if (OL0 < 0) OL0 = items[0].offsetLeft; return OL0 }
+    window.addEventListener("resize", function () { IWc = 0; OL0 = -1 })
     function absPos() { return Math.max(0, Math.min(items.length - 1, Math.round(track.scrollLeft / iw()))) }
     function idxOf(p) { return ((p % N) + N) % N }
     function paint() {
       raf = 0
       var w = iw(), mid = track.scrollLeft + track.clientWidth / 2
-      var center = Math.round((mid - items[0].offsetLeft - w / 2) / w)
+      var o0 = ol0(), center = Math.round((mid - o0 - w / 2) / w)
       var from = Math.max(0, center - 3), to = Math.min(items.length - 1, center + 3)
       for (var i = from; i <= to; i++) {
-        var d = (items[i].offsetLeft + w / 2 - mid) / w
+        var d = (o0 + i * w + w / 2 - mid) / w
         var ad = Math.min(Math.abs(d), 2)
         var ang = Math.max(-2, Math.min(2, d)) * -34
         items[i].style.transform = "rotateY(" + ang + "deg) scale(" + (1 - 0.1 * ad) + ")"
@@ -5382,6 +5423,12 @@
     else if (act === "jrQ") { if (v === "a") { U.detail = jrName() + 1; U.dlock = true; U.dpanel = ""; U.dir = ""; U.mexp = false } else if (v === "g") { U.wg = true; U.wgOne = true } else { U.jrRet = true; U.jrTab = U.tab; U.jr = ""; U.tab = "daily" } render(); window.scrollTo(0, 0) }
     else if (act === "jrBuy") { var j1 = jrS(), a1 = JRA.filter(function (q) { return q[0] === v })[0]; if (a1 && isPrem() && j1.nur >= a1[2] && j1.own.indexOf(v) < 0) { j1.nur -= a1[2]; j1.own.push(v); j1.eq[v] = 1; save(); jrApply(); render() } }
     else if (act === "jrEq") { var j2 = jrS(); j2.eq[v] = j2.eq[v] ? 0 : 1; save(); jrApply(); render() }
+    else if (act === "mnOpen" && !v) { }
+    else if (act === "mnOpenPage") { if (!isPrem()) { pToast(tr("pm_need")); return } MN.m = -1; U.mn = true; render(); window.scrollTo(0, 0) }
+    else if (act === "mnClose") { U.mn = false; MN.m = -1; render(); window.scrollTo(0, 0) }
+    else if (act === "mnPick") { mnPick(parseInt(v, 10) || 0); render() }
+    else if (act === "mnFav") { S.favs = S.favs || {}; S.favs[MN.n] = !S.favs[MN.n]; save(); render() }
+    else if (act === "mnOpen") { U.detail = parseInt(v, 10); U.dpanel = ""; U.dir = ""; U.mexp = false; render(); window.scrollTo(0, 0) }
     else if (act === "achOpen") { if (!isPrem()) { pToast(tr("pm_need")); return } U.ach = true; render(); window.scrollTo(0, 0) }
     else if (act === "achClose") { U.ach = false; render(); window.scrollTo(0, 0) }
     else if (act === "achGet") { var ai = parseInt(v, 10); S.ach = S.ach || {}; if (ACH[ai] && !S.ach[ai] && achVal(ACH[ai][0]) >= ACH[ai][1]) { S.ach[ai] = 1; jrS().nur += ACH[ai][2]; save(); haptic("heavy"); render() } }

@@ -1727,9 +1727,6 @@ button.wgw { font: inherit; font-size: 13px; font-weight: 700; cursor: pointer; 
 html.tying .pet, html.tying .petfl { position: fixed; z-index: 5; display: none; width: 40px; height: 40px; margin: -20px 0 0 -20px; pointer-events: none; }
 html.peton #ntog { bottom: calc(var(--nav-h, 64px) + env(safe-area-inset-bottom, 0px) + 50px); }
 
-.petfire { position: absolute; left: 17px; top: 55px; width: 12px; height: 10px; opacity: 0; transition: opacity .2s; background: radial-gradient(ellipse at 50% 0, #fff6c2 0, #ffb347 45%, rgba(255,90,60,0) 75%); border-radius: 50%; animation: petfl .12s infinite alternate; }
-.pet.fire .petfire { opacity: 1; }
-@keyframes petfl { from { transform: scaleY(.8); } to { transform: scaleY(1.25); } }
 .petum { position: absolute; left: 0; top: -14px; opacity: 0; transform: translateY(6px) scale(.7); transition: .3s; pointer-events: none; z-index: 2; }
 .pet.um .petum { opacity: 1; transform: none; }
 .pet.cold .pethead svg rect:nth-of-type(3), .pet.cold .petbody path { fill: #cfe6ff; }
@@ -1892,3 +1889,13 @@ html:not(#_) .wqlvb b { position: static; inset: auto; display: block; padding: 
 .acht u { display: block; height: 100%; background: #3fb98a; border-radius: 3px; }
 .acht small { color: var(--hint); }
 .achg { color: #3fb98a; }
+
+/* v194 kayfiyat ismi */
+.mnm { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-top: 12px; }
+.mnb { display: flex; align-items: center; gap: 10px; font: inherit; color: var(--text); cursor: pointer; text-align: left; }
+.mnb .msi { color: var(--accent); font-size: 26px; }
+.mnres { display: grid; gap: 8px; text-align: center; margin-top: 14px; }
+.mnres small { color: #3fb98a; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+.mnres .ar { font-family: "Amiri", serif; font-size: 52px; color: #3fb98a; line-height: 1.3; }
+.mnres b { font-size: 20px; } .mnres p { margin: 0; color: var(--hint); }
+.mnres .nfb { justify-content: center; }
