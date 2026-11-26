@@ -2003,3 +2003,73 @@ html[data-gender][data-glass][data-theme] .hpgb { background: color-mix(in srgb,
 html[data-glass="off"] .hpanel.hpanel::before { background: var(--card); -webkit-backdrop-filter: none; backdrop-filter: none; }
 html[data-gender][data-glass="off"][data-theme] .nhead, html[data-gender][data-glass="off"][data-theme] .hpgb { background: var(--card); -webkit-backdrop-filter: none; backdrop-filter: none; }
 html[data-gender][data-glass="off"][data-theme] .nhead .sbox .search { background: var(--bg); -webkit-backdrop-filter: none; backdrop-filter: none; }
+
+/* ===== v205 LIQUID GLASS (premium): Telegram-style frosted material, unified for both genders / themes ===== */
+html[data-glass="on"] {
+  --gl-tint: color-mix(in srgb, color-mix(in srgb, var(--accent) 5%, #ffffff) min(100%, calc(30% * var(--gk, 1))), transparent);
+  --gl-fill: radial-gradient(130% 110% at 0% 0%, rgb(255 255 255 / calc(.62 * var(--gk, 1))), transparent 58%), linear-gradient(135deg, rgb(255 255 255 / calc(.40 * var(--gk, 1))), rgb(255 255 255 / calc(.16 * var(--gk, 1))));
+  --gl-in: rgb(255 255 255 / calc(.34 * var(--gk, 1)));
+  --gl-bd: rgba(255, 255, 255, .62);
+  --gl-edge: inset 1px 1px 0 rgba(255, 255, 255, .95), inset -1px -1px 0 rgba(255, 255, 255, .38), inset 0 -14px 22px rgba(255, 255, 255, .10), 0 12px 30px rgba(30, 40, 70, .14);
+  --gl-edge-s: inset 1px 1px 0 rgba(255, 255, 255, .9), inset -1px -1px 0 rgba(255, 255, 255, .3), 0 6px 16px rgba(30, 40, 70, .10);
+  --gl-A: blur(max(14px, calc(24px * var(--bk, 1)))) saturate(1.9) brightness(1.04);
+  --gl-B: blur(max(8px, calc(12px * var(--bk, 1)))) saturate(1.6);
+}
+html[data-glass="on"][data-theme="dark"] {
+  --gl-tint: color-mix(in srgb, color-mix(in srgb, var(--accent) 8%, #070b17) min(100%, calc(34% * var(--gk, 1))), transparent);
+  --gl-fill: radial-gradient(130% 110% at 0% 0%, rgb(255 255 255 / calc(.17 * var(--gk, 1))), transparent 56%), linear-gradient(135deg, rgb(255 255 255 / calc(.09 * var(--gk, 1))), rgb(255 255 255 / calc(.03 * var(--gk, 1))));
+  --gl-in: rgb(255 255 255 / calc(.08 * var(--gk, 1)));
+  --gl-bd: rgba(255, 255, 255, .11);
+  --gl-edge: inset 1px 1px 0 rgba(255, 255, 255, .30), inset -1px -1px 0 rgba(255, 255, 255, .08), inset 0 0 26px rgba(255, 255, 255, .035), 0 12px 32px rgba(0, 0, 0, .36);
+  --gl-edge-s: inset 1px 1px 0 rgba(255, 255, 255, .26), inset -1px -1px 0 rgba(255, 255, 255, .07), 0 6px 16px rgba(0, 0, 0, .26);
+}
+/* A: asosiy yuzalar (kuchli xiralik) */
+html[data-gender][data-glass="on"][data-theme] :is(.hdr, .nav, .search, .nhead, .hpgb, .card, .aplayer, .chatin, .wqpill, .wqlvb, .wqtab, .wqg, .wqchip, .list > button, .list > .rrow, .btn:not(.success):not(.primary), .wdgr, .hikrow, .mood-card) {
+  background: var(--gl-fill), linear-gradient(var(--gl-tint), var(--gl-tint));
+  border: 1px solid var(--gl-bd);
+  -webkit-backdrop-filter: var(--gl-A); backdrop-filter: var(--gl-A);
+  box-shadow: var(--gl-edge);
+}
+/* B: takrorlanuvchi kichik elementlar (yengilroq xiralik) */
+html[data-gender][data-glass="on"][data-theme] :is(.name-card, .fchip:not(.on), .chip, .gear, .act, .wheel, .num-btn, .dg, .arow, .vcard) {
+  background: var(--gl-fill), linear-gradient(var(--gl-tint), var(--gl-tint));
+  border: 1px solid var(--gl-bd);
+  -webkit-backdrop-filter: var(--gl-B); backdrop-filter: var(--gl-B);
+  box-shadow: var(--gl-edge-s);
+}
+html[data-gender][data-glass="on"][data-theme] .hpanel.hpanel::before { background: var(--gl-fill), linear-gradient(var(--gl-tint), var(--gl-tint)); -webkit-backdrop-filter: var(--gl-A); backdrop-filter: var(--gl-A); box-shadow: var(--gl-edge); }
+html[data-gender][data-glass="on"][data-theme] .hpgb { border-color: var(--accent); box-shadow: inset 0 -14px 22px rgba(255, 255, 255, .05); }
+html[data-gender][data-glass="on"][data-theme] .nhead { border-color: var(--accent); }
+html[data-gender][data-glass="on"][data-theme] .nhead .sbox .search { border: 1.5px solid var(--accent); background: var(--gl-in), linear-gradient(var(--gl-tint), var(--gl-tint)); box-shadow: inset 1px 1px 0 rgba(255, 255, 255, .22); }
+html[data-gender][data-glass="on"][data-theme] :is(.fchip.on, .chip.on, .gear.on, .act.liked) { border-color: var(--accent); }
+html[data-gender][data-glass="on"][data-theme] .hdr { border-radius: 22px; }
+html[data-gender][data-glass="on"][data-theme] .chatin textarea { background: transparent; border: 0; box-shadow: none; }
+
+/* ====== v205 LIQUID GLASS (Telegram-style): rim light, specular edge, saturated blur ====== */
+html[data-glass="on"] { --lg-bf: blur(max(5px, calc(18px * var(--bk, 1)))) saturate(1.85) brightness(1.04); }
+html[data-glass="on"][data-theme="dark"] {
+  --lg-a: rgb(255 255 255 / calc(.10 * var(--gk, 1))); --lg-b: rgb(255 255 255 / calc(.035 * var(--gk, 1)));
+  --lg-sheen: rgb(255 255 255 / .11); --lg-rim: rgb(255 255 255 / .13); --lg-s1: rgb(255 255 255 / .55); --lg-s2: rgb(255 255 255 / .15);
+  --lg-glow: rgb(255 255 255 / .055); --lg-drop: rgb(0 0 0 / .36);
+}
+html[data-glass="on"][data-theme="light"] {
+  --lg-a: rgb(255 255 255 / min(.92, calc(.52 * var(--gk, 1)))); --lg-b: rgb(255 255 255 / min(.8, calc(.2 * var(--gk, 1))));
+  --lg-sheen: rgb(255 255 255 / .8); --lg-rim: rgb(255 255 255 / .7); --lg-s1: rgb(255 255 255 / 1); --lg-s2: rgb(255 255 255 / .55);
+  --lg-glow: rgb(255 255 255 / .3); --lg-drop: rgb(70 40 90 / .17);
+}
+html[data-gender][data-glass="on"][data-theme] :is(.nhead, .hptg, .hpgb, .chatin, .back, .wqpill, .wqlvb, .wqtab, .wqg, .wqchip, .list > button, .list > .rrow, .hikrow, .search, .card, .mood-card, .btn:not(.success):not(.primary), .fchip:not(.on), .chip, .aplayer, .vcard, .dg, .act, .num-btn, .gear, .name-card, .arow) {
+  background: linear-gradient(180deg, var(--lg-sheen), transparent 48%), linear-gradient(135deg, var(--lg-a), var(--lg-b));
+  box-shadow: inset 0 0 0 1px var(--lg-rim), inset 1px 1.5px 1px -1px var(--lg-s1), inset -1px -1.5px 1px -1px var(--lg-s2), inset 0 0 16px var(--lg-glow), 0 6px 18px var(--lg-drop);
+}
+html[data-gender][data-glass="on"][data-theme] :is(.nhead, .hptg, .hpgb, .chatin, .back, .wqpill, .wqlvb, .wqtab, .wqg, .wqchip, .list > button, .list > .rrow, .hikrow, .search, .card, .mood-card, .btn:not(.success):not(.primary), .fchip:not(.on), .chip, .aplayer, .vcard, .dg, .act, .num-btn, .gear) {
+  -webkit-backdrop-filter: var(--lg-bf); backdrop-filter: var(--lg-bf);
+}
+html[data-gender][data-glass="on"][data-theme] .nhead .sbox .search { box-shadow: inset 1px 1.5px 1px -1px var(--lg-s1), inset -1px -1.5px 1px -1px var(--lg-s2), inset 0 0 16px var(--lg-glow); }
+html[data-gender][data-glass="on"][data-theme] :is(.hptg) { box-shadow: inset 1px 1.5px 1px -1px var(--lg-s1), inset -1px -1.5px 1px -1px var(--lg-s2), inset 0 0 12px var(--lg-glow); }
+/* floating header + dock pill (already !important above) */
+html[data-glass="on"][data-theme] .hdr, html[data-glass="on"][data-theme] .nav:not(.hidden) {
+  background: linear-gradient(180deg, var(--lg-sheen), transparent 55%), linear-gradient(135deg, var(--lg-a), var(--lg-b)) !important;
+  -webkit-backdrop-filter: var(--lg-bf) !important; backdrop-filter: var(--lg-bf) !important;
+  box-shadow: inset 0 0 0 1px var(--lg-rim), inset 1px 2px 1px -1px var(--lg-s1), inset -1px -2px 1px -1px var(--lg-s2), inset 0 0 22px var(--lg-glow), 0 12px 32px var(--lg-drop) !important;
+}
+html[data-glass="on"] .nav button.on { box-shadow: inset 0 1px 1px rgb(255 255 255 / .45), inset 0 -2px 4px rgb(0 0 0 / .18), 0 4px 10px color-mix(in srgb, var(--accent) 40%, transparent); }
