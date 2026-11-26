@@ -1081,7 +1081,7 @@ html .nav.dragging button.on:not(.pv) { color: var(--hint); }
 .navind { position: absolute; left: 0; top: 7px; width: 46px; height: 46px; border-radius: 50%; background: var(--accent); box-shadow: 0 4px 14px rgba(0,0,0,.25), inset 0 1px 0 rgba(255,255,255,.4); z-index: 0; pointer-events: none; }
 html .nav:not(.hidden) { overflow: visible; }
 .pgx { position: fixed; inset: 0; overflow: hidden; z-index: 4; pointer-events: none; }
-html.sliding, html.sliding body { overflow-x: hidden; }
+html.sliding { overflow-x: hidden; }
 .hsw { display: flex; gap: 10px; overflow-x: auto; scroll-snap-type: x mandatory; padding: 8px calc(50% - 58px); margin: 0 -14px; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
 .hsw::-webkit-scrollbar { display: none; }
 .hsw-i { flex: none; width: 116px; scroll-snap-align: center; display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 10px 8px; border-radius: 20px; border: 2px solid var(--line); background: var(--card); color: var(--text); font-size: 14px; font-weight: 700; opacity: .65; transform: scale(.92); transition: transform .2s, opacity .2s, border-color .2s; }
@@ -1788,8 +1788,6 @@ html.peton #ntog { bottom: calc(var(--nav-h, 64px) + env(safe-area-inset-bottom,
 .jrit { display: flex; align-items: center; gap: 12px; padding: 12px 14px; }
 .jrit b { flex: 1; }
 .jrit .jri { width: 40px; height: 40px; border-radius: 12px; display: grid; place-items: center; background: color-mix(in srgb, var(--accent) 14%, transparent); color: var(--accent); }
-.pa { display: none; }
-.pet.a-cap .pa-cap, .pet.a-glass .pa-glass, .pet.a-crown .pa-crown, .pet.a-scarf .pa-scarf { display: inline; }
 
 /* v189 kunlik yo'l 2 */
 .wqtop { grid-template-columns: 1fr auto 1fr; }
@@ -1899,3 +1897,79 @@ html:not(#_) .wqlvb b { position: static; inset: auto; display: block; padding: 
 .mnres .ar { font-family: "Amiri", serif; font-size: 52px; color: #3fb98a; line-height: 1.3; }
 .mnres b { font-size: 20px; } .mnres p { margin: 0; color: var(--hint); }
 .mnres .nfb { justify-content: center; }
+
+/* v198 garderob (Robotcha ichida) */
+.pfx { position: absolute; left: 0; top: 0; width: 46px; height: 58px; overflow: visible; pointer-events: none; }
+.pethead .pfx { height: 44px; }
+.pet.noant .petal, .pet.noant .petant { display: none; }
+.pet.noear .petear { display: none; }
+.wds { animation: wdsp 2.4s infinite ease-in-out; transform-box: fill-box; transform-origin: center; }
+.wds2 { animation-duration: 2.8s; animation-delay: .6s; }
+.wds3 { animation-duration: 2.5s; animation-delay: 1.2s; }
+@keyframes wdsp { 0%, 100% { transform: translateY(0) scale(.9); opacity: .45; } 50% { transform: translateY(-5px) scale(1.15); opacity: 1; } }
+.wdfl { animation: wdfl 3.2s ease-in-out infinite; }
+@keyframes wdfl { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
+@keyframes wdflash { 0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, .8); } 70% { box-shadow: 0 0 0 16px rgba(16, 185, 129, 0); } 100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); } }
+@media (prefers-reduced-motion: reduce) { .wds, .wdfl { animation: none; } }
+.wd { display: grid; gap: 10px; margin-top: 12px; }
+.wdtop { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.wdtabs { display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none; padding: 2px 0; }
+.wdtabs::-webkit-scrollbar { display: none; }
+.wdtab { flex: 0 0 auto; display: inline-flex; align-items: center; gap: 6px; padding: 8px 12px; border-radius: 13px; border: 1px solid var(--line); background: var(--card); color: var(--text); font: inherit; font-size: 12.5px; font-weight: 700; cursor: pointer; }
+.wdtab .msi { font-size: 17px; }
+.wdtab.on { background: var(--accent); border-color: transparent; color: #fff; }
+.wdmain { display: grid; grid-template-columns: 1.1fr 1fr; gap: 8px; align-items: stretch; }
+.wdst { position: relative; display: flex; flex-direction: column; gap: 4px; padding: 10px; border-radius: 18px; color: #f8fafc; background: radial-gradient(120% 80% at 50% 38%, #16212f, #0b1017); border: 1px solid rgba(255, 255, 255, .1); box-shadow: 0 8px 22px rgba(0, 0, 0, .28); overflow: hidden; }
+.wdst.flash { animation: wdflash .65s ease-out; }
+.wdsh { display: flex; align-items: flex-start; justify-content: space-between; gap: 6px; }
+.wdsn { min-width: 0; display: grid; }
+.wdsn small { font-size: 9.5px; font-weight: 800; letter-spacing: .6px; text-transform: uppercase; color: #34d399; }
+.wdsn b { font-size: 13px; font-weight: 800; line-height: 1.2; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.wdrs { flex: 0 0 auto; width: 28px; height: 28px; border-radius: 9px; border: 1px solid rgba(255, 255, 255, .14); background: rgba(255, 255, 255, .06); color: #cbd5e1; display: grid; place-items: center; cursor: pointer; padding: 0; }
+.wdrs:disabled { opacity: .35; }
+.wdrs .msi { font-size: 16px; }
+.wdsv { width: 100%; height: 190px; overflow: visible; flex: 1; }
+.wdgo { display: flex; align-items: center; justify-content: center; gap: 6px; width: 100%; padding: 10px; border-radius: 13px; border: 1px solid transparent; font: inherit; font-size: 12.5px; font-weight: 800; cursor: pointer; background: #10b981; color: #052e22; }
+.wdgo .msi { font-size: 15px; }
+.wdgo.buy { background: linear-gradient(90deg, #fbbf24, #f59e0b); color: #2a1b02; }
+.wdgo.off { background: rgba(244, 63, 94, .18); border-color: rgba(244, 63, 94, .5); color: #fecdd3; }
+.wdgo.on { background: rgba(255, 255, 255, .08); border-color: rgba(16, 185, 129, .45); color: #34d399; }
+.wdgo.dis { opacity: .5; cursor: default; }
+.wdgr { display: flex; flex-direction: column; gap: 6px; padding: 8px; border-radius: 18px; background: var(--card); border: 1px solid var(--line); min-width: 0; }
+.wdgh { display: flex; align-items: center; justify-content: space-between; font-size: 10.5px; font-weight: 800; letter-spacing: .4px; text-transform: uppercase; color: var(--hint); padding: 0 2px; }
+.wdgh b { color: var(--accent); }
+.wdcells { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; align-content: start; }
+.wdc { position: relative; aspect-ratio: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; padding: 3px; border-radius: 12px; border: 1px solid var(--line); background: color-mix(in srgb, var(--text) 4%, transparent); color: var(--text); font: inherit; cursor: pointer; min-width: 0; overflow: hidden; -webkit-tap-highlight-color: transparent; }
+.wdc.own { border-color: color-mix(in srgb, var(--accent) 35%, transparent); }
+.wdc.sel { border: 2px solid var(--accent); background: color-mix(in srgb, var(--accent) 12%, transparent); }
+.wdc:active { transform: scale(.93); }
+.wdth { display: grid; place-items: center; width: 26px; height: 26px; }
+.wdth svg { width: 100%; height: 100%; }
+.wdc:not(.own) .wdth { opacity: .7; }
+.wdc small { max-width: 100%; font-size: 8.5px; font-weight: 700; line-height: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.wdc .wdpr { display: inline-flex; align-items: center; gap: 1px; color: #d97706; }
+.wdc .wdpr .msi { font-size: 9px; }
+.wdck { position: absolute; top: 2px; right: 2px; width: 14px; height: 14px; border-radius: 50%; background: var(--accent); color: #fff; display: grid; place-items: center; }
+.wdck .msi { font-size: 10px; }
+@media (max-width: 340px) { .wdmain { grid-template-columns: 1fr; } }
+/* v199 games cabinet */
+.gpanel { margin-top: 28px; }
+.hpl { position: absolute; top: -15px; inset-inline-start: 12px; display: flex; align-items: center; gap: 6px; padding: 4px 12px; border: 1.5px solid var(--accent); border-radius: 99px; background: var(--bg, #0b0b0d); font-size: 13px; font-weight: 700; color: var(--text); line-height: 1.2; }
+html[data-theme] body .hpl { background: var(--bg, #0b0b0d); }
+.hpl .msi { font-size: 18px; color: var(--accent); }
+/* v199 icon never shrinks (clipped heart in narrow cards) */
+.msi { flex: none; min-width: 1em; }
+.hcard .hct b { align-items: flex-start; }
+.hcard .hct b .msi { margin-top: 1px; }
+/* v199 settings rows: android split divider + glass */
+.rdiv { flex: none; align-self: stretch; width: 1px; margin: 2px 2px 2px 0; background: color-mix(in srgb, var(--text) 24%, transparent); border-radius: 1px; }
+[dir="rtl"] .rdiv { margin: 2px 0 2px 2px; }
+html .list > .rrow, html .list > button, html .wdgr, html .wdtabs .wdtab {
+  background: color-mix(in srgb, var(--card) 72%, transparent);
+  -webkit-backdrop-filter: blur(max(5px, calc(12px * var(--bk, 1)))) saturate(1.3);
+  backdrop-filter: blur(max(5px, calc(12px * var(--bk, 1)))) saturate(1.3);
+}
+/* v199 close-up snowflake in front of the stage */
+.snwf { position: fixed; inset: 0; width: 100%; height: 100%; z-index: 6; pointer-events: none; }
+/* v199 season bg: plain content (list buttons) must paint above #mbg */
+html[data-bg="season"] #app { position: relative; z-index: 1; }

@@ -73,8 +73,6 @@
     wx_t3: "Soyabon beraymi?|Соябон берайми?|Дать зонтик?|Shall I lend you an umbrella?|هل أعطيك مظلة؟|Şemsiye vereyim mi?|Mau kupinjamkan payung?|要借你一把伞吗？|छाता दूँ?|¿Te presto un paraguas?",
     wx_t4: "Soyabon beraymi? Issiqroq kiying.|Соябон берайми? Иссиқроқ кийинг.|Дать зонтик? Оденьтесь теплее.|Shall I lend an umbrella? Dress warm.|هل أعطيك مظلة؟ البس دافئًا.|Şemsiye vereyim mi? Sıcak giyinin.|Mau payung? Berpakaianlah hangat.|要伞吗？请穿暖和些。|छाता दूँ? गर्म कपड़े पहनें।|¿Un paraguas? Abrígate.",
     wx_t5: "Uyda qolgan afzal.|Уйда қолган афзал.|Лучше остаться дома.|Better stay indoors.|الأفضل البقاء في البيت.|Evde kalmak daha iyi.|Lebih baik di rumah.|最好待在家里。|घर पर रहना बेहतर है।|Mejor quédate en casa.",
-    tsb_t: "Tasbeh|Тасбеҳ|Чётки|Tasbih|السبحة|Tesbih|Tasbih|念珠|तस्बीह|Tasbih",
-    tsb_help: "Marjonni suring yoki ustiga bosing.|Маржонни суринг ёки устига босинг.|Проведите по чёткам или нажмите на них.|Swipe or tap the beads.|مرّر أو اضغط على الحبات.|Tespihi kaydırın veya dokunun.|Geser atau ketuk tasbih.|滑动或点击念珠。|माला पर स्वाइप या टैप करें।|Desliza o toca las cuentas.",
     jr_t: "Kunlik yo'l|Кунлик йўл|Путь дня|Daily path|الرحلة اليومية|Günlük yol|Jalan harian|每日之路|दैनिक यात्रा|Camino diario",
     jr_days: "kun ketma-ket|кун кетма-кет|дней подряд|day streak|أيام متتالية|gün üst üste|hari beruntun|天连续|दिन लगातार|días seguidos",
     jr_best: "Eng yaxshi:|Энг яхши:|Рекорд:|Best:|الأفضل:|En iyi:|Terbaik:|最佳：|सर्वश्रेष्ठ:|Mejor:",
@@ -94,22 +92,18 @@
     jr_dn: "bajarildi|бажарилди|выполнено|done",
     jr_got: "olindi|олинди|получено|earned",
     jr_rw: "mukofot|мукофот|награда|reward",
-    dv_mj: "Marjon 3D|Маржон 3D|Чётки 3D|Beads 3D",
-    mj_mat: "Marjon rangi|Маржон ранги|Цвет чёток|Bead colour",
-    mj_snd: "Tovush|Товуш|Звук|Sound",
     pmi_t: "Premium nimalar beradi?|Премиум нималар беради?|Что даёт Premium?|What does Premium give?",
     pmi_1: "Kunlik yo'l: seriya, nur, kartalar va garderob|Кунлик йўл: серия, нур, карталар ва гардероб|Дневной путь: серия, свет, карточки и гардероб|Daily path: streak, light, cards and wardrobe",
-    pmi_2: "Salavotda Marjon 3D va shisha effekti|Салавотда Маржон 3D ва шиша эффекти|Чётки 3D и стеклянный эффект в салавате|3D beads and glass effect in salawat",
+    pmi_2: "Salavotda shisha effekti|Салавотда шиша эффекти|Стеклянный эффект в салавате|Glass effect in salawat",
     pmi_3: "Fasl fonlari va robotcha kiyimlari|Фасл фонлари ва роботча кийимлари|Фоны сезонов и наряды робота|Season backgrounds and robot outfits",
     pmi_4: "So'z o'yini: kuniga 10 level (bepulda 1)|Сўз ўйини: кунига 10 левел (бепулда 1)|Игра слов: 10 уровней в день (бесплатно 1)|Word game: 10 levels a day (1 for free)",
     pmi_5: "Iqtiboslar uchun maxsus fonlar|Иқтибослар учун махсус фонлар|Особые фоны для цитат|Special quote backgrounds",
     pm_goalbtn: "Kunlik maqsadni belgilash|Кунлик мақсадни белгилаш|Задать дневную цель|Set daily goal",
     nf_new_t: "Yangi funksiyalar|Янги функциялар|Новые функции|New features",
-    nf_new: "Kunlik yo'l, So'z o'yini, Marjon 3D va robotcha tayyor. Sinab ko'ring!|Кунлик йўл, Сўз ўйини, Маржон 3D ва роботча тайёр. Синаб кўринг!|Дневной путь, игра слов, чётки 3D и робот готовы. Попробуйте!|Daily path, word game, 3D beads and the robot are ready. Try them!",
+    nf_new: "Kunlik yo'l, So'z o'yini va robotcha tayyor. Sinab ko'ring!|Кунлик йўл, Сўз ўйини ва роботча тайёр. Синаб кўринг!|Дневной путь, игра слов и робот готовы. Попробуйте!|Daily path, word game and the robot are ready. Try them!",
     nf_pm_t: "Premium haqida|Премиум ҳақида|О Premium|About Premium",
-    nf_pm_long: "Premium bilan kunlik yo'l, nur va kartalar, Marjon 3D, shisha effekti va fasl fonlari ochiladi. Avval kunlik salavot maqsadini belgilang, so'ng premiumni sinab ko'ring.|Премиум билан кунлик йўл, нур ва карталар, Маржон 3D, шиша эффекти ва фасл фонлари очилади. Аввал кунлик салавот мақсадини белгиланг, сўнг премиумни синаб кўринг.|С Premium открываются дневной путь, свет и карточки, чётки 3D, стеклянный эффект и фоны сезонов. Сначала задайте дневную цель салавата, затем попробуйте Premium.|Premium unlocks the daily path, light and cards, 3D beads, glass effect and season backgrounds. First set your daily salawat goal, then try Premium.",
-    nf_pm_short: "Premium faol. Salavot sahifasida Marjon 3D ni sinab ko'ring.|Премиум фаол. Салавот саҳифасида Маржон 3D ни синаб кўринг.|Premium активен. Попробуйте чётки 3D на странице салавата.|Premium is active. Try 3D beads on the salawat page.",
-    tip_mj: "Yangi: Marjon 3D! Salavotni marjon bilan sanang.|Янги: Маржон 3D! Салавотни маржон билан сананг.|Новое: чётки 3D! Считайте салават чётками.|New: 3D beads! Count salawat with beads.",
+    nf_pm_long: "Premium bilan kunlik yo'l, nur va kartalar, shisha effekti va fasl fonlari ochiladi. Avval kunlik salavot maqsadini belgilang, so'ng premiumni sinab ko'ring.|Премиум билан кунлик йўл, нур ва карталар, шиша эффекти ва фасл фонлари очилади. Аввал кунлик салавот мақсадини белгиланг, сўнг премиумни синаб кўринг.|С Premium открываются дневной путь, свет и карточки, стеклянный эффект и фоны сезонов. Сначала задайте дневную цель салавата, затем попробуйте Premium.|Premium unlocks the daily path, light and cards, glass effect and season backgrounds. First set your daily salawat goal, then try Premium.",
+    nf_pm_short: "Premium faol. Kunlik yo'lni va garderobni sinab ko'ring.|Премиум фаол. Кунлик йўлни ва гардеробни синаб кўринг.|Premium активен. Попробуйте дневной путь и гардероб.|Premium is active. Try the daily path and the wardrobe.",
     tip_jr: "Yangi: Kunlik yo'l! Seriya, nur va kartalar yig'ing.|Янги: Кунлик йўл! Серия, нур ва карталар йиғинг.|Новое: дневной путь! Копите серию, свет и карточки.|New: Daily path! Collect streaks, light and cards.",
     tip_wg: "Yangi: So'z o'yini! Yashirin ismlarni toping.|Янги: Сўз ўйини! Яширин исмларни топинг.|Новое: игра слов! Найдите скрытые имена.|New: word game! Find the hidden names.",
     tip_goal: "Kunlik maqsad belgilaymizmi? Salavotni birga sanaymiz.|Кунлик мақсад белгилаймизми? Салавотни бирга санаймиз.|Зададим дневную цель? Будем считать салават вместе.|Shall we set a daily goal? Let's count together.",
@@ -124,6 +118,7 @@
     bc_ok: "Yuborildi|Юборилди|Отправлено|Sent",
     bc_err: "Xatolik. Matn yoki server tekshirilsin.|Хатолик. Матн ёки сервер текширилсин.|Ошибка. Проверьте текст или сервер.|Error. Check the text or server.",
     bc_del: "O'chirish|Ўчириш|Удалить|Delete",
+    gm_t: "O'yinlar|Ўйинлар|Игры|Games|الألعاب|Oyunlar|Permainan|游戏|खेल|Juegos",
     mm_t: "Xotira o'yini|Хотира ўйини|Игра на память|Memory game",
     mm_sub: "Ism va ma'nosini juftlang|Исм ва маъносини жуфтланг|Соедините имя и смысл|Match the name and meaning",
     mm_e: "Oson|Осон|Лёгкий|Easy", mm_m: "O'rta|Ўрта|Средний|Medium", mm_h: "Qiyin|Қийин|Сложный|Hard",
@@ -498,25 +493,38 @@
     }, 30000)
   }
   function goTab(v) {
-    if (v === U.tab && !U.detail && !U.waq && !U.wg && !U.mm && !U.ach && !U.mn && !U.tsb && !U.jr && U.more === "menu") { window.scrollTo({ top: 0, behavior: "smooth" }); return }
+    if (v === U.tab && !U.detail && !U.waq && !U.wg && !U.mm && !U.ach && !U.mn && !U.jr && U.more === "menu") { window.scrollTo({ top: 0, behavior: "smooth" }); return }
     var from = navIdx(), to = 0
     for (var i = 0; i < NAVS.length; i++) if (NAVS[i][0] === v) to = i
-    var go = function () { window.scrollTo(0, 0); U.namesOpen = false; U.waq = false; U.wg = false; U.mm = false; U.ach = false; U.mn = false; MN.m = -1; MM.g = null; U.tsb = false; U.jr = ""; U.jrRet = false; U.wgOne = false; U.tab = v; U.hikBack = false; U.detail = 0; U.more = "menu"; U.moodPick = ""; render() }
-    if (from === to) return go()
-    slidePage(to > from ? 1 : -1, go)
+    var go = function () { window.scrollTo(0, 0); U.namesOpen = false; U.waq = false; U.wg = false; U.mm = false; U.ach = false; U.mn = false; MN.m = -1; MM.g = null; U.jr = ""; U.jrRet = false; U.wgOne = false; U.tab = v; U.hikBack = false; U.detail = 0; U.more = "menu"; U.moodPick = ""; render() }
+    go()
   }
-  function slidePage(dir, fn) {
+  var TR = { busy: 0 }
+  function vDepth() {
+    var st = ["lang", "theme", "mode", "remind", "robot", "premium"]
+    return (U.detail ? 1 : 0) + ((U.waq || U.wg || U.mm || U.ach || U.mn || U.jr) ? 1 : 0) + (U.tab === "more" && U.more !== "menu" ? 1 : 0) + (U.tab === "more" && st.indexOf(U.more) >= 0 ? 1 : 0) +
+      ((U.mn && MN.m >= 0) || (U.mm && MM.g) || (U.tab === "mood" && U.moodPick) || (U.jr && U.jr !== "main") || (U.tab === "more" && U.hcUid) ? 1 : 0)
+  }
+  function pageTrans(dir, big, fn) {
     var app = document.getElementById("app")
-    if (!app || !app.animate || (window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches)) return fn()
-    var r = app.getBoundingClientRect(), cl = app.cloneNode(true), wrap = document.createElement("div"), W = window.innerWidth, ease = "cubic-bezier(.22,.8,.25,1)"
-    cl.removeAttribute("id"); cl.style.cssText = "position:absolute;margin:0;left:" + r.left + "px;top:" + r.top + "px;width:" + r.width + "px"
+    if (!app || !app.animate || document.hidden || document.body.classList.contains("onb") || (window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches)) return fn()
+    var r = app.getBoundingClientRect(), W = window.innerWidth, cl, wrap = document.createElement("div"), i
+    try { cl = app.cloneNode(true) } catch (e) { return fn() }
+    var c0 = app.querySelectorAll("canvas"), c1 = cl.querySelectorAll("canvas"), ids = cl.querySelectorAll("[id]")
+    for (i = 0; i < c1.length && i < c0.length; i++) { try { c1[i].getContext("2d").drawImage(c0[i], 0, 0) } catch (e) {} }
+    for (i = 0; i < ids.length; i++) ids[i].removeAttribute("id")
+    var cs = getComputedStyle(app)
+    cl.removeAttribute("id"); cl.style.cssText = "position:absolute;margin:0;left:" + r.left + "px;top:" + r.top + "px;width:" + r.width + "px;box-sizing:" + cs.boxSizing + ";padding:" + cs.padding + ";min-height:0;pointer-events:none"
     wrap.className = "pgx"; wrap.appendChild(cl); document.body.appendChild(wrap)
+    TR.busy = 1
     document.documentElement.classList.add("sliding")
     fn()
-    var a = document.getElementById("app")
-    a.animate([{ transform: "translateX(" + dir * W + "px)" }, { transform: "none" }], { duration: 340, easing: ease })
-    var o = cl.animate([{ transform: "none" }, { transform: "translateX(" + -dir * W + "px)" }], { duration: 340, easing: ease, fill: "forwards" })
-    o.onfinish = function () { wrap.remove(); document.documentElement.classList.remove("sliding") }
+    var a = document.getElementById("app"), d = big ? Math.min(W * .2, 80) : 28, t = big ? 380 : 320, ease = "cubic-bezier(.22,.8,.25,1)", fin = false
+    var inT = dir ? "translateX(" + dir * d + "px)" : "translateY(10px)", outT = dir ? "translateX(" + (-dir * d * .5) + "px)" : "translateY(-6px)"
+    var done = function () { if (fin) return; fin = true; wrap.remove(); TR.busy = 0; document.documentElement.classList.remove("sliding") }
+    if (a) a.animate([{ opacity: 0, transform: inT }, { opacity: 1, transform: "none" }], { duration: t, delay: 40, easing: ease, fill: "backwards" })
+    var o = cl.animate([{ opacity: 1, transform: "none" }, { opacity: 0, transform: outT }], { duration: t * .7, easing: "cubic-bezier(.4,0,.8,.6)", fill: "forwards" })
+    o.onfinish = done; setTimeout(done, t + 250)
   }
   function navDragInit() {
     navEl.addEventListener("pointerdown", function (e) {
@@ -1083,6 +1091,7 @@
       } else if (f.ph === 2) {
         f.face = "up"
         var r0 = PET.el.getBoundingClientRect(), my = r0.top + 22, T1 = 1400, T2 = 1000, fl = PET.fl
+        if (!r0.width || !r0.height) { petRelease(); f.ph = 5; f.at = f.dur; return }
         if (f.at < T1) { var q = f.at / T1; fl.k = f.fk0 + (1.4 - f.fk0) * q; fl.x = f.fx0 + Math.sin(f.at / 260) * 14 * q; fl.y = f.fy0 + 26 * q; fl.b = 0 }
         else { var q2 = Math.min(1, (f.at - T1) / T2), e2 = q2 * q2, ax = f.fx0 + Math.sin(T1 / 260) * 14; fl.k = 1.4 - 1.05 * e2; fl.x = ax * (1 - e2) + f.x * e2; fl.y = (f.fy0 + 26) * (1 - e2) + my * e2; fl.b = 0 }
         if (f.at > T1 + T2) { f.ph = 3; f.at = 0; petRelease() }
@@ -1217,6 +1226,7 @@
     if (PET.fl) { var fe = PET.flEl; if (fe) { fe.style.display = "block"; fe.style.left = Math.round(PET.fl.x) + "px"; fe.style.top = Math.round(PET.fl.y) + "px"; fe.style.transform = "scale(" + PET.fl.k.toFixed(2) + ") rotate(" + Math.round(f.t / 12) + "deg)" } } else if (PET.flEl) PET.flEl.style.display = "none"
   }
   function petTick() {
+    if (PET.cap && (!PET.el || !petOn())) petRelease()
     if (!PET.el || document.hidden || !petOn()) return
     var now = Date.now(), dt = Math.min(120, now - (PET.lt || now))
     PET.lt = now
@@ -1232,24 +1242,23 @@
   function petApply() {
     var on = petOn()
     document.documentElement.classList.toggle("peton", on)
-    if (!on) { if (PET.el) PET.el.style.display = "none"; return }
+    if (!on) { petRelease(); if (PET.flEl) PET.flEl.style.display = "none"; if (PET.el) PET.el.style.display = "none"; return }
     if (!PET.el) {
       var el = document.createElement("div"); el.id = "pet"; el.className = "pet"
-      el.innerHTML = '<div class="petin">' +
+      el.innerHTML = '<div class="petin"><svg class="pfx pfxb" viewBox="0 0 46 58" width="46" height="58"></svg>' +
         '<div class="petarm l"></div><div class="petarm r"></div>' +
         '<svg class="petbody" viewBox="0 0 34 26" width="34" height="26"><defs><linearGradient id="pg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#d9e1f0"/></linearGradient></defs><path d="M2 26V13Q2 6 10 6H24Q32 6 32 13V26Z" fill="url(#pg)" stroke="#bcc7de" stroke-width="1.2"/><rect x="12" y="13" width="10" height="7" rx="3" fill="#1b2338"/><circle cx="15.5" cy="16.5" r="1.3" fill="#67e8f9"/><circle cx="19" cy="16.5" r="1.3" fill="#ff8fa3"/><path class="pa pa-scarf" d="M3 8Q17 16 31 8L32 13Q17 21 2 13Z" fill="#e8504f"/><rect class="pa pa-scarf" x="21" y="12" width="5" height="11" rx="2" fill="#d23c3b"/></svg>' +
+        '<svg class="pfx pout" viewBox="0 0 46 58" width="46" height="58"></svg>' +
         '<div class="pethead"><svg viewBox="0 0 46 44" width="46" height="44"><defs><linearGradient id="pg2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#dbe3f1"/></linearGradient></defs>' +
-        '<line x1="23" y1="4" x2="23" y2="10" stroke="#aeb9d3" stroke-width="2" stroke-linecap="round"/><circle class="petant" cx="23" cy="4" r="3" fill="#ff7a8a"/>' +
-        '<rect x="2" y="19" width="7" height="12" rx="3.5" fill="#cfd8ea" stroke="#b3bfd9" stroke-width="1"/><rect x="37" y="19" width="7" height="12" rx="3.5" fill="#cfd8ea" stroke="#b3bfd9" stroke-width="1"/>' +
-        '<rect x="5" y="9" width="36" height="28" rx="14" fill="url(#pg2)" stroke="#bcc7de" stroke-width="1.2"/><rect x="9.5" y="13" width="27" height="19" rx="8.5" fill="#1b2338"/>' +
-        '<path class="pa pa-cap" d="M8 17Q8 6 23 6Q38 6 38 17Q23 12 8 17Z" fill="#fff" stroke="#b8c4dc" stroke-width="1"/><path class="pa pa-cap" d="M13 14Q23 9.5 33 14" fill="none" stroke="#3fb98a" stroke-width="1.5"/>' +
-        '<g class="pa pa-glass" fill="none" stroke="#caa24a" stroke-width="1.6"><circle cx="16" cy="21" r="5.5"/><circle cx="30" cy="21" r="5.5"/><path d="M21.5 21H24.5"/></g>' +
-        '<path class="pa pa-crown" d="M13 10L15 2L19 8L23 0L27 8L31 2L33 10Z" fill="#f6c453" stroke="#b9822a" stroke-width="1"/></svg>' +
-        '<canvas width="13" height="9"></canvas></div><svg class="petum" viewBox="0 0 46 24" width="46" height="24"><path d="M2 16Q23 -8 44 16Z" fill="#ff8fa3"/><path d="M2 16Q8 12 12 16Q17 12 23 16Q29 12 34 16Q39 12 44 16" fill="none" stroke="#fff" stroke-width="1.5"/><line x1="23" y1="4" x2="23" y2="24" stroke="#8b6b4a" stroke-width="1.6"/></svg></div><div class="petb"></div>'
+        '<line class="petal" x1="23" y1="4" x2="23" y2="10" stroke="#aeb9d3" stroke-width="2" stroke-linecap="round"/><circle class="petant" cx="23" cy="4" r="3" fill="#ff7a8a"/>' +
+        '<rect class="petear" x="2" y="19" width="7" height="12" rx="3.5" fill="#cfd8ea" stroke="#b3bfd9" stroke-width="1"/><rect class="petear" x="37" y="19" width="7" height="12" rx="3.5" fill="#cfd8ea" stroke="#b3bfd9" stroke-width="1"/>' +
+        '<rect x="5" y="9" width="36" height="28" rx="14" fill="url(#pg2)" stroke="#bcc7de" stroke-width="1.2"/><rect x="9.5" y="13" width="27" height="19" rx="8.5" fill="#1b2338"/></svg>' +
+        '<canvas width="13" height="9"></canvas><svg class="pfx phd" viewBox="0 0 46 44" width="46" height="44"></svg></div><svg class="pfx pfa" viewBox="0 0 46 58" width="46" height="58"></svg><svg class="petum" viewBox="0 0 46 24" width="46" height="24"><path d="M2 16Q23 -8 44 16Z" fill="#ff8fa3"/><path d="M2 16Q8 12 12 16Q17 12 23 16Q29 12 34 16Q39 12 44 16" fill="none" stroke="#fff" stroke-width="1.5"/><line x1="23" y1="4" x2="23" y2="24" stroke="#8b6b4a" stroke-width="1.6"/></svg></div><div class="petb"></div>'
       document.body.appendChild(el)
       PET.el = el; PET.cv = el.querySelector("canvas"); PET.cx = PET.cv.getContext("2d"); PET.bub = el.querySelector(".petb"); PET.head = el.querySelector(".pethead"); PET.al = el.querySelector(".petarm.l"); PET.ar = el.querySelector(".petarm.r"); PET.ant = el.querySelector(".petant")
       var fl = document.createElement("canvas"); fl.width = 40; fl.height = 40; fl.className = "petfl"; document.body.appendChild(fl); PET.flEl = fl
       PET.x = Math.min(window.innerWidth - 40, 70)
+      wdDefs(); PET.wdSig = null; jrApply()
       el.addEventListener("click", function () {
         haptic("light")
         petGo("hit", 2400); petBub(tr("pet_ay"), 1100)
@@ -1290,138 +1299,40 @@
   }, 2000)
   window._pet = { P: PET, go: petGo, pli: function () { return Date.now() - PLI } }
   setTimeout(petApply, 1400)
-  // ===== TASBEH (premium, 3D marjon) =====
-  var TSP = [["سُبْحَانَ ٱللَّٰهِ", "SubhanAllah"], ["ٱلْحَمْدُ لِلَّٰهِ", "Alhamdulillah"], ["ٱللَّٰهُ أَكْبَرُ", "Allahu Akbar"], ["أَسْتَغْفِرُ ٱللَّٰهَ", "Astaghfirullah"], ["لَا إِلَٰهَ إِلَّا ٱللَّٰهُ", "La ilaha illAllah"], ["ٱللَّٰهُمَّ صَلِّ عَلَىٰ مُحَمَّدٍ", "Allohumma solli ala Muhammad"]]
-  var TSM = [["#2fbf8f", "#0b5d45"], ["#f0b35a", "#8a4b10"], ["#ef6b7a", "#7d1f33"], ["#f2eee6", "#a89f8f"], ["#7a5a45", "#2a1a12"]]
-  var TS = { rot: 0, rt: 0, raf: 0, lt: 0, dy: 0, down: false, fl: 0, ac: null, sv: 0, pop: 0 }
-  function tsS() {
-    var t = S.tsb
-    if (!t) t = S.tsb = { ph: 0, n: 0, tg: 33, th: 0, snd: 1, rd: 0, tot: 0 }
-    return t
-  }
-  function tsClick(big) {
-    var t = tsS()
-    if (!t.snd) return
-    try {
-      TS.ac = TS.ac || new (window.AudioContext || window.webkitAudioContext)()
-      var c = TS.ac, o = c.createOscillator(), g = c.createGain(), n = c.currentTime
-      o.type = "triangle"; o.frequency.setValueAtTime(big ? 620 : 1500, n); o.frequency.exponentialRampToValueAtTime(big ? 300 : 700, n + .06)
-      g.gain.setValueAtTime(big ? .22 : .12, n); g.gain.exponentialRampToValueAtTime(.001, n + (big ? .35 : .07))
-      o.connect(g); g.connect(c.destination); o.start(n); o.stop(n + (big ? .4 : .09))
-    } catch (e) {}
-  }
-  function tsStep() {
-    if (!U.tsb) {
-      var dd = S.daily
-      if (!dd || !dd.target || dd.todayDone) return
-      TS.rt += 2 * Math.PI / 33; TS.pop = 1
-      var nn = (dd.draft || 0) + (dd.step || 1)
-      if (nn >= dd.target) { haptic("heavy"); tsClick(true); TS.fl = 1 } else if (nn % 33 === 0) { haptic("medium"); tsClick(true); TS.fl = .6 } else { haptic("light"); tsClick(false) }
-      var mb = document.getElementById("mjtap"); if (mb) mb.click()
-      return
-    }
-    var t = tsS()
-    jrZ(1); t.n++; t.tot++; TS.rt += 2 * Math.PI / 33; TS.pop = 1
-    var done = t.tg > 0 && t.n >= t.tg
-    if (done) { t.n = 0; t.rd++; TS.fl = 1; haptic("heavy"); tsClick(true) }
-    else if (t.n % 33 === 0) { haptic("medium"); tsClick(true); TS.fl = .6 }
-    else { haptic("light"); tsClick(false) }
-    clearTimeout(TS.sv); TS.sv = setTimeout(save, 500)
-    var ne = document.getElementById("tsn"); if (ne) ne.textContent = t.n
-    var re = document.getElementById("tsr"); if (re) re.textContent = (t.tg > 0 ? "/ " + t.tg : "∞") + (t.rd ? "  ·  ×" + t.rd : "")
-  }
-  function viewTsb() {
-    var t = tsS(), i, h
-    h = '<div class="tsb"><div class="wqtop"><button class="btn small back circ" data-act="tsbClose" aria-label="back">' + ic("arrow_back") + '</button><div class="wqpill wgpill">' + ic("bubble_chart") + " " + esc(tr("tsb_t")) + '</div><div class="wqlvb">' + ic("workspace_premium") + "</div></div>"
-    h += '<div class="tsph">'
-    for (i = 0; i < TSP.length; i++) h += '<button class="tsp' + (t.ph === i ? " on" : "") + '" data-act="tsbPh" data-v="' + i + '"><span class="ar">' + TSP[i][0] + "</span></button>"
-    h += '</div><div class="tsname">' + esc(TSP[t.ph][1]) + '</div>'
-    h += '<div class="tsbox"><canvas id="tsbc" class="tsbc"></canvas><div class="tscn"><b id="tsn">' + t.n + '</b><small id="tsr">' + (t.tg > 0 ? "/ " + t.tg : "∞") + (t.rd ? "  ·  ×" + t.rd : "") + "</small></div></div>"
-    h += '<div class="tstg">'
-    var G = [33, 99, 100, 0]
-    for (i = 0; i < G.length; i++) h += '<button class="tsp sm' + (t.tg === G[i] ? " on" : "") + '" data-act="tsbTg" data-v="' + G[i] + '">' + (G[i] ? G[i] : ic("all_inclusive")) + "</button>"
-    h += '</div><div class="tsact"><button class="tsi" data-act="tsbTh" aria-label="theme">' + ic("palette") + '</button><button class="tsi" data-act="tsbSnd" aria-label="sound">' + ic(t.snd ? "volume_up" : "volume_off") + '</button><button class="tsi" data-act="tsbRs" aria-label="reset">' + ic("restart_alt") + "</button></div>"
-    h += '<p class="wghint">' + esc(tr("tsb_help")) + "</p></div>"
-    setTimeout(tsInit, 0)
-    return h
-  }
-  function tsInit() {
-    var cv = document.getElementById("tsbc")
-    if (!cv) return
-    var w = Math.min(window.innerWidth - 32, 400), dpr = Math.min(2, window.devicePixelRatio || 1)
-    cv.style.width = w + "px"; cv.style.height = Math.round(w * 1.02) + "px"; cv.width = Math.round(w * dpr); cv.height = Math.round(w * 1.02 * dpr)
-    TS.w = w; TS.h = w * 1.02; TS.dpr = dpr; TS.cv = cv
-    if (!TS.raf) { TS.lt = 0; TS.raf = requestAnimationFrame(tsFrame) }
-  }
-  function tsBead(g, x, y, r, c0, c1, glow) {
-    g.save()
-    g.shadowColor = "rgba(0,0,0,.35)"; g.shadowBlur = r * .5; g.shadowOffsetY = r * .25
-    var gr = g.createRadialGradient(x - r * .35, y - r * .4, r * .1, x, y, r)
-    gr.addColorStop(0, "#fff"); gr.addColorStop(.18, c0); gr.addColorStop(1, c1)
-    g.fillStyle = gr; g.beginPath(); g.arc(x, y, r, 0, 7); g.fill()
-    g.shadowColor = "transparent"
-    g.fillStyle = "rgba(255,255,255,.55)"; g.beginPath(); g.ellipse(x - r * .32, y - r * .4, r * .22, r * .13, -.6, 0, 7); g.fill()
-    if (glow) { g.strokeStyle = "rgba(255,215,120," + glow + ")"; g.lineWidth = r * .22; g.beginPath(); g.arc(x, y, r * 1.12, 0, 7); g.stroke() }
-    g.restore()
-  }
-  function tsFrame(ts) {
-    var cv = document.getElementById("tsbc")
-    if (!cv) { TS.raf = 0; return }
-    TS.raf = requestAnimationFrame(tsFrame)
-    if (document.hidden) { TS.lt = 0; return }
-    var dt = TS.lt ? Math.min(.05, (ts - TS.lt) / 1000) : .016
-    TS.lt = ts
-    TS.rot += (TS.rt - TS.rot) * Math.min(1, dt * 12)
-    TS.pop = Math.max(0, TS.pop - dt * 4); TS.fl = Math.max(0, TS.fl - dt * 1.3)
-    var g = cv.getContext("2d"), W = TS.w, H = TS.h, t = tsS(), m = TSM[t.th % TSM.length], N = 33, cx = W / 2, cy = H * .47, Rx = W * .36, Ry = W * .33, i, L = []
-    g.setTransform(TS.dpr, 0, 0, TS.dpr, 0, 0); g.clearRect(0, 0, W, H)
-    // yaltiroq halqa soyasi
-    var bg = g.createRadialGradient(cx, cy, W * .1, cx, cy, W * .55); bg.addColorStop(0, "rgba(255,215,120," + (.1 + TS.fl * .3) + ")"); bg.addColorStop(1, "rgba(255,215,120,0)")
-    g.fillStyle = bg; g.fillRect(0, 0, W, H)
-    for (i = 0; i < N; i++) {
-      var th = TS.rot + i * 2 * Math.PI / N + Math.PI / 2, z = Math.sin(th), s = .5 + .5 * (z + 1) / 2
-      L.push({ i: i, x: cx + Rx * Math.cos(th), y: cy + Ry * z * .92 - Ry * .08 * (1 - z) , z: z, s: s })
-    }
-    // ip
-    g.strokeStyle = "rgba(120,100,80,.55)"; g.lineWidth = 2; g.beginPath()
-    for (i = 0; i <= 64; i++) { var a = i / 64 * 2 * Math.PI, zz = Math.sin(a); g.lineTo(cx + Rx * Math.cos(a), cy + Ry * zz * .92 - Ry * .08 * (1 - zz)) }
-    g.stroke()
-    L.sort(function (p, q) { return p.z - q.z })
-    for (i = 0; i < L.length; i++) {
-      var b = L[i], r = W * .037 * b.s * (b.i === 0 ? 1.28 : 1), front = b.z > .994
-      if (b.i === 0) {
-        // imom munchoq + popuk
-        if (b.z > -.2) { g.save(); g.strokeStyle = "#e0b04a"; g.lineWidth = 3; g.beginPath(); g.moveTo(b.x, b.y + r); g.lineTo(b.x, b.y + r * 3.2); g.stroke(); var tg2 = g.createLinearGradient(0, b.y + r * 2.6, 0, b.y + r * 6.2); tg2.addColorStop(0, "#f6d27a"); tg2.addColorStop(1, "#b9822a"); g.fillStyle = tg2; g.beginPath(); g.moveTo(b.x - r * .7, b.y + r * 3); g.lineTo(b.x + r * .7, b.y + r * 3); g.lineTo(b.x + r * 1.1, b.y + r * 6.2); g.lineTo(b.x - r * 1.1, b.y + r * 6.2); g.closePath(); g.fill(); g.restore() }
-        tsBead(g, b.x, b.y, r, "#f6d27a", "#a8741f", 0)
-      } else tsBead(g, b.x, b.y, r * (front ? 1 + TS.pop * .12 : 1), m[0], m[1], front ? .55 + TS.fl * .4 : 0)
-    }
-  }
-  function tsPtr() {
-    document.addEventListener("pointerdown", function (e) {
-      var c = e.target.closest && e.target.closest("#tsbc")
-      if (!c) return
-      TS.down = true; TS.dy = 0; TS.sy = e.clientY; TS.mv = 0
-      try { c.setPointerCapture(e.pointerId) } catch (x) {}
-      e.preventDefault()
-    })
-    document.addEventListener("pointermove", function (e) {
-      if (!TS.down) return
-      var d = e.clientY - TS.sy; TS.sy = e.clientY; TS.mv += Math.abs(d); TS.dy += Math.abs(d)
-      while (TS.dy >= 34) { TS.dy -= 34; tsStep() }
-    })
-    document.addEventListener("pointerup", function () { if (!TS.down) return; TS.down = false; if (TS.mv < 8) tsStep() })
-    document.addEventListener("pointercancel", function () { TS.down = false })
-  }
-  tsPtr()
   // ===== KUNLIK YO'L (seriya, vazifalar, kartalar, garderob) =====
-  var JRA = [["cap", "jr_cap", 120, "school"], ["scarf", "jr_scarf", 200, "checkroom"], ["glass", "jr_glass", 300, "visibility"], ["crown", "jr_crown", 600, "workspace_premium"]]
   var JRP = { a: 10, z: 15, g: 20 }
-  function jrS() { var j = S.jr; if (!j) j = S.jr = { d: {}, st: 0, bs: 0, last: "", nur: 0, cards: [], own: [], eq: {} }; return j }
+  function jrS() {
+    var j = S.jr; if (!j) j = S.jr = { d: {}, st: 0, bs: 0, last: "", nur: 0, cards: [], own: [], eq: {} }
+    if (!j.wd) {
+      var M = { cap: ["head", "doppi_oq"], scarf: ["head", "kufiya"], glass: ["acc", "glasses"], crown: ["head", "toj_oltin"] }, ne = {}, no = [], k
+      for (k = 0; k < (j.own || []).length; k++) { var m = M[j.own[k]]; if (m && no.indexOf(m[1]) < 0) no.push(m[1]) }
+      for (k in (j.eq || {})) if (j.eq[k] && M[k]) ne[M[k][0]] = M[k][1]
+      j.own = no; j.eq = ne; j.wd = 1
+    }
+    if (j.wd < 3) {
+      var RM = { set_hijab: 1000, set_tavof: 1000 }, ow = [], q
+      for (q = 0; q < j.own.length; q++) { if (RM[j.own[q]]) j.nur += RM[j.own[q]]; else ow.push(j.own[q]) }
+      delete j.eq.set; j.own = ow; j.wd = 3
+    }
+    return j
+  }
   function jrKey(off) { var d = new Date(); d.setDate(d.getDate() + off); return d.getFullYear() + "-" + ("0" + (d.getMonth() + 1)).slice(-2) + "-" + ("0" + d.getDate()).slice(-2) }
   function jrDay() { var j = jrS(), k = todayStr(); return j.d[k] || (j.d[k] = { a: 0, z: 0, g: 0, zn: 0 }) }
   function jrName() { var d = new Date(), s = Math.floor((Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()) - Date.UTC(d.getFullYear(), 0, 0)) / 864e5); return s % 99 }
   function jrCnt() { var x = jrDay(); return x.a + x.z + x.g }
   function jrStreak() { var j = jrS(); return (j.last === todayStr() || j.last === jrKey(-1)) ? j.st : 0 }
+  var JDW = { n: 0, t: 0 }
+  function jrDwell() {
+    var want = function () { return U.detail && U.detail === jrName() + 1 && !jrDay().a }
+    if (!want()) { if (JDW.t) { clearInterval(JDW.t); JDW.t = 0 } JDW.n = 0; return }
+    if (JDW.t) return
+    JDW.n = 0
+    JDW.t = setInterval(function () {
+      if (!want()) { clearInterval(JDW.t); JDW.t = 0; JDW.n = 0; return }
+      if (document.hidden) return
+      if (++JDW.n >= 15) { clearInterval(JDW.t); JDW.t = 0; JDW.n = 0; jrMark("a") }
+    }, 1000)
+  }
   function jrMark(k) {
     var j = jrS(), x = jrDay()
     if (x[k]) return
@@ -1440,13 +1351,12 @@
     save()
     setTimeout(function () {
       if (PET.el && petOn()) { petGo("cheer", 3400); petBub(tr(all ? "jr_done" : "jr_ok"), 3600) }
-      if (U.jr && !U.detail && !U.wg && !U.tsb) render()
+      if (U.jr && !U.detail && !U.wg) render()
     }, 50)
   }
   function jrZ(n) { var x = jrDay(); x.zn = (x.zn || 0) + n; if (x.zn >= 33) jrMark("z") }
   function viewJr() {
     if (U.jr === "cards") return viewJrCards()
-    if (U.jr === "shop") return viewJrShop()
     var j = jrS(), prem = isPrem(), x = jrDay(), ni = jrName(), i, h, st = jrStreak(), nm = D.names[ni]
     h = '<div class="jr"><div class="wqtop"><button class="btn small back circ" data-act="jrClose" aria-label="back">' + ic("arrow_back") + '</button><div class="wqpill wgpill">' + ic("local_fire_department") + " " + esc(tr("jr_t")) + '</div><div class="wqlvb"><b>' + j.nur + "</b>" + ic("star") + "</div></div>"
     var wkn = 0, INI = ["Y", "D", "S", "C", "P", "J", "S"], wd = ""
@@ -1468,7 +1378,7 @@
     }
     h += "</div>"
     if (!prem) h += '<div class="card jrlock">' + ic("lock") + "<span>" + esc(tr("jr_lock")) + '</span><button class="btn primary" data-act="premGo">' + ic("workspace_premium") + " Premium</button></div>"
-    h += '<div class="jrbt"><button class="btn" data-act="jrCards">' + ic("layers") + " " + esc(tr("jr_cards")) + " <span>(" + j.cards.length + "/99)</span></button><button class=\"btn\" data-act=\"jrShop\">" + ic("checkroom") + " " + esc(tr("jr_shop")) + "</button></div></div>"
+    h += '<div class="jrbt"><button class="btn" data-act="jrCards">' + ic("layers") + " " + esc(tr("jr_cards")) + " <span>(" + j.cards.length + "/99)</span></button><button class=\"btn\" data-act=\"wdGo\">" + ic("checkroom") + " " + esc(tr("jr_shop")) + "</button></div></div>"
     return h
   }
   function viewJrCards() {
@@ -1479,21 +1389,173 @@
     }
     return h + "</div></div>"
   }
-  function viewJrShop() {
-    var j = jrS(), prem = isPrem(), i, h = '<div class="jr"><div class="wqtop"><button class="btn small back circ" data-act="jrClose" aria-label="back">' + ic("arrow_back") + '</button><div class="wqpill wgpill">' + ic("checkroom") + " " + esc(tr("jr_shop")) + '</div><div class="wqlvb">' + ic("star") + "<b>" + j.nur + "</b></div></div><div class=\"jrshop\">"
-    for (i = 0; i < JRA.length; i++) {
-      var a = JRA[i], own = j.own.indexOf(a[0]) >= 0, eq = !!j.eq[a[0]]
-      h += '<div class="card jrit"><span class="jri">' + ic(a[3]) + "</span><b>" + esc(tr(a[1])) + "</b>" +
-        (own ? '<button class="btn small' + (eq ? " primary" : "") + '" data-act="jrEq" data-v="' + a[0] + '">' + esc(tr(eq ? "jr_off" : "jr_eq")) + "</button>" :
-          '<button class="btn small" data-act="jrBuy" data-v="' + a[0] + '"' + (prem && j.nur >= a[2] ? "" : " disabled") + ">" + ic("star") + " " + a[2] + "</button>") + "</div>"
+  // ===== GARDEROB (Robotcha ichida): bosh kiyim, kiyim, aksessuar, effekt =====
+  var WDT = {
+    wd_h: "Bosh kiyim|Бош кийим|Головной убор|Headwear", wd_o: "Kiyim|Кийим|Одежда|Outfit", wd_a: "Aksessuar|Аксессуар|Аксессуар|Accessory", wd_f: "Effekt|Эффект|Эффект|Effect",
+    wd_buy: "Sotib olish|Сотиб олиш|Купить|Buy", wd_on: "Kiyilgan|Кийилган|Надето|Worn", wd_pick: "Tanlang|Танланг|Выберите|Pick one", wd_rst: "Kiyilganga qaytish|Кийилганга қайтиш|К надетому|Back to worn",
+    wd_sel: "Tanlov|Танлов|Выбор|Select", wd_no: "Nur yetarli emas|Нур етарли эмас|Недостаточно света|Not enough nur", wd_done: "sotib olindi|сотиб олинди|куплено|purchased",
+    wd_gift: "Sizga 9999 nur sovg'a qilindi (test)|Сизга 9999 нур совға қилинди (тест)|Вам подарено 9999 света (тест)|You got 9999 nur (test)",
+    wdn_doppi_oq: "Oq do'ppi|Оқ дўппи|Белая тюбетейка|White skullcap", wdn_doppi_chust: "Chust do'ppi|Чуст дўппи|Чустская тюбетейка|Chust skullcap", wdn_salla_shoh: "Shohona salla|Шоҳона салла|Царская чалма|Royal turban",
+    wdn_toj_oltin: "Oltin toj|Олтин тож|Золотая корона|Golden crown", wdn_kufiya: "Kufiya|Куфия|Куфия|Keffiyeh", wdn_halo_nur: "Nurli halo|Нурли ҳало|Светлый нимб|Light halo",
+    wdn_korpus_std: "Standart korpus|Стандарт корпус|Стандартный корпус|Default body", wdn_chopon_zar: "Zarbof chopon|Зарбоф чопон|Парчовый чапан|Brocade robe", wdn_zirh_carbon: "Qora zirh|Қора зирҳ|Чёрная броня|Carbon armor",
+    wdn_yaktak_oq: "Oq yaktak|Оқ яктак|Белый яктак|White yaktak", wdn_kaftan_sulton: "Sulton kaftani|Султон кафтани|Кафтан султана|Sultan kaftan", wdn_nimcha_zumrad: "Zumrad nimcha|Зумрад нимча|Изумрудная безрукавка|Emerald vest",
+    wdn_glasses: "Ko'zoynak|Кўзойнак|Очки|Glasses", wdn_tasbeh_elek: "Elektron tasbeh|Электрон тасбеҳ|Электронные чётки|E-tasbih", wdn_mushaf_kitob: "Kichik mushaf|Кичик мусҳаф|Малый мусхаф|Mini Mushaf",
+    wdn_fonus_qadim: "Qadimiy fonus|Қадимий фонус|Старинный фонарь|Old lantern", wdn_qalam_oltin: "Oltin qalam|Олтин қалам|Золотое перо|Golden pen", wdn_nishon_yulduz: "Yulduz nishoni|Юлдуз нишони|Знак-звезда|Star badge",
+    wdn_eff_zumrad: "Zumrad uchqun|Зумрад учқун|Изумрудные искры|Emerald sparks", wdn_eff_qanot: "Oltin qanot|Олтин қанот|Золотые крылья|Golden wings", wdn_eff_oy: "Yarim oy nuri|Ярим ой нури|Свет полумесяца|Crescent glow",
+    wdn_eff_qor: "Qor uchqunlari|Қор учқунлари|Снежные искры|Snow sparks", wdn_eff_halqa: "Nurli halqa|Нурли ҳалқа|Светлое кольцо|Light ring"
+  }
+  Object.keys(WDT).forEach(function (k) { TXT[k] = WDT[k] })
+  var WDC = [["head", "wd_h", "school"], ["outfit", "wd_o", "checkroom"], ["acc", "wd_a", "visibility"], ["fx", "wd_f", "auto_awesome"]]
+  var WDI = [
+    ["doppi_oq", "head", 0, '<svg viewBox="0 0 40 40"><path d="M8 26 Q20 14 32 26 L30 30 Q20 26 10 30 Z" fill="#F8FAFC" stroke="#94A3B8" stroke-width="1.2"/><path d="M14 24 Q20 20 26 24" fill="none" stroke="#10B981" stroke-width="1.5"/></svg>'],
+    ["doppi_chust", "head", 0, '<svg viewBox="0 0 40 40"><path d="M8 26 Q20 14 32 26 L30 30 Q20 26 10 30 Z" fill="#0F172A" stroke="#475569" stroke-width="1.2"/><path d="M13 24 C15 21, 17 25, 19 23 M21 23 C23 25, 25 21, 27 24" fill="none" stroke="#FFFFFF" stroke-width="1.4" stroke-linecap="round"/></svg>'],
+    ["salla_shoh", "head", 150, '<svg viewBox="0 0 40 40"><ellipse cx="20" cy="22" rx="13" ry="9" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="1"/><path d="M9 20 Q20 26 31 20 M11 17 Q20 22 29 17" fill="none" stroke="#10B981" stroke-width="1.5"/><circle cx="20" cy="18" r="2.5" fill="#F59E0B"/></svg>'],
+    ["toj_oltin", "head", 400, '<svg viewBox="0 0 40 40"><polygon points="8,28 10,14 16,21 20,11 24,21 30,14 32,28" fill="#F59E0B" stroke="#FEF08A" stroke-width="1"/><circle cx="20" cy="23" r="2" fill="#10B981"/></svg>'],
+    ["kufiya", "head", 100, '<svg viewBox="0 0 40 40"><path d="M10 26 C10 15, 30 15, 30 26 Z" fill="#E2E8F0" stroke="#94A3B8" stroke-width="1.2"/><line x1="11" y1="23" x2="29" y2="23" stroke="#10B981" stroke-width="1.5" stroke-dasharray="2 2"/></svg>'],
+    ["halo_nur", "head", 300, '<svg viewBox="0 0 40 40"><ellipse cx="20" cy="20" rx="13" ry="5" fill="none" stroke="#10B981" stroke-width="2.5"/><ellipse cx="20" cy="20" rx="13" ry="5" fill="none" stroke="#A7F3D0" stroke-width="1" stroke-dasharray="4 3"/></svg>'],
+    ["korpus_std", "outfit", 0, '<svg viewBox="0 0 40 40"><rect x="10" y="10" width="20" height="20" rx="6" fill="#F8FAFC" stroke="#94A3B8" stroke-width="1.2"/><rect x="15" y="16" width="10" height="6" rx="2" fill="#0F172A"/></svg>'],
+    ["chopon_zar", "outfit", 250, '<svg viewBox="0 0 40 40"><path d="M9 12 L16 10 L20 18 L24 10 L31 12 L33 30 L7 30 Z" fill="#065F46" stroke="#F59E0B" stroke-width="1.5"/><line x1="20" y1="18" x2="20" y2="30" stroke="#F59E0B" stroke-width="1.5"/></svg>'],
+    ["zirh_carbon", "outfit", 300, '<svg viewBox="0 0 40 40"><rect x="9" y="10" width="22" height="20" rx="6" fill="#1E293B" stroke="#10B981" stroke-width="1.4"/><path d="M14 16 L20 21 L26 16" fill="none" stroke="#10B981" stroke-width="1.6"/></svg>'],
+    ["yaktak_oq", "outfit", 180, '<svg viewBox="0 0 40 40"><path d="M10 11 L30 11 L32 30 L8 30 Z" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.2"/><line x1="20" y1="11" x2="20" y2="23" stroke="#94A3B8" stroke-width="1.5"/></svg>'],
+    ["kaftan_sulton", "outfit", 450, '<svg viewBox="0 0 40 40"><path d="M8 12 L16 10 L20 17 L24 10 L32 12 L34 30 L6 30 Z" fill="#1E3A8A" stroke="#F59E0B" stroke-width="1.6"/><circle cx="20" cy="23" r="2" fill="#F59E0B"/></svg>'],
+    ["nimcha_zumrad", "outfit", 150, '<svg viewBox="0 0 40 40"><path d="M11 10 L17 10 L20 19 L23 10 L29 10 L29 29 L11 29 Z" fill="#10B981" stroke="#064E3B" stroke-width="1.2"/></svg>'],
+    ["glasses", "acc", 0, '<svg viewBox="0 0 40 40"><rect x="6" y="15" width="12" height="9" rx="2.5" fill="#0F172A" stroke="#10B981" stroke-width="1.4"/><rect x="22" y="15" width="12" height="9" rx="2.5" fill="#0F172A" stroke="#10B981" stroke-width="1.4"/><line x1="18" y1="18" x2="22" y2="18" stroke="#10B981" stroke-width="1.5"/></svg>'],
+    ["tasbeh_elek", "acc", 120, '<svg viewBox="0 0 40 40"><circle cx="20" cy="21" r="10" fill="none" stroke="#10B981" stroke-width="2.5" stroke-dasharray="3 2.5"/><circle cx="20" cy="10" r="2.5" fill="#F59E0B"/></svg>'],
+    ["mushaf_kitob", "acc", 200, '<svg viewBox="0 0 40 40"><rect x="11" y="9" width="18" height="22" rx="2.5" fill="#065F46" stroke="#F59E0B" stroke-width="1.5"/><rect x="15" y="14" width="10" height="12" rx="1" fill="none" stroke="#FDE68A" stroke-width="1"/></svg>'],
+    ["fonus_qadim", "acc", 280, '<svg viewBox="0 0 40 40"><polygon points="15,13 25,13 27,26 13,26" fill="#F59E0B" fill-opacity="0.35" stroke="#F59E0B" stroke-width="1.5"/><circle cx="20" cy="20" r="3" fill="#FEF08A"/><path d="M16 13 Q20 7 24 13" fill="none" stroke="#F59E0B" stroke-width="1.5"/></svg>'],
+    ["qalam_oltin", "acc", 160, '<svg viewBox="0 0 40 40"><path d="M11 29 L27 11 L30 14 L14 30 Z" fill="#F59E0B" stroke="#FEF08A" stroke-width="1"/><circle cx="11" cy="29" r="1.5" fill="#10B981"/></svg>'],
+    ["nishon_yulduz", "acc", 140, '<svg viewBox="0 0 40 40"><polygon points="20,8 23,16 31,16 25,21 27,29 20,24 13,29 15,21 9,16 17,16" fill="#10B981" stroke="#A7F3D0" stroke-width="1.2"/></svg>'],
+    ["eff_zumrad", "fx", 200, '<svg viewBox="0 0 40 40"><circle cx="13" cy="15" r="2.5" fill="#10B981"/><circle cx="27" cy="13" r="3" fill="#34D399"/><circle cx="20" cy="26" r="2.5" fill="#6EE7B7"/><circle cx="12" cy="25" r="1.8" fill="#10B981"/></svg>'],
+    ["eff_qanot", "fx", 350, '<svg viewBox="0 0 40 40"><path d="M18 24 Q8 18 7 10 Q15 13 18 20 Z" fill="#F59E0B" stroke="#FDE68A" stroke-width="1"/><path d="M22 24 Q32 18 33 10 Q25 13 22 20 Z" fill="#F59E0B" stroke="#FDE68A" stroke-width="1"/></svg>'],
+    ["eff_oy", "fx", 300, '<svg viewBox="0 0 40 40"><path d="M23 10 A10 10 0 1 0 30 27 A8 8 0 1 1 23 10 Z" fill="#FDE68A"/><circle cx="27" cy="14" r="1.8" fill="#10B981"/></svg>'],
+    ["eff_qor", "fx", 150, '<svg viewBox="0 0 40 40"><line x1="20" y1="9" x2="20" y2="31" stroke="#E0F2FE" stroke-width="1.8"/><line x1="9" y1="20" x2="31" y2="20" stroke="#E0F2FE" stroke-width="1.8"/><line x1="12" y1="12" x2="28" y2="28" stroke="#BAE6FD" stroke-width="1.5"/><line x1="28" y1="12" x2="12" y2="28" stroke="#BAE6FD" stroke-width="1.5"/></svg>'],
+    ["eff_halqa", "fx", 400, '<svg viewBox="0 0 40 40"><ellipse cx="20" cy="22" rx="14" ry="6" fill="none" stroke="#10B981" stroke-width="2"/><ellipse cx="20" cy="22" rx="9" ry="3.5" fill="none" stroke="#F59E0B" stroke-width="1.5"/></svg>']
+  ]
+  var WDL = {
+    doppi_oq: '<path d="M 65 56 Q 100 32 135 56 L 131 63 Q 100 54 69 63 Z" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.2"/><path d="M 78 55 Q 100 46 122 55" fill="none" stroke="#10B981" stroke-width="1.8" stroke-dasharray="3 2"/>',
+    doppi_chust: '<path d="M 65 56 Q 100 32 135 56 L 131 63 Q 100 54 69 63 Z" fill="#0F172A" stroke="#334155" stroke-width="1.2"/><path d="M 77 54 C 81 49, 85 56, 89 52 M 96 51 C 100 46, 104 51, 108 52 M 113 54 C 117 49, 121 56, 124 52" fill="none" stroke="#FFFFFF" stroke-width="1.6" stroke-linecap="round"/>',
+    salla_shoh: '<ellipse cx="100" cy="48" rx="44" ry="18" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="1.2"/><path d="M 59 46 Q 100 58 141 46 M 64 39 Q 100 50 136 39" fill="none" stroke="#10B981" stroke-width="2"/><circle cx="100" cy="42" r="5" fill="url(#wdGold)" stroke="#FEF08A" stroke-width="1"/><line x1="100" y1="37" x2="100" y2="26" stroke="#FDE68A" stroke-width="2" stroke-linecap="round"/>',
+    toj_oltin: '<polygon points="68,54 73,31 86,43 100,25 114,43 127,31 132,54" fill="url(#wdGold)" stroke="#FEF08A" stroke-width="1.2"/><circle cx="100" cy="46" r="3" fill="#10B981"/><circle cx="82" cy="48" r="2" fill="#38BDF8"/><circle cx="118" cy="48" r="2" fill="#38BDF8"/>',
+    kufiya: '<path d="M 66 56 C 66 34, 134 34, 134 56 Z" fill="#F1F5F9" stroke="#94A3B8" stroke-width="1.2"/><line x1="68" y1="51" x2="132" y2="51" stroke="#10B981" stroke-width="2" stroke-dasharray="3 2"/>',
+    halo_nur: '<ellipse cx="100" cy="24" rx="34" ry="8" fill="none" stroke="#10B981" stroke-width="3"/><ellipse cx="100" cy="24" rx="34" ry="8" fill="none" stroke="#A7F3D0" stroke-width="1.2" stroke-dasharray="6 4"/>',
+    chopon_zar: '<path d="M 63 120 L 84 118 L 100 138 L 116 118 L 137 120 L 140 172 L 60 172 Z" fill="url(#wdEm)" stroke="url(#wdGold)" stroke-width="2"/><line x1="100" y1="138" x2="100" y2="172" stroke="url(#wdGold)" stroke-width="2.5"/><path d="M 67 165 L 133 165" stroke="#F59E0B" stroke-width="1.5" stroke-dasharray="4 3"/>',
+    zirh_carbon: '<rect x="63" y="118" width="74" height="54" rx="22" fill="url(#wdCa)" stroke="#10B981" stroke-width="1.5"/><path d="M 78 134 L 100 148 L 122 134" fill="none" stroke="#10B981" stroke-width="2.5" stroke-linecap="round"/><circle cx="100" cy="157" r="4" fill="#10B981"/>',
+    yaktak_oq: '<path d="M 63 120 L 137 120 L 139 172 L 61 172 Z" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.4"/><line x1="100" y1="120" x2="100" y2="152" stroke="#94A3B8" stroke-width="2"/><circle cx="100" cy="132" r="1.5" fill="#10B981"/><circle cx="100" cy="142" r="1.5" fill="#10B981"/>',
+    kaftan_sulton: '<path d="M 62 120 L 84 118 L 100 136 L 116 118 L 138 120 L 141 172 L 59 172 Z" fill="url(#wdNv)" stroke="url(#wdGold)" stroke-width="2.2"/><line x1="88" y1="144" x2="112" y2="144" stroke="#F59E0B" stroke-width="2"/><line x1="88" y1="154" x2="112" y2="154" stroke="#F59E0B" stroke-width="2"/>',
+    nimcha_zumrad: '<path d="M 66 119 L 85 119 L 100 142 L 115 119 L 134 119 L 134 171 L 66 171 Z" fill="#10B981" stroke="#064E3B" stroke-width="1.5"/><line x1="100" y1="142" x2="100" y2="171" stroke="#064E3B" stroke-width="2"/>',
+    glasses: '<rect x="70" y="70" width="26" height="19" rx="5" fill="#020617" fill-opacity="0.7" stroke="#10B981" stroke-width="2"/><rect x="104" y="70" width="26" height="19" rx="5" fill="#020617" fill-opacity="0.7" stroke="#10B981" stroke-width="2"/><line x1="96" y1="78" x2="104" y2="78" stroke="#10B981" stroke-width="2.2"/>',
+    tasbeh_elek: '<g transform="translate(148, 128)"><circle cx="14" cy="16" r="12" fill="none" stroke="#10B981" stroke-width="3" stroke-dasharray="3.5 2.5"/><circle cx="14" cy="3" r="3" fill="#F59E0B"/><line x1="14" y1="0" x2="14" y2="-6" stroke="#F59E0B" stroke-width="1.5"/></g>',
+    mushaf_kitob: '<g transform="translate(26, 118) rotate(-8)"><rect x="0" y="0" width="22" height="28" rx="3" fill="#065F46" stroke="#F59E0B" stroke-width="1.6"/><rect x="4" y="5" width="14" height="18" rx="1" fill="none" stroke="#FDE68A" stroke-width="1"/><circle cx="11" cy="14" r="3" fill="#F59E0B"/></g>',
+    fonus_qadim: '<g transform="translate(146, 102)"><line x1="14" y1="0" x2="14" y2="10" stroke="#F59E0B" stroke-width="1.5"/><polygon points="7,10 21,10 24,28 4,28" fill="#F59E0B" fill-opacity="0.35" stroke="#F59E0B" stroke-width="1.5"/><circle cx="14" cy="19" r="4.5" fill="#FEF08A"/></g>',
+    qalam_oltin: '<g transform="translate(144, 116)"><path d="M 4 32 L 24 6 L 28 9 L 8 34 Z" fill="url(#wdGold)" stroke="#FEF08A" stroke-width="1"/><circle cx="4" cy="34" r="2" fill="#10B981"/></g>',
+    nishon_yulduz: '<polygon points="100,130 103,138 111,138 105,143 107,151 100,146 93,151 95,143 89,138 97,138" fill="#10B981" stroke="#FEF08A" stroke-width="1.2"/>'
+  }
+  var WDFXF = {
+    eff_zumrad: '<circle cx="42" cy="75" r="3" fill="#10B981" class="wds wds1"/><circle cx="160" cy="68" r="3.5" fill="#34D399" class="wds wds2"/><circle cx="38" cy="148" r="2.5" fill="#6EE7B7" class="wds wds3"/><circle cx="162" cy="155" r="3" fill="#10B981" class="wds wds1"/><polygon points="154,90 156,95 161,97 156,99 154,104 152,99 147,97 152,95" fill="#A7F3D0" class="wds wds2"/>',
+    eff_qor: '<g stroke="#E0F2FE" stroke-width="1.5" stroke-linecap="round"><g transform="translate(42, 65)"><g class="wds wds1"><line x1="-4" y1="0" x2="4" y2="0"/><line x1="0" y1="-4" x2="0" y2="4"/></g></g><g transform="translate(156, 80)"><g class="wds wds2"><line x1="-5" y1="0" x2="5" y2="0"/><line x1="0" y1="-5" x2="0" y2="5"/></g></g><g transform="translate(46, 155)"><g class="wds wds3"><line x1="-4" y1="0" x2="4" y2="0"/><line x1="0" y1="-4" x2="0" y2="4"/></g></g><g transform="translate(152, 152)"><g class="wds wds1"><line x1="-4" y1="0" x2="4" y2="0"/><line x1="0" y1="-4" x2="0" y2="4"/></g></g></g>'
+  }
+  var WDFXB = {
+    eff_qanot: '<g class="wdfl"><path d="M 62 125 Q 22 105 18 72 Q 46 86 64 114 Z" fill="url(#wdGold)" fill-opacity="0.45" stroke="#FDE68A" stroke-width="1.3"/><path d="M 138 125 Q 178 105 182 72 Q 154 86 136 114 Z" fill="url(#wdGold)" fill-opacity="0.45" stroke="#FDE68A" stroke-width="1.3"/></g>',
+    eff_oy: '<circle cx="100" cy="95" r="62" fill="#FDE68A" fill-opacity="0.06"/><path d="M 118 32 A 54 54 0 1 0 148 134 A 44 44 0 1 1 118 32 Z" fill="#FDE68A" fill-opacity="0.32"/>'
+  }
+  function wdDefs() {
+    if (document.getElementById("wdDefs")) return
+    var d = document.createElement("div"); d.id = "wdDefs"; d.setAttribute("aria-hidden", "true"); d.style.cssText = "position:absolute;width:0;height:0;overflow:hidden"
+    d.innerHTML = '<svg width="0" height="0"><defs><radialGradient id="wdPed" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#10B981" stop-opacity="0.45"/><stop offset="70%" stop-color="#10B981" stop-opacity="0.1"/><stop offset="100%" stop-color="#10B981" stop-opacity="0"/></radialGradient>' +
+      '<linearGradient id="wdBody" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#FFFFFF"/><stop offset="65%" stop-color="#E2E8F0"/><stop offset="100%" stop-color="#94A3B8"/></linearGradient>' +
+      '<linearGradient id="wdVis" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#0F172A"/><stop offset="100%" stop-color="#020617"/></linearGradient>' +
+      '<linearGradient id="wdGold" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#FDE68A"/><stop offset="50%" stop-color="#F59E0B"/><stop offset="100%" stop-color="#B45309"/></linearGradient>' +
+      '<linearGradient id="wdEm" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#059669"/><stop offset="100%" stop-color="#064E3B"/></linearGradient>' +
+      '<linearGradient id="wdCa" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#334155"/><stop offset="100%" stop-color="#0F172A"/></linearGradient>' +
+      '<linearGradient id="wdNv" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#1E3A8A"/><stop offset="100%" stop-color="#0F172A"/></linearGradient>' + "</defs></svg>"
+    document.body.appendChild(d)
+  }
+  function wdItem(id) { for (var i = 0; i < WDI.length; i++) if (WDI[i][0] === id) return WDI[i]; return null }
+  function wdOk() { return isPrem() || HCH.admin }
+  function wdOwn(it) { return it[2] === 0 || jrS().own.indexOf(it[0]) >= 0 }
+  function wdLay(eq, pet) {
+    var o = { fb: "", ff: "", out: "", head: "", glass: "", hold: "", ant: true, ear: true }, h = eq.head || "", ou = eq.outfit && eq.outfit !== "korpus_std" ? eq.outfit : "", a = eq.acc || "", f = eq.fx || ""
+    if (h) { o.head = WDL[h] || ""; o.ant = false }
+    if (ou) { o.out = WDL[ou] || ""; o.ant = false }
+    if (a === "glasses") o.glass = WDL.glasses; else if (a) o.hold = WDL[a] || ""
+    if (f === "eff_halqa") o.fb = pet ? '<ellipse cx="100" cy="153" rx="55" ry="11" fill="none" stroke="#10B981" stroke-width="4" stroke-dasharray="20 10"/><ellipse cx="100" cy="153" rx="42" ry="8" fill="none" stroke="#F59E0B" stroke-width="3.5"/>' : '<ellipse cx="100" cy="192" rx="68" ry="16" fill="none" stroke="#10B981" stroke-width="1.8" stroke-dasharray="10 5"/><ellipse cx="100" cy="192" rx="52" ry="12" fill="none" stroke="#F59E0B" stroke-width="1.5"/>'
+    else if (WDFXB[f]) o.fb = WDFXB[f]
+    if (WDFXF[f]) o.ff = WDFXF[f]
+    return o
+  }
+  function wdPrev(eq) {
+    var L = wdLay(eq, false)
+    return '<svg class="wdsv" viewBox="0 0 200 220" aria-hidden="true"><ellipse cx="100" cy="196" rx="58" ry="14" fill="url(#wdPed)"/><ellipse cx="100" cy="196" rx="42" ry="9" fill="none" stroke="#10B981" stroke-width="1.2" stroke-opacity=".45" stroke-dasharray="6 4"/>' + L.fb +
+      '<g class="wdfl"><rect x="48" y="124" width="13" height="28" rx="6.5" fill="url(#wdBody)" stroke="#CBD5E1" stroke-width="1" transform="rotate(12 54 124)"/><rect x="139" y="124" width="13" height="28" rx="6.5" fill="url(#wdBody)" stroke="#CBD5E1" stroke-width="1" transform="rotate(-12 145 124)"/>' +
+      '<rect x="64" y="118" width="72" height="54" rx="22" fill="url(#wdBody)" stroke="#CBD5E1" stroke-width="1.2"/><rect x="82" y="132" width="36" height="20" rx="8" fill="#0F172A"/><circle cx="94" cy="142" r="3" fill="#38BDF8"/><circle cx="106" cy="142" r="3" fill="#10B981"/>' + L.out +
+      (L.ant ? '<line x1="100" y1="54" x2="100" y2="38" stroke="#94A3B8" stroke-width="3" stroke-linecap="round"/><circle cx="100" cy="35" r="5" fill="#10B981" stroke="#ECFDF5" stroke-width="1.5"/>' : "") +
+      '<rect x="54" y="52" width="92" height="62" rx="28" fill="url(#wdBody)" stroke="#CBD5E1" stroke-width="1.5"/>' + (L.ear ? '<rect x="48" y="72" width="7" height="22" rx="3.5" fill="#64748B"/><rect x="145" y="72" width="7" height="22" rx="3.5" fill="#64748B"/>' : "") +
+      '<rect x="64" y="62" width="72" height="42" rx="18" fill="url(#wdVis)"/><ellipse cx="85" cy="80" rx="6" ry="7.5" fill="#38BDF8"/><circle cx="87" cy="77" r="2" fill="#FFFFFF"/><ellipse cx="115" cy="80" rx="6" ry="7.5" fill="#38BDF8"/><circle cx="117" cy="77" r="2" fill="#FFFFFF"/><path d="M 94 91 Q 100 96 106 91" fill="none" stroke="#38BDF8" stroke-width="2.2" stroke-linecap="round"/>' +
+      L.head + L.glass + L.hold + "</g>" + L.ff + "</svg>"
+  }
+  function wdU() { if (!U.wd) U.wd = { cat: "head", sel: "" }; return U.wd }
+  function wdNm(id) { return tr("wdn_" + id) }
+  function wdInner() {
+    var j = jrS(), u = wdU(), ok = wdOk(), eq = j.eq, it = u.sel ? wdItem(u.sel) : null, i, h, pe = { head: eq.head, outfit: eq.outfit, acc: eq.acc, fx: eq.fx }, c, cn = 0, cc = 0
+    if (it) pe[it[1]] = it[0]
+    var list = WDI.filter(function (q) { return q[1] === u.cat })
+    for (i = 0; i < list.length; i++) { cc++; if (wdOwn(list[i])) cn++ }
+    h = '<div class="wdtop"><div class="wqpill wgpill">' + ic("checkroom") + " " + esc(tr("jr_shop")) + '</div><div class="wqlvb" id="wdbal">' + ic("star") + "<b>" + j.nur + "</b></div></div><div class=\"wdtabs\">"
+    for (i = 0; i < WDC.length; i++) h += '<button class="wdtab' + (WDC[i][0] === u.cat ? " on" : "") + '" data-act="wdCat" data-v="' + WDC[i][0] + '">' + ic(WDC[i][2]) + "<span>" + esc(tr(WDC[i][1])) + "</span></button>"
+    h += '</div><div class="wdmain"><div class="wdst" id="wdst"><div class="wdsh"><div class="wdsn"><small>' + esc(tr(WDC.filter(function (q) { return q[0] === u.cat })[0][1])) + "</small><b>" + (it ? esc(wdNm(it[0])) : "&nbsp;") + '</b></div><button class="wdrs" data-act="wdRst" aria-label="reset"' + (it ? "" : " disabled") + ">" + ic("restart_alt") + "</button></div>" + wdPrev(pe)
+    var bt = "", cls = "wdgo"
+    if (!it) { bt = '<span>' + esc(tr("wd_pick")) + "</span>"; cls += " dis" }
+    else if (!wdOwn(it)) { bt = ic("star") + "<span>" + esc(tr("wd_buy")) + " · " + it[2] + "</span>"; cls += " buy" + (ok && j.nur >= it[2] ? "" : " dis") }
+    else if (eq[u.cat] === it[0]) { if (it[2] === 0 && it[0] === "korpus_std") { bt = ic("check") + "<span>" + esc(tr("wd_on")) + "</span>"; cls += " on dis" } else { bt = "<span>" + esc(tr("jr_off")) + "</span>"; cls += " off" } }
+    else { bt = ic("checkroom") + "<span>" + esc(tr("jr_eq")) + "</span>"; cls += " eq" + (ok ? "" : " dis") }
+    h += '<button class="' + cls + '" data-act="wdAct">' + bt + '</button></div><div class="wdgr"><div class="wdgh"><span>' + esc(tr("wd_sel")) + "</span><b>" + cn + "/" + cc + '</b></div><div class="wdcells">'
+    for (i = 0; i < list.length; i++) {
+      var q = list[i], own = wdOwn(q), eqd = eq[u.cat] === q[0]
+      h += '<button class="wdc' + (q[0] === u.sel ? " sel" : "") + (own ? " own" : "") + '" data-act="wdSel" data-v="' + q[0] + '"><span class="wdth">' + q[3] + "</span>" + (eqd ? '<i class="wdck">' + ic("check") + "</i>" : "") +
+        (own ? "<small>" + esc(wdNm(q[0]).split(" ")[0]) + "</small>" : '<small class="wdpr">' + ic("lock") + q[2] + "</small>") + "</button>"
     }
-    if (!prem) h += '<div class="card jrlock">' + ic("lock") + "<span>" + esc(tr("jr_lock")) + '</span><button class="btn primary" data-act="premGo">' + ic("workspace_premium") + " Premium</button></div>"
-    return h + "</div></div>"
+    h += "</div></div></div>"
+    if (!ok) h += '<div class="card jrlock">' + ic("lock") + "<span>" + esc(tr("jr_lock")) + '</span><button class="btn primary" data-act="premGo">' + ic("workspace_premium") + " Premium</button></div>"
+    return h
+  }
+  function wdPaint() { var el = document.getElementById("wd"); if (el) el.innerHTML = wdInner() }
+  function robotHtml() {
+    return '<div class="shead"><button class="btn small back circ" data-act="moreBack" aria-label="back">' + ic("arrow_back") + "</button><h1>" + ic("smart_toy") + " " + esc(tr("pet_t")) + "</h1><span></span></div>" +
+      '<div class="list"><div class="rrow">' + ic("smart_toy") + "<span>" + esc(tr("pet_t")) + '</span><button class="tgl' + (S.pet === false ? "" : " on") + '" data-act="petT" aria-label="pet"><i></i></button></div></div><div class="wd" id="wd">' + wdInner() + "</div>"
+  }
+  function wdAct() {
+    var j = jrS(), u = wdU(), it = u.sel ? wdItem(u.sel) : null
+    if (!it) return
+    if (!wdOwn(it)) {
+      if (!wdOk()) { pToast(tr("jr_lock")); return }
+      if (j.nur < it[2]) { toast(tr("wd_no")); return }
+      j.nur -= it[2]; j.own.push(it[0]); wdWear(j, it); save(); jrApply(); haptic("medium"); wdPaint()
+      var st = document.getElementById("wdst"); if (st) st.classList.add("flash")
+      toast(wdNm(it[0]) + " — " + tr("wd_done"))
+      return
+    }
+    if (!wdOk()) { pToast(tr("jr_lock")); return }
+    if (j.eq[it[1]] === it[0]) { if (it[0] === "korpus_std") return; j.eq[it[1]] = "" } else wdWear(j, it)
+    save(); jrApply(); haptic("light"); wdPaint()
+  }
+  function wdWear(j, it) { j.eq[it[1]] = it[0] }
+  function wdGift() {
+    var j = jrS()
+    if (j.gift1) return
+    j.gift1 = 1; j.nur += 9999; save()
+    toast(tr("wd_gift")); if (U.tab === "more" && U.more === "robot") wdPaint()
   }
   function jrApply() {
     if (!PET.el) return
-    var j = jrS(), p = isPrem()
-    JRA.forEach(function (a) { PET.el.classList.toggle("a-" + a[0], !!(p && j.eq[a[0]])) })
+    var j = jrS(), ok = wdOk(), eq = ok ? j.eq : {}, sig = [eq.head, eq.outfit, eq.acc, eq.fx].join("|")
+    if (PET.wdSig === sig) return
+    PET.wdSig = sig
+    var L = wdLay(eq, true), T = "translate(23 38) scale(.4) translate(-100 -118)", q = function (s) { return PET.el.querySelector(s) }
+    q(".pfxb").innerHTML = '<g transform="' + T + '">' + L.fb + "</g>"
+    q(".pout").innerHTML = '<g transform="translate(23 38) scale(.4 .37) translate(-100 -118)">' + L.out + "</g>"
+    q(".phd").innerHTML = '<g transform="translate(23 9) scale(.4 .45) translate(-100 -52)">' + L.head + L.glass + "</g>"
+    q(".pfa").innerHTML = '<g transform="' + T + '">' + L.hold + L.ff + "</g>"
+    PET.el.classList.toggle("noant", !L.ant); PET.el.classList.toggle("noear", !L.ear)
   }
   setInterval(jrApply, 1500)
   setInterval(function () {
@@ -1504,7 +1566,7 @@
       PET.wxText = st > 0 ? tr("jr_rm").replace("{n}", st) : tr("jr_rm0"); PET.wxCat = 0; PET.wxAct = "jr"
       petGo("talk", 8000)
     } else if (Date.now() - (PET.tipAt || (PET.tipAt = Date.now() - 540000)) > 600000 && Date.now() - (PET.wxSpoke || 0) > 20000 && Date.now() - (PET.jrSpoke || 0) > 60000) {
-      var TP = [["mj", "tip_mj"], ["jr", "tip_jr"], ["wg", "tip_wg"], ["goal", "tip_goal"], ["prem", "tip_prem"]], q, tp = null
+      var TP = [["jr", "tip_jr"], ["wg", "tip_wg"], ["goal", "tip_goal"], ["prem", "tip_prem"]], q, tp = null
       for (q = 0; q < TP.length && !tp; q++) {
         var c = TP[((S.tipI | 0) + q) % TP.length]
         if ((c[0] === "goal" && hasGoal()) || (c[0] === "prem" && isPrem())) continue
@@ -1618,11 +1680,12 @@
     return '<div class="hpanel"><div class="hptg" role="group"><button data-act="hlay" data-v="grid" class="' + (lay === "grid" ? "on" : "") + '" aria-label="grid">' + ic("grid_view") + '</button><button data-act="hlay" data-v="list" class="' + (lay === "list" ? "on" : "") + '" aria-label="list">' + ic("view_list") + "</button></div>" +
       '<div class="hpg ' + lay + '"><button class="hikrow hcard" data-act="hikmat"><span id="hph" class="hph2" aria-label="' + esc(tr("hikmat")) + '"><span></span><span></span></span>' + ic("chevron_right") + "</button>" +
       '<button class="hikrow hcard wqc' + (w.on && !w.fin ? " act" : "") + '" data-act="waqOpen"><span class="hct"><b>' + ic("bedtime") + " " + esc(tr("waq_s")) + "</b></span>" + ic("chevron_right") + "</button>" +
-      '<button class="hikrow hcard wgcard" data-act="wgOpen"><span class="hct"><b>' + ic("extension") + " " + esc(tr("wg_t")) + "</b><small>" + (wgS().lv + 1) + " / 40</small></span>" + ic("chevron_right") + "</button>" +
       '<button class="hikrow hcard jrcard" data-act="jrOpen"><span class="hct"><b>' + ic("local_fire_department") + " " + esc(tr("jr_t")) + "</b><small>" + jrStreak() + " " + esc(tr("jr_days")) + " \u00b7 " + jrCnt() + '/3</small><span class="jrmini"><i class="' + (jrDay().a ? "on" : "") + '"></i><i class="' + (jrDay().z ? "on" : "") + '"></i><i class="' + (jrDay().g ? "on" : "") + '"></i></span></span>' + ic("chevron_right") + "</button>" +
+      '<button class="hikrow hcard mncard" data-act="mnOpenPage"><span class="hct"><b>' + ic("favorite") + " " + esc(tr("mn_t")) + "</b><small>" + esc(tr("mn_sub")) + "</small></span>" + ic(isPrem() ? "chevron_right" : "lock") + "</button></div></div>" +
+      '<div class="hpanel gpanel"><span class="hpl">' + ic("sports_esports") + " " + esc(tr("gm_t")) + '</span><div class="hpg ' + lay + '">' +
+      '<button class="hikrow hcard wgcard" data-act="wgOpen"><span class="hct"><b>' + ic("extension") + " " + esc(tr("wg_t")) + "</b><small>" + (wgS().lv + 1) + " / 40</small></span>" + ic("chevron_right") + "</button>" +
       '<button class="hikrow hcard mmcard" data-act="mmOpen"><span class="hct"><b>' + ic("psychology") + " " + esc(tr("mm_t")) + "</b><small>" + esc(tr("mm_sub")) + "</small></span>" + ic(isPrem() ? "chevron_right" : "lock") + "</button>" +
-      '<button class="hikrow hcard achcard" data-act="achOpen"><span class="hct"><b>' + ic("military_tech") + " " + esc(tr("ac_t")) + "</b><small>" + achDone() + "/" + ACH.length + (achClaimable() ? " \u00b7 +" + achClaimable() : "") + "</small></span>" + ic(isPrem() ? "chevron_right" : "lock") + "</button>" +
-      '<button class="hikrow hcard mncard" data-act="mnOpenPage"><span class="hct"><b>' + ic("favorite") + " " + esc(tr("mn_t")) + "</b><small>" + esc(tr("mn_sub")) + "</small></span>" + ic(isPrem() ? "chevron_right" : "lock") + "</button></div></div>"
+      '<button class="hikrow hcard achcard" data-act="achOpen"><span class="hct"><b>' + ic("military_tech") + " " + esc(tr("ac_t")) + "</b><small>" + achDone() + "/" + ACH.length + (achClaimable() ? " \u00b7 +" + achClaimable() : "") + "</small></span>" + ic(isPrem() ? "chevron_right" : "lock") + "</button>" + "</div></div>"
   }
   // umumiy soat: 99 hisobi va header g'ildiraklari bir ritmda (barmoq tegsa to'xtaydi, qo'yilgach 3s dan keyin boshidan)
   var CLK = { tc: 0, block: 0 }
@@ -2689,17 +2752,43 @@
     SIM.onIdle = cb
   }
   function dBarHtml(ds, target, draft) {
-    var free = ds.mode === "free", pct = Math.min(100, Math.floor(draft * 100 / target))
-    return '<div class="dbar"><div class="dnums"><b>' + fmtNum(target) + '</b><b id="dDone">' + draft + '</b><b id="dLeft">' + Math.max(0, target - draft) + "</b></div>" +
-      '<div class="dtrack"><i id="dFill" style="width:' + pct + '%"></i></div>' +
-      '<div class="dcap"><span>' + esc(tr("needed")) + "</span><span>" + esc(tr("done_n")) + "</span><span>" + esc(tr("left_n")) + "</span></div>" +
-      (free ? '<div class="dtot"><span>' + esc(tr("total_n")) + ': </span><b id="dTot">' + (ds.count || 0) + "</b></div>" : "") + "</div>"
+    var free = ds.mode === "free"
+    if (free) {
+      var pc = Math.min(100, Math.floor(draft * 100 / target))
+      return '<div class="dbar"><div class="dnums"><b>' + fmtNum(target) + '</b><b id="dDone">' + draft + '</b><b id="dLeft">' + Math.max(0, target - draft) + "</b></div>" +
+        '<div class="dtrack"><i id="dFill" style="width:' + pc + '%"></i></div>' +
+        '<div class="dcap"><span>' + esc(tr("needed")) + "</span><span>" + esc(tr("done_n")) + "</span><span>" + esc(tr("left_n")) + "</span></div>" +
+        '<div class="dtot"><span>' + esc(tr("total_n")) + ': </span><b id="dTot">' + (ds.count || 0) + "</b></div></div>"
+    }
+    var owed = Math.max(0, ds.owedDays || 0), N = 1 + owed, td = todayStr(), f = Math.min(target, draft), pct = Math.min(100, draft * 100 / target)
+    var seg = "", chips = "", dots = "", i, lab = N <= 8
+    if (N <= 24) {
+      for (i = 0; i < N; i++) {
+        var last = i === N - 1
+        seg += '<span class="wqs' + (last && f >= target ? " full" : "") + '"><i' + (last ? ' id="dFill"' : "") + ' style="width:' + (last ? pct : 0) + '%"></i>' + (lab ? "<em" + (last ? ' id="dEm"' : "") + ">" + (last ? f : 0) + "/" + fmtNum(target) + "</em>" : "") + "</span>"
+        chips += '<div class="wqcw' + (last && f >= target ? " ok" : "") + '">' + wqChip(last ? "" : dayAdd(td, -(N - 1 - i)), last) + "</div>"
+        dots += "<i></i>"
+      }
+    } else {
+      seg = '<span class="wqs one"><i id="dFill" style="width:' + pct + '%"></i></span>'
+      chips = '<div class="wqcw">' + wqChip(dayAdd(td, -owed), false) + '</div><div class="wqcw"><div class="wqdc"><span class="wqchip">' + N + " " + esc(tr("waq_dw")) + '</span></div></div><div class="wqcw">' + wqChip("", true) + "</div>"
+      dots = "<i></i><i></i><i></i>"
+    }
+    var ncol = N <= 24 ? N : 3
+    return '<div class="dbar dwq"><div class="wqdates" style="--n:' + ncol + '">' + chips + "</div>" +
+      '<div class="wqdots" style="--n:' + ncol + '">' + dots + "</div>" +
+      '<div class="wqbw"><div class="wqbar">' + seg + "</div></div>" +
+      '<div class="wqnums"><span class="wqg">' + esc(tr("needed")) + " <b>" + fmtNum(target) + "</b></span>" +
+      '<span class="wqg">' + esc(tr("done_n")) + ' <b id="dDone">' + draft + "</b></span>" +
+      (owed ? '<span class="wqg">' + esc(tr("waq_debt")) + " <b>" + owed + " " + esc(tr("waq_dw")) + "</b></span>" : "") +
+      '<span class="wqg">' + esc(tr("left_n")) + ' <b id="dLeft">' + Math.max(0, target - draft) + "</b></span></div></div>"
   }
   function hgStats(full) {
     var ds = S.daily
     var d = document.getElementById("dDone"), l = document.getElementById("dLeft")
     var tt = document.getElementById("dTot"); if (tt) tt.textContent = ds.count || 0
     if (d) d.textContent = ds.draft || 0
+    var em = document.getElementById("dEm"); if (em) em.textContent = Math.min(ds.target, ds.draft || 0) + "/" + fmtNum(ds.target)
     if (l) l.textContent = Math.max(0, ds.target - (ds.draft || 0))
     var f = document.getElementById("dFill")
     if (f) {
@@ -2770,10 +2859,6 @@
   }
   var TB_N = 14, TB_SP = 30, TB_L = 420, tbOffC = 0, tbOffT = 0, tbRaf = 0
   function tbY(x) { var u = (x - 180) / 200; return 66 + 50 * (1 - u * u) }
-  function mjHtml(ds) {
-    setTimeout(tsInit, 0)
-    return '<div class="tsbox mjbox"><canvas id="tsbc" class="tsbc"></canvas><div class="tscn"><b id="tsn">' + (ds.draft || 0) + '</b><small id="tsr">' + (ds.mode === "free" ? "\u221e" : "/ " + ds.target) + '</small></div><button id="mjtap" data-act="tap" hidden aria-hidden="true"></button></div>'
-  }
   function tbHtml(ds) {
     var p = "", i, x
     for (i = 0; i <= 24; i++) { x = -20 + i * 16.7; p += (i ? "L" : "M") + x.toFixed(1) + " " + tbY(x).toFixed(1) }
@@ -2836,9 +2921,8 @@
   function viewDaily() {
     var ds = S.daily
     var dgRow = '<div class="topt"><div class="tl"><span>' + esc(tr("dglass")) + '</span><button class="tgl pr' + (isPrem() ? " pm" : "") + (S.dglass && isPrem() ? " on" : "") + '" data-act="dglass" aria-label="glass"><i>' + ic(isPrem() ? "lock_open" : "lock") + "</i></button></div></div>"
-    var mjOn = S.dview === "mj" && isPrem()
-    var dvSeg = '<div class="seg"><button data-act="dview" data-v="hg" class="' + (S.dview === "tb" || mjOn ? "" : "on") + '">' + esc(tr("dv_hg")) + '</button><button data-act="dview" data-v="tb" class="' + (S.dview === "tb" ? "on" : "") + '">' + esc(tr("dv_tb")) + '</button><button data-act="dview" data-v="mj" class="' + (mjOn ? "on" : "") + '">' + (isPrem() ? "" : ic("lock") + " ") + esc(tr("dv_mj")) + "</button></div>"
-    if (isPrem()) dgRow += '<div class="topt"><div class="tl"><span>' + esc(tr("mj_mat")) + '</span><button class="tsi" data-act="tsbTh" aria-label="theme">' + ic("palette") + '</button></div></div><div class="topt"><div class="tl"><span>' + esc(tr("mj_snd")) + '</span><button class="tsi" data-act="tsbSnd" aria-label="sound">' + ic(tsS().snd ? "volume_up" : "volume_off") + "</button></div></div>"
+    if (S.dview === "mj") S.dview = "hg"
+    var dvSeg = '<div class="seg"><button data-act="dview" data-v="hg" class="' + (S.dview === "tb" ? "" : "on") + '">' + esc(tr("dv_hg")) + '</button><button data-act="dview" data-v="tb" class="' + (S.dview === "tb" ? "on" : "") + '">' + esc(tr("dv_tb")) + "</button></div>"
     var formHtml = function () {
       var gv = ds && ds.target ? Math.min(ds.target, 999999) : 0, cols = ""
       var pad = ("000000" + gv).slice(-6)
@@ -2864,8 +2948,8 @@
     var h = '<div class="daily' + (S.dglass && isPrem() ? " dglass" : "") + '"><div class="dhead"><h1>📿 ' + esc(tr("daily")) + ' <span class="dmi">•' + ic(ds.mode === "free" ? "all_inclusive" : "trending_up") + '</span></h1><button class="gear' + (U.dailyMenu ? " on" : "") + '" data-act="dailyMenu" aria-label="Settings">' + ic("settings") + '</button></div>'
     if (U.dailyMenu) h += '<div style="margin-bottom:10px">' + formHtml() + "</div>"
     if (owed > 0) h += '<p class="owed center">' + esc(tr("owed").replace("{n}", owed)) + "</p>"
-    var tbv = S.dview === "tb", mjv = mjOn
-    h += '<div id="hgwrap" class="hgwrap"><div id="hgstage" class="hgstage' + (tbv ? " tbs" : "") + '">' + (tbv ? tbHtml(ds) : mjv ? mjHtml(ds) : hgBg() + '<div id="hgbox" class="hgbox' + (ds.mode === "free" ? " free" : "") + '">' + hgSvg(hgShown) + "</div>")
+    var tbv = S.dview === "tb"
+    h += '<div id="hgwrap" class="hgwrap"><div id="hgstage" class="hgstage' + (tbv ? " tbs" : "") + '">' + (tbv ? tbHtml(ds) : hgBg() + '<div id="hgbox" class="hgbox' + (ds.mode === "free" ? " free" : "") + '">' + hgSvg(hgShown) + "</div>")
     if (ds.todayDone) h += '<div class="done center">' + esc(tr(["cong", "cong2", "cong3", "cong4"][new Date().getDate() % 4])) + "</div>"
     else if (!tbv) h += dBarHtml(ds, target, draft)
     h += "</div></div>"
@@ -3028,7 +3112,7 @@
     if (U.tab === "more" && U.more === "menu") render()
   }
   function hBadge() {
-    hPost("/chat/unread", {}).then(function (j) { HCH.admin = !!j.admin; hSetBadge(j.n || 0) }).catch(function () {})
+    hPost("/chat/unread", {}).then(function (j) { HCH.admin = !!j.admin; if (HCH.admin) wdGift(); hSetBadge(j.n || 0) }).catch(function () {})
   }
   function hSync(open) {
     if (HCH.busy) return
@@ -3036,14 +3120,14 @@
     hPost("/chat/sync", { open: open ? 1 : 0, uid: U.hcUid || 0 }).then(function (j) {
       HCH.busy = 0
       if (j.chats) {
-        HCH.admin = true; HCH.chats = j.chats
+        HCH.admin = true; wdGift(); HCH.chats = j.chats
         var un = 0; for (var i = 0; i < j.chats.length; i++) un += j.chats[i].n
         hSetBadge(un)
         if (U.more === "help" && !U.hcUid) { if (document.getElementById("hlist")) hListPaint(); else render() } else if (U.more === "notif") notifPaint()
         return
       }
       var wasAdmin = HCH.admin
-      HCH.admin = !!j.admin; HCH.name = j.name || ""; HCH.un = j.un || ""
+      HCH.admin = !!j.admin; if (HCH.admin) wdGift(); HCH.name = j.name || ""; HCH.un = j.un || ""
       var old = {}; HCH.msgs.forEach(function (x) { if (x.lurl) old[x.id] = x.lurl })
       HCH.msgs = (j.msgs || []).map(function (x) { if (old[x.id]) x.lurl = old[x.id]; return x })
       var un2 = 0; if (!HCH.admin) for (var k = 0; k < HCH.msgs.length; k++) if (HCH.msgs[k].f === "a" && !HCH.msgs[k].rts) un2++
@@ -3135,7 +3219,7 @@
     return h
   }
   function bcPaint() { var e = document.getElementById("bclist"); if (e) { e.innerHTML = bcHtml(); save() } }
-  var BCG = [["", "bc_none"], ["jr", "jr_t"], ["wg", "wg_t"], ["mj", "dv_mj"], ["goal", "pm_goalbtn"], ["prem", "nf_pm_t"], ["waq", "waq_s"], ["names", "nav_names"], ["media", "nav_media"], ["mood", "nav_mood"], ["daily", "nav_daily"]]
+  var BCG = [["", "bc_none"], ["jr", "jr_t"], ["wg", "wg_t"], ["goal", "pm_goalbtn"], ["prem", "nf_pm_t"], ["waq", "waq_s"], ["names", "nav_names"], ["media", "nav_media"], ["mood", "nav_mood"], ["daily", "nav_daily"]]
   function bcForm() {
     var f = U.bcf = U.bcf || { t: {}, b: {}, img: "", go: "" }, h = '<div class="shead"><button class="btn small back circ" data-act="moreBack" aria-label="back">' + ic("arrow_back") + "</button><h1>" + ic("campaign") + " " + esc(tr("bc_new")) + '</h1><span></span></div><div class="stack bcf">'
     for (var i = 0; i < TXI.length; i++) {
@@ -3180,10 +3264,9 @@
     return h
   }
   function goFeat(v) {
-    U.detail = 0; U.waq = false; U.wg = false; U.mm = false; U.ach = false; U.mn = false; MN.m = -1; MM.g = null; U.tsb = false; U.jr = ""; U.jrRet = false; U.wgOne = false; U.more = "menu"; U.hikBack = false; U.dailyMenu = false
+    U.detail = 0; U.waq = false; U.wg = false; U.mm = false; U.ach = false; U.mn = false; MN.m = -1; MM.g = null; U.jr = ""; U.jrRet = false; U.wgOne = false; U.more = "menu"; U.hikBack = false; U.dailyMenu = false
     if (v === "jr") { U.tab = "names"; U.jr = "main" }
     else if (v === "wg") { U.tab = "names"; U.wg = true }
-    else if (v === "mj") { if (!isPrem()) { U.tab = "more"; U.more = "premium" } else { S.dview = "mj"; save(); U.tab = "daily" } }
     else if (v === "goal") { U.tab = "daily"; U.dailyMenu = true; U.dmode = ""; U.goalSpin = true }
     else if (v === "prem") { U.tab = "more"; U.more = "premium" }
     else if (v === "waq") { U.tab = "names"; U.waq = true }
@@ -3327,10 +3410,11 @@
         '<button data-act="more" data-v="mode">' + ic("contrast") + " " + esc(tr("mode_t")) + " · " + esc(tr("th_" + S.theme)) + "</button>" +
         '<button data-act="more" data-v="theme">' + ic("palette") + " " + esc(tr("theme_t")) + " · " + esc(tr(cg)) + "</button>" +
         '<button data-act="more" data-v="lang">' + ic("translate") + " " + esc(tr("lang")) + " · " + LANG_NAMES[S.lang] + "</button>" +
-        '<div class="rrow">' + ic("smart_toy") + "<span>" + esc(tr("pet_t")) + '</span><button class="tgl' + (S.pet === false ? "" : " on") + '" data-act="petT" aria-label="pet"><i></i></button></div>' +
-        '<div class="rrow" data-act="more" data-v="remind">' + ic("notifications") + "<span>" + esc(tr("remind")) + '</span><button class="tgl' + (S.remind === false ? "" : " on") + '" data-act="rmt" data-v="all" aria-label="remind"><i></i></button></div></div>'
+        '<div class="rrow" data-act="more" data-v="robot">' + ic("smart_toy") + "<span>" + esc(tr("pet_t")) + '</span><span class="rdiv" aria-hidden="true"></span><button class="tgl' + (S.pet === false ? "" : " on") + '" data-act="petT" aria-label="pet"><i></i></button></div>' +
+        '<div class="rrow" data-act="more" data-v="remind">' + ic("notifications") + "<span>" + esc(tr("remind")) + '</span><span class="rdiv" aria-hidden="true"></span><button class="tgl' + (S.remind === false ? "" : " on") + '" data-act="rmt" data-v="all" aria-label="remind"><i></i></button></div></div>'
     }
     if (U.more === "pmx") return pmxHtml()
+    if (U.more === "robot") return robotHtml()
     if (U.more === "premium") {
       return '<div class="shead"><button class="btn small back circ" data-act="moreBack" aria-label="back">' + ic("arrow_back") + '</button><h1>' + ic("workspace_premium") + " " + esc(tr("st_prem")) + '</h1><span></span></div><div id="pmbody">' + pmHtml() + '</div><div class="card nfc"><b>' + esc(tr("pmi_t")) + '</b><ul class="pmil">' + [1, 2, 3, 4, 5].map(function (q) { return "<li>" + ic("check_circle") + "<span>" + esc(tr("pmi_" + q)) + "</span></li>" }).join("") + '</ul><button class="btn primary block" data-act="goalGo">' + ic("trending_up") + " " + esc(tr("pm_goalbtn")) + '</button></div><p class="pmfree">' + esc(tr("pm_free")) + "</p>"
     }
@@ -3640,20 +3724,28 @@
     }
     HL.raf = requestAnimationFrame(frame)
   }
+  function vkNow() { return [U.tab, U.more, U.detail, U.waq ? 1 : 0, U.wg ? 1 : 0, U.ach ? 1 : 0, U.mn ? (MN.m < 0 ? 1 : 2 + MN.n) : 0, U.mm ? (MM.g ? (MM.g.fin ? 3 : 2) : 1) : 0, U.jr || 0, U.moodPick].join("|") }
   function render() {
+    var k0 = vkNow(), dp = vDepth(), ti = navIdx()
+    if (U.vkey && k0 !== U.vkey && !TR.busy && U.vti != null) {
+      var tabCh = ti !== U.vti, dir = tabCh ? (ti > U.vti ? 1 : -1) : (dp > U.vdp ? 1 : dp < U.vdp ? -1 : 0)
+      pageTrans(dir, tabCh, renderNow)
+    } else renderNow()
+    U.vdp = dp; U.vti = ti
+  }
+  function renderNow() {
     document.documentElement.lang = S.lang.slice(0, 2)
     document.documentElement.dir = S.lang === "ar" ? "rtl" : "ltr"
-    var h, sy = window.pageYOffset || 0, vkey = [U.tab, U.more, U.detail, U.waq ? 1 : 0, U.wg ? 1 : 0, U.ach ? 1 : 0, U.mn ? (MN.m < 0 ? 1 : 2 + MN.n) : 0, U.mm ? (MM.g ? (MM.g.fin ? 3 : 2) : 1) : 0, U.tsb ? 1 : 0, U.jr || 0, U.moodPick].join("|"), same = vkey === U.vkey
+    var h, sy = window.pageYOffset || 0, vkey = [U.tab, U.more, U.detail, U.waq ? 1 : 0, U.wg ? 1 : 0, U.ach ? 1 : 0, U.mn ? (MN.m < 0 ? 1 : 2 + MN.n) : 0, U.mm ? (MM.g ? (MM.g.fin ? 3 : 2) : 1) : 0, U.jr || 0, U.moodPick].join("|"), same = vkey === U.vkey
     U.vkey = vkey
     try {
       if (!U.detail) U.dlock = false
-      if (U.detail) { if (U.detail === jrName() + 1) jrMark("a"); h = viewDetail() }
+      if (U.detail) h = viewDetail()
       else if (U.waq) h = viewWaq()
       else if (U.wg) h = viewWg()
       else if (U.mm) h = viewMm()
       else if (U.ach) h = viewAch()
       else if (U.mn) h = viewMn()
-      else if (U.tsb) h = viewTsb()
       else if (U.jr) h = viewJr()
       else if (U.tab === "names") h = viewNames()
       else if (U.tab === "media") h = viewMedia()
@@ -3664,6 +3756,7 @@
       h = '<div class="card"><strong>⚠️ Error</strong><p>' + esc(String(err && err.message || err)) + "</p></div>"
     }
     app.innerHTML = h
+    jrDwell()
     if (U.detail && U.detail !== U.lastDet) { var sdn = stDay(); sdn.no++; if (sdn.nm.indexOf(U.detail) < 0) sdn.nm.push(U.detail); S.nseen = S.nseen || {}; S.nseen[U.detail] = 1; save() }
     U.lastDet = U.detail
     if (U.tab === "more" && U.more === "quote") { if (U.quoteIdx !== U.lastQ) { stDay().q++; U.lastQ = U.quoteIdx; save() } } else U.lastQ = -1
@@ -3696,7 +3789,7 @@
     renderNav()
     if (wheels.theme) updateThemeLabels()
     if (tg && tg.BackButton) {
-      if (U.detail || U.waq || U.wg || U.mm || U.ach || U.mn || U.tsb || U.jr || U.tab !== "names") tg.BackButton.show()
+      if (U.detail || U.waq || U.wg || U.mm || U.ach || U.mn || U.jr || U.tab !== "names") tg.BackButton.show()
       else tg.BackButton.hide()
     }
     window.scrollTo(0, same ? sy : 0)
@@ -3704,7 +3797,6 @@
   function goBack() {
     if (U.detail) { U.detail = 0; render(); window.scrollTo(0, 0); return }
     if (U.jrRet) { U.jrRet = false; U.tab = U.jrTab || "names"; U.jr = "main"; U.dailyMenu = false; render(); window.scrollTo(0, 0); return }
-    if (U.tsb) { U.tsb = false; render(); window.scrollTo(0, 0); return }
     if (U.mn) { if (MN.m >= 0) MN.m = -1; else U.mn = false; render(); window.scrollTo(0, 0); return }
     if (U.ach) { U.ach = false; render(); window.scrollTo(0, 0); return }
     if (U.mm) { if (MM.g) MM.g = null; else U.mm = false; render(); window.scrollTo(0, 0); return }
@@ -3715,7 +3807,7 @@
     if (U.tab === "more" && U.more === "help" && U.hcUid) { U.hcUid = 0; HCH.msgs = []; render(); window.scrollTo(0, 0); return }
     if (U.tab === "more" && U.more !== "menu") {
       if (U.hikBack) { U.hikBack = false; U.tab = "names" }
-      U.more = U.more === "bcnew" ? "notif" : (U.more === "lang" || U.more === "theme" || U.more === "mode" || U.more === "remind" || U.more === "premium") ? "settings" : "menu"; render(); window.scrollTo(0, 0); return
+      U.more = U.more === "bcnew" ? "notif" : (U.more === "lang" || U.more === "theme" || U.more === "mode" || U.more === "remind" || U.more === "robot" || U.more === "premium") ? "settings" : "menu"; render(); window.scrollTo(0, 0); return
     }
     if (U.tab === "mood" && U.moodPick) { U.moodPick = ""; render(); window.scrollTo(0, 0); return }
     if (U.tab !== "names") { U.tab = "names"; U.more = "menu"; U.moodPick = ""; U.hikBack = false; render(); window.scrollTo(0, 0); requestAnimationFrame(function () { window.scrollTo(0, 0) }) }
@@ -4880,10 +4972,45 @@
     fit()
     for (i = 0; i < N; i++) fl.push(mk(true))
     fl.sort(function (p, q) { return p.z - q.z })
-    var t0 = 0
+    var t0 = 0, cu = null, nextCu = 6000 + Math.random() * 6000, fv = document.createElement("canvas"), fg = fv.getContext("2d"), fvDirty = false
+    fv.className = "snwf"; document.body.appendChild(fv); SNOW.fv = fv
+    function fitF() { fv.width = Math.round(window.innerWidth * dpr); fv.height = Math.round(window.innerHeight * dpr) }
+    fitF()
+    function petPt() {
+      if (!PET.el || !petOn() || PET.el.style.display === "none") return null
+      var r = PET.el.getBoundingClientRect()
+      return r.width ? { x: r.left + r.width / 2, y: r.top + 22 } : null
+    }
+    function closeUp(ts, dt) {
+      if (!cu) {
+        if (red || ts < nextCu) { if (fvDirty) { fg.setTransform(1, 0, 0, 1, 0, 0); fg.clearRect(0, 0, fv.width, fv.height); fvDirty = false } return }
+        cu = { t: 0, x: window.innerWidth * (.18 + .64 * Math.random()), y: window.innerHeight * (.08 + .2 * Math.random()), ph: Math.random() * 6.28, rot: Math.random() * 6.28, rs: (Math.random() < .5 ? -1 : 1) * (.5 + Math.random() * .6) }
+      }
+      cu.t += dt; cu.rot += cu.rs * dt
+      var T1 = 1.5, T2 = 1.7, sz, x, y, al, q, e
+      if (cu.t < T1) {
+        q = cu.t / T1; e = 1 - Math.pow(1 - q, 3)
+        sz = 12 + 56 * e; x = cu.x + Math.sin(cu.t * 2.2 + cu.ph) * 12 * e; y = cu.y + 46 * e; al = .35 + .6 * e
+        cu.ax = x; cu.ay = y
+      } else {
+        q = Math.min(1, (cu.t - T1) / T2); e = q * q
+        var tg = petPt(), tx = tg ? tg.x : cu.ax + 24, ty = tg ? tg.y : window.innerHeight + 50
+        sz = 68 - (tg ? 54 : 40) * e; x = cu.ax + (tx - cu.ax) * e + Math.sin(cu.t * 2.2 + cu.ph) * 10 * (1 - e); y = cu.ay + (ty - cu.ay) * e; al = .95 - (tg ? .15 : .3) * e
+        if (q >= 1) {
+          cu = null; nextCu = ts + 14000 + Math.random() * 20000
+          if (tg && !PET.sad) petBub(tr("pet_snow"), 1600)
+          fg.setTransform(1, 0, 0, 1, 0, 0); fg.clearRect(0, 0, fv.width, fv.height); fvDirty = false
+          return
+        }
+      }
+      fg.setTransform(dpr, 0, 0, dpr, 0, 0); fg.clearRect(0, 0, fv.width / dpr, fv.height / dpr)
+      fg.globalAlpha = al; fg.save(); fg.translate(x, y); fg.rotate(cu.rot)
+      var fi = flakeTinted(night); if (fi) fg.drawImage(fi, -sz / 2, -sz / 2, sz, sz)
+      fg.restore(); fg.globalAlpha = 1; fvDirty = true
+    }
     SNOW.el = host; SNOW.fl = fl; SNOW.night = night; SNOW.cap = null; SNOW.mk = mk
     function frame(ts) {
-      if (!host.isConnected || SNOW.el !== host) return
+      if (!host.isConnected || SNOW.el !== host) { if (fv.isConnected && SNOW.fv !== fv) fv.remove(); return }
       SNOW.raf = requestAnimationFrame(frame)
       if (document.hidden) { t0 = 0; return }
       var dt = t0 ? Math.min(0.05, (ts - t0) / 1000) : 0.016
@@ -4906,10 +5033,12 @@
         g.restore()
       }
       g.globalAlpha = 1
+      if (fv.width !== Math.round(window.innerWidth * dpr)) fitF()
+      closeUp(ts, dt)
     }
     SNOW.raf = requestAnimationFrame(frame)
   }
-  function snowStop() { if (SNOW.raf) cancelAnimationFrame(SNOW.raf); SNOW.raf = 0; SNOW.el = null; SNOW.fl = null; SNOW.cap = null }
+  function snowStop() { if (SNOW.fv) { SNOW.fv.remove(); SNOW.fv = null }; if (SNOW.raf) cancelAnimationFrame(SNOW.raf); SNOW.raf = 0; SNOW.el = null; SNOW.fl = null; SNOW.cap = null }
   function applyBg() {
     var root = document.documentElement, g = S.gender
     var v = g === "female" ? S.fbg : g === "male" ? S.mbg : ""
@@ -5408,21 +5537,16 @@
     else if (act === "hlay") { S.hlay = v === "list" ? "list" : "grid"; save(); render() }
     else if (act === "wgClose") goBack()
     else if (act === "wgName") { U.detail = parseInt(v, 10); U.dpanel = ""; U.dir = ""; U.mexp = false; render(); window.scrollTo(0, 0) }
-    else if (act === "tsbOpen") { if (!isPrem()) pToast(tr("pm_need")); else { U.tsb = true; render(); window.scrollTo(0, 0) } }
-    else if (act === "tsbClose") goBack()
-    else if (act === "tsbPh") { var t1 = tsS(); t1.ph = parseInt(v, 10); t1.n = 0; save(); render() }
-    else if (act === "tsbTg") { var t2 = tsS(); t2.tg = parseInt(v, 10); t2.n = 0; save(); render() }
-    else if (act === "tsbTh") { var t3 = tsS(); t3.th = (t3.th + 1) % TSM.length; save() }
-    else if (act === "tsbSnd") { var t4 = tsS(); t4.snd = t4.snd ? 0 : 1; save(); render() }
-    else if (act === "tsbRs") { var t5 = tsS(); t5.n = 0; t5.rd = 0; TS.rt = TS.rot = 0; save(); render() }
     else if (act === "jrOpen") { U.jr = "main"; render(); window.scrollTo(0, 0) }
     else if (act === "jrClose") goBack()
     else if (act === "jrCards") { U.jr = "cards"; render(); window.scrollTo(0, 0) }
-    else if (act === "jrShop") { U.jr = "shop"; render(); window.scrollTo(0, 0) }
+    else if (act === "wdGo") { U.jr = ""; U.jrRet = false; U.tab = "more"; U.more = "robot"; U.hikBack = false; U.detail = 0; U.wd = null; render(); window.scrollTo(0, 0) }
     else if (act === "jrCard") { U.detail = parseInt(v, 10); U.dpanel = ""; U.dir = ""; U.mexp = false; render(); window.scrollTo(0, 0) }
     else if (act === "jrQ") { if (v === "a") { U.detail = jrName() + 1; U.dlock = true; U.dpanel = ""; U.dir = ""; U.mexp = false } else if (v === "g") { U.wg = true; U.wgOne = true } else { U.jrRet = true; U.jrTab = U.tab; U.jr = ""; U.tab = "daily" } render(); window.scrollTo(0, 0) }
-    else if (act === "jrBuy") { var j1 = jrS(), a1 = JRA.filter(function (q) { return q[0] === v })[0]; if (a1 && isPrem() && j1.nur >= a1[2] && j1.own.indexOf(v) < 0) { j1.nur -= a1[2]; j1.own.push(v); j1.eq[v] = 1; save(); jrApply(); render() } }
-    else if (act === "jrEq") { var j2 = jrS(); j2.eq[v] = j2.eq[v] ? 0 : 1; save(); jrApply(); render() }
+    else if (act === "wdCat") { var u0 = wdU(); u0.cat = v; u0.sel = ""; wdPaint() }
+    else if (act === "wdSel") { var u1 = wdU(); u1.sel = u1.sel === v ? "" : v; wdPaint(); haptic("light") }
+    else if (act === "wdRst") { wdU().sel = ""; wdPaint() }
+    else if (act === "wdAct") wdAct()
     else if (act === "mnOpen" && !v) { }
     else if (act === "mnOpenPage") { if (!isPrem()) { pToast(tr("pm_need")); return } MN.m = -1; U.mn = true; render(); window.scrollTo(0, 0) }
     else if (act === "mnClose") { U.mn = false; MN.m = -1; render(); window.scrollTo(0, 0) }
@@ -5531,12 +5655,6 @@
       }
       if (cycles > 0) pmDone()
       save()
-      if (S.dview === "mj" && isPrem()) {
-        hgStats(cycles > 0)
-        var mne = document.getElementById("tsn"); if (mne) mne.textContent = ds.draft || 0
-        if (cycles > 0) { try { tg && tg.HapticFeedback && tg.HapticFeedback.notificationOccurred("success") } catch (e) {} setTimeout(render, 700) }
-        return
-      }
       if (S.dview === "tb") {
         tbTap(cycles); hgStats(false)
         if (cycles > 0) { try { tg && tg.HapticFeedback && tg.HapticFeedback.notificationOccurred("success") } catch (e) {} setTimeout(render, 700) }
