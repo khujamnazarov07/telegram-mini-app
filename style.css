@@ -1953,10 +1953,6 @@ html:not(#_) .wqlvb b { position: static; inset: auto; display: block; padding: 
 .wdck .msi { font-size: 10px; }
 @media (max-width: 340px) { .wdmain { grid-template-columns: 1fr; } }
 /* v199 games cabinet */
-.gpanel { margin-top: 28px; }
-.hpl { position: absolute; top: -15px; inset-inline-start: 12px; display: flex; align-items: center; gap: 6px; padding: 4px 12px; border: 1.5px solid var(--accent); border-radius: 99px; background: var(--bg, #0b0b0d); font-size: 13px; font-weight: 700; color: var(--text); line-height: 1.2; }
-html[data-theme] body .hpl { background: var(--bg, #0b0b0d); }
-.hpl .msi { font-size: 18px; color: var(--accent); }
 /* v199 icon never shrinks (clipped heart in narrow cards) */
 .msi { flex: none; min-width: 1em; }
 .hcard .hct b { align-items: flex-start; }
@@ -1973,3 +1969,37 @@ html .list > .rrow, html .list > button, html .wdgr, html .wdtabs .wdtab {
 .snwf { position: fixed; inset: 0; width: 100%; height: 100%; z-index: 6; pointer-events: none; }
 /* v199 season bg: plain content (list buttons) must paint above #mbg */
 html[data-bg="season"] #app { position: relative; z-index: 1; }
+
+/* v200 menu cabinet: one border, centered legend divider, border notch behind toggle */
+.hpanel.hpanel { border: 0 !important; z-index: 0; }
+.hpanel.hpanel::before { display: block; }
+.hpanel.hpanel::after { content: ""; display: block; position: absolute; inset: 0; border: 1.5px solid var(--accent); border-radius: 18px; pointer-events: none; z-index: 1;
+  -webkit-mask-image: linear-gradient(#000, #000), linear-gradient(#000, #000); mask-image: linear-gradient(#000, #000), linear-gradient(#000, #000);
+  -webkit-mask-size: 100% 100%, 76px 12px; mask-size: 100% 100%, 76px 12px; -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat;
+  -webkit-mask-position: 0 0, right 10px top -4px; mask-position: 0 0, right 10px top -4px; -webkit-mask-composite: xor; mask-composite: exclude; }
+html[dir="rtl"] .hpanel.hpanel::after { -webkit-mask-position: 0 0, left 10px top -4px; mask-position: 0 0, left 10px top -4px; }
+.hpgm { margin: 18px -12px -12px; }
+.hpgh { display: flex; align-items: stretch; height: 28px; }
+.hpgh i { flex: 1; margin-top: 14px; height: 18px; box-sizing: border-box; border-top: 1.5px solid var(--accent); }
+.hpgh i:first-child { border-left: 1.5px solid var(--accent); border-top-left-radius: 18px; }
+.hpgh i:last-child { border-right: 1.5px solid var(--accent); border-top-right-radius: 18px; }
+.hpgh .hpl { flex: none; display: flex; align-items: center; gap: 6px; height: 28px; box-sizing: border-box; margin: 0 8px; padding: 0 14px; border: 1.5px solid var(--accent); border-radius: 99px; font-size: 13px; font-weight: 700; color: var(--text); line-height: 1; position: static; background: none; }
+.hpgh .hpl .msi { font-size: 18px; color: var(--accent); }
+.hpgb { border: 1.5px solid var(--accent); border-top: 0; border-radius: 0 0 18px 18px; padding: 0 12px 12px; background: color-mix(in srgb, var(--card) 38%, transparent); }
+.hpgb .hpg { margin-top: 0; }
+
+/* v202 title + search: one long pill, search is a same-size inner pill with curved start */
+.nhead { gap: 0; height: 54px; padding-inline-start: 8px; border: 1.5px solid var(--accent); border-radius: 18px; background: color-mix(in srgb, var(--card) 40%, transparent); -webkit-backdrop-filter: blur(max(5px, calc(10px * var(--bk, 1)))); backdrop-filter: blur(max(5px, calc(10px * var(--bk, 1)))); }
+.nhead .nh-t { padding-inline-end: 8px; }
+.nhead .sbox { align-self: stretch; margin: -1.5px -1.5px -1.5px 0; }
+[dir="rtl"] .nhead .sbox { margin: -1.5px 0 -1.5px -1.5px; }
+.nhead .sbox .search { height: 100%; box-sizing: border-box; padding: 0 52px 0 18px; border: 1.5px solid var(--accent); border-radius: 18px; background: color-mix(in srgb, var(--card) 72%, transparent); }
+[dir="rtl"] .nhead .sbox .search { padding: 0 18px 0 52px; }
+.nhead .sgo { inset-inline-end: 7px; }
+/* v204 title+search and games box follow the glass settings (on/off, transparency, blur) */
+html[data-gender][data-glass][data-theme] .nhead { background: color-mix(in srgb, var(--card) min(100%, calc(40% * var(--gk, 1))), transparent); -webkit-backdrop-filter: blur(max(5px, calc(10px * var(--bk, 1)))); backdrop-filter: blur(max(5px, calc(10px * var(--bk, 1)))); }
+html[data-gender][data-glass][data-theme] .nhead .sbox .search { border: 1.5px solid var(--accent); box-shadow: none; background: color-mix(in srgb, var(--card) min(100%, calc(72% * var(--gk, 1))), transparent); -webkit-backdrop-filter: blur(max(5px, calc(10px * var(--bk, 1)))); backdrop-filter: blur(max(5px, calc(10px * var(--bk, 1)))); }
+html[data-gender][data-glass][data-theme] .hpgb { background: color-mix(in srgb, var(--card) min(100%, calc(38% * var(--gk, 1))), transparent); -webkit-backdrop-filter: blur(max(5px, calc(10px * var(--bk, 1)))); backdrop-filter: blur(max(5px, calc(10px * var(--bk, 1)))); }
+html[data-glass="off"] .hpanel.hpanel::before { background: var(--card); -webkit-backdrop-filter: none; backdrop-filter: none; }
+html[data-gender][data-glass="off"][data-theme] .nhead, html[data-gender][data-glass="off"][data-theme] .hpgb { background: var(--card); -webkit-backdrop-filter: none; backdrop-filter: none; }
+html[data-gender][data-glass="off"][data-theme] .nhead .sbox .search { background: var(--bg); -webkit-backdrop-filter: none; backdrop-filter: none; }

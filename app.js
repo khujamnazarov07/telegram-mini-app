@@ -519,13 +519,47 @@
     TR.busy = 1
     document.documentElement.classList.add("sliding")
     fn()
-    var a = document.getElementById("app"), d = big ? Math.min(W * .2, 80) : 28, t = big ? 380 : 320, ease = "cubic-bezier(.22,.8,.25,1)", fin = false
-    var inT = dir ? "translateX(" + dir * d + "px)" : "translateY(10px)", outT = dir ? "translateX(" + (-dir * d * .5) + "px)" : "translateY(-6px)"
+    var a = document.getElementById("app"), fin = false, EZ = "cubic-bezier(.32,.72,0,1)", t = 480, inK, outK
     var done = function () { if (fin) return; fin = true; wrap.remove(); TR.busy = 0; document.documentElement.classList.remove("sliding") }
-    if (a) a.animate([{ opacity: 0, transform: inT }, { opacity: 1, transform: "none" }], { duration: t, delay: 40, easing: ease, fill: "backwards" })
-    var o = cl.animate([{ opacity: 1, transform: "none" }, { opacity: 0, transform: outT }], { duration: t * .7, easing: "cubic-bezier(.4,0,.8,.6)", fill: "forwards" })
+    if (big) { t = 260; inK = [{ opacity: 0 }, { opacity: 1 }]; outK = [{ opacity: 1 }, { opacity: 0 }] }
+    else if (dir > 0) { inK = [{ opacity: 0, transform: "translateX(100%)" }, { opacity: 1, offset: .3 }, { opacity: 1, transform: "none" }]; outK = [{ opacity: 1, transform: "none" }, { opacity: 0, offset: .7 }, { opacity: 0, transform: "translateX(-30%)" }] }
+    else if (dir < 0) { inK = [{ opacity: 0, transform: "translateX(-30%)" }, { opacity: 1, offset: .35 }, { opacity: 1, transform: "none" }]; outK = [{ opacity: 1, transform: "none" }, { opacity: 0, offset: .55 }, { opacity: 0, transform: "translateX(100%)" }] }
+    else { t = 300; inK = [{ opacity: 0, transform: "translateY(10px)" }, { opacity: 1, transform: "none" }]; outK = [{ opacity: 1 }, { opacity: 0 }] }
+    if (a) a.animate(inK, { duration: t, easing: big ? "ease-out" : EZ, fill: "backwards" })
+    var o = cl.animate(outK, { duration: t, easing: big ? "ease-in" : EZ, fill: "forwards" })
     o.onfinish = done; setTimeout(done, t + 250)
   }
+  ;(function edgeBack() {
+    var sx = 0, sy = 0, dx = 0, on = 0, lt = 0, lx = 0, vx = 0, app = null
+    function reset() { if (app) { app.style.transform = ""; app.style.opacity = "" } on = 0 }
+    document.addEventListener("touchstart", function (e) {
+      on = 0; if (e.touches.length !== 1 || TR.busy) return
+      var t = e.touches[0]; if (t.clientX > 22 || vDepth() < 1) return
+      sx = t.clientX; sy = t.clientY; dx = 0; lt = Date.now(); lx = sx; vx = 0; app = document.getElementById("app"); on = 1
+    }, { passive: true })
+    document.addEventListener("touchmove", function (e) {
+      if (!on || !app) return
+      var t = e.touches[0], mx = t.clientX - sx, my = t.clientY - sy
+      if (on === 1) { if (Math.abs(my) > Math.abs(mx) + 6 && Math.abs(my) > 10) { on = 0; return } if (mx > 8) on = 2; else return }
+      dx = Math.max(0, mx); var n = Date.now(); if (n > lt) vx = (t.clientX - lx) / (n - lt); lt = n; lx = t.clientX
+      app.style.transform = "translateX(" + dx + "px)"; app.style.opacity = String(Math.max(.35, 1 - dx / (window.innerWidth * 1.1)))
+    }, { passive: true })
+    function end() {
+      if (on !== 2 || !app) { on = 0; return }
+      var W = window.innerWidth, a = app, go = dx > W * .33 || vx > .5
+      on = 0
+      if (!go) { a.animate([{ transform: "translateX(" + dx + "px)", opacity: a.style.opacity || 1 }, { transform: "none", opacity: 1 }], { duration: 260, easing: "cubic-bezier(.32,.72,0,1)" }); reset(); return }
+      TR.busy = 1
+      var o = a.animate([{ transform: "translateX(" + dx + "px)", opacity: a.style.opacity || 1 }, { transform: "translateX(" + W + "px)", opacity: 0 }], { duration: 200, easing: "cubic-bezier(.4,0,1,1)", fill: "forwards" })
+      var fin = function () {
+        o.cancel(); reset(); TR.busy = 0; TR.skip = 1; goBack(); TR.skip = 0
+        var n = document.getElementById("app"); if (n && n.animate) n.animate([{ transform: "translateX(-22%)", opacity: 0 }, { opacity: 1, offset: .4 }, { transform: "none", opacity: 1 }], { duration: 380, easing: "cubic-bezier(.32,.72,0,1)", fill: "backwards" })
+      }
+      o.onfinish = fin
+    }
+    document.addEventListener("touchend", end, { passive: true })
+    document.addEventListener("touchcancel", function () { if (on === 2) { reset() } on = 0 }, { passive: true })
+  })()
   function navDragInit() {
     navEl.addEventListener("pointerdown", function (e) {
       var bs = navEl.querySelectorAll("button"); if (!bs.length || U.detail) return
@@ -1378,7 +1412,7 @@
     }
     h += "</div>"
     if (!prem) h += '<div class="card jrlock">' + ic("lock") + "<span>" + esc(tr("jr_lock")) + '</span><button class="btn primary" data-act="premGo">' + ic("workspace_premium") + " Premium</button></div>"
-    h += '<div class="jrbt"><button class="btn" data-act="jrCards">' + ic("layers") + " " + esc(tr("jr_cards")) + " <span>(" + j.cards.length + "/99)</span></button><button class=\"btn\" data-act=\"wdGo\">" + ic("checkroom") + " " + esc(tr("jr_shop")) + "</button></div></div>"
+    h += '<div class="jrbt"><button class="btn" data-act="jrCards">' + ic("layers") + " " + esc(tr("jr_cards")) + " <span>(" + j.cards.length + "/99)</span></button></div></div>"
     return h
   }
   function viewJrCards() {
@@ -1681,11 +1715,11 @@
       '<div class="hpg ' + lay + '"><button class="hikrow hcard" data-act="hikmat"><span id="hph" class="hph2" aria-label="' + esc(tr("hikmat")) + '"><span></span><span></span></span>' + ic("chevron_right") + "</button>" +
       '<button class="hikrow hcard wqc' + (w.on && !w.fin ? " act" : "") + '" data-act="waqOpen"><span class="hct"><b>' + ic("bedtime") + " " + esc(tr("waq_s")) + "</b></span>" + ic("chevron_right") + "</button>" +
       '<button class="hikrow hcard jrcard" data-act="jrOpen"><span class="hct"><b>' + ic("local_fire_department") + " " + esc(tr("jr_t")) + "</b><small>" + jrStreak() + " " + esc(tr("jr_days")) + " \u00b7 " + jrCnt() + '/3</small><span class="jrmini"><i class="' + (jrDay().a ? "on" : "") + '"></i><i class="' + (jrDay().z ? "on" : "") + '"></i><i class="' + (jrDay().g ? "on" : "") + '"></i></span></span>' + ic("chevron_right") + "</button>" +
-      '<button class="hikrow hcard mncard" data-act="mnOpenPage"><span class="hct"><b>' + ic("favorite") + " " + esc(tr("mn_t")) + "</b><small>" + esc(tr("mn_sub")) + "</small></span>" + ic(isPrem() ? "chevron_right" : "lock") + "</button></div></div>" +
-      '<div class="hpanel gpanel"><span class="hpl">' + ic("sports_esports") + " " + esc(tr("gm_t")) + '</span><div class="hpg ' + lay + '">' +
+      '<button class="hikrow hcard mncard" data-act="mnOpenPage"><span class="hct"><b>' + ic("favorite") + " " + esc(tr("mn_t")) + "</b><small>" + esc(tr("mn_sub")) + "</small></span>" + ic(isPrem() ? "chevron_right" : "lock") + "</button></div>" +
+      '<div class="hpgm"><div class="hpgh"><i></i><span class="hpl">' + ic("sports_esports") + " " + esc(tr("gm_t")) + '</span><i></i></div><div class="hpgb"><div class="hpg ' + lay + '">' +
       '<button class="hikrow hcard wgcard" data-act="wgOpen"><span class="hct"><b>' + ic("extension") + " " + esc(tr("wg_t")) + "</b><small>" + (wgS().lv + 1) + " / 40</small></span>" + ic("chevron_right") + "</button>" +
       '<button class="hikrow hcard mmcard" data-act="mmOpen"><span class="hct"><b>' + ic("psychology") + " " + esc(tr("mm_t")) + "</b><small>" + esc(tr("mm_sub")) + "</small></span>" + ic(isPrem() ? "chevron_right" : "lock") + "</button>" +
-      '<button class="hikrow hcard achcard" data-act="achOpen"><span class="hct"><b>' + ic("military_tech") + " " + esc(tr("ac_t")) + "</b><small>" + achDone() + "/" + ACH.length + (achClaimable() ? " \u00b7 +" + achClaimable() : "") + "</small></span>" + ic(isPrem() ? "chevron_right" : "lock") + "</button>" + "</div></div>"
+      '<button class="hikrow hcard achcard" data-act="achOpen"><span class="hct"><b>' + ic("military_tech") + " " + esc(tr("ac_t")) + "</b><small>" + achDone() + "/" + ACH.length + (achClaimable() ? " \u00b7 +" + achClaimable() : "") + "</small></span>" + ic(isPrem() ? "chevron_right" : "lock") + "</button>" + "</div></div></div></div>"
   }
   // umumiy soat: 99 hisobi va header g'ildiraklari bir ritmda (barmoq tegsa to'xtaydi, qo'yilgach 3s dan keyin boshidan)
   var CLK = { tc: 0, block: 0 }
@@ -3727,7 +3761,7 @@
   function vkNow() { return [U.tab, U.more, U.detail, U.waq ? 1 : 0, U.wg ? 1 : 0, U.ach ? 1 : 0, U.mn ? (MN.m < 0 ? 1 : 2 + MN.n) : 0, U.mm ? (MM.g ? (MM.g.fin ? 3 : 2) : 1) : 0, U.jr || 0, U.moodPick].join("|") }
   function render() {
     var k0 = vkNow(), dp = vDepth(), ti = navIdx()
-    if (U.vkey && k0 !== U.vkey && !TR.busy && U.vti != null) {
+    if (U.vkey && k0 !== U.vkey && !TR.busy && !TR.skip && U.vti != null) {
       var tabCh = ti !== U.vti, dir = tabCh ? (ti > U.vti ? 1 : -1) : (dp > U.vdp ? 1 : dp < U.vdp ? -1 : 0)
       pageTrans(dir, tabCh, renderNow)
     } else renderNow()
