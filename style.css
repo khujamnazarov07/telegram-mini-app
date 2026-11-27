@@ -2078,22 +2078,3 @@ html[data-glass="on"] .nav button.on { box-shadow: inset 0 1px 1px rgb(255 255 2
 /* games box: single glass body, rounded top matching the curved header */
 .hpgb { border: 0 !important; margin-top: -14px; padding: 14px 12px 12px !important; border-radius: 18px !important; position: relative; }
 .hpgh { position: relative; z-index: 2; }
-
-/* v207 */
-@font-face { font-family: "CmFb"; src: local("Droid Sans Mono"), local("Noto Sans Mono"), local("Roboto Mono"), local("Courier New"), local("Liberation Mono"); unicode-range: U+0100-024F, U+1E00-1EFF, U+02B0-02FF, U+0300-036F; size-adjust: 84%; }
-html[data-font="cutive"] { --ff: "Cutive Mono", "CmFb", monospace; }
-/* collapsed names: fade by mask only, no solid overlay (matches real background) */
-html[data-gender] .ngrid::after { display: none !important; }
-html .ngrid:not(.open) { -webkit-mask-image: linear-gradient(#000 52%, transparent 96%) !important; mask-image: linear-gradient(#000 52%, transparent 96%) !important; }
-/* games box: same glass as the card above, legend spaced from cards */
-html[data-gender][data-glass][data-theme] .hpgb { background: none !important; box-shadow: none !important; -webkit-backdrop-filter: none !important; backdrop-filter: none !important; padding-top: 30px !important; }
-/* search: same liquid glass as the rest */
-html[data-gender][data-glass="on"][data-theme] .nhead .sbox .search { background: linear-gradient(180deg, var(--lg-sheen), transparent 48%), linear-gradient(135deg, var(--lg-a), var(--lg-b)); -webkit-backdrop-filter: var(--lg-bf); backdrop-filter: var(--lg-bf); }
-/* liquid glass on Salavot, settings and stats surfaces */
-html[data-gender][data-glass="on"][data-theme] :is(.dbar, .wqbar, .topt, .stc, .stkp, .stchips button, .nfc, .dseg button, .dvseg button, .tcard, .jrcard, .jrc) {
-  background: linear-gradient(180deg, var(--lg-sheen), transparent 48%), linear-gradient(135deg, var(--lg-a), var(--lg-b));
-  box-shadow: inset 0 0 0 1px var(--lg-rim), inset 1px 1.5px 1px -1px var(--lg-s1), inset -1px -1.5px 1px -1px var(--lg-s2), inset 0 0 16px var(--lg-glow), 0 6px 18px var(--lg-drop);
-  -webkit-backdrop-filter: var(--lg-bf); backdrop-filter: var(--lg-bf);
-}
-/* remind time wheel smaller */
-.hw { transform: scale(.8); transform-origin: right center; margin-block: -10px; }
