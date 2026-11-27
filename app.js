@@ -3292,7 +3292,7 @@
   function nfCards() {
     if (S.nv !== 1) { S.nv = 1; save() }
     var nw = !isPrem() && !hasGoal()
-    var h = '<div id="bclist">' + bcHtml() + "</div>" + '<div class="card nfc"><b>' + ic("auto_awesome") + " " + esc(tr("nf_new_t")) + "</b><p>" + esc(tr("nf_new")) + '</p><div class="nfb"><button class="btn small" data-act="petTip" data-v="jr">' + esc(tr("jr_t")) + '</button><button class="btn small" data-act="petTip" data-v="wg">' + esc(tr("wg_t")) + '</button><button class="btn small" data-act="petTip" data-v="mj">' + esc(tr("dv_mj")) + "</button></div></div>"
+    var h = '<div id="bclist">' + bcHtml() + "</div>" + '<div class="card nfc"><b>' + ic("auto_awesome") + " " + esc(tr("nf_new_t")) + "</b><p>" + esc(tr("nf_new")) + '</p><div class="nfb"><button class="btn small" data-act="petTip" data-v="jr">' + esc(tr("jr_t")) + '</button><button class="btn small" data-act="petTip" data-v="wg">' + esc(tr("wg_t")) + '</button></div></div>'
     h += '<div class="card nfc' + (nw ? " big" : "") + '"><b>' + ic("workspace_premium") + " " + esc(tr("nf_pm_t")) + "</b><p>" + esc(tr(nw || !isPrem() ? "nf_pm_long" : "nf_pm_short")) + '</p><div class="nfb">' + (isPrem() ? "" : '<button class="btn small primary" data-act="premGo">' + esc(tr("nf_pm_t")) + "</button>") + (hasGoal() ? "" : '<button class="btn small" data-act="goalGo">' + esc(tr("pm_goalbtn")) + "</button>") + "</div></div>"
     save()
     return h
@@ -3601,16 +3601,16 @@
     for (i = 0; i < vals.length; i++) if (vals[i] > mx) mx = vals[i]
     for (i = 0; i < vals.length; i++) {
       var p = mx ? Math.round(vals[i] / mx * 100) : 0
-      h += '<div class="stb' + (i === hi ? " hi" : "") + '"><span class="sv">' + (fmt && vals[i] ? fmt(vals[i]) : "") + '</span><i style="height:' + Math.max(vals[i] ? 6 : 3, p) + '%"></i><span class="sl">' + ((!every || i % every === 0 || i === vals.length - 1) ? labels[i] : "") + "</span></div>"
+      h += '<div class="stb' + (i === hi ? " hi" : "") + '"><span class="sv">' + (fmt && vals[i] ? fmt(vals[i], i) : "") + '</span><i style="height:' + Math.max(vals[i] ? 6 : 3, p) + '%"></i><span class="sl">' + ((!every || i % every === 0 || i === vals.length - 1) ? labels[i] : "") + "</span></div>"
     }
     return '<div class="stbars">' + h + "</div>"
   }
-  function stLine(vals, labels, hi) {
+  function stLine(vals, labels, hi, only) {
     var W = 300, H = 120, pd = 16, n = vals.length, mx = Math.max.apply(null, vals.concat([1])), pts = [], i
     for (i = 0; i < n; i++) pts[i] = [pd + (W - pd * 2) * (n === 1 ? .5 : i / (n - 1)), H - pd - (H - pd * 2) * vals[i] / mx]
     var line = pts.map(function (p, j) { return (j ? "L" : "M") + p[0].toFixed(1) + " " + p[1].toFixed(1) }).join(" ")
     var area = line + " L" + pts[n - 1][0].toFixed(1) + " " + (H - pd) + " L" + pts[0][0].toFixed(1) + " " + (H - pd) + " Z"
-    var dots = pts.map(function (p, j) { return '<circle cx="' + p[0].toFixed(1) + '" cy="' + p[1].toFixed(1) + '" r="' + (j === hi ? 5 : 3.5) + '"/>' + (vals[j] ? '<text x="' + p[0].toFixed(1) + '" y="' + (p[1] - 9).toFixed(1) + '" text-anchor="middle">' + fmtNum(vals[j]) + "</text>" : "") }).join("")
+    var dots = pts.map(function (p, j) { return '<circle cx="' + p[0].toFixed(1) + '" cy="' + p[1].toFixed(1) + '" r="' + (j === hi ? 5 : 3.5) + '"/>' + (vals[j] && (!only || j === hi) ? '<text x="' + p[0].toFixed(1) + '" y="' + (p[1] - 9).toFixed(1) + '" text-anchor="middle">' + fmtNum(vals[j]) + "</text>" : "") }).join("")
     var lb = labels.map(function (l) { return "<span>" + l + "</span>" }).join("")
     return '<svg class="stline" viewBox="0 0 ' + W + " " + H + '"><defs><linearGradient id="stg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="var(--accent)" stop-opacity=".4"/><stop offset="1" stop-color="var(--accent)" stop-opacity="0"/></linearGradient></defs><path d="' + area + '" fill="url(#stg)"/><path d="' + line + '" fill="none" stroke="var(--accent)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>' + dots + '</svg><div class="stll">' + lb + "</div>"
   }
@@ -3647,10 +3647,10 @@
     h += stCard(tr("st_hours"), "bar_chart", tot > 0 ? stBars(hv, hl, R === 1 ? new Date().getHours() : -1, null, 6) : '<p class="stem">' + esc(tr("st_empty")) + "</p>", false)
     var wl = wk.map(stWd), tv = wk.map(function (k) { return Math.round(stGet(k).s / 60) }), sv = wk.map(function (k) { return stGet(k).sal || 0 }), nv = wk.map(function (k) { return (stGet(k).nm || []).length })
     if (!prem) { tv = wk.map(function () { return 0 }); sv = tv.slice(); nv = tv.slice() }
-    h += stCard(tr("st_days"), "schedule", stBars(tv, wl, 6, function (x) { return x }), !prem)
-    h += stCard(tr("st_saldays"), "favorite", stLine(sv, wl, 6), !prem)
+    h += stCard(tr("st_days"), "schedule", stBars(tv, wl, 6, function (x, i) { return R === 1 && i !== 6 ? "" : x }), !prem)
+    h += stCard(tr("st_saldays"), "favorite", stLine(sv, wl, 6, R === 1), !prem)
     h += stCard(tr("st_seen"), "menu_book", '<div class="stdw">' + stDonut([{ v: seen, c: "var(--accent)" }, { v: Math.max(0, 99 - seen), c: "rgba(128,128,128,.25)" }], seen, tr("st_of99")) + "</div>", false)
-    h += stCard(tr("st_namesopen"), "menu_book", stBars(nv, wl, 6, function (x) { return x }), !prem)
+    h += stCard(tr("st_namesopen"), "menu_book", stBars(nv, wl, 6, function (x, i) { return R === 1 && i !== 6 ? "" : x }), !prem)
     var pal = ["#60a5fa", "#34d399", "#fbbf24", "#f472b6", "#a78bfa", "#fb7185", "#2dd4bf", "#fb923c", "#94a3b8"], parts = [], lg = "", mt = 0, ids = Object.keys(md).sort(function (a, b) { return md[b] - md[a] })
     ids.forEach(function (id, k) {
       var mo = null; for (var z = 0; z < D.moods.length; z++) if (String(D.moods[z].id) === id) mo = D.moods[z]
@@ -4466,6 +4466,7 @@
   }
   var BGV = { mosque: ["", ""], mosque2: ["", ""], mosque3: ["", ""], winter1: ["", ""], winter2: ["", ""], winter3: ["", ""], quran: ["", ""], gold: ["", ""], cream: ["", ""] }
   function isImgBg(k) { return /^(mosque|winter|quran)/.test(k || "") }
+  document.addEventListener("search", function (e) { var t = e.target; if (t && t.id === "q" && !t.value) { t.blur() } }, true)
   var BGF = { mosque: "m1", mosque2: "m2", mosque3: "m3", winter1: "w1", winter2: "w2", winter3: "w3", quran: "q" }
   // ====================
   // FASL MAVZULARI: QISH

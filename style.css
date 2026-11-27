@@ -2073,3 +2073,8 @@ html[data-glass="on"][data-theme] .hdr, html[data-glass="on"][data-theme] .nav:n
   box-shadow: inset 0 0 0 1px var(--lg-rim), inset 1px 2px 1px -1px var(--lg-s1), inset -1px -2px 1px -1px var(--lg-s2), inset 0 0 22px var(--lg-glow), 0 12px 32px var(--lg-drop) !important;
 }
 html[data-glass="on"] .nav button.on { box-shadow: inset 0 1px 1px rgb(255 255 255 / .45), inset 0 -2px 4px rgb(0 0 0 / .18), 0 4px 10px color-mix(in srgb, var(--accent) 40%, transparent); }
+/* v206 search: rotating names hide while the field is focused */
+.sbox:focus-within .ph { opacity: 0; }
+/* games box: single glass body, rounded top matching the curved header */
+.hpgb { border: 0 !important; margin-top: -14px; padding: 14px 12px 12px !important; border-radius: 18px !important; position: relative; }
+.hpgh { position: relative; z-index: 2; }
