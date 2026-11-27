@@ -2090,7 +2090,7 @@ html[data-gender][data-glass][data-theme] .hpgb { background: none !important; b
 /* search: same liquid glass as the rest */
 html[data-gender][data-glass="on"][data-theme] .nhead .sbox .search { background: linear-gradient(180deg, var(--lg-sheen), transparent 48%), linear-gradient(135deg, var(--lg-a), var(--lg-b)); -webkit-backdrop-filter: var(--lg-bf); backdrop-filter: var(--lg-bf); }
 /* liquid glass on Salavot, settings and stats surfaces */
-html[data-gender][data-glass="on"][data-theme] :is(.dbar, .wqbar, .topt, .stc, .stkp, .stchips button, .nfc, .dseg button, .dvseg button, .tcard, .jrcard, .jrc) {
+html[data-gender][data-glass="on"][data-theme] :is(.wqbar, .topt, .stc, .stkp, .stchips button, .nfc, .dseg button, .dvseg button, .tcard, .jrcard, .jrc) {
   background: linear-gradient(180deg, var(--lg-sheen), transparent 48%), linear-gradient(135deg, var(--lg-a), var(--lg-b));
   box-shadow: inset 0 0 0 1px var(--lg-rim), inset 1px 1.5px 1px -1px var(--lg-s1), inset -1px -1.5px 1px -1px var(--lg-s2), inset 0 0 16px var(--lg-glow), 0 6px 18px var(--lg-drop);
   -webkit-backdrop-filter: var(--lg-bf); backdrop-filter: var(--lg-bf);
