@@ -2097,3 +2097,8 @@ html[data-gender][data-glass="on"][data-theme] :is(.dbar, .wqbar, .topt, .stc, .
 }
 /* remind time wheel smaller */
 .hw { transform: scale(.8); transform-origin: right center; margin-block: -10px; }
+/* v208 */
+.hpgm { overflow: hidden; border-radius: 0 0 18px 18px; margin-bottom: -12px; }
+.hpgb, html[data-gender][data-theme] .hpgb { box-shadow: none !important; outline: 0; }
+.shead .wqlvb { margin-left: auto; flex: none; }
+.shead h1 { min-width: 0; }
