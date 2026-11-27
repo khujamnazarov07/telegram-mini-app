@@ -1041,9 +1041,11 @@
       return
     }
     if (PET.sad) return
+    if (!PET.rested) { PET.rested = true; petGo("idle", 7000 + Math.random() * 7000); return }
+    PET.rested = false
     var sn = petSeason(), W = window.innerWidth
     r = Math.random()
-    if (sn === "winter" && r < .35) {
+    if (sn === "winter" && r < .2) {
       if (SNOW.fl && Math.random() < .65) { PET.tx = petRnd(50, W - 50); petGo("snow", 14000) } else petGo("cold", 4600)
       return
     }
@@ -1151,7 +1153,7 @@
       }
     }
     else if (a === "hide") {
-      var nb = document.querySelectorAll("#nav button"), bt = nb[nb.length - 1], bx = bt ? bt.getBoundingClientRect() : null
+      var nb = document.querySelectorAll("#nav button"), bt = nb[nb.length - (PET.intro ? 2 : 1)], bx = bt ? bt.getBoundingClientRect() : null
       if (bx) f.tx = Math.max(lo, Math.min(hi, bx.left + bx.width / 2))
       if (f.ph === 0) {
         f.toy = 0; d = f.tx - f.x; f.gaze = d > 0 ? 1 : -1; f.x += Math.sign(d) * Math.min(Math.abs(d), 60 * dt / 1000); f.by = sec % 2
@@ -1160,9 +1162,9 @@
       } else if (f.ph === 1) { f.toy = -30; f.face = "n"; if (f.oy < -27) { f.ph = 2; f.at = 0 } }
       else if (f.ph === 2) {
         f.toy = -30 + (Math.sin(f.at / 420) > .55 ? 12 : 0); f.gaze = [-1, 1, 0, 1, -1][Math.floor(f.at / 700) % 5]; f.la = "down"; f.ra = "down"
-        if (f.at > 600 && !f.n) { f.n = 1; petBub(tr("pet_hide"), 1800) }
-        if (f.at > 4200) { f.ph = 3; f.at = 0 }
-      } else { f.toy = 0; f.face = "happy"; f.la = "up"; f.ra = "up2"; if (f.oy > -4) { f.at = f.dur; petEmo("happy", 800) } }
+        if (f.at > 600 && !f.n && !PET.intro) { f.n = 1; petBub(tr("pet_hide"), 1800) }
+        if (f.at > (PET.intro ? 1600 : 4200)) { f.ph = 3; f.at = 0 }
+      } else { f.toy = 0; f.face = "happy"; f.la = "up"; f.ra = "up2"; if (f.oy > -4) { if (PET.intro) { PET.intro = 0; petGo("wave", 2800) } else { f.at = f.dur; petEmo("happy", 800) } } }
     }
     else if (a === "cold") {
       f.face = "cold"; f.tint = "cold"; f.sx = Math.sin(f.t / 35) * 1.2; f.la = "mid"; f.ra = "mid"; f.by = sec % 2
@@ -1298,7 +1300,8 @@
         petGo("hit", 2400); petBub(tr("pet_ay"), 1100)
       })
       setInterval(petTick, 66); setInterval(petWatch, 1500); setInterval(petReact, 450)
-      petGo("wave", 2400)
+      var nb0 = document.querySelectorAll("#nav button"), hb = nb0[nb0.length - 2]
+      if (hb) { var hr = hb.getBoundingClientRect(); PET.x = hr.left + hr.width / 2; PET.oy = -30; PET.intro = 1; petGo("hide", 15000) } else petGo("wave", 2400)
     }
     PET.el.style.display = ""
   }
@@ -1322,9 +1325,9 @@
     }).catch(function () { PET.wxBusy = false; PET.wxFail = Date.now() })
   }
   setInterval(function () {
-    if (!petOn() || !PET.el || document.hidden || PET.sad || Date.now() - PLI < 10000 || Date.now() - (PET.wxSpoke || 0) < 900000) return
+    if (!petOn() || !PET.el || document.hidden || PET.sad || Date.now() - PLI < 40000 || Date.now() - (PET.wxSpoke || 0) < 1500000 || (PET.act && PET.act !== "idle" && PET.act !== "walk")) return
     petWx(function (w) {
-      if (Date.now() - PLI < 10000 || !w.city) return
+      if (Date.now() - PLI < 40000 || !w.city || (PET.act && PET.act !== "idle" && PET.act !== "walk")) return
       PET.wxSpoke = Date.now()
       PET.wxText = tr("pet_wx").replace("{c}", w.city).replace("{w}", tr("wx_c" + w.cat)).replace("{t}", w.t).replace("{x}", tr("wx_t" + w.cat))
       PET.wxCat = w.cat; PET.wxAct = null
