@@ -1045,8 +1045,8 @@
     PET.rested = false
     var sn = petSeason(), W = window.innerWidth
     r = Math.random()
-    if (sn === "winter" && r < .2) {
-      if (SNOW.fl && Math.random() < .65) { PET.tx = petRnd(50, W - 50); petGo("snow", 14000) } else petGo("cold", 4600)
+    if (sn === "winter" && r < .07) {
+      if (SNOW.fl && Date.now() - (PET.lastEat || 0) > 150000 && Math.random() < .4) { PET.lastEat = Date.now(); PET.tx = petRnd(50, W - 50); petGo("snow", 14000) } else if (0) { PET.tx = petRnd(50, W - 50); petGo("snow", 14000) } else petGo("cold", 4600)
       return
     }
     if (sn === "summer" && r < .3) { PET.tx = petRnd(50, W - 50); petGo("sun", 9000); return }
@@ -1537,7 +1537,7 @@
     if (it) pe[it[1]] = it[0]
     var list = WDI.filter(function (q) { return q[1] === u.cat })
     for (i = 0; i < list.length; i++) { cc++; if (wdOwn(list[i])) cn++ }
-    h = '<div class="wdtop"><div class="wqpill wgpill">' + ic("checkroom") + " " + esc(tr("jr_shop")) + '</div><div class="wqlvb" id="wdbal">' + ic("star") + "<b>" + j.nur + "</b></div></div><div class=\"wdtabs\">"
+    h = "<div class=\"wdtabs\">"
     for (i = 0; i < WDC.length; i++) h += '<button class="wdtab' + (WDC[i][0] === u.cat ? " on" : "") + '" data-act="wdCat" data-v="' + WDC[i][0] + '">' + ic(WDC[i][2]) + "<span>" + esc(tr(WDC[i][1])) + "</span></button>"
     h += '</div><div class="wdmain"><div class="wdst" id="wdst"><div class="wdsh"><div class="wdsn"><small>' + esc(tr(WDC.filter(function (q) { return q[0] === u.cat })[0][1])) + "</small><b>" + (it ? esc(wdNm(it[0])) : "&nbsp;") + '</b></div><button class="wdrs" data-act="wdRst" aria-label="reset"' + (it ? "" : " disabled") + ">" + ic("restart_alt") + "</button></div>" + wdPrev(pe)
     var bt = "", cls = "wdgo"
@@ -1555,10 +1555,9 @@
     if (!ok) h += '<div class="card jrlock">' + ic("lock") + "<span>" + esc(tr("jr_lock")) + '</span><button class="btn primary" data-act="premGo">' + ic("workspace_premium") + " Premium</button></div>"
     return h
   }
-  function wdPaint() { var el = document.getElementById("wd"); if (el) el.innerHTML = wdInner() }
+  function wdPaint() { var el = document.getElementById("wd"); if (el) el.innerHTML = wdInner(); var bl = document.querySelector("#wdbal b"); if (bl) bl.textContent = jrS().nur }
   function robotHtml() {
-    return '<div class="shead"><button class="btn small back circ" data-act="moreBack" aria-label="back">' + ic("arrow_back") + "</button><h1>" + ic("smart_toy") + " " + esc(tr("pet_t")) + "</h1><span></span></div>" +
-      '<div class="list"><div class="rrow">' + ic("smart_toy") + "<span>" + esc(tr("pet_t")) + '</span><button class="tgl' + (S.pet === false ? "" : " on") + '" data-act="petT" aria-label="pet"><i></i></button></div></div><div class="wd" id="wd">' + wdInner() + "</div>"
+    return '<div class="shead"><button class="btn small back circ" data-act="moreBack" aria-label="back">' + ic("arrow_back") + "</button><h1>" + ic("checkroom") + " " + esc(tr("jr_shop")) + '</h1><div class="wqlvb" id="wdbal">' + ic("star") + "<b>" + jrS().nur + '</b></div></div><div class="wd" id="wd">' + wdInner() + "</div>"
   }
   function wdAct() {
     var j = jrS(), u = wdU(), it = u.sel ? wdItem(u.sel) : null
@@ -1809,7 +1808,7 @@
   function nsNow() {
     var grid = document.getElementById("grid")
     var docH = document.documentElement.scrollHeight, vh = window.innerHeight
-    if (!grid || U.tab !== "names" || U.detail || docH < vh * 1.5) { nsb.style.display = "none"; return }
+    if (!grid || U.tab !== "names" || U.detail || docH < vh * 1.5 || !(document.getElementById("ngrid") || {classList:{contains:function(){return false}}}).classList.contains("open")) { nsb.style.display = "none"; return }
     nsb.style.display = "block"
     var hdr = document.getElementById("hdr"), hb = hdr ? hdr.getBoundingClientRect().bottom : 60
     var y = window.pageYOffset || 0
@@ -2439,6 +2438,7 @@
   // DAILY
   // ====================
   function dailyTick() {
+    if (S.daily && S.daily.target === 100 && !S.daily.t99) { S.daily.target = 99; S.daily.t99 = 1 }
     var ds = S.daily
     if (!ds || !ds.target) return
     if (ds.mode === "free") { ds.lastCheckedDate = todayStr(); ds.todayDone = false; ds.owedDays = 0; return }
@@ -2932,7 +2932,7 @@
   function tbInit() {
     var svg = document.getElementById("tbsvg"); if (!svg) return
     cancelAnimationFrame(tbRaf)
-    tbOffC = tbOffT = (S.daily && S.daily.draft) || 0
+    tbOffC = tbOffT = (S.daily && (S.daily.tbPos != null ? S.daily.tbPos : S.daily.draft)) || 0
     tbDraw()
   }
   function tbTap(cycles) {
@@ -2972,7 +2972,7 @@
       if (dm === "free") return '<div class="card stack goalbox">' + seg + '' + "" + dvSeg + dgRow + '<button class="btn success block" data-act="saveDaily">' + esc(tr("save")) + "</button></div>"
       return '<div class="card stack goalbox">' + seg + '<div class="goalhead"><span>' + esc(tr("target_lbl")) + '</span><b id="goalVal">' + fmtNum(gv) + "</b></div>" +
         '<div class="digits" id="digits" dir="ltr">' + cols + "</div>" +
-        '<div class="chips">' + [33, 100, 300, 1000].map(function (x) { return '<button class="chip" data-act="preset" data-v="' + x + '">' + fmtNum(x) + "</button>" }).join("") + "</div>" +
+        '<div class="chips">' + [33, 99, 300, 1000].map(function (x) { return '<button class="chip" data-act="preset" data-v="' + x + '">' + fmtNum(x) + "</button>" }).join("") + "</div>" +
         dvSeg + dgRow + '<button class="btn success block" data-act="saveDaily">' + esc(tr("save")) + "</button></div>"
     }
     if (!ds || !ds.target) {
@@ -5630,7 +5630,7 @@
       var t = goalNum(), st = 1
       var old = S.daily || {}
       if ((U.dmode || old.mode || "goal") === "free") {
-        S.daily = { mode: "free", target: 100, step: 1, owedDays: 0, draft: old.mode === "free" ? (old.draft || 0) : 0, count: old.count || 0, lastCheckedDate: todayStr(), todayDone: false, gdDate: old.mode === "free" ? (old.gdDate || "") : (old.todayDone ? (old.lastCheckedDate || todayStr()) : ""), gdOwed: old.mode === "free" ? (old.gdOwed || 0) : (old.owedDays || 0), gdDraft: old.mode === "free" ? (old.gdDraft || 0) : (old.draft || 0), gdTarget: old.mode === "free" ? (old.gdTarget || 0) : (old.target || 0) }
+        S.daily = { mode: "free", target: 99, step: 1, owedDays: 0, draft: old.mode === "free" ? (old.draft || 0) : 0, count: old.count || 0, lastCheckedDate: todayStr(), todayDone: false, gdDate: old.mode === "free" ? (old.gdDate || "") : (old.todayDone ? (old.lastCheckedDate || todayStr()) : ""), gdOwed: old.mode === "free" ? (old.gdOwed || 0) : (old.owedDays || 0), gdDraft: old.mode === "free" ? (old.gdDraft || 0) : (old.draft || 0), gdTarget: old.mode === "free" ? (old.gdTarget || 0) : (old.target || 0) }
         U.dmode = ""; U.dailyMenu = false; save(); render(); return
       }
       if (!t || t < 1) { toast("⚠️"); return }
@@ -5672,6 +5672,8 @@
       var cycles = 0
       stDay().sal += ds.step || 1
       jrZ(ds.step || 1)
+      if (ds.tbPos == null) ds.tbPos = ds.draft || 0
+      ds.tbPos += ds.step || 1
       ds.draft = (ds.draft || 0) + (ds.step || 1)
       if (ds.mode === "free") ds.count = (ds.count || 0) + (ds.step || 1)
       while (ds.draft >= ds.target) {
