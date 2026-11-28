@@ -2108,3 +2108,52 @@ html[data-gender][data-theme] :is(.dbar, .topt) { background: none !important; b
 #mbg { top: 0; left: 0; right: 0; bottom: auto; width: 100%; height: 100vh; height: 100lvh; transform: translateZ(0); }
 .pgx { will-change: transform; }
 .pgx > * { will-change: opacity, transform; }
+/* v210b: garderob header + no horizontal overflow zoom-out */
+.shead.wds { grid-template-columns: 44px 1fr auto; }
+.wdnur { height: 44px; box-sizing: border-box; padding: 0 14px; border-radius: 22px; display: flex; align-items: center; gap: 6px; font-weight: 800; font-size: 15px; white-space: nowrap; background: rgba(255,255,255,.2); border: 1px solid rgba(255,255,255,.5); -webkit-backdrop-filter: blur(max(5px, calc(14px * var(--bk, 1)))) saturate(1.5); backdrop-filter: blur(max(5px, calc(14px * var(--bk, 1)))) saturate(1.5); }
+.wdnur .msi { font-size: 20px; color: var(--accent); font-variation-settings: "FILL" 1; }
+.shead.wds h1 { padding: 0 14px; font-size: clamp(13px, 4vw, 17px); }
+html, body { overflow-x: clip; max-width: 100%; }
+html.sliding { overflow-x: clip; }
+.wd { grid-template-columns: minmax(0, 1fr); } .wdtabs { max-width: 100%; }
+.shead.wds { grid-template-columns: 44px minmax(0, 1fr) auto; }
+.shead.wds h1 { justify-self: stretch; text-overflow: ellipsis; min-width: 0; letter-spacing: 0; }
+.wdnur { padding: 0 12px; }
+/* v212: background and footer are immovable; page can never widen or zoom */
+html { width: 100%; overflow-x: clip; overscroll-behavior: none; touch-action: pan-y; }
+body { width: 100%; position: relative; overflow-x: clip; }
+#app { overflow-x: clip; max-width: 100vw; }
+#mbg { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; height: 100lvh; transform: none; contain: layout paint; }
+#mbg img, #mbg svg { transition: none !important; animation: none; }
+.nav { transform: translateZ(0); }
+
+/* v213 pet drag / dust */
+.pet { touch-action: none; -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; }
+.pet.grab { z-index: 30; cursor: grabbing; filter: drop-shadow(0 10px 10px rgba(0,0,0,.25)); }
+.petdust { position: fixed; width: 0; height: 0; z-index: 6; pointer-events: none; }
+.petdust i { position: absolute; bottom: 0; left: -26px; width: 52px; height: 26px; border-radius: 50% 50% 0 0 / 100% 100% 0 0; background: radial-gradient(ellipse at 50% 100%, rgba(240,240,244,.95), rgba(214,218,228,.6) 55%, rgba(214,218,228,0) 74%); transform-origin: 50% 100%; opacity: 0; animation: pdust .95s cubic-bezier(.2,.7,.3,1) forwards; }
+.petdust i:nth-child(2) { left: -46px; width: 36px; height: 18px; animation-delay: .05s; }
+.petdust i:nth-child(3) { left: 10px; width: 36px; height: 18px; animation-delay: .08s; }
+.petdust.big i { width: 68px; height: 34px; left: -34px; }
+.petdust.big i:nth-child(2) { left: -60px; width: 46px; height: 23px; }
+.petdust.big i:nth-child(3) { left: 14px; width: 46px; height: 23px; }
+@keyframes pdust { 0% { transform: scale(.2); opacity: 0; } 18% { opacity: .95; } 100% { transform: scale(1.6, 1.15); opacity: 0; } }
+/* Menu: equal gaps, games legend glass like the toggle */
+.hpgb { padding-top: 18px !important; }
+html[data-theme] body .hpgh .hpl { background: color-mix(in srgb, var(--text) calc(9% * var(--gk, 1)), transparent); -webkit-backdrop-filter: blur(max(5px, calc(14px * var(--bk, 1)))) saturate(1.5); backdrop-filter: blur(max(5px, calc(14px * var(--bk, 1)))) saturate(1.5); }
+/* Garderob: accent tinted glass + faded edges */
+.wdst { color: var(--text); background: linear-gradient(160deg, color-mix(in srgb, var(--accent) 22%, rgba(255,255,255,.22)), color-mix(in srgb, var(--accent) 9%, rgba(255,255,255,.08))); border: 1px solid color-mix(in srgb, var(--accent) 38%, rgba(255,255,255,.4)); -webkit-backdrop-filter: blur(max(5px, calc(14px * var(--bk, 1)))) saturate(1.4); backdrop-filter: blur(max(5px, calc(14px * var(--bk, 1)))) saturate(1.4); box-shadow: 0 8px 22px color-mix(in srgb, var(--accent) 18%, transparent); }
+.wdsn small { color: var(--accent); }
+.wdsv { filter: drop-shadow(0 4px 8px rgba(0,0,0,.25)); }
+.wdrs { border-color: color-mix(in srgb, var(--accent) 35%, transparent); background: color-mix(in srgb, var(--accent) 14%, transparent); color: var(--accent); }
+.wdgo { background: var(--accent); color: #fff; }
+.wdgo.buy { background: linear-gradient(90deg, var(--accent), color-mix(in srgb, var(--accent) 60%, #fbbf24)); color: #fff; }
+.wdgo.on { background: color-mix(in srgb, var(--accent) 14%, transparent); border-color: color-mix(in srgb, var(--accent) 50%, transparent); color: var(--accent); }
+html .wdgr { background: color-mix(in srgb, var(--accent) 10%, color-mix(in srgb, var(--card) 62%, transparent)); border-color: color-mix(in srgb, var(--accent) 30%, var(--line)); max-height: 340px; }
+html .wdtabs .wdtab { background: color-mix(in srgb, var(--accent) 8%, color-mix(in srgb, var(--card) 66%, transparent)); border-color: color-mix(in srgb, var(--accent) 25%, var(--line)); }
+html .wdtabs .wdtab.on { background: var(--accent); color: #fff; }
+.wdc { background: color-mix(in srgb, var(--accent) 7%, transparent); border-color: color-mix(in srgb, var(--accent) 22%, var(--line)); }
+.wdtabs { padding: 2px 16px; margin: 0 -16px; -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 22px, #000 calc(100% - 22px), transparent 100%); mask-image: linear-gradient(90deg, transparent 0, #000 22px, #000 calc(100% - 22px), transparent 100%); }
+.wdcells { overflow-y: auto; min-height: 0; flex: 1; scrollbar-width: none; padding: 12px 0; margin: -6px 0; -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 14px, #000 calc(100% - 14px), transparent 100%); mask-image: linear-gradient(180deg, transparent 0, #000 14px, #000 calc(100% - 14px), transparent 100%); }
+.wdcells::-webkit-scrollbar { display: none; }
+html[data-font="sams"] { --ff: "SamsungOne", "Samsung Sans", "SamsungSans", "Roboto", system-ui, sans-serif; }
