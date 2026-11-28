@@ -1281,7 +1281,7 @@
     PET.ant.style.opacity = Math.floor(f.t / 500) % 2 ? 1 : .55
     PET.el.classList.toggle("cold", f.tint === "cold"); PET.el.classList.toggle("hot", f.tint === "hot"); PET.el.classList.toggle("um", !!f.um)
     var oyv = f.oy + f.jy
-    if (!f.drag) PET.el.style.transform = "translate(" + (Math.round(f.x - 20 + f.sx)) + "px," + Math.round(-oyv) + "px)"
+    if (!f.drag) PET.el.style.transform = "translate(" + (Math.round(f.x - 26 + f.sx)) + "px," + Math.round(-oyv + 3) + "px)"
     if (!f.drag) PET.el.style.clipPath = "inset(-260px -260px " + Math.round(2 - f.oy) + "px -260px)"
     if (PET.fl) { var fe = PET.flEl; if (fe) { fe.style.display = "block"; fe.style.left = Math.round(PET.fl.x) + "px"; fe.style.top = Math.round(PET.fl.y) + "px"; fe.style.transform = "scale(" + PET.fl.k.toFixed(2) + ") rotate(" + Math.round(f.t / 12) + "deg)" } } else if (PET.flEl) PET.flEl.style.display = "none"
   }
@@ -1309,7 +1309,7 @@
   function petDragStep(dt) {
     var f = PET, d = f.drag, W = window.innerWidth, sec = Math.floor(f.t / 250)
     f.t += dt
-    var nt = petNavTop(), px = d.x - 42, py = d.y - 22
+    var nt = petNavTop(), px = d.x - 52, py = d.y - 62
     d.over = d.y > nt - 14
     if (py + 50 > nt + 1) py = nt - 49
     px = Math.max(-26, Math.min(W - 18, px))
@@ -1336,11 +1336,11 @@
         el.style.bottom = "auto"; el.style.top = "0"; el.classList.add("grab")
         try { el.setPointerCapture(pid) } catch (e2) {}
         haptic("medium")
-      }, 380)
+      }, 320)
     })
     el.addEventListener("pointermove", function (e) {
       var d = PET.drag
-      if (!d) { if (tm && Math.hypot(e.clientX - sx, e.clientY - sy) > 12) { clearTimeout(tm); tm = null } return }
+      if (!d) { if (tm && Math.hypot(e.clientX - sx, e.clientY - sy) > 18) { clearTimeout(tm); tm = null } return }
       e.preventDefault()
       var n = Date.now(), dtm = Math.max(8, n - d.lt)
       d.vx = d.vx * .6 + ((e.clientX - d.lx) / dtm * 1000) * .4; d.lx = e.clientX; d.lt = n
@@ -1374,7 +1374,7 @@
     document.documentElement.classList.toggle("peton", on)
     if (!on) { petRelease(); if (PET.flEl) PET.flEl.style.display = "none"; if (PET.el) PET.el.style.display = "none"; return }
     if (!PET.el) {
-      var el = document.createElement("div"); el.id = "pet"; el.className = "pet"; el.style.visibility = "hidden"
+      var el = document.createElement("div"); el.id = "pet"; el.className = "pet"; el.style.visibility = "hidden"; setTimeout(function () { el.style.visibility = "" }, 700)
       el.innerHTML = '<div class="petin"><svg class="pfx pfxb" viewBox="0 0 46 58" width="46" height="58"></svg>' +
         '<div class="petarm l"></div><div class="petarm r"></div>' +
         '<svg class="petbody" viewBox="0 0 34 26" width="34" height="26"><defs><linearGradient id="pg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#d9e1f0"/></linearGradient></defs><path d="M2 26V13Q2 6 10 6H24Q32 6 32 13V26Z" fill="url(#pg)" stroke="#bcc7de" stroke-width="1.2"/><rect x="12" y="13" width="10" height="7" rx="3" fill="#1b2338"/><circle cx="15.5" cy="16.5" r="1.3" fill="#67e8f9"/><circle cx="19" cy="16.5" r="1.3" fill="#ff8fa3"/><path class="pa pa-scarf" d="M3 8Q17 16 31 8L32 13Q17 21 2 13Z" fill="#e8504f"/><rect class="pa pa-scarf" x="21" y="12" width="5" height="11" rx="2" fill="#d23c3b"/></svg>' +
@@ -3325,7 +3325,7 @@
     var h = '<div class="shead"><button class="btn small back circ" data-act="moreBack" aria-label="back">' + ic("arrow_back") + "</button><h1>" + (adm && U.hcUid ? "" : SUPI + " ") + esc(title) + "</h1>" + right + "</div>"
     if (!inChat) return h + '<div id="hlist" class="hl"></div>'
     return h + '<div id="chatMsgs" class="chat empty"></div>' +
-      '<div class="chatin"><div id="chStage" class="chstage"></div><div class="chrow"><button class="att" data-act="chAtt" aria-label="attach">' + ic("attach_file") + '</button><div class="chw"><span id="chPh" class="chph">' + esc(tr("h_ph")) + '</span><textarea id="chatTx" rows="1" maxlength="1500"></textarea></div><button class="send" data-act="chatSend" aria-label="send">' + ic("send") + '</button></div><input id="chFile" type="file" hidden></div>'
+      '<div class="chatin"><div id="chStage" class="chstage"></div><div class="chrow"><label class="att" aria-label="attach" style="position:relative;overflow:hidden">' + ic("attach_file") + '<input id="chFile" type="file" style="position:absolute;inset:0;width:100%;height:100%;opacity:0;font-size:0;cursor:pointer"></label><div class="chw"><span id="chPh" class="chph">' + esc(tr("h_ph")) + '</span><textarea id="chatTx" rows="1" maxlength="1500"></textarea></div><button class="send" data-act="chatSend" aria-label="send">' + ic("send") + '</button></div></div>'
   }
   var BC = { items: null }
   function bcItems() { if (!BC.items) BC.items = (S.bc && S.bc.length ? S.bc : []); return BC.items }
