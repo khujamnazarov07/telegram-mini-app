@@ -525,7 +525,9 @@
     else if (dir > 0) { inK = [{ opacity: 0, transform: "translateX(100%)" }, { opacity: 1, offset: .3 }, { opacity: 1, transform: "none" }]; outK = [{ opacity: 1, transform: "none" }, { opacity: 0, offset: .7 }, { opacity: 0, transform: "translateX(-30%)" }] }
     else if (dir < 0) { inK = [{ opacity: 0, transform: "translateX(-30%)" }, { opacity: 1, offset: .35 }, { opacity: 1, transform: "none" }]; outK = [{ opacity: 1, transform: "none" }, { opacity: 0, offset: .55 }, { opacity: 0, transform: "translateX(100%)" }] }
     else { t = 300; inK = [{ opacity: 0, transform: "translateY(10px)" }, { opacity: 1, transform: "none" }]; outK = [{ opacity: 1 }, { opacity: 0 }] }
-    if (a) a.animate(inK, { duration: t, easing: big ? "ease-out" : EZ, fill: "backwards" })
+    // no opacity on the live page: opacity<1 makes it a backdrop root and glass blur vanishes mid-transition
+    inK = inK.map(function (k) { var q = {}; for (var p in k) if (p !== "opacity") q[p] = k[p]; return q }).filter(function (k) { return k.transform || k.offset == null })
+    if (a && !big && inK.length > 1) a.animate(inK, { duration: t, easing: EZ, fill: "backwards" })
     var o = cl.animate(outK, { duration: t, easing: big ? "ease-in" : EZ, fill: "forwards" })
     o.onfinish = done; setTimeout(done, t + 250)
   }
@@ -542,18 +544,18 @@
       var t = e.touches[0], mx = t.clientX - sx, my = t.clientY - sy
       if (on === 1) { if (Math.abs(my) > Math.abs(mx) + 6 && Math.abs(my) > 10) { on = 0; return } if (mx > 8) on = 2; else return }
       dx = Math.max(0, mx); var n = Date.now(); if (n > lt) vx = (t.clientX - lx) / (n - lt); lt = n; lx = t.clientX
-      app.style.transform = "translateX(" + dx + "px)"; app.style.opacity = String(Math.max(.35, 1 - dx / (window.innerWidth * 1.1)))
+      app.style.transform = "translate3d(" + dx + "px,0,0)"
     }, { passive: true })
     function end() {
       if (on !== 2 || !app) { on = 0; return }
       var W = window.innerWidth, a = app, go = dx > W * .33 || vx > .5
       on = 0
-      if (!go) { a.animate([{ transform: "translateX(" + dx + "px)", opacity: a.style.opacity || 1 }, { transform: "none", opacity: 1 }], { duration: 260, easing: "cubic-bezier(.32,.72,0,1)" }); reset(); return }
+      if (!go) { a.animate([{ transform: "translate3d(" + dx + "px,0,0)" }, { transform: "none" }], { duration: 260, easing: "cubic-bezier(.32,.72,0,1)" }); reset(); return }
       TR.busy = 1
-      var o = a.animate([{ transform: "translateX(" + dx + "px)", opacity: a.style.opacity || 1 }, { transform: "translateX(" + W + "px)", opacity: 0 }], { duration: 200, easing: "cubic-bezier(.4,0,1,1)", fill: "forwards" })
+      var o = a.animate([{ transform: "translate3d(" + dx + "px,0,0)" }, { transform: "translate3d(" + W + "px,0,0)" }], { duration: 200, easing: "cubic-bezier(.4,0,1,1)", fill: "forwards" })
       var fin = function () {
         o.cancel(); reset(); TR.busy = 0; TR.skip = 1; goBack(); TR.skip = 0
-        var n = document.getElementById("app"); if (n && n.animate) n.animate([{ transform: "translateX(-22%)", opacity: 0 }, { opacity: 1, offset: .4 }, { transform: "none", opacity: 1 }], { duration: 380, easing: "cubic-bezier(.32,.72,0,1)", fill: "backwards" })
+        var n = document.getElementById("app"); if (n && n.animate) n.animate([{ transform: "translate3d(-22%,0,0)" }, { transform: "none" }], { duration: 380, easing: "cubic-bezier(.32,.72,0,1)", fill: "backwards" })
       }
       o.onfinish = fin
     }

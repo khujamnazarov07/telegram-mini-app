@@ -2104,3 +2104,7 @@ html[data-gender][data-glass="on"][data-theme] :is(.wqbar, .stc, .stkp, .stchips
 .shead h1 { min-width: 0; }
 /* v208b: plain rows stay transparent (no rectangular glass boxes) */
 html[data-gender][data-theme] :is(.dbar, .topt) { background: none !important; box-shadow: none !important; -webkit-backdrop-filter: none !important; backdrop-filter: none !important; border-radius: 0; }
+/* v210: stable fixed background (no resize when browser bars show/hide), no jumpy scaling */
+#mbg { top: 0; left: 0; right: 0; bottom: auto; width: 100%; height: 100vh; height: 100lvh; transform: translateZ(0); }
+.pgx { will-change: transform; }
+.pgx > * { will-change: opacity, transform; }
